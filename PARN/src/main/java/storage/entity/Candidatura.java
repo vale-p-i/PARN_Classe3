@@ -1,5 +1,7 @@
 package storage.entity;
 
+import java.time.LocalDateTime;
+
 public class Candidatura {
     private Persona persona;
     private Annuncio annuncio;
