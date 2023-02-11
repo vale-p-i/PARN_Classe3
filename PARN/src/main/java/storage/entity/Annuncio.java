@@ -17,7 +17,7 @@ public class Annuncio {
     private String stato;
     private List<Candidatura> candidature;
     private Azienda azienda;
-    private Long id;
+    private int id;
 
     public Annuncio(String ruolo, Sede sede, int numeroPersone, String descrizione, LocalDateTime dataScadenza, List<String> requisiti, List<String> preferenze, List<String> keyword, String stato, List<Candidatura> candidature, Azienda azienda) {
         this.ruolo = ruolo;
@@ -125,11 +125,11 @@ public class Annuncio {
         this.azienda = azienda;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
