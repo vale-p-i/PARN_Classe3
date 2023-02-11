@@ -46,16 +46,16 @@
                     <form class="col s12" method="post" id="invio" action="registerAzienda">
                         <div class="row">
                             <div class="input-field col s12 m3">
-                                <input placeholder="Nome" id="nome" name="nome" type="text" class="validate">
-                                <label for="first_name">Inserisci il nome</label>
+                                <input placeholder="Nome" id="nomeAzienda" name="nome" type="text" class="validate">
+                                <label for="nomeAzienda">Inserisci il nome</label>
                             </div>
                             <div class="input-field col s12 m6">
                                 <input placeholder="P.Iva" id="piva" name="piva" type="text" class="validate">
                                 <label for="piva">Inserisci la partita iva</label>
                             </div>
                             <div class="input-field col s12 m3">
-                                <input placeholder="Telefono" id="telefono" name="telefono" type="text" class="validate">
-                                <label for="telefono">Inserisci il telefono</label>
+                                <input placeholder="Telefono" id="telefonoAccount" name="telefono" type="text" class="validate">
+                                <label for="telefonoAccount">Inserisci il telefono</label>
                             </div>
                         </div>
                         <div class="row">
@@ -68,26 +68,26 @@
                                 <label for="sitoWeb">Inserisci il link del sito web</label>
                             </div>
                             <div class="input-field col s12 m3">
-                                <input placeholder="Regione" id="regione" name="regione" type="text" class="validate">
-                                <label for="regione">Inserisci la regione</label>
+                                <input placeholder="Regione" id="regioneAzienda" name="regione" type="text" class="validate">
+                                <label for="regioneAzienda">Inserisci la regione</label>
                             </div>
                         </div>
                         <div class="row"> 
                             <div class="input-field col s12 m4">
-                                <input placeholder="Provincia" type="text" id="provincia" name="provincia"  class="validate">
-                                <label for="provincia">Inserici la provincia</label> 
+                                <input placeholder="Provincia" type="text" id="provinciaAzienda" name="provincia"  class="validate">
+                                <label for="provinciaAzienda">Inserici la provincia</label>
                             </div>
                             <div class="input-field col s12 m4">
-                                <input placeholder="Città" type="text" id="citta" name="citta"  class="validate">
-                                <label for="citta">Inserici la città</label> 
+                                <input placeholder="Città" type="text" id="cittaAzienda" name="citta"  class="validate">
+                                <label for="cittaAzienda">Inserici la città</label>
                             </div>
                             <div class="input-field col s12 m2">
-                                <input placeholder="Civico" id="civico" name="civico" type="text" class="validate">
-                                <label for="civico">Inserisci il civico</label>
+                                <input placeholder="Civico" id="civicoAzienda" name="civico" type="text" class="validate">
+                                <label for="civicoAzienda">Inserisci il civico</label>
                             </div>
                             <div class="input-field col s12 m2">
-                                <input placeholder="CAP" id="cap" name="cap" type="text" class="validate">
-                                <label for="cap">Inserisci il CAP</label>
+                                <input placeholder="CAP" id="capAzienda" name="cap" type="text" class="validate">
+                                <label for="capAzienda">Inserisci il CAP</label>
                               </div>
                         </div>
                         <div class="row">
@@ -106,22 +106,22 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input placeholder="Mail" id="mail" name="mail" type="email" class="validate">
+                                <input placeholder="e-mail" id="email" name="email" type="email" class="validate">
                                 <label for="email">Inserisci la Mail:</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <input placeholder="Mail" id="email_1" type="email" class="validate">
-                                <label for="email">Conferma la Mail:</label>
+                                <input placeholder="Mail" id="email_Conferma" type="email" class="validate">
+                                <label for="email_Conferma">Conferma la Mail:</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input placeholder="Password" id="password_u" name="password_u" type="password" class="validate">
+                                <input placeholder="Password" id="password" name="password_u" type="password" class="validate">
                                 <label for="password">Inserisci la password:</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <input placeholder="Password" id="password_1" type="password" class="validate">
-                                <label for="password">Inserisci la password:</label>
+                                <input placeholder="Password" id="password_Conferma" type="password" class="validate">
+                                <label for="password_Conferma">Inserisci la password:</label>
                             </div>
                             <div class="input-field col s12 m12">
                                 <div class="file-field input-field">
@@ -189,8 +189,8 @@
                 <div id="Persona" class="col s12">
                     <div class="row">
                         <div class="input-field col s12 m4">
-                            <input placeholder="Nome" id="nome" name="nome" type="text" class="validate">
-                            <label for="first_name">Inserisci il nome</label>
+                            <input placeholder="Nome" id="nomePersona" name="nome" type="text" class="validate">
+                            <label for="nomePersona">Inserisci il nome</label>
                         </div>
                         <div class="input-field col s12 m4">
                             <input placeholder="Cognome" id="cognome" name="cognome" type="text" class="validate">
@@ -274,17 +274,17 @@
                     </div>
                     <div class="curriculum">
                         <h4>Curriculum</h4>
-                        <div class="esperienzaLavorativa">
+                        <div class="esperienzaLavorativa" id="esperienzaLavorativa">
                             <div class="input-field col s11 m11">
                                 <h5>Esperienza lavorativa</h5>
                             </div>
                             <div class="input-field col s1 m1">
-                                <a class="btn-floating btn-small waves-effect waves-light default-color"><i class="material-icons">add</i></a>
+                                <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addEsperienza()"><i class="material-icons">add</i></a>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Nome azienda" id="nomeAzienda" name="nomeAzienda" type="text" class="validate">
-                                    <label for="nomeAzienda">Inserisci il nome del azienda</label>
+                                    <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" type="text" class="validate">
+                                    <label for="nomeAziendaEsperienza">Inserisci il nome del azienda</label>
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <input placeholder="Tipo azienda" id="tipoAzienda" name="tipoAzienda" type="text" class="validate">
@@ -320,12 +320,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="Lingua">
+                        <div class="Lingua" id="lingua">
                             <div class="input-field col s11 m11">
                                 <h5>Lingua</h5>
                             </div>
                             <div class="input-field col s1 m1">
-                                <a class="btn-floating btn-small waves-effect waves-light default-color"><i class="material-icons">add</i></a>
+                                <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addLingua()"><i class="material-icons">add</i></a>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m6">
@@ -338,12 +338,12 @@
                                 </div> 
                             </div>
                         </div>
-                        <div class="Istruzione">
+                        <div class="Istruzione" id="istruzione">
                             <div class="input-field col s11 m11">
                                 <h5>Istruzione</h5>
                             </div>
                             <div class="input-field col s1 m1">
-                                <a class="btn-floating btn-small waves-effect waves-light default-color"><i class="material-icons">add</i></a>
+                                <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addIstruzione()"><i class="material-icons">add</i></a>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m4">
@@ -415,6 +415,7 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 </html>
