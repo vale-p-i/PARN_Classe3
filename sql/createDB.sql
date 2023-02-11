@@ -1,0 +1,113 @@
+DROP DATABASE IF EXISTS PARNDB;
+CREATE DATABASE PARNDB;
+USE PARNDB;
+
+create table Utente(
+	N_Reg int PRIMARY KEY,
+	Nome varchar(20) NOT NULL,
+	Mail varchar(40) UNIQUE	NOT NULL,
+	Pass varchar(256) NOT NULL,
+	Regione VARCHAR(20) NOT NULL,
+	Provincia VARCHAR(2) NOT NULL,
+	Foto VARCHAR(30),
+	CAP  CHAR(5) NOT NULL,
+	Telefono CHAR(14) NOT NULL, 
+	Città VARCHAR(30) NOT NULL,
+	Via VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE Azienda(
+Utente INT PRIMARY KEY,
+P_IVA CHAR(11) NOT NULL,
+Rag_Soc VARCHAR(30) NOT NULL,
+Link VARCHAR(30) NOT NULL,
+ADI VARCHAR(30) NOT NULL,
+N_Dip INT NOT NULL,
+Sett_Comp VARCHAR(30) NOT NULL,
+FOREIGN KEY (Utente) REFERENCES Utente(N_Reg)
+);
+
+CREATE TABLE Persona(
+Utente INT PRIMARY KEY,
+Cognome VARCHAR(50) NOT NULL,
+CF CHAR(16) NOT NULL,
+DDN DATE NOT NULL,
+F_Macroarea VARCHAR(30) NOT NULL,
+Pos_Des VARCHAR(30) NOT NULL,
+FOREIGN KEY (Utente) REFERENCES Utente(N_Reg)
+);
+
+CREATE TABLE Sede(
+ID INT NOT NULL,
+Azienda INT NOT NULL,
+Citta VARCHAR(50) NOT NULL,
+Provincia VARCHAR(2) NOT NULL,
+CAP CHAR(5) NOT NULL,
+Via VARCHAR(30) NOT NULL,
+Regione VARCHAR(20) NOT NULL,
+FOREIGN KEY (Azienda) REFERENCES Azienda(Utente),
+PRIMARY KEY(ID, Azienda)
+);
+
+CREATE TABLE Annuncio(
+ID INT PRIMARY KEY,
+Azienda INT NOT NULL,
+Attivo BOOL NOT NULL,
+Sede INT NOT NULL,
+N_Persone INT NOT NULL,
+Descrizione VARCHAR(2000) NOT NULL,
+Scadenza DATE NOT NULL,
+Requisiti VARCHAR(500) NOT NULL,
+Keyword VARCHAR(150) NOT NULL,
+Preferenze VARCHAR(1000) NOT NULL,
+Ruolo VARCHAR(100) NOT NULL,
+FOREIGN KEY (Azienda) REFERENCES Azienda(Utente),
+FOREIGN KEY (Sede, Azienda) REFERENCES Sede(ID, Azienda)
+);
+
+CREATE TABLE Candidatura(
+Annuncio INT NOT NULL,
+Persona INT NOT NULL,
+Data_Pub DATE NOT NULL,
+FOREIGN KEY (Annuncio) REFERENCES Annuncio(ID),
+FOREIGN KEY (Persona) REFERENCES Persona(Utente),
+PRIMARY KEY (Annuncio, Persona)
+);
+
+CREATE TABLE Curriculum(
+Persona INT NOT NULL,
+Soft_Skills VARCHAR(4000),
+FOREIGN KEY (Persona) REFERENCES Persona(Utente),
+PRIMARY KEY (Persona)
+);
+
+CREATE TABLE Lingua(
+Curriculum INT NOT NULL,
+Nome VARCHAR(15) NOT NULL,
+Livello VARCHAR(10) NOT NULL,
+FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona),
+PRIMARY KEY (Curriculum, Nome)
+);
+
+CREATE TABLE Istruzione(
+Curriculum INT NOT NULL,
+Tipo VARCHAR(30) NOT NULL,
+Istituto VARCHAR(30) NOT NULL,
+DDI DATE NOT NULL,
+DDF DATE,
+Qualifica VARCHAR(30) NOT NULL,
+FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona),
+PRIMARY KEY (Curriculum, Tipo, Istituto)
+);
+
+CREATE TABLE Esperienza(
+Curriculum INT NOT NULL,
+Tipo_Impiego VARCHAR(20) NOT NULL,
+Nome_Azienda VARCHAR(40) NOT NULL,
+DDI DATE NOT NULL,
+DDF DATE,
+Tipo_Azienda VARCHAR(40) NOT NULL,
+Contatto VARCHAR(30) NOT NULL,
+Datore VARCHAR(30) NOT NULL,
+FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona)
+);

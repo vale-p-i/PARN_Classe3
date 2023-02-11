@@ -7,7 +7,6 @@ public class Candidatura {
     private Annuncio annuncio;
     private Curriculum curriculum;
     private LocalDateTime data;
-    private Long id;
 
     public Candidatura(Persona persona, Annuncio annuncio, Curriculum curriculum, LocalDateTime data) {
         this.persona = persona;
@@ -50,13 +49,5 @@ public class Candidatura {
 
     public void setData(LocalDateTime data) {
         this.data = data;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }
