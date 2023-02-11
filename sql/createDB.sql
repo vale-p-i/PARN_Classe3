@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS PARNDB;
 CREATE DATABASE PARNDB;
 USE PARNDB;
 
+
 create table Utente(
 	N_Reg int PRIMARY KEY,
 	Nome varchar(20) NOT NULL,
