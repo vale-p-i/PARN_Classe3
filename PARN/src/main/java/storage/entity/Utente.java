@@ -6,14 +6,17 @@ public abstract class Utente {
     private String password;
     private String regione;
     private String provincia;
+    private String foto;
     private int cap;
+    private String telefono;
+
     private String citta;
     private String via;
-    private Long telefono;
-    private String foto;
-    private Long id;
 
-    public Utente(String nome, String mail, String password, String regione, String provincia, int cap, String citta, String via, Long telefono, String foto) {
+    private int id;
+
+    public Utente(String nome, String mail, String password, String regione, String provincia, int cap, String citta,
+                  String via, String telefono, String foto) {
         this.nome = nome;
         this.mail = mail;
         this.password = password;
@@ -94,11 +97,11 @@ public abstract class Utente {
         this.via = via;
     }
 
-    public Long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Long telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -110,11 +113,11 @@ public abstract class Utente {
         this.foto = foto;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 }

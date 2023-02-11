@@ -7,24 +7,22 @@ public class EsperienzaLavorativa {
 
     private LocalDateTime dataInizio;
     private LocalDateTime dataFine;
-    private String nomeAzienda;
     private String tipoAzienda;
     private String datore;
+    private String contatto;
     private String tipoImpiego;
-    private List<String> mansioniPrincipale;
-    private Long id;
+    private List<String> mansioniPrincipali;
+    private Curriculum curriculum;
 
-    public EsperienzaLavorativa() {
-    }
-
-    public EsperienzaLavorativa(LocalDateTime dataInizio, LocalDateTime dataFine, String nomeAzienda, String tipoAzienda, String datore, String tipoImpiego, List<String> mansioniPrincipale) {
+    public EsperienzaLavorativa(LocalDateTime dataInizio, LocalDateTime dataFine, String tipoAzienda, String datore, String contatto, String tipoImpiego, List<String> mansioniPrincipali, Curriculum curriculum) {
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
-        this.nomeAzienda = nomeAzienda;
         this.tipoAzienda = tipoAzienda;
         this.datore = datore;
+        this.contatto = contatto;
         this.tipoImpiego = tipoImpiego;
-        this.mansioniPrincipale = mansioniPrincipale;
+        this.mansioniPrincipali = mansioniPrincipali;
+        this.curriculum = curriculum;
     }
 
     public LocalDateTime getDataInizio() {
@@ -43,14 +41,6 @@ public class EsperienzaLavorativa {
         this.dataFine = dataFine;
     }
 
-    public String getNomeAzienda() {
-        return nomeAzienda;
-    }
-
-    public void setNomeAzienda(String nomeAzienda) {
-        this.nomeAzienda = nomeAzienda;
-    }
-
     public String getTipoAzienda() {
         return tipoAzienda;
     }
@@ -67,6 +57,14 @@ public class EsperienzaLavorativa {
         this.datore = datore;
     }
 
+    public String getContatto() {
+        return contatto;
+    }
+
+    public void setContatto(String contatto) {
+        this.contatto = contatto;
+    }
+
     public String getTipoImpiego() {
         return tipoImpiego;
     }
@@ -75,19 +73,19 @@ public class EsperienzaLavorativa {
         this.tipoImpiego = tipoImpiego;
     }
 
-    public List<String> getMansioniPrincipale() {
-        return mansioniPrincipale;
+    public List<String> getMansioniPrincipali() {
+        return mansioniPrincipali;
     }
 
-    public void setMansioniPrincipale(List<String> mansioniPrincipale) {
-        this.mansioniPrincipale = mansioniPrincipale;
+    public void setMansioniPrincipali(List<String> mansioniPrincipali) {
+        this.mansioniPrincipali = mansioniPrincipali;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Curriculum getCurriculum() {
+        return curriculum;
     }
 
-    public Long getId() {
-        return id;
+    public void setCurriculum(Curriculum curriculum) {
+        this.curriculum = curriculum;
     }
 }
