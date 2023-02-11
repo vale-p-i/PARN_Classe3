@@ -4,14 +4,21 @@ public class Lingua  {
 
     private String Nome;
     private String Livello;
-    private Long id;
-
+    private Curriculum curriculum;
     public Lingua() {
     }
 
     public Lingua(String nome, String livello) {
         Nome = nome;
         Livello = livello;
+    }
+
+    public Curriculum getCurriculum() {
+        return curriculum;
+    }
+
+    public void setCurriculum(Curriculum curriculum) {
+        this.curriculum = curriculum;
     }
 
     public String getNome() {
@@ -28,13 +35,5 @@ public class Lingua  {
 
     public void setLivello(String livello) {
         Livello = livello;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }

@@ -85,7 +85,7 @@ PRIMARY KEY (Persona)
 CREATE TABLE Lingua(
 Curriculum INT NOT NULL,
 Nome VARCHAR(15) NOT NULL,
-Livello VARCHAR(10) NOT NULL,
+Livello VARCHAR(15) NOT NULL,
 FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona),
 PRIMARY KEY (Curriculum, Nome)
 );

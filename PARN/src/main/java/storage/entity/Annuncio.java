@@ -5,19 +5,20 @@ import java.util.List;
 
 public class Annuncio {
 
-    private String ruolo;
+    private int id;
+    private Azienda azienda;
+    private String stato;
+    private boolean attivo;
     private Sede sede;
     private int numeroPersone;
     private String descrizione;
     private LocalDateTime dataScadenza;
     private List<String> requisiti;
-    private List<String> preferenze;
-
     private List<String> keyword;
-    private String stato;
+    private List<String> preferenze;
+    private String ruolo;
     private List<Candidatura> candidature;
-    private Azienda azienda;
-    private int id;
+
 
     public Annuncio(String ruolo, Sede sede, int numeroPersone, String descrizione, LocalDateTime dataScadenza, List<String> requisiti, List<String> preferenze, List<String> keyword, String stato, List<Candidatura> candidature, Azienda azienda) {
         this.ruolo = ruolo;
