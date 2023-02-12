@@ -15,11 +15,9 @@ public class Azienda extends Utente{
     public Azienda(){
 
     }
-    public Azienda(String nome, String mail, String password, String regione, String provincia, String cap, String citta,
-                   String via, String telefono, String foto, String partitaIVA, String ragioneSociale, String link,
-                   String areaInteresse, int numeroDipendenti, List<String> settoriCompetenza,
-                   List<Sede> sedi, List<Annuncio> annunci) {
-        super(nome, mail, password, regione, provincia, cap, citta, via, telefono, foto);
+
+    public Azienda(int id, String nome, String mail, String password, String regione, String provincia, String foto, String cap, String telefono, String citta, String via, String partitaIVA, String ragioneSociale, String link, String areaInteresse, int numeroDipendenti, List<String> settoriCompetenza, List<Sede> sedi, List<Annuncio> annunci) {
+        super(id, nome, mail, password, regione, provincia, foto, cap, telefono, citta, via);
         this.partitaIVA = partitaIVA;
         this.ragioneSociale = ragioneSociale;
         this.link = link;
@@ -93,4 +91,5 @@ public class Azienda extends Utente{
     public void setAnnunci(List<Annuncio> annunci) {
         this.annunci = annunci;
     }
+
 }

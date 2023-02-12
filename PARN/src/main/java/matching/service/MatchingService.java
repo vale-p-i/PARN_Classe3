@@ -3,6 +3,8 @@ package matching.service;
 
 import annuncio.service.AnnuncioService;
 import annuncio.service.AnnuncioServiceInterface;
+import curriculum.service.CurriculumService;
+import curriculum.service.CurriculumServiceInterface;
 import storage.entity.Annuncio;
 import storage.entity.Curriculum;
 import storage.entity.Istruzione;
@@ -42,11 +44,11 @@ public class MatchingService implements MatchingServiceInterface{
     @Override
     public List<Curriculum> selezioneFigureSpecializzate(Annuncio annuncio) {
         List<Curriculum> returnment=new ArrayList<>();
-        CurriculumServiceInterface serviceCurriculum;
+        CurriculumServiceInterface serviceCurriculum = new CurriculumService();
         List<Curriculum> all=serviceCurriculum.getAllCurriculum();
         for (Curriculum c: all){
             List<String> Qualifiche=new ArrayList<>();
-            for (Istruzione i:curriculum.getIstruzioni())
+            for (Istruzione i:c.getIstruzioni())
                 Qualifiche.add(i.getQualifica());
             if (Qualifiche.containsAll(annuncio.getRequisiti()))
                     returnment.add(c);
