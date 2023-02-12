@@ -12,9 +12,10 @@ public class EsperienzaLavorativa {
     private String contatto;
     private String tipoImpiego;
     private List<String> mansioniPrincipali;
-    private Curriculum curriculum;
+    private String nomeAzienda;
+    private Curriculum curriculum;//?
 
-    public EsperienzaLavorativa(LocalDateTime dataInizio, LocalDateTime dataFine, String tipoAzienda, String datore, String contatto, String tipoImpiego, List<String> mansioniPrincipali, Curriculum curriculum) {
+    public EsperienzaLavorativa(LocalDateTime dataInizio, LocalDateTime dataFine, String tipoAzienda, String datore, String contatto, String tipoImpiego, List<String> mansioniPrincipali, String nomeAzienda, Curriculum curriculum) {
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.tipoAzienda = tipoAzienda;
@@ -22,7 +23,16 @@ public class EsperienzaLavorativa {
         this.contatto = contatto;
         this.tipoImpiego = tipoImpiego;
         this.mansioniPrincipali = mansioniPrincipali;
+        this.nomeAzienda = nomeAzienda;
         this.curriculum = curriculum;
+    }
+
+    public String getNomeAzienda() {
+        return nomeAzienda;
+    }
+
+    public void setNomeAzienda(String nomeAzienda) {
+        this.nomeAzienda = nomeAzienda;
     }
 
     public LocalDateTime getDataInizio() {

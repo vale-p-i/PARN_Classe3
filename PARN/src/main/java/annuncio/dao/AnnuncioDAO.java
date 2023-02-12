@@ -40,7 +40,7 @@ public class AnnuncioDAO {
                             rs.getString(11),
                             CandidaturaService.getCandidatureByAnnuncio(id)
                             )
-            )
+            );
         }
     }
 }
