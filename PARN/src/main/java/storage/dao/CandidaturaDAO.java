@@ -12,25 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CandidaturaDAO {
-
-    /*public static ListCandidatura getCandidaturaByPersona(Persona persona) throws SQLException {
-
-        Connection connection = ConPool.getConnection();
-        Statement stmt = (Statement) connection.createStatement();
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura c WHERE c.Persona = $1");
-        pdstmt.setInt(1, persona.getId());
-        ResultSet rs = pdstmt.executeQuery();
-
-        return createCandidaturaFromResultSet(rs, persona);
-    }
-
-    private static Candidatura createCandidaturaFromResultSet(ResultSet rs, Persona persona) throws SQLException {
-        return new Candidatura(
-                persona, AnnuncioService.getAziendaById(), CurriculumService.getCurriculumByPersona(persona), rs.getDate(2)
-        );
-
-    }*/
-
+/*
     public List<Candidatura> getCandidatueByPersona(Persona persona) throws SQLException {
         List<Candidatura> result = new ArrayList<>();
 
@@ -88,6 +70,6 @@ public class CandidaturaDAO {
                 rs.getDate(3)
         );
     }
-
+*/
 
 }
