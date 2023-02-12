@@ -13,7 +13,7 @@ create table Utente(
 	Foto VARCHAR(30),
 	CAP  CHAR(5) NOT NULL,
 	Telefono CHAR(14) NOT NULL, 
-	Città VARCHAR(30) NOT NULL,
+	Città VARCHAR(50) NOT NULL,
 	Via VARCHAR(30) NOT NULL
 );
 
@@ -31,7 +31,7 @@ FOREIGN KEY (Utente) REFERENCES Utente(N_Reg)
 CREATE TABLE Persona(
 Utente INT PRIMARY KEY,
 Cognome VARCHAR(50) NOT NULL,
-CF CHAR(16) NOT NULL,
+CF CHAR(16) NOT NULL UNIQUE,
 DDN DATE NOT NULL,
 F_Macroarea VARCHAR(30) NOT NULL,
 Pos_Des VARCHAR(30) NOT NULL,
@@ -46,6 +46,8 @@ Provincia VARCHAR(2) NOT NULL,
 CAP CHAR(5) NOT NULL,
 Via VARCHAR(30) NOT NULL,
 Regione VARCHAR(20) NOT NULL,
+Telefono VARCHAR(14) NOT NULL,
+Mail varchar(40) NOT NULL,
 FOREIGN KEY (Azienda) REFERENCES Azienda(Utente),
 PRIMARY KEY(ID, Azienda)
 );
@@ -77,7 +79,7 @@ PRIMARY KEY (Annuncio, Persona)
 
 CREATE TABLE Curriculum(
 Persona INT NOT NULL,
-Soft_Skills VARCHAR(4000),
+Soft_Skills VARCHAR(75),
 FOREIGN KEY (Persona) REFERENCES Persona(Utente),
 PRIMARY KEY (Persona)
 );
@@ -92,8 +94,8 @@ PRIMARY KEY (Curriculum, Nome)
 
 CREATE TABLE Istruzione(
 Curriculum INT NOT NULL,
-Tipo VARCHAR(30) NOT NULL,
-Istituto VARCHAR(30) NOT NULL,
+Tipo VARCHAR(25) NOT NULL,
+Istituto VARCHAR(35) NOT NULL,
 DDI DATE NOT NULL,
 DDF DATE,
 Qualifica VARCHAR(30) NOT NULL,
@@ -103,12 +105,14 @@ PRIMARY KEY (Curriculum, Tipo, Istituto)
 
 CREATE TABLE Esperienza(
 Curriculum INT NOT NULL,
-Tipo_Impiego VARCHAR(20) NOT NULL,
-Nome_Azienda VARCHAR(40) NOT NULL,
+Nome_Azienda VARCHAR(25) NOT NULL,
+Tipo_Impiego VARCHAR(15) NOT NULL,
+Mansioni VARCHAR(40) NOT NULL,
+Datore VARCHAR(15) NOT NULL,
+Contatto VARCHAR(40) NOT NULL,
+Tipo_Azienda VARCHAR(40) NOT NULL,
 DDI DATE NOT NULL,
 DDF DATE,
-Tipo_Azienda VARCHAR(40) NOT NULL,
-Contatto VARCHAR(40) NOT NULL,
-Datore VARCHAR(30) NOT NULL,
-FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona)
+FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona),
+PRIMARY KEY (Curriculum, Nome_Azienda, Tipo_Impiego)
 );

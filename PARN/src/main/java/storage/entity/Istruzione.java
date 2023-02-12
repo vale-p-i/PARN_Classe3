@@ -8,16 +8,17 @@ public class Istruzione {
     private LocalDateTime dataInizio;
     private LocalDateTime dataFine;
     private String qualifica;
-    private String tipoIstruzione;
-    private String nomeIstituto;
+    private String tipo;
+    private String istituto;
 
-    public Istruzione(Curriculum curriculum, LocalDateTime dataInizio, LocalDateTime dataFine, String qualifica, String tipoIstruzione, String nomeIstituto) {
+    public Istruzione(Curriculum curriculum, LocalDateTime dataInizio, LocalDateTime dataFine, String qualifica,
+                      String tipo, String istituto) {
         this.curriculum = curriculum;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.qualifica = qualifica;
-        this.tipoIstruzione = tipoIstruzione;
-        this.nomeIstituto = nomeIstituto;
+        this.tipo = tipo;
+        this.istituto = istituto;
     }
 
     public Curriculum getCurriculum() {
@@ -52,19 +53,19 @@ public class Istruzione {
         this.qualifica = qualifica;
     }
 
-    public String getTipoIstruzione() {
-        return tipoIstruzione;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setTipoIstruzione(String tipoIstruzione) {
-        this.tipoIstruzione = tipoIstruzione;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public String getNomeIstituto() {
-        return nomeIstituto;
+    public String getIstituto() {
+        return istituto;
     }
 
-    public void setNomeIstituto(String nomeIstituto) {
-        this.nomeIstituto = nomeIstituto;
+    public void setIstituto(String istituto) {
+        this.istituto = istituto;
     }
 }
