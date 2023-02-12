@@ -10,14 +10,14 @@ VALUES (1, '12345678901', 'Azienda S.r.l.', 'www.azienda.it', 'Direttore', 10, '
 INSERT INTO Persona (Utente, Cognome, CF, DDN, F_Macroarea, Pos_Des)
 VALUES (2, 'Bianchi', 'BNCMLS98A12L219E', '1998-12-21', 'Sud Italia', 'Sviluppatore');
 
-INSERT INTO Sede (ID, Azienda, Citta, Provincia, CAP, Via, Regione)
-VALUES (1, 1, 'Milano', 'MI', '20100', 'Via Garibaldi', 'Lombardia');
+INSERT INTO Sede (ID, Azienda, Citta, Provincia, CAP, Via, Regione, Telefono, Mail)
+VALUES (1, 1, 'Milano', 'MI', '20100', 'Via Garibaldi', 'Lombardia', '+39 1234567926', 'infomail@info.mail');
 
 INSERT INTO Annuncio (ID, Azienda, Attivo, Sede, N_Persone, Descrizione, Scadenza, Requisiti, Keyword, Preferenze, Ruolo)
 VALUES (1, 1, 1, 1, 2, 'Cercasi sviluppatore web con esperienza in PHP e MySQL', '2023-03-01', 'Conoscenza avanzata di PHP e MySQL', 'sviluppatore, web, PHP, MySQL', 'Esperienza in progetti complessi', 'Sviluppatore Web');
 
-INSERT INTO Sede (ID, Azienda, Citta, Provincia, CAP, Via, Regione)
-VALUES (2, 1, 'Roma', 'RM', '00100', 'Via dei Fori Imperiali', 'Lazio');
+INSERT INTO Sede (ID, Azienda, Citta, Provincia, CAP, Via, Regione, Telefono, Mail)
+VALUES (2, 1, 'Roma', 'RM', '00100', 'Via dei Fori Imperiali', 'Lazio', '+39 1234567926', 'infomail@info.mail');
 
 INSERT INTO Annuncio (ID, Azienda, Attivo, Sede, N_Persone, Descrizione, Scadenza, Requisiti, Keyword, Preferenze, Ruolo)
 VALUES (2, 1, 1, 2, 5, 'Cercasi sviluppatore software con esperienza in Java e C++', '2023-03-15', 'Conoscenza avanzata di Java e C++', 'sviluppatore, software, Java, C++', 'Esperienza in sviluppo di applicazioni mobile', 'Sviluppatore Software');
