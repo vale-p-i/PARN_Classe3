@@ -7,7 +7,6 @@ public class Annuncio {
 
     private int id;
     private Azienda azienda;
-    private String stato;
     private boolean attivo;
     private Sede sede;
     private int numeroPersone;
@@ -19,31 +18,45 @@ public class Annuncio {
     private String ruolo;
     private List<Candidatura> candidature;
 
-
-    public Annuncio(String ruolo, Sede sede, int numeroPersone, String descrizione, LocalDateTime dataScadenza, List<String> requisiti, List<String> preferenze, List<String> keyword, String stato, List<Candidatura> candidature, Azienda azienda) {
-        this.ruolo = ruolo;
+    public Annuncio(int id, Azienda azienda, boolean attivo, Sede sede, int numeroPersone, String descrizione,
+                    LocalDateTime dataScadenza, List<String> requisiti, List<String> keyword, List<String> preferenze,
+                    String ruolo, List<Candidatura> candidature) {
+        this.id = id;
+        this.azienda = azienda;
+        this.attivo = attivo;
         this.sede = sede;
         this.numeroPersone = numeroPersone;
         this.descrizione = descrizione;
         this.dataScadenza = dataScadenza;
         this.requisiti = requisiti;
-        this.preferenze = preferenze;
         this.keyword = keyword;
-        this.stato = stato;
+        this.preferenze = preferenze;
+        this.ruolo = ruolo;
         this.candidature = candidature;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Azienda getAzienda() {
+        return azienda;
+    }
+
+    public void setAzienda(Azienda azienda) {
         this.azienda = azienda;
     }
 
-    public Annuncio() {
-
+    public boolean isAttivo() {
+        return attivo;
     }
 
-    public String getRuolo() {
-        return ruolo;
-    }
-
-    public void setRuolo(String ruolo) {
-        this.ruolo = ruolo;
+    public void setAttivo(boolean attivo) {
+        this.attivo = attivo;
     }
 
     public Sede getSede() {
@@ -86,14 +99,6 @@ public class Annuncio {
         this.requisiti = requisiti;
     }
 
-    public List<String> getPreferenze() {
-        return preferenze;
-    }
-
-    public void setPreferenze(List<String> preferenze) {
-        this.preferenze = preferenze;
-    }
-
     public List<String> getKeyword() {
         return keyword;
     }
@@ -102,12 +107,20 @@ public class Annuncio {
         this.keyword = keyword;
     }
 
-    public String getStato() {
-        return stato;
+    public List<String> getPreferenze() {
+        return preferenze;
     }
 
-    public void setStato(String stato) {
-        this.stato = stato;
+    public void setPreferenze(List<String> preferenze) {
+        this.preferenze = preferenze;
+    }
+
+    public String getRuolo() {
+        return ruolo;
+    }
+
+    public void setRuolo(String ruolo) {
+        this.ruolo = ruolo;
     }
 
     public List<Candidatura> getCandidature() {
@@ -117,21 +130,4 @@ public class Annuncio {
     public void setCandidature(List<Candidatura> candidature) {
         this.candidature = candidature;
     }
-
-    public Azienda getAzienda() {
-        return azienda;
-    }
-
-    public void setAzienda(Azienda azienda) {
-        this.azienda = azienda;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
 }

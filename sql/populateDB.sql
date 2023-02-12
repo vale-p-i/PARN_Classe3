@@ -23,13 +23,13 @@ INSERT INTO Annuncio (ID, Azienda, Attivo, Sede, N_Persone, Descrizione, Scadenz
 VALUES (2, 1, 1, 2, 5, 'Cercasi sviluppatore software con esperienza in Java e C++', '2023-03-15', 'Conoscenza avanzata di Java e C++', 'sviluppatore, software, Java, C++', 'Esperienza in sviluppo di applicazioni mobile', 'Sviluppatore Software');
 
 INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Città, Via)
-VALUES (3, 'Mark Green', 'm.green@gmail.com', 'x1y2z3a4b5c6d7e8f9g0h1i2j3k4l5m6n7o8p9q0', 'Piemonte', 'TO', 'foto_green.jpeg', '10100', '+39 01 1234567', 'Torino', 'Via Roma');
+VALUES (3, 'Mark Green', 'm.green@gmail.com', 'x1y2z3a4b5c6d7e8f9g0h1i2j3k4l5m6n7o8p9q0', 'Piemonte', 'TO', 'foto_green.jpeg', '10100', '+39 0101234567', 'Torino', 'Via Roma');
 
 INSERT INTO Azienda (Utente, P_IVA, Rag_Soc, Link, ADI, N_Dip, Sett_Comp)
 VALUES (3, '23456789012', 'Azienda 2 S.p.A.', 'www.azienàda2.it', 'Amministratore Delegato', 20, 'Marketing');
 
 INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Città, Via)
-VALUES (4, 'Laura Blu', 'l.blu@gmail.com', '0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9', 'Veneto', 'VE', 'foto_blu.jpeg', '30100', '+39 04 1234567', 'Venezia', 'Riva degli Schiavoni');
+VALUES (4, 'Laura Blu', 'l.blu@gmail.com', '0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9', 'Veneto', 'VE', 'foto_blu.jpeg', '30100', '+39 0491234567', 'Venezia', 'Riva degli Schiavoni');
 
 INSERT INTO Persona (Utente, Cognome, CF, DDN, F_Macroarea, Pos_Des)
 VALUES (4, 'Verdi', 'VRDMRK98L01T196Z', '1998-01-19', 'Nord Italia', 'Responsabile Marketing');

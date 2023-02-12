@@ -9,13 +9,12 @@ public class Azienda extends Utente{
     private String areaInteresse;
     private int numeroDipendenti;
     private List<String> settoriCompetenza;
-    private String regione;
     private List<Sede> sedi;
     private List<Annuncio> annunci;
 
     public Azienda(String nome, String mail, String password, String regione, String provincia, int cap, String citta,
                    String via, String telefono, String foto, String partitaIVA, String ragioneSociale, String link,
-                   String areaInteresse, int numeroDipendenti, List<String> settoriCompetenza, String regione1,
+                   String areaInteresse, int numeroDipendenti, List<String> settoriCompetenza,
                    List<Sede> sedi, List<Annuncio> annunci) {
         super(nome, mail, password, regione, provincia, cap, citta, via, telefono, foto);
         this.partitaIVA = partitaIVA;
@@ -24,7 +23,6 @@ public class Azienda extends Utente{
         this.areaInteresse = areaInteresse;
         this.numeroDipendenti = numeroDipendenti;
         this.settoriCompetenza = settoriCompetenza;
-        this.regione = regione1;
         this.sedi = sedi;
         this.annunci = annunci;
     }
@@ -75,16 +73,6 @@ public class Azienda extends Utente{
 
     public void setSettoriCompetenza(List<String> settoriCompetenza) {
         this.settoriCompetenza = settoriCompetenza;
-    }
-
-    @Override
-    public String getRegione() {
-        return regione;
-    }
-
-    @Override
-    public void setRegione(String regione) {
-        this.regione = regione;
     }
 
     public List<Sede> getSedi() {
