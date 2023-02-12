@@ -7,4 +7,6 @@ import java.util.List;
 public interface AnnuncioServiceInterface {
 
     public List<Annuncio> getAnnuncioById(int id);
+
+    List<Annuncio> getAnnunciByStato(String in_corso);
 }

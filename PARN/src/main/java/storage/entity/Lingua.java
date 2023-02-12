@@ -4,7 +4,7 @@ public class Lingua  {
 
     private String Nome;
     private String Livello;
-    private Curriculum curriculum;
+    private Curriculum curriculum;//?
     public Lingua() {
     }
 

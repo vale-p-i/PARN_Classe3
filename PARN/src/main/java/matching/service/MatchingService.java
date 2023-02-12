@@ -1,8 +1,6 @@
 package matching.service;
 
-import Storage.Entity.Annuncio;
-import Storage.Entity.Curriculum;
-import Storage.Entity.Istruzione;
+
 import annuncio.service.AnnuncioService;
 import annuncio.service.AnnuncioServiceInterface;
 import storage.entity.Annuncio;
