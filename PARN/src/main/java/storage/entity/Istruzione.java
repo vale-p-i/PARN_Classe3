@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Istruzione {
 
-    private Curriculum curriculum;
+    private Curriculum curriculum;//?
     private LocalDateTime dataInizio;
     private LocalDateTime dataFine;
     private String qualifica;

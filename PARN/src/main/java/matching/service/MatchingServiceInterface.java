@@ -1,7 +1,7 @@
 package matching.service;
 
-import Storage.Entity.Annuncio;
-import Storage.Entity.Curriculum;
+import storage.entity.Annuncio;
+import storage.entity.Curriculum;
 
 import java.util.List;
 

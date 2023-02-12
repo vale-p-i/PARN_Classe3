@@ -10,13 +10,25 @@ public class Sede {
     private String via;
     private long telefono;
 
-    public Sede(String regione, String provincia, String citta, int cap, String via, long telefono) {
+    private Azienda azienda;
+
+    public Sede(int id, String regione, String provincia, String citta, int cap, String via, long telefono, Azienda azienda) {
+        this.id = id;
         this.regione = regione;
         this.provincia = provincia;
         this.citta = citta;
         this.cap = cap;
         this.via = via;
         this.telefono = telefono;
+        this.azienda = azienda;
+    }
+
+    public Azienda getAzienda() {
+        return azienda;
+    }
+
+    public void setAzienda(Azienda azienda) {
+        this.azienda = azienda;
     }
 
     public int getId() {
