@@ -1,5 +1,7 @@
 package candidatura.service;
 
+import annuncio.service.AnnuncioService;
+import annuncio.service.AnnuncioServiceInterface;
 import candidatura.dao.CandidaturaDAO;
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;

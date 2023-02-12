@@ -19,5 +19,6 @@ public interface AnnuncioServiceInterface {
     public boolean chiusuraAnnuncio(Annuncio annuncio);
     public boolean aggiungiCandidatura(Annuncio annuncio, Candidatura candidatura);
     public boolean rimuoviCandidatura(Annuncio annuncio, Candidatura candidatura);
+    public List<Candidatura> visualizzaCandidatura(Annuncio annuncio);
 
 }

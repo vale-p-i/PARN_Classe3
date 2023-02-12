@@ -1,6 +1,7 @@
 package annuncio.dao;
 
 import candidatura.service.CandidaturaService;
+import candidatura.service.CandidaturaServiceInterface;
 import storage.entity.Annuncio;
 import storage.entity.Azienda;
 import storage.entity.Candidatura;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnnuncioDAO {
-    public List<Annuncio> getAnnuncioById(int id) throws SQLException {
+    public static List<Annuncio> getAnnuncioById(int id) throws SQLException {
         List<Annuncio> result = new ArrayList<>();
 
         Connection connection = ConPool.getConnection();
@@ -94,9 +95,8 @@ public class AnnuncioDAO {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
-                "DELETE FROM Candidatura c WHERE c.Annuncio = $1 AND c.Persona = $2");
-        pdstmt.setInt(1, candidatura.getAnnuncio().getId());
-        pdstmt.setInt(2, candidatura.getPersona().getId());
+                //"DELETE FROM Candidatura c WHERE c.Annuncio = $1 AND c.Persona = $2");
+
 
         pdstmt.execute();
     }
@@ -110,8 +110,4 @@ public class AnnuncioDAO {
         pdstmt.setInt(2, annuncio.getId());
         pdstmt.execute();
     }
-
-
-
-
 }
