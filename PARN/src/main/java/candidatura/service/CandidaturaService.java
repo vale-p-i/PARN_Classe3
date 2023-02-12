@@ -1,6 +1,6 @@
 package candidatura.service;
 
-import storage.dao.CandidaturaDAO;
+import candidatura.dao.CandidaturaDAO;
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;
 import storage.entity.Persona;
@@ -8,7 +8,7 @@ import storage.entity.Persona;
 import java.util.List;
 
 public class CandidaturaService implements CandidaturaServiceInterface{
-/*
+
     private CandidaturaDAO candidaturaDAO;
 
     public CandidaturaService(){
@@ -29,5 +29,4 @@ public class CandidaturaService implements CandidaturaServiceInterface{
     public List<Candidatura> getCandidatueByPersona(Persona persona) {
         return candidaturaDAO.getCandidatueByPersona(persona);
     }
-    */
 }
