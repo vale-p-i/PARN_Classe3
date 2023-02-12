@@ -27,11 +27,10 @@ public class AnnuncioService implements AnnuncioServiceInterface{
         }
     }
 
-    /**
-     * @param annuncio 
-     * @return
-     */
     @Override
+    public List<Annuncio> getAnnunciByStato(String in_corso) {
+        return null;
+
     public boolean creaAnnuncio(Annuncio annuncio) {
         try {
             AnnuncioDAO.creaAnnuncio(annuncio);

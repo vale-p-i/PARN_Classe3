@@ -21,18 +21,18 @@ public class Annuncio {
     public Annuncio(int id, Azienda azienda, boolean attivo, Sede sede, int numeroPersone, String descrizione,
                     LocalDateTime dataScadenza, List<String> requisiti, List<String> keyword, List<String> preferenze,
                     String ruolo, List<Candidatura> candidature) {
-        this.id = id;
-        this.azienda = azienda;
-        this.attivo = attivo;
-        this.sede = sede;
-        this.numeroPersone = numeroPersone;
-        this.descrizione = descrizione;
-        this.dataScadenza = dataScadenza;
-        this.requisiti = requisiti;
-        this.keyword = keyword;
-        this.preferenze = preferenze;
-        this.ruolo = ruolo;
-        this.candidature = candidature;
+        this.id = id;               //1
+        this.azienda = azienda;     //2
+        this.attivo = attivo;       //3
+        this.sede = sede;           //4
+        this.numeroPersone = numeroPersone; //5
+        this.descrizione = descrizione;     //6
+        this.dataScadenza = dataScadenza;   //7
+        this.requisiti = requisiti;         //8
+        this.keyword = keyword;             //9
+        this.preferenze = preferenze;       //10
+        this.ruolo = ruolo;                 //11
+        this.candidature = candidature;     //12
     }
 
     public int getId() {

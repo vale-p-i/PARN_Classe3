@@ -1,10 +1,15 @@
 package candidatura.dao;
 
 import annuncio.service.AnnuncioService;
+import annuncio.service.AnnuncioServiceInterface;
+import curriculum.service.CurriculumService;
+import curriculum.service.CurriculumServiceInterface;
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;
 import storage.entity.Curriculum;
 import storage.entity.Persona;
+import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 import utils.ConPool;
 
 import java.sql.*;
@@ -16,12 +21,12 @@ public class CandidaturaDAO {
 
     public List<Candidatura> getCandidatueByPersona(Persona persona) throws SQLException {
         List<Candidatura> result = new ArrayList<>();
-        AnnuncioService annuncioService = new AnnuncioService();
-        CurriculumService curriculumService = new CurriculumService();
+        AnnuncioServiceInterface annuncioService = new AnnuncioService();
+        CurriculumServiceInterface curriculumService = new CurriculumService();
 
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura c WHERE c.Persona = ?1");
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura WHERE Persona = ?");
         pdstmt.setInt(1, persona.getId());
 
         ResultSet rs = pdstmt.executeQuery();
@@ -30,31 +35,30 @@ public class CandidaturaDAO {
                     new Candidatura(
                          persona,
                         (Annuncio) annuncioService.getAnnuncioById(rs.getInt(1)),
-                        (Curriculum) curriculumService.getCurriculumByPersona(persona)));
-                        rs.getDate(3);
+                        (Curriculum) curriculumService.getCurriculumByPersona(persona),
+                        rs.getDate(3).toLocalDate().atStartOfDay()));
         }
         return result;
     }
 
     public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio) throws SQLException {
         List<Candidatura> result = new ArrayList<>();
-        PersonaService personaService = new PersonaService();
-        CurriculumService curriculumService = new CurriculumService();
-        PersonaService personaService = new PersonaService();
+        UtenteServiceInterface personaService = new UtenteService();
 
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura c WHERE c.Annuncio = ?1");
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura WHERE Annuncio = ?");
         pdstmt.setInt(1, annuncio.getId());
 
         ResultSet rs = pdstmt.executeQuery();
         while (rs.next()) {
+            Persona tmp=personaService.getPersonaById(rs.getInt(2));
             result.add(
                     new Candidatura(
-                            (Persona) personaService.getPersonaById(rs.getInt(2)),
+                            tmp,
                             annuncio,
-                            curriculumService.getCurriculumByPersona(personaService.getPersonaById(rs.getInt(2))),
-                            rs.getDate(3)
+                            tmp.getCurriculum(),
+                            rs.getDate(3).toLocalDate().atStartOfDay()
                     )
             );
         }
@@ -64,16 +68,17 @@ public class CandidaturaDAO {
     public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio) throws SQLException {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura c WHERE c.Persona = ?1 AND c.Annuncio = ?2");
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidature WHERE Persona = ? AND Annuncio = ?");
         pdstmt.setInt(1, annuncio.getId());
+        CurriculumServiceInterface curriculumService = new CurriculumService();
 
         ResultSet rs = pdstmt.executeQuery();
 
         return new Candidatura(
                 persona,
                 annuncio,
-                CurriculumService.getCurriculumByPersona(persona),
-                rs.getDate(3)
+                persona.getCurriculum(),
+                rs.getDate(3).toLocalDate().atStartOfDay()
         );
     }
 
@@ -81,10 +86,10 @@ public class CandidaturaDAO {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
-                "INSERT INTO Candidatura(Annuncio, Persona, Data_Pub) VALUES ($1, $2, $3)");
+                "INSERT INTO Candidatura(Annuncio, Persona, Data_Pub) VALUES (?, ?, ?)");
         pdstmt.setInt(1, candidatura.getAnnuncio().getId());
         pdstmt.setInt(2, candidatura.getPersona().getId());
-        pdstmt.setDate(3, candidatura.getData());
+        pdstmt.setDate(3, java.sql.Date.valueOf(candidatura.getData().toLocalDate()));
 
         pdstmt.executeUpdate();
     }
@@ -93,7 +98,7 @@ public class CandidaturaDAO {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
-                "DELETE FROM Candidatura c WHERE c.Annuncio = $1 AND c.Persona = $2");
+                "DELETE FROM Candidatura WHERE Annuncio = ? AND Persona = ?");
         pdstmt.setInt(1, candidatura.getAnnuncio().getId());
         pdstmt.setInt(2, candidatura.getPersona().getId());
 

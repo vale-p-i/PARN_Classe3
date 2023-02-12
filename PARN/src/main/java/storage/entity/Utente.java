@@ -1,6 +1,7 @@
 package storage.entity;
 
 public abstract class Utente {
+    private int id;
     private String nome;
     private String mail;
     private String password;
@@ -13,20 +14,18 @@ public abstract class Utente {
     private String citta;
     private String via;
 
-    private int id;
-
-    public Utente(String nome, String mail, String password, String regione, String provincia, String cap, String citta,
-                  String via, String telefono, String foto) {
+    public Utente(int id, String nome, String mail, String password, String regione, String provincia, String foto, String cap, String telefono, String citta, String via) {
+        this.id = id;
         this.nome = nome;
         this.mail = mail;
         this.password = password;
         this.regione = regione;
         this.provincia = provincia;
+        this.foto = foto;
         this.cap = cap;
+        this.telefono = telefono;
         this.citta = citta;
         this.via = via;
-        this.telefono = telefono;
-        this.foto = foto;
     }
 
     public Utente() {

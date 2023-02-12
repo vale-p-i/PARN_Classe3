@@ -13,11 +13,8 @@ public class Persona extends Utente {
     private Curriculum curriculum;
     private List<Candidatura> candidature;
 
-    public Persona(String nome, String mail, String password, String regione, String provincia, int cap, String citta,
-                   String via, String telefono, String foto, String cognome, String codiceFiscale,
-                   LocalDateTime dataDiNascita, String filtroMacroarea, String posizioneDesiderata,
-                   Curriculum curriculum, List<Candidatura> candidature) {
-        super(nome, mail, password, regione, provincia, cap, citta, via, telefono, foto);
+    public Persona(int id, String nome, String mail, String password, String regione, String provincia, String foto, String cap, String telefono, String citta, String via, String cognome, String codiceFiscale, LocalDateTime dataDiNascita, String filtroMacroarea, String posizioneDesiderata, Curriculum curriculum, List<Candidatura> candidature) {
+        super(id, nome, mail, password, regione, provincia, foto, cap, telefono, citta, via);
         this.cognome = cognome;
         this.codiceFiscale = codiceFiscale;
         this.dataDiNascita = dataDiNascita;
@@ -27,6 +24,7 @@ public class Persona extends Utente {
         this.candidature = candidature;
     }
 
+    public Persona(){}
     public String getCognome() {
         return cognome;
     }
