@@ -8,27 +8,86 @@ import utils.ConPool;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CandidaturaDAO {
 
-    public static Candidatura getCandidaturaById(Long ID) throws SQLException {
+    /*public static ListCandidatura getCandidaturaByPersona(Persona persona) throws SQLException {
 
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura WHERE id = $1");
-        pdstmt.setLong(1, ID);
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura c WHERE c.Persona = $1");
+        pdstmt.setInt(1, persona.getId());
         ResultSet rs = pdstmt.executeQuery();
 
-        return createCandidaturaFromResultSet(rs);
+        return createCandidaturaFromResultSet(rs, persona);
     }
 
-    private static Candidatura createCandidaturaFromResultSet(ResultSet rs) throws SQLException {
+    private static Candidatura createCandidaturaFromResultSet(ResultSet rs, Persona persona) throws SQLException {
         return new Candidatura(
-                (Persona)rs.getObject(1), (Annuncio) rs.getObject(2), (Curriculum) rs.getObject(3), (LocalDateTime) rs.getObject(4)
+                persona, AnnuncioService.getAziendaById(), CurriculumService.getCurriculumByPersona(persona), rs.getDate(2)
         );
 
+    }*/
+
+    public List<Candidatura> getCandidatueByPersona(Persona persona) throws SQLException {
+        List<Candidatura> result = new ArrayList<>();
+
+        Connection connection = ConPool.getConnection();
+        Statement stmt = (Statement) connection.createStatement();
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura c WHERE c.Persona = ?1");
+        pdstmt.setInt(1, persona.getId());
+
+        ResultSet rs = pdstmt.executeQuery();
+        while (rs.next()) {
+            result.add(
+                    new Candidatura(
+                         persona,
+                        (Annuncio) AnnuncioService.getAnnuncioById(rs.getInt(1)),
+                        (Curriculum) CurriculumService.getCurriculumByPersona(persona)));
+                        rs.getDate(3);
+        }
+        return result;
     }
 
+    public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio) throws SQLException {
+        List<Candidatura> result = new ArrayList<>();
+
+        Connection connection = ConPool.getConnection();
+        Statement stmt = (Statement) connection.createStatement();
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura c WHERE c.Annuncio = ?1");
+        pdstmt.setInt(1, annuncio.getId());
+
+        ResultSet rs = pdstmt.executeQuery();
+        while (rs.next()) {
+            result.add(
+                    new Candidatura(
+                            (Persona) PersonaService.getPersonaById(rs.getInt(2)),
+                            annuncio,
+                            CurriculumService.getCurriculumByPersona(PersonaService.getPersonaById(rs.getInt(2))),
+                            rs.getDate(3)
+                    )
+            );
+        }
+        return result;
+    }
+
+    public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio) throws SQLException {
+        Connection connection = ConPool.getConnection();
+        Statement stmt = (Statement) connection.createStatement();
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura c WHERE c.Persona = ?1 AND c.Annuncio = ?2");
+        pdstmt.setInt(1, annuncio.getId());
+
+        ResultSet rs = pdstmt.executeQuery();
+
+        return new Candidatura(
+                persona,
+                annuncio,
+                CurriculumService.getCurriculumByPersona(persona),
+                rs.getDate(3)
+        );
+    }
 
 
 }
