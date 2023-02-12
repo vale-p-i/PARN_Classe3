@@ -7,7 +7,7 @@ public abstract class Utente {
     private String regione;
     private String provincia;
     private String foto;
-    private int cap;
+    private String cap;
     private String telefono;
 
     private String citta;
@@ -15,7 +15,7 @@ public abstract class Utente {
 
     private int id;
 
-    public Utente(String nome, String mail, String password, String regione, String provincia, int cap, String citta,
+    public Utente(String nome, String mail, String password, String regione, String provincia, String cap, String citta,
                   String via, String telefono, String foto) {
         this.nome = nome;
         this.mail = mail;
@@ -73,11 +73,11 @@ public abstract class Utente {
         this.provincia = provincia;
     }
 
-    public int getCap() {
+    public String getCap() {
         return cap;
     }
 
-    public void setCap(int cap) {
+    public void setCap(String cap) {
         this.cap = cap;
     }
 

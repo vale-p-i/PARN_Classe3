@@ -12,7 +12,10 @@ public class Azienda extends Utente{
     private List<Sede> sedi;
     private List<Annuncio> annunci;
 
-    public Azienda(String nome, String mail, String password, String regione, String provincia, int cap, String citta,
+    public Azienda(){
+
+    }
+    public Azienda(String nome, String mail, String password, String regione, String provincia, String cap, String citta,
                    String via, String telefono, String foto, String partitaIVA, String ragioneSociale, String link,
                    String areaInteresse, int numeroDipendenti, List<String> settoriCompetenza,
                    List<Sede> sedi, List<Annuncio> annunci) {

@@ -44,7 +44,7 @@ public class Candidatura {
         this.curriculum = curriculum;
     }
 
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
 

@@ -5,6 +5,7 @@ import storage.entity.Annuncio;
 import storage.entity.Azienda;
 import storage.entity.Candidatura;
 import utils.ConPool;
+import utils.KeywordUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
