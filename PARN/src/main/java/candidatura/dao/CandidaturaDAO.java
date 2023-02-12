@@ -1,4 +1,4 @@
-package storage.dao;
+package candidatura.dao;
 
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CandidaturaDAO {
-/*
+
     public List<Candidatura> getCandidatueByPersona(Persona persona) throws SQLException {
         List<Candidatura> result = new ArrayList<>();
 
@@ -70,6 +70,6 @@ public class CandidaturaDAO {
                 rs.getDate(3)
         );
     }
-*/
+
 
 }
