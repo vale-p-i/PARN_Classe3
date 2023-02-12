@@ -26,4 +26,60 @@ public class Persona extends Utente {
         this.curriculum = curriculum;
         this.candidature = candidature;
     }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public String getCodiceFiscale() {
+        return codiceFiscale;
+    }
+
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
+    }
+
+    public LocalDateTime getDataDiNascita() {
+        return dataDiNascita;
+    }
+
+    public void setDataDiNascita(LocalDateTime dataDiNascita) {
+        this.dataDiNascita = dataDiNascita;
+    }
+
+    public String getFiltroMacroarea() {
+        return filtroMacroarea;
+    }
+
+    public void setFiltroMacroarea(String filtroMacroarea) {
+        this.filtroMacroarea = filtroMacroarea;
+    }
+
+    public String getPosizioneDesiderata() {
+        return posizioneDesiderata;
+    }
+
+    public void setPosizioneDesiderata(String posizioneDesiderata) {
+        this.posizioneDesiderata = posizioneDesiderata;
+    }
+
+    public Curriculum getCurriculum() {
+        return curriculum;
+    }
+
+    public void setCurriculum(Curriculum curriculum) {
+        this.curriculum = curriculum;
+    }
+
+    public List<Candidatura> getCandidature() {
+        return candidature;
+    }
+
+    public void setCandidature(List<Candidatura> candidature) {
+        this.candidature = candidature;
+    }
 }
