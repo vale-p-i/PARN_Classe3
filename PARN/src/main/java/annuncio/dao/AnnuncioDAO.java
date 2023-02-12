@@ -95,8 +95,8 @@ public class AnnuncioDAO {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
-                //"DELETE FROM Candidatura c WHERE c.Annuncio = $1 AND c.Persona = $2");
-
+                "DELETE FROM Annuncio a WHERE a.ID = $1");
+        pdstmt.setInt(1, annuncio.getId());
 
         pdstmt.execute();
     }
