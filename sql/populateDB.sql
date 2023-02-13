@@ -1,5 +1,5 @@
 INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Città, Via)
-VALUES (1, 'Mario Rossi', 'm.rossi@gmail.com', '0b9f97b01f95c6c993901d2059b4972d94e2b6eb0b6d73fb9afd181386a5b501', 'Lombardia', 'MI', 'foto_rossi.jpeg', '20100', '+39 02 1234567', 'Milano', 'Via Garibaldi');
+VALUES (1, 'Mario Rossi', 'm.rossi@gmail.com', 'B133A0C0E9BEE3BE20163D2AD31D6248DB292AA6DCB1EE087A2AA50E0FC75AE2', 'Lombardia', 'MI', 'foto_rossi.jpeg', '20100', '+39 02 1234567', 'Milano', 'Via Garibaldi');
 
 INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Città, Via)
 VALUES (2, 'Luisa Bianchi', 'l.bianchi@gmail.com', 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6', 'Lombardia', 'MI', 'foto_bianchi.jpeg', '20100', '+39 02 9876543', 'Milano', 'Via dei Missaglia');
