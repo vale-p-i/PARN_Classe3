@@ -66,20 +66,26 @@ public class CandidaturaDAO {
     }
 
     public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio) throws SQLException {
+
+        CurriculumServiceInterface curriculumServiceInterface = new CurriculumService();
+
         Connection connection = ConPool.getConnection();
-        Statement stmt = (Statement) connection.createStatement();
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidature WHERE Persona = ? AND Annuncio = ?");
-        pdstmt.setInt(1, annuncio.getId());
-        CurriculumServiceInterface curriculumService = new CurriculumService();
-
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT Annuncio, Persona, Data_Pub FROM Candidatura" +
+                " WHERE Persona = ? AND Annuncio = ?");
+        pdstmt.setInt(1, persona.getId());
+        pdstmt.setInt(2, annuncio.getId());
         ResultSet rs = pdstmt.executeQuery();
+        Candidatura candidatura = null;
 
-        return new Candidatura(
-                persona,
-                annuncio,
-                persona.getCurriculum(),
-                rs.getDate(3).toLocalDate().atStartOfDay()
-        );
+        while (rs.next()) {
+            candidatura = new Candidatura(
+                    persona,
+                    annuncio,
+                    null, //curriculumServiceInterface.getCurriculumByPersona(persona), //TODO: rimuovere null quando vale ha finito
+                    rs.getObject(3, LocalDateTime.class)
+            );
+        }
+        return candidatura;
     }
 
     public void creaCandidatura(Candidatura candidatura) throws SQLException {
