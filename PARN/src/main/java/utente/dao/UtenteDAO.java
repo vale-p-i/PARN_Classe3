@@ -129,20 +129,22 @@ public class UtenteDAO {
           PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Utente WHERE Mail = ?");
           pdstmt.setString(1, mail);
           ResultSet rs = pdstmt.executeQuery();
-          int id = rs.getInt(1);
-          Azienda azienda = findAzienda(rs, id);
-          Persona persona = findPersona(rs, id);
-          if(azienda != null)
-              return azienda;
-          else if(persona != null)
-              return persona;
+          if(password.equals(rs.getString(4))){
+              int id = rs.getInt(1);
+              Azienda azienda = findAzienda(rs, id);
+              Persona persona = findPersona(rs, id);
+              if(azienda != null)
+                  return azienda;
+              else if(persona != null)
+                  return persona;
+          }
           return null;
     }
 
     public Persona getPersonaById(int id) throws SQLException{
         Connection connection = ConPool.getConnection();
         PreparedStatement pdstmt = connection.prepareStatement("SELECT u.Nome, u.Mail, u.Pass, " +
-                "u.Regione, u.Provincia, u.Foto, u.CAP, u.Telefono, u.Citta, u.via, p.Cognome, p.CF, p.DDN, p.F_Macroarea" +
+                "u.Regione, u.Provincia, u.Foto, u.CAP, u.Telefono, u.Citta, u.via, p.Cognome, p.CF, p.DDN, p.F_Macroarea," +
                 "p.Pos_Des FROM Persona p, Utente u WHERE u.N_Reg = ? AND p.Utente = u.N_Reg");
         pdstmt.setInt(1, id);
         ResultSet rs = pdstmt.executeQuery();
@@ -216,6 +218,7 @@ public class UtenteDAO {
     private Azienda findAzienda(ResultSet rs, int id) throws SQLException {
         Connection connection = ConPool.getConnection();
         PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Azienda WHERE Utente = ?");
+        pdstmt.setInt(1, id);
         ResultSet newRs = pdstmt.executeQuery();
         if(newRs.next()){
             Azienda azienda = new Azienda();
@@ -244,6 +247,7 @@ public class UtenteDAO {
     private Persona findPersona(ResultSet rs, int id) throws SQLException {
         Connection connection = ConPool.getConnection();
         PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Azienda WHERE Utente = ?");
+        pdstmt.setInt(1, id);
         ResultSet newRs = pdstmt.executeQuery();
         if(newRs.next()){
             Persona persona = new Persona();
