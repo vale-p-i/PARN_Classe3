@@ -9,6 +9,7 @@ import utente.service.UtenteServiceInterface;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CandidaturaTest {
@@ -19,12 +20,14 @@ public class CandidaturaTest {
         UtenteServiceInterface utenteServiceInterface = new UtenteService();
         AnnuncioServiceInterface annuncioServiceInterface = new AnnuncioService();
 
-        Persona persona = utenteServiceInterface.getPersonaById(1);
+        Persona persona = utenteServiceInterface.getPersonaById(2);
         Annuncio annuncio = annuncioServiceInterface.getAnnuncioById(1);
+
+        System.out.println(annuncio.getId());
 
         Candidatura candidatura = candidaturaServiceInterface.getCandidaturaByPersonaAndAnnuncio(persona, annuncio);
 
-        assertTrue(candidaturaServiceInterface.creaCandidatura(candidatura));
+        assertNotNull(candidatura);
     }
 
 

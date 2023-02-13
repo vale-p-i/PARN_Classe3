@@ -18,29 +18,31 @@ public class AnnuncioDAO {
     public Annuncio getAnnuncioById(int id) throws SQLException {
 
         Connection connection = ConPool.getConnection();
-        Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement("SELECT ID, Azienda, Attivo, Sede,N_Persone,Descrizione,Scadenza,Requisiti,Keyword,Preferenze,Ruolo FROM Annuncio WHERE ID = ?");
         pdstmt.setInt(1, id);
 
         UtenteServiceInterface utenteService = new UtenteService();
         CandidaturaService candidaturaService = new CandidaturaService();
+        Annuncio annuncio = null;
 
         ResultSet rs = pdstmt.executeQuery();
-        Azienda azienda=utenteService.getAziendaById(rs.getInt(2));
-        Annuncio annuncio = new Annuncio(
-                id,
-                azienda,
-                rs.getBoolean(3),
-                utenteService.getSedeById(azienda,rs.getInt(4)),
-                rs.getInt(5),
-                rs.getString(6),
-                rs.getDate(7).toLocalDate().atStartOfDay(),
-                StringListUtils.getSplittedString(rs.getString(8)),
-                StringListUtils.getSplittedString(rs.getString(9)),
-                StringListUtils.getSplittedString(rs.getString(10)),
-                rs.getString(11),
-                null
+        while (rs.next()) {
+            Azienda azienda = utenteService.getAziendaById(rs.getInt(2));
+            annuncio = new Annuncio(
+                    id,
+                    azienda,
+                    rs.getBoolean(3),
+                    utenteService.getSedeById(azienda, rs.getInt(4)),
+                    rs.getInt(5),
+                    rs.getString(6),
+                    rs.getDate(7).toLocalDate().atStartOfDay(),
+                    StringListUtils.getSplittedString(rs.getString(8)),
+                    StringListUtils.getSplittedString(rs.getString(9)),
+                    StringListUtils.getSplittedString(rs.getString(10)),
+                    rs.getString(11),
+                    new ArrayList<Candidatura>()
             );
+        }
         annuncio.setCandidature(candidaturaService.getCandidatureByAnnuncio(annuncio));
         return annuncio;
     }
@@ -61,7 +63,6 @@ public class AnnuncioDAO {
             throw new IllegalArgumentException();
 
         Connection connection = ConPool.getConnection();
-        Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(query);
         ResultSet rs = pdstmt.executeQuery();
 
@@ -90,7 +91,6 @@ public class AnnuncioDAO {
     public void creaAnnuncio(Annuncio annuncio) throws SQLException {
 
         Connection connection = ConPool.getConnection();
-        Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
                 "INSERT INTO Annuncio(ID, Azienda, Attivo, Sede, N_Persone, Descrizione, Scadenza, Requisiti, Keyword, Preferenze, Ruolo)"+
                         "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11)");
@@ -111,7 +111,6 @@ public class AnnuncioDAO {
 
     public void modificaAnnuncio(Annuncio annuncio) throws SQLException{
         Connection connection = ConPool.getConnection();
-        Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
                 "UPDATE Annuncio a SET a.Azienda = ?1, a.Attivo = ?2, a.Sede = ?3, a.N_Persone = ?4, " +
                         "a.Descrizione = ?5, a.Scadenza = ?6, a.Requisiti = ?7, a.Keyword = ?8, a.Preferenze = ?9, " +
@@ -134,7 +133,6 @@ public class AnnuncioDAO {
 
     public void eliminaAnnuncio(Annuncio annuncio) throws SQLException {
         Connection connection = ConPool.getConnection();
-        Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
                 "DELETE FROM Annuncio a WHERE a.ID = $1");
         pdstmt.setInt(1, annuncio.getId());
@@ -144,7 +142,6 @@ public class AnnuncioDAO {
 
     public void chiusuraAnnuncio(Annuncio annuncio) throws SQLException {
         Connection connection = ConPool.getConnection();
-        Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
                 "UPDATE Annuncio SET Attivo = ?1 WHERE ID = ?2");
         pdstmt.setBoolean(1, false);

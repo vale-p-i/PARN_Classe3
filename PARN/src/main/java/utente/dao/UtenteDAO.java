@@ -8,10 +8,8 @@ import storage.entity.Utente;
 import utils.ConPool;
 import utils.StringListUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -164,8 +162,9 @@ public class UtenteDAO {
             persona.setVia(rs.getString(10));
             persona.setCognome(rs.getString(11));
             persona.setCodiceFiscale(rs.getString(12));
-            java.sql.Date date = rs.getDate(13);
-            persona.setDataDiNascita(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+            //java.sql.Timestamp sqlTimestamp = rs.getTimestamp(13);
+            //persona.setDataDiNascita(sqlTimestamp.toLocalDateTime());
+            persona.setDataDiNascita(rs.getObject(13, LocalDateTime.class));
             persona.setFiltroMacroarea(rs.getString(14));
             persona.setPosizioneDesiderata(rs.getString(15));
         }

@@ -23,8 +23,7 @@ public class AnnuncioService implements AnnuncioServiceInterface{
     @Override
     public Annuncio getAnnuncioById(int id) {
         try {
-            Annuncio annuncio = annuncioDAO.getAnnuncioById(id);
-            return annuncio;
+            return annuncioDAO.getAnnuncioById(id);
         } catch (SQLException e) {
             return null;
         }
