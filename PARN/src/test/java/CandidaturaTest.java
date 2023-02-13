@@ -23,9 +23,14 @@ public class CandidaturaTest {
         Persona persona = utenteServiceInterface.getPersonaById(2);
         Annuncio annuncio = annuncioServiceInterface.getAnnuncioById(1);
 
-        System.out.println(annuncio.getId());
-
+        System.out.println(annuncio.getId()+" "+ annuncio.getSede().getId()+" "+ annuncio.getAzienda().getId());
+        System.out.println("CERCO CANDIDATURA PER UTENTE: "+persona.getId()+" ANNUNCIO: "+annuncio.getId());
         Candidatura candidatura = candidaturaServiceInterface.getCandidaturaByPersonaAndAnnuncio(persona, annuncio);
+
+        System.out.println(candidatura.toString());
+
+        if (candidatura == null)
+            System.out.println("ERRORE, NULL CANDIDATURA");
 
         assertNotNull(candidatura);
     }
