@@ -9,7 +9,7 @@ import utente.dao.UtenteDAO;
 import java.sql.SQLException;
 
 public class UtenteService implements UtenteServiceInterface{
-    private UtenteDAO utenteDAO = new UtenteDAO();
+    private static UtenteDAO utenteDAO = new UtenteDAO();
     @Override
     public Persona getPersonaById(int id) {
         Persona persona = new Persona();
