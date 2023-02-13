@@ -14,11 +14,7 @@ import static net.sf.saxon.om.EnumSetTool.except;
 
 public class CandidaturaService implements CandidaturaServiceInterface{
 
-    private final CandidaturaDAO candidaturaDAO;
-
-    public CandidaturaService(){
-        candidaturaDAO = new CandidaturaDAO();
-    }
+    private final CandidaturaDAO candidaturaDAO = new CandidaturaDAO();
 
     @Override
     public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio) {
