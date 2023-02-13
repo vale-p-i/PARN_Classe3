@@ -26,7 +26,6 @@ public class registerAzienda extends HttpServlet {
         String provincia = request.getParameter("provinciaAzienda");
         String citta = request.getParameter("cittaAzienda");
         String via = request.getParameter("viaAzienda");
-        String civico = request.getParameter("civicoAzienda");
         String cap = request.getParameter("capAzienda");
         String areaInteresse = request.getParameter("areaInteresse");
         String settoriCompetenzaString = request.getParameter("settoriCompetenza");
@@ -34,8 +33,8 @@ public class registerAzienda extends HttpServlet {
         for(String s:settoriCompetenzaString.split(","))
             settoriComptenza.add(s);
         int numeroDipendenti = Integer.parseInt(request.getParameter("dipendenti"));
-        String email = request.getParameter("email");
-        String password = PasswordEncrypter.encryptThisString("ciao");
+        String email = request.getParameter("emailAzienda");
+        String password = PasswordEncrypter.encryptThisString(request.getParameter("password_Azienda"));
         String logo = request.getParameter("logo");
         String regioneSede = request.getParameter("regioneSede");
         String provinciaSede = request.getParameter("provinciaSede");
@@ -46,11 +45,10 @@ public class registerAzienda extends HttpServlet {
         String mailSede = request.getParameter("emailSede");
 
         Azienda azienda = new Azienda(nome, email, password, regione, provincia, logo, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriComptenza, null, new ArrayList<Annuncio>());
-        System.out.println(azienda);
         UtenteService service = new UtenteService();
         service.registraAzienda(azienda);
         List<Sede> sedi = new ArrayList<>();
-        Sede sede = new Sede();
+        Sede sede;
         if(regioneSede != null){
             Sede newSede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, mailSede);
             sede = newSede;
