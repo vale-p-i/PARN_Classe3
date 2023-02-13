@@ -12,7 +12,11 @@ public class Sede {
 
     private Azienda azienda;
 
-    public Sede(int id, String regione, String provincia, String citta, String cap, String via, String telefono, Azienda azienda) {
+    private String mail;
+
+    public Sede(){}
+
+    public Sede(int id, String regione, String provincia, String citta, String cap, String via, String telefono, Azienda azienda, String mail) {
         this.id = id;
         this.regione = regione;
         this.provincia = provincia;
@@ -21,9 +25,10 @@ public class Sede {
         this.via = via;
         this.telefono = telefono;
         this.azienda = azienda;
+        this.mail = mail;
     }
 
-    public Sede(String regione, String provincia, String citta, String cap, String via, String telefono, Azienda azienda) {
+    public Sede(String regione, String provincia, String citta, String cap, String via, String telefono, Azienda azienda, String mail) {
         this.regione = regione;
         this.provincia = provincia;
         this.citta = citta;
@@ -31,6 +36,7 @@ public class Sede {
         this.via = via;
         this.telefono = telefono;
         this.azienda = azienda;
+        this.mail = mail;
     }
 
     public Azienda getAzienda() {
@@ -95,5 +101,13 @@ public class Sede {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
