@@ -43,10 +43,10 @@
                     <li class="tab col s3"><a class="active" href="#Persona">Persona</a></li>
                 </ul>
                 <div id="Azienda" class="col s12 m12 center">
-                    <form class="col s12" method="post" id="invio" action="registerAzienda">
+                    <form class="col s12" method="post" id="invioAzienda" action="registerAzienda">
                         <div class="row">
                             <div class="input-field col s12 m3">
-                                <input placeholder="Nome" id="nomeAzienda" name="nome" type="text" class="validate">
+                                <input placeholder="Nome" id="nomeAzienda" name="nomeAzienda" type="text" class="validate">
                                 <label for="nomeAzienda">Inserisci il nome</label>
                             </div>
                             <div class="input-field col s12 m6">
@@ -54,8 +54,8 @@
                                 <label for="piva">Inserisci la partita iva</label>
                             </div>
                             <div class="input-field col s12 m3">
-                                <input placeholder="Telefono" id="telefonoAccount" name="telefono" type="text" class="validate">
-                                <label for="telefonoAccount">Inserisci il telefono</label>
+                                <input placeholder="Telefono" id="telefonoAzienda" name="telefonoAzienda" type="text" class="validate">
+                                <label for="telefonoAzienda">Inserisci il telefono</label>
                             </div>
                         </div>
                         <div class="row">
@@ -68,29 +68,29 @@
                                 <label for="sitoWeb">Inserisci il link del sito web</label>
                             </div>
                             <div class="input-field col s12 m3">
-                                <input placeholder="Regione" id="regioneAzienda" name="regione" type="text" class="validate">
+                                <input placeholder="Regione" id="regioneAzienda" name="regioneAzienda" type="text" class="validate">
                                 <label for="regioneAzienda">Inserisci la regione</label>
                             </div>
                             <div class="input-field col s12 m3">
-                                <input placeholder="Via" id="viaAzienda" name="via" type="text" class="validate">
-                                <label for="via">Inserisci la regione</label>
+                                <input placeholder="Via" id="viaAzienda" name="viaAzienda" type="text" class="validate">
+                                <label for="viaAzienda">Inserisci la regione</label>
                             </div>
                         </div>
                         <div class="row"> 
                             <div class="input-field col s12 m4">
-                                <input placeholder="Provincia" type="text" id="provinciaAzienda" name="provincia"  class="validate">
+                                <input placeholder="Provincia" type="text" id="provinciaAzienda" name="provinciaAzienda"  class="validate">
                                 <label for="provinciaAzienda">Inserici la provincia</label>
                             </div>
                             <div class="input-field col s12 m4">
-                                <input placeholder="Città" type="text" id="cittaAzienda" name="citta"  class="validate">
+                                <input placeholder="Città" type="text" id="cittaAzienda" name="cittaAzienda"  class="validate">
                                 <label for="cittaAzienda">Inserici la città</label>
                             </div>
                             <div class="input-field col s12 m2">
-                                <input placeholder="Civico" id="civicoAzienda" name="civico" type="text" class="validate">
+                                <input placeholder="Civico" id="civicoAzienda" name="civicoAzienda" type="text" class="validate">
                                 <label for="civicoAzienda">Inserisci il civico</label>
                             </div>
                             <div class="input-field col s12 m2">
-                                <input placeholder="CAP" id="capAzienda" name="cap" type="text" class="validate">
+                                <input placeholder="CAP" id="capAzienda" name="capAzienda" type="text" class="validate">
                                 <label for="capAzienda">Inserisci il CAP</label>
                               </div>
                         </div>
@@ -114,18 +114,18 @@
                                 <label for="email">Inserisci la Mail:</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <input placeholder="Mail" id="email_Conferma" type="email" class="validate">
+                                <input placeholder="Mail" id="email_Conferma" name="email_Conferma" type="email" class="validate">
                                 <label for="email_Conferma">Conferma la Mail:</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input placeholder="Password" id="password" name="password_u" type="password" class="validate">
-                                <label for="password">Inserisci la password:</label>
+                                <input placeholder="Password" id="password_Azienda" name="password_Azienda" type="password" class="validate">
+                                <label for="password_Azienda">Inserisci la password:</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <input placeholder="Password" id="password_Conferma" type="password" class="validate">
-                                <label for="password_Conferma">Inserisci la password:</label>
+                                <input placeholder="Password" id="password_Conferma_Azienda" name="password_Conferma_Azienda" type="password" class="validate">
+                                <label for="password_Conferma_Azienda">Inserisci la password:</label>
                             </div>
                             <div class="input-field col s12 m12">
                                 <div class="file-field input-field">
@@ -168,14 +168,17 @@
                                           </div>
                                     </div>
                                     <div class="row"> 
-                                        <div class="input-field col s12 m5">
+                                        <div class="input-field col s12 m4">
                                             <input placeholder="Telefono Sede" id="telefonoSede" name="telefonoSede" type="text" class="validate">
                                             <label for="telefonoSede">Inserisci il telefono</label>
                                         </div>
-                                        
-                                        <div class="input-field col s12 m7">
+                                        <div class="input-field col s12 m4">
                                             <input placeholder="Via Sede" type="text" id="viaSede" name="viaSede"  class="validate">
                                             <label for="viaSede">Inserici la via della sede</label> 
+                                        </div>
+                                        <div class="input-field col s12 m4">
+                                            <input placeholder="e-mail" id="emailSede" name="emailSede" type="email" class="validate">
+                                            <label for="emailSede">Inserisci la Mail:</label>
                                         </div>
                                     </div>     
                                 </div>
@@ -185,199 +188,201 @@
                         </div> 
                         <div class="row">
                             <div class="col s12 m12">
-                                <button class="btn waves-effect waves-light" type="button" name="action" onClick="visualizza()">Invia<i class="material-icons right">send</i></button>
+                                <button class="btn waves-effect waves-light" type="submit" name="action">Invia<i class="material-icons right">send</i></button>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div id="Persona" class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Nome" id="nomePersona" name="nome" type="text" class="validate">
-                            <label for="nomePersona">Inserisci il nome</label>
-                        </div>
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Cognome" id="cognome" name="cognome" type="text" class="validate">
-                            <label for="cognome">Inserisci il cognome</label>
-                        </div>
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Telefono" id="telefono" name="telefono" type="text" class="validate">
-                            <label for="telefono">Inserisci il telefono</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Codice fiscale" type="text" id="codiceFiscale" name="codiceFiscale"  class="validate">
-                            <label for="codiceFiscale">Codice fiscale</label> 
-                        </div>
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Data" type="text" id="data_n" name="data_n"  class="datepicker">
-                            <label for="data_n">Data di nascita:</label> 
-                        </div>
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Regione" id="regione" name="regione" type="text" class="validate">
-                            <label for="regione">Inserisci la regione</label>
-                        </div>
-                    </div>
-                    <div class="row"> 
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Provincia" type="text" id="provincia" name="provincia"  class="validate">
-                            <label for="provincia">Inserici la provincia</label> 
-                        </div>
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Città" type="text" id="citta" name="citta"  class="validate">
-                            <label for="citta">Inserici la città</label> 
-                        </div>
-                        <div class="input-field col s12 m2">
-                            <input placeholder="Civico" id="civico" name="civico" type="text" class="validate">
-                            <label for="civico">Inserisci il civico</label>
-                        </div>
-                        <div class="input-field col s12 m2">
-                            <input placeholder="CAP" id="cap" name="cap" type="text" class="validate">
-                            <label for="cap">Inserisci il CAP</label>
-                          </div>
-                    </div>
-                    <div class="row"> 
-                        <div class="input-field col s12 m6">
-                            <input placeholder="Posizione Desiderata" type="text" id="posizione" name="posizione"  class="validate">
-                            <label for="posizione">Inserici la posizione che si vuole ricoprire</label> 
-                        </div>
-                        <div class="input-field col s12 m6">
-                            <input placeholder="Filto annunci" type="text" id="filtroMacroarea" name="filtroMacroarea"  class="validate">
-                            <label for="filtroMacroarea">Inserici preferenza</label> 
-                        </div>
-                        <div class="input-field col s12 m12">
-                            <div class="file-field input-field">
-                                <div class="btn">
-                                    <span>File</span>
-                                    <input type="file">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text" id="Foto" name="foto" placeholder="Foto personale">
-                                </div>
+                    <form class="col s12" method="post" id="invioPersona" action="registerPersona">
+                        <div class="row">
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Nome" id="nomePersona" name="nome" type="text" class="validate">
+                                <label for="nomePersona">Inserisci il nome</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Cognome" id="cognome" name="cognome" type="text" class="validate">
+                                <label for="cognome">Inserisci il cognome</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Telefono" id="telefono" name="telefono" type="text" class="validate">
+                                <label for="telefono">Inserisci il telefono</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12 m6">
-                            <input placeholder="Mail" id="mail" name="mail" type="email" class="validate">
-                            <label for="email">Inserisci la Mail:</label>
-                        </div>
-                        <div class="input-field col s12 m6">
-                            <input placeholder="Mail" id="email_1" type="email" class="validate">
-                            <label for="email">Conferma la Mail:</label>
-                        </div>
-                        <div class="input-field col s12 m6">
-                            <input placeholder="Password" id="password_u" name="password_u" type="password" class="validate">
-                            <label for="password">Inserisci la password:</label>
-                        </div>
-                        <div class="input-field col s12 m6">
-                            <input placeholder="Password" id="password_1" type="password" class="validate">
-                            <label for="password">Inserisci la password:</label>
-                        </div>
-                    </div>
-                    <div class="curriculum">
-                        <h4>Curriculum</h4>
-                        <div class="esperienzaLavorativa" id="esperienzaLavorativa">
-                            <div class="input-field col s11 m11">
-                                <h5>Esperienza lavorativa</h5>
+                        <div class="row">
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Codice fiscale" type="text" id="codiceFiscale" name="codiceFiscale"  class="validate">
+                                <label for="codiceFiscale">Codice fiscale</label>
                             </div>
-                            <div class="input-field col s1 m1">
-                                <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addEsperienza()"><i class="material-icons">add</i></a>
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Data" type="text" id="data_n" name="data_n"  class="datepicker">
+                                <label for="data_n">Data di nascita:</label>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s12 m4">
-                                    <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" type="text" class="validate">
-                                    <label for="nomeAziendaEsperienza">Inserisci il nome del azienda</label>
-                                </div>
-                                <div class="input-field col s12 m4">
-                                    <input placeholder="Tipo azienda" id="tipoAzienda" name="tipoAzienda" type="text" class="validate">
-                                    <label for="tipoAzienda">Inserisci il tipo di azienda</label>
-                                </div>
-                                <div class="input-field col s12 m4">
-                                    <input placeholder="Tipo impiego" id="tipoImpiego" name="tipoImpiego" type="text" class="validate">
-                                    <label for="tipoImpiego">Inserisci il tipo di impiego svolto</label>
-                                </div>
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Regione" id="regione" name="regione" type="text" class="validate">
+                                <label for="regione">Inserisci la regione</label>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s12 m3">
-                                    <input placeholder="Nome Datore" id="nomeDatore" name="nomeDatore" type="text" class="validate">
-                                    <label for="nomeDatore">Inserisci il nome del datore</label>
-                                </div>
-                                <div class="input-field col s12 m3">
-                                    <input placeholder="Contatto" id="contattoAzienda" name="contattoAzienda" type="text" class="validate">
-                                    <label for="contattoAzienda">Inserisci il contatto del referente</label>
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <input placeholder="Mansioni" id="mansioni" name="mansioni" type="text" class="validate">
-                                    <label for="mansioni">Inserisci le mansioni svolte</label>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Provincia" type="text" id="provincia" name="provincia"  class="validate">
+                                <label for="provincia">Inserici la provincia</label>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <input placeholder=" inizio" type="text" id="data_in_e" name="data_in_e"  class="datepicker">
-                                    <label for="data_in_e">Data di inizio esperienza:</label> 
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <input placeholder="Data fine" type="text" id="data_fin_e" name="data_fin_e"  class="datepicker">
-                                    <label for="data_fin_e">Data di inizio esperienza:</label> 
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Città" type="text" id="citta" name="citta"  class="validate">
+                                <label for="citta">Inserici la città</label>
+                            </div>
+                            <div class="input-field col s12 m2">
+                                <input placeholder="Civico" id="civico" name="civico" type="text" class="validate">
+                                <label for="civico">Inserisci il civico</label>
+                            </div>
+                            <div class="input-field col s12 m2">
+                                <input placeholder="CAP" id="cap" name="cap" type="text" class="validate">
+                                <label for="cap">Inserisci il CAP</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input placeholder="Posizione Desiderata" type="text" id="posizione" name="posizione"  class="validate">
+                                <label for="posizione">Inserici la posizione che si vuole ricoprire</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input placeholder="Filto annunci" type="text" id="filtroMacroarea" name="filtroMacroarea"  class="validate">
+                                <label for="filtroMacroarea">Inserici preferenza</label>
+                            </div>
+                            <div class="input-field col s12 m12">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>File</span>
+                                        <input type="file">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" id="Foto" name="foto" placeholder="Foto personale">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="Lingua" id="lingua">
-                            <div class="input-field col s11 m11">
-                                <h5>Lingua</h5>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input placeholder="Mail" id="mail" name="mail" type="email" class="validate">
+                                <label for="email">Inserisci la Mail:</label>
                             </div>
-                            <div class="input-field col s1 m1">
-                                <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addLingua()"><i class="material-icons">add</i></a>
+                            <div class="input-field col s12 m6">
+                                <input placeholder="Mail" id="email_1" type="email" class="validate">
+                                <label for="email">Conferma la Mail:</label>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <input placeholder="Nome lingua" id="nomeLingua" name="nomeLingua" type="text" class="validate">
-                                    <label for="nomeLingua">Inserisci il nome della lingua</label>
-                                </div>
-                                <div class="input-field col s12 m6">
-                                    <input placeholder="Livello Lingua" id="livelloLingua" name="livelloLingua" type="text" class="validate">
-                                    <label for="livelloLingua">Inserisci il livello della lingua</label>
-                                </div> 
+                            <div class="input-field col s12 m6">
+                                <input placeholder="Password" id="password_u" name="password_u" type="password" class="validate">
+                                <label for="password">Inserisci la password:</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input placeholder="Password" id="password_1" type="password" class="validate">
+                                <label for="password">Inserisci la password:</label>
                             </div>
                         </div>
-                        <div class="Istruzione" id="istruzione">
-                            <div class="input-field col s11 m11">
-                                <h5>Istruzione</h5>
+                        <div class="curriculum">
+                            <h4>Curriculum</h4>
+                            <div class="esperienzaLavorativa" id="esperienzaLavorativa">
+                                <div class="input-field col s11 m11">
+                                    <h5>Esperienza lavorativa</h5>
+                                </div>
+                                <div class="input-field col s1 m1">
+                                    <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addEsperienza()"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m4">
+                                        <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" type="text" class="validate">
+                                        <label for="nomeAziendaEsperienza">Inserisci il nome del azienda</label>
+                                    </div>
+                                    <div class="input-field col s12 m4">
+                                        <input placeholder="Tipo azienda" id="tipoAzienda" name="tipoAzienda" type="text" class="validate">
+                                        <label for="tipoAzienda">Inserisci il tipo di azienda</label>
+                                    </div>
+                                    <div class="input-field col s12 m4">
+                                        <input placeholder="Tipo impiego" id="tipoImpiego" name="tipoImpiego" type="text" class="validate">
+                                        <label for="tipoImpiego">Inserisci il tipo di impiego svolto</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m3">
+                                        <input placeholder="Nome Datore" id="nomeDatore" name="nomeDatore" type="text" class="validate">
+                                        <label for="nomeDatore">Inserisci il nome del datore</label>
+                                    </div>
+                                    <div class="input-field col s12 m3">
+                                        <input placeholder="Contatto" id="contattoAzienda" name="contattoAzienda" type="text" class="validate">
+                                        <label for="contattoAzienda">Inserisci il contatto del referente</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <input placeholder="Mansioni" id="mansioni" name="mansioni" type="text" class="validate">
+                                        <label for="mansioni">Inserisci le mansioni svolte</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m6">
+                                        <input placeholder=" inizio" type="text" id="data_in_e" name="data_in_e"  class="datepicker">
+                                        <label for="data_in_e">Data di inizio esperienza:</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <input placeholder="Data fine" type="text" id="data_fin_e" name="data_fin_e"  class="datepicker">
+                                        <label for="data_fin_e">Data di inizio esperienza:</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="input-field col s1 m1">
-                                <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addIstruzione()"><i class="material-icons">add</i></a>
+                            <div class="Lingua" id="lingua">
+                                <div class="input-field col s11 m11">
+                                    <h5>Lingua</h5>
+                                </div>
+                                <div class="input-field col s1 m1">
+                                    <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addLingua()"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m6">
+                                        <input placeholder="Nome lingua" id="nomeLingua" name="nomeLingua" type="text" class="validate">
+                                        <label for="nomeLingua">Inserisci il nome della lingua</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <input placeholder="Livello Lingua" id="livelloLingua" name="livelloLingua" type="text" class="validate">
+                                        <label for="livelloLingua">Inserisci il livello della lingua</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s12 m4">
-                                    <input placeholder="Nome Istituto" id="nomeIstituto" name="nomeIstituto" type="text" class="validate">
-                                    <label for="nomeIstituto">Inserisci il nome del istituto</label>
-                                </div><div class="input-field col s12 m4">
+                            <div class="Istruzione" id="istruzione">
+                                <div class="input-field col s11 m11">
+                                    <h5>Istruzione</h5>
+                                </div>
+                                <div class="input-field col s1 m1">
+                                    <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addIstruzione()"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m4">
+                                        <input placeholder="Nome Istituto" id="nomeIstituto" name="nomeIstituto" type="text" class="validate">
+                                        <label for="nomeIstituto">Inserisci il nome del istituto</label>
+                                    </div><div class="input-field col s12 m4">
                                     <input placeholder="Tipo Istruttore" id="tipoIstruzione" name="tipoIstruzione" type="text" class="validate">
                                     <label for="tipoIstruzione">Inserisci il tipo di istruzione</label>
                                 </div><div class="input-field col s12 m4">
                                     <input placeholder="Nome Qualifica" id="nomeQualifica" name="nomeQualifica" type="text" class="validate">
                                     <label for="nomeQualifica">Inserisci il nome della qualifica</label>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12 m6">
-                                    <input placeholder=" inizio" type="text" id="data_in_i" name="data_in_i"  class="datepicker">
-                                    <label for="data_in_i">Data di inizio Istruzione:</label> 
                                 </div>
-                                <div class="input-field col s12 m6">
-                                    <input placeholder="Data fine" type="text" id="data_fin_i" name="data_fin_i"  class="datepicker">
-                                    <label for="data_fin_i">Data di inizio Istruzione:</label> 
+                                <div class="row">
+                                    <div class="input-field col s12 m6">
+                                        <input placeholder=" inizio" type="text" id="data_in_i" name="data_in_i"  class="datepicker">
+                                        <label for="data_in_i">Data di inizio Istruzione:</label>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <input placeholder="Data fine" type="text" id="data_fin_i" name="data_fin_i"  class="datepicker">
+                                        <label for="data_fin_i">Data di inizio Istruzione:</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>                
-                    </div>
-                    <div class="row">
-                        <div class="col center s12 m12">
-                            <button class="btn waves-effect waves-light" type="button" name="action" onClick="visualizza()">Invia<i class="material-icons right">send</i></button>
                         </div>
-                    </div>
+                        <div class="row">
+                            <div class="col center s12 m12">
+                                <button class="btn waves-effect waves-light" type="submit" name="action">Invia<i class="material-icons right">send</i></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
           </div>
 

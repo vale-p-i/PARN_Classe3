@@ -20,16 +20,17 @@ public class Login extends HttpServlet {
 
         UtenteService service = new UtenteService();
         Utente utente = service.autenticazione(email, password);
+        System.out.println(utente);
         if(utente!=null && utente instanceof Azienda){
             Azienda azienda = (Azienda) utente;
             HttpSession session = request.getSession();
             session.setAttribute("utente", azienda);
-            request.getRequestDispatcher("../webapp/WEB-INF/areaAzienda.jsp").forward(request, response);
+            request.getRequestDispatcher("./WEB-INF/areaAzienda.jsp").forward(request, response);
         } else if(utente!=null && utente instanceof Persona){
             Persona persona = (Persona) utente;
             HttpSession session = request.getSession();
             session.setAttribute("utente", persona);
-            request.getRequestDispatcher("../webapp/WEB-INF/areaPersona.jsp").forward(request, response);
+            request.getRequestDispatcher("./WEB-INF/areaPersona.jsp").forward(request, response);
         }else
             response.sendRedirect(".");
     }
