@@ -13,7 +13,7 @@ import static net.sf.saxon.om.EnumSetTool.except;
 
 public class AnnuncioService implements AnnuncioServiceInterface{
 
-    private static AnnuncioDAO annuncioDAO;
+    private static AnnuncioDAO annuncioDAO = new AnnuncioDAO();
 
 
     /**
@@ -21,9 +21,10 @@ public class AnnuncioService implements AnnuncioServiceInterface{
      * @return
      */
     @Override
-    public List<Annuncio> getAnnuncioById(int id) {
+    public Annuncio getAnnuncioById(int id) {
         try {
-            return annuncioDAO.getAnnuncioById(id);
+            Annuncio annuncio = annuncioDAO.getAnnuncioById(id);
+            return annuncio;
         } catch (SQLException e) {
             return null;
         }

@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnnuncioDAO {
-    public List<Annuncio> getAnnuncioById(int id) throws SQLException {
-        List<Annuncio> result = new ArrayList<>();
+    public Annuncio getAnnuncioById(int id) throws SQLException {
 
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
@@ -27,25 +26,23 @@ public class AnnuncioDAO {
         CandidaturaService candidaturaService = new CandidaturaService();
 
         ResultSet rs = pdstmt.executeQuery();
-        while (rs.next()) {
-            Azienda az=utenteService.getAziendaById(rs.getInt(2));
-            Annuncio tmp = new Annuncio(id,
-                    az,
-                    rs.getBoolean(3),
-                    utenteService.getSedeById(az,rs.getInt(4)),
-                    rs.getInt(5),
-                    rs.getString(6),
-                    rs.getDate(7).toLocalDate().atStartOfDay(),
-                    StringListUtils.getSplittedString(rs.getString(8)),
-                    StringListUtils.getSplittedString(rs.getString(9)),
-                    StringListUtils.getSplittedString(rs.getString(10)),
-                    rs.getString(11),
-                    null
+        Azienda azienda=utenteService.getAziendaById(rs.getInt(2));
+        Annuncio annuncio = new Annuncio(
+                id,
+                azienda,
+                rs.getBoolean(3),
+                utenteService.getSedeById(azienda,rs.getInt(4)),
+                rs.getInt(5),
+                rs.getString(6),
+                rs.getDate(7).toLocalDate().atStartOfDay(),
+                StringListUtils.getSplittedString(rs.getString(8)),
+                StringListUtils.getSplittedString(rs.getString(9)),
+                StringListUtils.getSplittedString(rs.getString(10)),
+                rs.getString(11),
+                null
             );
-            tmp.setCandidature(candidaturaService.getCandidatureByAnnuncio(tmp));
-            result.add(tmp);
-        }
-        return result;
+        annuncio.setCandidature(candidaturaService.getCandidatureByAnnuncio(annuncio));
+        return annuncio;
     }
 
     public List<Annuncio> getAnnunciByStato(String in_corso) throws SQLException {
