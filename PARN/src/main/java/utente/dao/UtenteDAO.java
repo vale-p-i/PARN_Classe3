@@ -141,7 +141,7 @@ public class UtenteDAO {
 
     public Persona getPersonaById(int id) throws SQLException{
         Connection connection = ConPool.getConnection();
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT u.Nome, u.Mail, u.Password, " +
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT u.Nome, u.Mail, u.Pass, " +
                 "u.Regione, u.Provincia, u.Foto, u.CAP, u.Telefono, u.Citta, u.via, p.Cognome, p.CF, p.DDN, p.F_Macroarea" +
                 "p.Pos_Des FROM Persona p, Utente u WHERE u.N_Reg = ? AND p.Utente = u.N_Reg");
         pdstmt.setInt(1, id);
@@ -171,7 +171,7 @@ public class UtenteDAO {
 
     public Azienda getAziendaById(int id) throws SQLException{
         Connection connection = ConPool.getConnection();
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT u.Nome, u.Mail, u.Password, " +
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT u.Nome, u.Mail, u.Pass, " +
                 "u.Regione, u.Provincia, u.Foto, u.CAP, u.Telefono, u.Citta, u.via, a.P_IVA, a.Rag_Soc, a.Link, a.ADI," +
                 "a.N_Dip, a.Sett_Comp FROM Azienda a, Utente u WHERE u.N_Reg = ? AND a.Utente = u.N_Reg");
         pdstmt.setInt(1, id);
