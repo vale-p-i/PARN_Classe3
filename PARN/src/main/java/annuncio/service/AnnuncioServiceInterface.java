@@ -1,13 +1,9 @@
 package annuncio.service;
 
-import candidatura.service.CandidaturaService;
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;
-import utils.ConPool;
-import utils.KeywordUtils;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface AnnuncioServiceInterface {

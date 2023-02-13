@@ -8,7 +8,7 @@ import storage.entity.Candidatura;
 import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
 import utils.ConPool;
-import utils.KeywordUtils;
+import utils.StringListUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -36,9 +36,9 @@ public class AnnuncioDAO {
                     rs.getInt(5),
                     rs.getString(6),
                     rs.getDate(7).toLocalDate().atStartOfDay(),
-                    KeywordUtils.getKeywordListFromString(rs.getString(8)),
-                    KeywordUtils.getKeywordListFromString(rs.getString(9)),
-                    KeywordUtils.getKeywordListFromString(rs.getString(10)),
+                    StringListUtils.getSplittedString(rs.getString(8)),
+                    StringListUtils.getSplittedString(rs.getString(9)),
+                    StringListUtils.getSplittedString(rs.getString(10)),
                     rs.getString(11),
                     null
             );
@@ -62,8 +62,8 @@ public class AnnuncioDAO {
         pdstmt.setInt(5, annuncio.getNumeroPersone());
         pdstmt.setString(6, annuncio.getDescrizione());
         pdstmt.setDate(7, java.sql.Date.valueOf(annuncio.getDataScadenza().toLocalDate().toString()));
-        pdstmt.setString(8, RequiritiUtils.getStringFromRequisitiList(annuncio.getRequisiti()));
-        pdstmt.setString(9, KeywordUtils.getKeywordStringFromList(annuncio.getKeyword()));
+        pdstmt.setString(8, RequisitiUtils.getStringFromRequisitiList(annuncio.getRequisiti()));
+        pdstmt.setString(9, StringListUtils.getStringFromList(annuncio.getKeyword()));
         pdstmt.setString(10, PreferenzeUtils.getPreferenzeStringFromList(annuncio.getPreferenze()));
         pdstmt.setString(11, annuncio.getRuolo());
 
@@ -85,7 +85,7 @@ public class AnnuncioDAO {
         pdstmt.setString(5, annuncio.getDescrizione());
         pdstmt.setDate(6, java.sql.Date.valueOf(annuncio.getDataScadenza().toLocalDate().toString()));
         pdstmt.setString(7, RequiritiUtils.getStringFromRequisitiList(annuncio.getRequisiti()));
-        pdstmt.setString(8, KeywordUtils.getKeywordStringFromList(annuncio.getKeyword()));
+        pdstmt.setString(8, StringListUtils.getStringFromList(annuncio.getKeyword()));
         pdstmt.setString(9, PreferenzeUtils.getPreferenzeStringFromList(annuncio.getPreferenze()));
         pdstmt.setString(10, annuncio.getRuolo());
         pdstmt.setInt(11, annuncio.getId());
