@@ -13,7 +13,7 @@ create table Utente(
 	Foto VARCHAR(30),
 	CAP  CHAR(5) NOT NULL,
 	Telefono CHAR(14) NOT NULL, 
-	Città VARCHAR(50) NOT NULL,
+	Citta VARCHAR(50) NOT NULL,
 	Via VARCHAR(30) NOT NULL
 );
 

@@ -1,6 +1,6 @@
 
 #########################AZIENDE#########################
-INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Città, Via)
+INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Citta, Via)
 VALUES (1, 'Mario Rossi', 'm.rossi@gmail.com', '0b9f97b01f95c6c993901d2059b4972d94e2b6eb0b6d73fb9afd181386a5b501', 'Lombardia', 'MI', 'foto_rossi.jpeg', '20100', '+39 02 1234567', 'Milano', 'Via Garibaldi');
 INSERT INTO Azienda (Utente, P_IVA, Rag_Soc, Link, ADI, N_Dip, Sett_Comp)
 VALUES (1, '12345678901', 'Azienda S.r.l.', 'www.azienda.it', 'Direttore', 10, 'Informatica');
@@ -13,7 +13,7 @@ VALUES (1, 1, 'Milano', 'MI', '20100', 'Via Garibaldi', 'Lombardia', '+39 123456
 INSERT INTO Sede (ID, Azienda, Citta, Provincia, CAP, Via, Regione, Telefono, Mail)
 VALUES (2, 1, 'Roma', 'RM', '00100', 'Via dei Fori Imperiali', 'Lazio', '+39 1234567926', 'infomail@info.mail');
 
-INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Città, Via)
+INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Citta, Via)
 VALUES (5, 'Mark Green', 'm.green@gmail.com', 'x1y2z3a4b5c6d7e8f9g0h1i2j3k4l5m6n7o8p9q0', 'Piemonte', 'TO', 'foto_green.jpeg', '10100', '+39 0101234567', 'Torino', 'Via Roma');
 INSERT INTO Azienda (Utente, P_IVA, Rag_Soc, Link, ADI, N_Dip, Sett_Comp)
 VALUES (5, '23456789012', 'Azienda 2 S.p.A.', 'www.azienàda2.it', 'Amministratore Delegato', 20, 'Marketing');
@@ -23,17 +23,17 @@ INSERT INTO Sede (ID, Azienda, Citta, Provincia, CAP, Via, Regione, Telefono, Ma
 VALUES (6, 5, 'Genova', 'GE', '20100', 'Via della Lanterna', 'Liguria', '+39 1234567926', 'infomail@info.mail');
 
 #########################Persone#########################
-INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Città, Via)
+INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Citta, Via)
 VALUES (2, 'Ugo', 'l.bianchi@gmail.com', 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6', 'Lombardia', 'MI', 'foto_bianchi.jpeg', '20100', '+39 02 9876543', 'Milano', 'Via dei Missaglia');
 INSERT INTO Persona (Utente, Cognome, CF, DDN, F_Macroarea, Pos_Des)
 VALUES (2, 'Fantocci', 'BNCMLS98A12L219E', '1998-12-21', 'Sud Italia', 'Sviluppatore');
 
-INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Città, Via)
+INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Citta, Via)
 VALUES (3, 'Mauro', 'l.mariomaild@gmail.com', 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6', 'Lombardia', 'MI', 'rossi.jpeg', '20100', '+39 02 9876543', 'Milano', 'Via dei Missaglia');
 INSERT INTO Persona (Utente, Cognome, CF, DDN, F_Macroarea, Pos_Des)
 VALUES (3, 'Rorsri', 'BNCMLS98B12L219E', '1998-12-21', 'Sud Italia', 'Ingegnere del Software');
 
-INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Città, Via)
+INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Citta, Via)
 VALUES (4, 'Laura', 'l.blu@gmail.com', '0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9', 'Veneto', 'VE', 'foto_blu.jpeg', '30100', '+39 0491234567', 'Venezia', 'Riva degli Schiavoni');
 INSERT INTO Persona (Utente, Cognome, CF, DDN, F_Macroarea, Pos_Des)
 VALUES (4, 'Verdi', 'VRDMRK98L11T196Z', '1998-01-19', 'Nord Italia', 'Responsabile Marketing');
