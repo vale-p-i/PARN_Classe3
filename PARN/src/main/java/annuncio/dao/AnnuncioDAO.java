@@ -62,9 +62,9 @@ public class AnnuncioDAO {
         pdstmt.setInt(5, annuncio.getNumeroPersone());
         pdstmt.setString(6, annuncio.getDescrizione());
         pdstmt.setDate(7, java.sql.Date.valueOf(annuncio.getDataScadenza().toLocalDate().toString()));
-        pdstmt.setString(8, RequisitiUtils.getStringFromRequisitiList(annuncio.getRequisiti()));
+        pdstmt.setString(8, StringListUtils.getStringFromList(annuncio.getRequisiti()));
         pdstmt.setString(9, StringListUtils.getStringFromList(annuncio.getKeyword()));
-        pdstmt.setString(10, PreferenzeUtils.getPreferenzeStringFromList(annuncio.getPreferenze()));
+        pdstmt.setString(10, StringListUtils.getStringFromList(annuncio.getPreferenze()));
         pdstmt.setString(11, annuncio.getRuolo());
 
         pdstmt.executeQuery();
@@ -84,9 +84,9 @@ public class AnnuncioDAO {
         pdstmt.setInt(4, annuncio.getNumeroPersone());
         pdstmt.setString(5, annuncio.getDescrizione());
         pdstmt.setDate(6, java.sql.Date.valueOf(annuncio.getDataScadenza().toLocalDate().toString()));
-        pdstmt.setString(7, RequiritiUtils.getStringFromRequisitiList(annuncio.getRequisiti()));
+        pdstmt.setString(7, StringListUtils.getStringFromList(annuncio.getRequisiti()));
         pdstmt.setString(8, StringListUtils.getStringFromList(annuncio.getKeyword()));
-        pdstmt.setString(9, PreferenzeUtils.getPreferenzeStringFromList(annuncio.getPreferenze()));
+        pdstmt.setString(9, StringListUtils.getStringFromList(annuncio.getPreferenze()));
         pdstmt.setString(10, annuncio.getRuolo());
         pdstmt.setInt(11, annuncio.getId());
 
