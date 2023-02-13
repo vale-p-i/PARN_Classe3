@@ -82,7 +82,7 @@ public class CandidaturaDAO {
         );
     }
 
-    public static void creaCandidatura(Candidatura candidatura) throws SQLException {
+    public void creaCandidatura(Candidatura candidatura) throws SQLException {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
@@ -94,7 +94,7 @@ public class CandidaturaDAO {
         pdstmt.executeUpdate();
     }
 
-    public static void eliminaCandidatura(Candidatura candidatura) throws SQLException {
+    public void eliminaCandidatura(Candidatura candidatura) throws SQLException {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(

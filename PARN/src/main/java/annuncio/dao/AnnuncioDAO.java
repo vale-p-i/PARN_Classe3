@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnnuncioDAO {
-    public static List<Annuncio> getAnnuncioById(int id) throws SQLException {
+    public List<Annuncio> getAnnuncioById(int id) throws SQLException {
         List<Annuncio> result = new ArrayList<>();
 
         Connection connection = ConPool.getConnection();
@@ -90,7 +90,7 @@ public class AnnuncioDAO {
         return result;
     }
 
-    public static void creaAnnuncio(Annuncio annuncio) throws SQLException {
+    public void creaAnnuncio(Annuncio annuncio) throws SQLException {
 
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
@@ -112,7 +112,7 @@ public class AnnuncioDAO {
         pdstmt.executeQuery();
     }
 
-    public static void modificaAnnuncio(Annuncio annuncio) throws SQLException{
+    public void modificaAnnuncio(Annuncio annuncio) throws SQLException{
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
@@ -135,7 +135,7 @@ public class AnnuncioDAO {
         pdstmt.executeUpdate();
     }
 
-    public static void eliminaAnnuncio(Annuncio annuncio) throws SQLException {
+    public void eliminaAnnuncio(Annuncio annuncio) throws SQLException {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
@@ -145,7 +145,7 @@ public class AnnuncioDAO {
         pdstmt.execute();
     }
 
-    public static void chiusuraAnnuncio(Annuncio annuncio) throws SQLException {
+    public void chiusuraAnnuncio(Annuncio annuncio) throws SQLException {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
