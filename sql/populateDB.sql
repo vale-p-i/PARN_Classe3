@@ -1,7 +1,6 @@
-
 #########################AZIENDE#########################
-INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Citta, Via)
-VALUES (1, 'Mario Rossi', 'm.rossi@gmail.com', '0b9f97b01f95c6c993901d2059b4972d94e2b6eb0b6d73fb9afd181386a5b501', 'Lombardia', 'MI', 'foto_rossi.jpeg', '20100', '+39 02 1234567', 'Milano', 'Via Garibaldi');
+INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Città, Via)
+VALUES (1, 'Mario Rossi', 'm.rossi@gmail.com', 'B133A0C0E9BEE3BE20163D2AD31D6248DB292AA6DCB1EE087A2AA50E0FC75AE2', 'Lombardia', 'MI', 'foto_rossi.jpeg', '20100', '+39 02 1234567', 'Milano', 'Via Garibaldi');
 INSERT INTO Azienda (Utente, P_IVA, Rag_Soc, Link, ADI, N_Dip, Sett_Comp)
 VALUES (1, '12345678901', 'Azienda S.r.l.', 'www.azienda.it', 'Direttore', 10, 'Informatica');
 INSERT INTO Sede (ID, Azienda, Citta, Provincia, CAP, Via, Regione, Telefono, Mail)
