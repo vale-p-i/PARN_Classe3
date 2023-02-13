@@ -14,31 +14,39 @@ import static net.sf.saxon.om.EnumSetTool.except;
 
 public class CandidaturaService implements CandidaturaServiceInterface{
 
-    private CandidaturaDAO candidaturaDAO;
+    private final CandidaturaDAO candidaturaDAO = new CandidaturaDAO();
 
-    public CandidaturaService(){
-        candidaturaDAO = new CandidaturaDAO();
+    @Override
+    public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio) {
+        try {
+            return candidaturaDAO.getCandidatureByAnnuncio(annuncio);
+        } catch (SQLException e){
+            return null;
+        }
     }
 
     @Override
-    public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio) throws SQLException {
-        return candidaturaDAO.getCandidatureByAnnuncio(annuncio);
+    public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio) {
+        try {
+            return candidaturaDAO.getCandidaturaByPersonaAndAnnuncio(persona, annuncio);
+        } catch (SQLException e){
+            return null;
+        }
     }
 
     @Override
-    public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio) throws SQLException {
-        return candidaturaDAO.getCandidaturaByPersonaAndAnnuncio(persona, annuncio);
-    }
-
-    @Override
-    public List<Candidatura> getCandidatueByPersona(Persona persona) throws SQLException {
-        return candidaturaDAO.getCandidatueByPersona(persona);
+    public List<Candidatura> getCandidatueByPersona(Persona persona) {
+        try {
+            return candidaturaDAO.getCandidatueByPersona(persona);
+        } catch (SQLException e) {
+            return null;
+        }
     }
 
     @Override
     public boolean creaCandidatura(Candidatura candidatura) {
         try {
-            CandidaturaDAO.creaCandidatura(candidatura);
+            candidaturaDAO.creaCandidatura(candidatura);
         }
         catch (SQLException e){
             return false;
@@ -53,7 +61,7 @@ public class CandidaturaService implements CandidaturaServiceInterface{
     @Override
     public boolean eliminaCandidatura(Candidatura candidatura) {
         try {
-            CandidaturaDAO.eliminaCandidatura(candidatura);
+            candidaturaDAO.eliminaCandidatura(candidatura);
         }
         catch (SQLException e){
             return false;

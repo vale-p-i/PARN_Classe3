@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AnnuncioServiceInterface {
 
-    public List<Annuncio> getAnnuncioById(int id) throws SQLException;
+    public Annuncio getAnnuncioById(int id);
     public boolean creaAnnuncio(Annuncio annuncio);
     public boolean modificaAnnuncio(Annuncio annuncio);
     public boolean eliminaAnnuncio(Annuncio annuncio);

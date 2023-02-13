@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnnuncioDAO {
-    public static List<Annuncio> getAnnuncioById(int id) throws SQLException {
-        List<Annuncio> result = new ArrayList<>();
+    public Annuncio getAnnuncioById(int id) throws SQLException {
 
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
@@ -27,12 +26,52 @@ public class AnnuncioDAO {
         CandidaturaService candidaturaService = new CandidaturaService();
 
         ResultSet rs = pdstmt.executeQuery();
+        Azienda azienda=utenteService.getAziendaById(rs.getInt(2));
+        Annuncio annuncio = new Annuncio(
+                id,
+                azienda,
+                rs.getBoolean(3),
+                utenteService.getSedeById(azienda,rs.getInt(4)),
+                rs.getInt(5),
+                rs.getString(6),
+                rs.getDate(7).toLocalDate().atStartOfDay(),
+                StringListUtils.getSplittedString(rs.getString(8)),
+                StringListUtils.getSplittedString(rs.getString(9)),
+                StringListUtils.getSplittedString(rs.getString(10)),
+                rs.getString(11),
+                null
+            );
+        annuncio.setCandidature(candidaturaService.getCandidatureByAnnuncio(annuncio));
+        return annuncio;
+    }
+
+    public List<Annuncio> getAnnunciByStato(String in_corso) throws SQLException {
+        String query = "";
+        UtenteServiceInterface utenteService = new UtenteService();
+        CandidaturaService candidaturaService = new CandidaturaService();
+        List<Annuncio> result = new ArrayList<>();
+
+        if (in_corso.toLowerCase().contains("in") && in_corso.toLowerCase().contains("corso"))
+            query = "SELECT * FROM Annuncio a WHERE a.Attivo = 1 AND a.Scadenza > GETDATE()";
+        else if (in_corso.toLowerCase().contains("scaduto"))
+            query = "SELECT * FROM Annuncio a WHERE a.Attivo = 1 AND a.Scadenza < GETDATE()";
+        else if (in_corso.toLowerCase().contains("chiuso"))
+            query = "SELECT * FROM Annuncio a WHERE a.Attivo = 0";
+        else
+            throw new IllegalArgumentException();
+
+        Connection connection = ConPool.getConnection();
+        Statement stmt = (Statement) connection.createStatement();
+        PreparedStatement pdstmt = connection.prepareStatement(query);
+        ResultSet rs = pdstmt.executeQuery();
+
         while (rs.next()) {
-            Azienda az=utenteService.getAziendaById(rs.getInt(2));
-            Annuncio tmp = new Annuncio(id,
-                    az,
+            Azienda azienda=utenteService.getAziendaById(rs.getInt(2));
+            Annuncio annuncio = new Annuncio (
+                    rs.getInt(1),
+                    azienda,
                     rs.getBoolean(3),
-                    utenteService.getSedeById(az,rs.getInt(4)),
+                    utenteService.getSedeById(azienda,rs.getInt(4)),
                     rs.getInt(5),
                     rs.getString(6),
                     rs.getDate(7).toLocalDate().atStartOfDay(),
@@ -42,13 +81,13 @@ public class AnnuncioDAO {
                     rs.getString(11),
                     null
             );
-            tmp.setCandidature(candidaturaService.getCandidatureByAnnuncio(tmp));
-            result.add(tmp);
+            annuncio.setCandidature(candidaturaService.getCandidatureByAnnuncio(annuncio));
+            result.add(annuncio);
         }
         return result;
     }
 
-    public static void creaAnnuncio(Annuncio annuncio) throws SQLException {
+    public void creaAnnuncio(Annuncio annuncio) throws SQLException {
 
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
@@ -70,7 +109,7 @@ public class AnnuncioDAO {
         pdstmt.executeQuery();
     }
 
-    public static void modificaAnnuncio(Annuncio annuncio) throws SQLException{
+    public void modificaAnnuncio(Annuncio annuncio) throws SQLException{
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
@@ -93,7 +132,7 @@ public class AnnuncioDAO {
         pdstmt.executeUpdate();
     }
 
-    public static void eliminaAnnuncio(Annuncio annuncio) throws SQLException {
+    public void eliminaAnnuncio(Annuncio annuncio) throws SQLException {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
@@ -103,7 +142,7 @@ public class AnnuncioDAO {
         pdstmt.execute();
     }
 
-    public static void chiusuraAnnuncio(Annuncio annuncio) throws SQLException {
+    public void chiusuraAnnuncio(Annuncio annuncio) throws SQLException {
         Connection connection = ConPool.getConnection();
         Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
