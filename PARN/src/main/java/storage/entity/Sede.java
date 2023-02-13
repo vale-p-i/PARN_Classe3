@@ -23,6 +23,16 @@ public class Sede {
         this.azienda = azienda;
     }
 
+    public Sede(String regione, String provincia, String citta, String cap, String via, String telefono, Azienda azienda) {
+        this.regione = regione;
+        this.provincia = provincia;
+        this.citta = citta;
+        this.cap = cap;
+        this.via = via;
+        this.telefono = telefono;
+        this.azienda = azienda;
+    }
+
     public Azienda getAzienda() {
         return azienda;
     }

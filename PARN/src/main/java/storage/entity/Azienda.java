@@ -28,6 +28,20 @@ public class Azienda extends Utente{
         this.annunci = annunci;
     }
 
+    public Azienda(String nome, String mail, String password, String regione, String provincia, String foto, String cap, String telefono, String citta, String via, String partitaIVA, String ragioneSociale, String link, String areaInteresse, int numeroDipendenti, List<String> settoriCompetenza, List<Sede> sedi, List<Annuncio> annunci) {
+        super(nome, mail, password, regione, provincia, foto, cap, telefono, citta, via);
+        this.partitaIVA = partitaIVA;
+        this.ragioneSociale = ragioneSociale;
+        this.link = link;
+        this.areaInteresse = areaInteresse;
+        this.numeroDipendenti = numeroDipendenti;
+        this.settoriCompetenza = settoriCompetenza;
+        this.sedi = sedi;
+        this.annunci = annunci;
+    }
+
+
+
     public String getPartitaIVA() {
         return partitaIVA;
     }
