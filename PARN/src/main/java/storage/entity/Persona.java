@@ -24,6 +24,17 @@ public class Persona extends Utente {
         this.candidature = candidature;
     }
 
+    public Persona(String nome, String mail, String password, String regione, String provincia, String foto, String cap, String telefono, String citta, String via, String cognome, String codiceFiscale, LocalDateTime dataDiNascita, String filtroMacroarea, String posizioneDesiderata, Curriculum curriculum, List<Candidatura> candidature) {
+        super(nome, mail, password, regione, provincia, foto, cap, telefono, citta, via);
+        this.cognome = cognome;
+        this.codiceFiscale = codiceFiscale;
+        this.dataDiNascita = dataDiNascita;
+        this.filtroMacroarea = filtroMacroarea;
+        this.posizioneDesiderata = posizioneDesiderata;
+        this.curriculum = curriculum;
+        this.candidature = candidature;
+    }
+
     public Persona(){}
     public String getCognome() {
         return cognome;
