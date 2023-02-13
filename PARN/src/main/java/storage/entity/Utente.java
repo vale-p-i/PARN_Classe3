@@ -28,6 +28,19 @@ public abstract class Utente {
         this.via = via;
     }
 
+    public Utente(String nome, String mail, String password, String regione, String provincia, String foto, String cap, String telefono, String citta, String via) {
+        this.nome = nome;
+        this.mail = mail;
+        this.password = password;
+        this.regione = regione;
+        this.provincia = provincia;
+        this.foto = foto;
+        this.cap = cap;
+        this.telefono = telefono;
+        this.citta = citta;
+        this.via = via;
+    }
+
     public Utente() {
 
     }
