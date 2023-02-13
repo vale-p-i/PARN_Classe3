@@ -3,6 +3,7 @@ package utente.dao;
 import org.mariadb.jdbc.Statement;
 import storage.entity.Azienda;
 import storage.entity.Persona;
+import storage.entity.Sede;
 import storage.entity.Utente;
 import utils.ConPool;
 import utils.StringListUtils;
@@ -12,45 +13,64 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UtenteDAO {
+    private int addUtente(Utente utente) throws SQLException{
+        Connection connection = ConPool.getConnection();
+        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Utente (Nome, Mail, Pass, Regione," +
+                " Provincia, Foto, CAP, Telefono, Città, Via) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+        pdstmt.setString(1, utente.getNome());
+        pdstmt.setString(2, utente.getMail());
+        pdstmt.setString(3, utente.getPassword());
+        pdstmt.setString(4, utente.getRegione());
+        pdstmt.setString(5, utente.getProvincia());
+        pdstmt.setString(6, utente.getFoto());
+        pdstmt.setString(7, utente.getCap());
+        pdstmt.setString(8, utente.getTelefono());
+        pdstmt.setString(9, utente.getCitta());
+        pdstmt.setString(10, utente.getVia());
+        pdstmt.executeUpdate();
+        ResultSet rs = pdstmt.getGeneratedKeys();
+        return rs.getInt(1);
+    }
     public Azienda addAzienda(Azienda azienda) throws SQLException{
         Connection connection = ConPool.getConnection();
-        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Azienda (P_IVA, Rag_Soc, Link, " +
-                "ADI, N_Dip, Sett_Comp) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-        pdstmt.setString(1, azienda.getPartitaIVA());
-        pdstmt.setString(2, azienda.getRagioneSociale());
-        pdstmt.setString(3, azienda.getLink());
-        pdstmt.setString(4, azienda.getAreaInteresse());
-        pdstmt.setInt(5, azienda.getNumeroDipendenti());
+        int id = addUtente(azienda);
+        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Azienda (Utente, P_IVA, Rag_Soc, Link, " +
+                "ADI, N_Dip, Sett_Comp) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        pdstmt.setInt(1, id);
+        pdstmt.setString(2, azienda.getPartitaIVA());
+        pdstmt.setString(3, azienda.getRagioneSociale());
+        pdstmt.setString(4, azienda.getLink());
+        pdstmt.setString(5, azienda.getAreaInteresse());
+        pdstmt.setInt(6, azienda.getNumeroDipendenti());
         String dbContent = StringListUtils.getStringFromList(azienda.getSettoriCompetenza());
-        pdstmt.setString(6, dbContent);
+        pdstmt.setString(7, dbContent);
 
         pdstmt.executeUpdate();
 
-        ResultSet rs = pdstmt.getGeneratedKeys();
-        rs.next();
-        azienda.setId(rs.getInt(1));
+        azienda.setId(id);
         return azienda;
     }
 
     public Persona addPersona(Persona persona) throws SQLException{
         Connection connection = ConPool.getConnection();
-        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Persona (Cognome, CF, DDN, " +
-                "F_Macroarea, Pos_Des) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-        pdstmt.setString(1, persona.getCognome());
-        pdstmt.setString(2, persona.getCodiceFiscale());
+        int id = addUtente(persona);
+        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Persona (Utente, Cognome, CF, DDN, " +
+                "F_Macroarea, Pos_Des) VALUES (?, ?, ?, ?, ?, ?)");
+        pdstmt.setInt(1, id);
+        pdstmt.setString(2, persona.getCognome());
+        pdstmt.setString(3, persona.getCodiceFiscale());
         java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita().toLocalDate());
-        pdstmt.setDate(3, sqlDate);
-        pdstmt.setString(4, persona.getFiltroMacroarea());
-        pdstmt.setString(5, persona.getPosizioneDesiderata());
+        pdstmt.setDate(4, sqlDate);
+        pdstmt.setString(5, persona.getFiltroMacroarea());
+        pdstmt.setString(6, persona.getPosizioneDesiderata());
 
         pdstmt.executeUpdate();
 
-        ResultSet rs = pdstmt.getGeneratedKeys();
-        rs.next();
-        persona.setId(rs.getInt(1));
+        persona.setId(id);
         return persona;
     }
 
@@ -161,6 +181,19 @@ public class UtenteDAO {
             azienda.setSettoriCompetenza(settori);
         }
         return azienda;
+    }
+
+    public List<Sede> getSediByAzienda(Azienda azienda) throws SQLException{
+        Connection connection = ConPool.getConnection();
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Sede WHERE Azienda = ?");
+        pdstmt.setInt(1, azienda.getId());
+        ResultSet rs = pdstmt.executeQuery();
+        List<Sede> sedi = new ArrayList<>();
+        while(rs.next()){
+            Sede sede = new Sede(rs.getInt(1), rs.getString(7), rs.getString(4), rs.getString(3), rs.getString(5), rs.getString(6), rs.getString(8), azienda);
+            sedi.add(sede);
+        }
+        return sedi;
     }
 
     private Azienda findAzienda(ResultSet rs, int id) throws SQLException {
