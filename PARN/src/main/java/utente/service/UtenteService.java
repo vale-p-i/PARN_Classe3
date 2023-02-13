@@ -9,7 +9,11 @@ import utente.dao.UtenteDAO;
 import java.sql.SQLException;
 
 public class UtenteService implements UtenteServiceInterface{
-    private static UtenteDAO utenteDAO = new UtenteDAO();
+    private UtenteDAO utenteDAO;
+    public UtenteService(){
+        this.utenteDAO = new UtenteDAO();
+    }
+
     @Override
     public Persona getPersonaById(int id) {
         Persona persona = new Persona();
@@ -58,6 +62,14 @@ public class UtenteService implements UtenteServiceInterface{
         }
     }
 
+    @Override
+    public void registraSede(Sede sede){
+        try{
+            utenteDAO.addSede(sede);
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public void aggiornaPersona(Persona persona) {
         try{
