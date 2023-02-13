@@ -30,6 +30,7 @@ public class AnnuncioService implements AnnuncioServiceInterface{
     @Override
     public List<Annuncio> getAnnunciByStato(String in_corso) {
         return null;
+    }
 
     public boolean creaAnnuncio(Annuncio annuncio) {
         try {
