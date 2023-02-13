@@ -13,6 +13,8 @@ import static net.sf.saxon.om.EnumSetTool.except;
 
 public class AnnuncioService implements AnnuncioServiceInterface{
 
+    private static AnnuncioDAO annuncioDAO;
+
 
     /**
      * @param id 
@@ -21,7 +23,7 @@ public class AnnuncioService implements AnnuncioServiceInterface{
     @Override
     public List<Annuncio> getAnnuncioById(int id) {
         try {
-            return AnnuncioDAO.getAnnuncioById(id);
+            return annuncioDAO.getAnnuncioById(id);
         } catch (SQLException e) {
             return null;
         }
@@ -29,12 +31,16 @@ public class AnnuncioService implements AnnuncioServiceInterface{
 
     @Override
     public List<Annuncio> getAnnunciByStato(String in_corso) {
-        return null;
+        try{
+            return annuncioDAO.getAnnunciByStato(in_corso);
+        } catch (SQLException e) {
+            return null;
+        }
     }
 
     public boolean creaAnnuncio(Annuncio annuncio) {
         try {
-            AnnuncioDAO.creaAnnuncio(annuncio);
+            annuncioDAO.creaAnnuncio(annuncio);
             return true;
         } catch (SQLException e) {
             return false;
@@ -48,7 +54,7 @@ public class AnnuncioService implements AnnuncioServiceInterface{
     @Override
     public boolean modificaAnnuncio(Annuncio annuncio) {
         try {
-            AnnuncioDAO.modificaAnnuncio(annuncio);
+            annuncioDAO.modificaAnnuncio(annuncio);
             return true;
         } catch (SQLException e) {
             return false;
@@ -62,7 +68,7 @@ public class AnnuncioService implements AnnuncioServiceInterface{
     @Override
     public boolean eliminaAnnuncio(Annuncio annuncio) {
         try {
-            AnnuncioDAO.eliminaAnnuncio(annuncio);
+            annuncioDAO.eliminaAnnuncio(annuncio);
             return true;
         } catch (SQLException e) {
             return false;
@@ -76,7 +82,7 @@ public class AnnuncioService implements AnnuncioServiceInterface{
     @Override
     public boolean chiusuraAnnuncio(Annuncio annuncio) {
         try {
-            AnnuncioDAO.chiusuraAnnuncio(annuncio);
+            annuncioDAO.chiusuraAnnuncio(annuncio);
             return true;
         } catch (SQLException e) {
             return false;
@@ -120,10 +126,6 @@ public class AnnuncioService implements AnnuncioServiceInterface{
     @Override
     public List<Candidatura> visualizzaCandidatura(Annuncio annuncio) {
         CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
-        try {
-            return candidaturaServiceInterface.getCandidatureByAnnuncio(annuncio);
-        } catch (SQLException e) {
-            return null;
-        }
+        return candidaturaServiceInterface.getCandidatureByAnnuncio(annuncio);
     }
 }
