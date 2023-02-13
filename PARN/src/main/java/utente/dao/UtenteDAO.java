@@ -126,7 +126,8 @@ public class UtenteDAO {
 
     public Utente autenticazione(String mail, String password) throws SQLException{
           Connection connection = ConPool.getConnection();
-          PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Utente WHERE Mail = ?");
+          PreparedStatement pdstmt = connection.prepareStatement("SELECT N_Reg, Nome, Mail, Pass, Regione," +
+                  "Provincia, Foto, CAP, Telefono, Citta, Via FROM Utente WHERE Mail = ?");
           pdstmt.setString(1, mail);
           ResultSet rs = pdstmt.executeQuery();
           if(password.equals(rs.getString(4))){
@@ -198,6 +199,8 @@ public class UtenteDAO {
             azienda.setNumeroDipendenti(rs.getInt(15));
             List<String> settori = StringListUtils.getSplittedString(rs.getString(16));
             azienda.setSettoriCompetenza(settori);
+            List<Sede> sedi = getSediByAzienda(azienda);
+            azienda.setSedi(sedi);
         }
         return azienda;
     }
@@ -217,7 +220,7 @@ public class UtenteDAO {
 
     private Azienda findAzienda(ResultSet rs, int id) throws SQLException {
         Connection connection = ConPool.getConnection();
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Azienda WHERE Utente = ?");
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT  FROM Azienda WHERE Utente = ?");
         pdstmt.setInt(1, id);
         ResultSet newRs = pdstmt.executeQuery();
         if(newRs.next()){

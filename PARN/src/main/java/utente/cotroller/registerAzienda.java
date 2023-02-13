@@ -52,6 +52,8 @@ public class registerAzienda extends HttpServlet {
         service.registraSede(sede);
         sedi.add(sede);
         if(service.autenticazione(email, password) != null){
+            HttpSession session = request.getSession();
+            session.setAttribute("utente", azienda);
             request.getRequestDispatcher("../webapp/WEB-INF/areaAzienda.jsp").forward(request, response);
         } else{
             response.sendRedirect(".");
