@@ -48,6 +48,48 @@ public class AnnuncioDAO {
         return result;
     }
 
+    public List<Annuncio> getAnnunciByStato(String in_corso) throws SQLException {
+        String query = "";
+        UtenteServiceInterface utenteService = new UtenteService();
+        CandidaturaService candidaturaService = new CandidaturaService();
+        List<Annuncio> result = new ArrayList<>();
+
+        if (in_corso.toLowerCase().contains("in") && in_corso.toLowerCase().contains("corso"))
+            query = "SELECT * FROM Annuncio a WHERE a.Attivo = 1 AND a.Scadenza > GETDATE()";
+        else if (in_corso.toLowerCase().contains("scaduto"))
+            query = "SELECT * FROM Annuncio a WHERE a.Attivo = 1 AND a.Scadenza < GETDATE()";
+        else if (in_corso.toLowerCase().contains("chiuso"))
+            query = "SELECT * FROM Annuncio a WHERE a.Attivo = 0";
+        else
+            throw new IllegalArgumentException();
+
+        Connection connection = ConPool.getConnection();
+        Statement stmt = (Statement) connection.createStatement();
+        PreparedStatement pdstmt = connection.prepareStatement(query);
+        ResultSet rs = pdstmt.executeQuery();
+
+        while (rs.next()) {
+            Azienda azienda=utenteService.getAziendaById(rs.getInt(2));
+            Annuncio annuncio = new Annuncio (
+                    rs.getInt(1),
+                    azienda,
+                    rs.getBoolean(3),
+                    utenteService.getSedeById(azienda,rs.getInt(4)),
+                    rs.getInt(5),
+                    rs.getString(6),
+                    rs.getDate(7).toLocalDate().atStartOfDay(),
+                    StringListUtils.getSplittedString(rs.getString(8)),
+                    StringListUtils.getSplittedString(rs.getString(9)),
+                    StringListUtils.getSplittedString(rs.getString(10)),
+                    rs.getString(11),
+                    null
+            );
+            annuncio.setCandidature(candidaturaService.getCandidatureByAnnuncio(annuncio));
+            result.add(annuncio);
+        }
+        return result;
+    }
+
     public static void creaAnnuncio(Annuncio annuncio) throws SQLException {
 
         Connection connection = ConPool.getConnection();

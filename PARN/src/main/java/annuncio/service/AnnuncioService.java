@@ -13,6 +13,8 @@ import static net.sf.saxon.om.EnumSetTool.except;
 
 public class AnnuncioService implements AnnuncioServiceInterface{
 
+    private static AnnuncioDAO annuncioDAO;
+
 
     /**
      * @param id 
@@ -21,7 +23,7 @@ public class AnnuncioService implements AnnuncioServiceInterface{
     @Override
     public List<Annuncio> getAnnuncioById(int id) {
         try {
-            return AnnuncioDAO.getAnnuncioById(id);
+            return annuncioDAO.getAnnuncioById(id);
         } catch (SQLException e) {
             return null;
         }
@@ -29,7 +31,11 @@ public class AnnuncioService implements AnnuncioServiceInterface{
 
     @Override
     public List<Annuncio> getAnnunciByStato(String in_corso) {
-        return null;
+        try{
+            return annuncioDAO.getAnnunciByStato(in_corso);
+        } catch (SQLException e) {
+            return null;
+        }
     }
 
     public boolean creaAnnuncio(Annuncio annuncio) {
