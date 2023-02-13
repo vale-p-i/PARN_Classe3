@@ -6,13 +6,13 @@ public class Sede {
     private String regione;
     private String provincia;
     private String citta;
-    private int cap;
+    private String cap;
     private String via;
-    private long telefono;
+    private String telefono;
 
     private Azienda azienda;
 
-    public Sede(int id, String regione, String provincia, String citta, int cap, String via, long telefono, Azienda azienda) {
+    public Sede(int id, String regione, String provincia, String citta, String cap, String via, String telefono, Azienda azienda) {
         this.id = id;
         this.regione = regione;
         this.provincia = provincia;
@@ -63,11 +63,11 @@ public class Sede {
         this.citta = citta;
     }
 
-    public int getCap() {
+    public String getCap() {
         return cap;
     }
 
-    public void setCap(int cap) {
+    public void setCap(String cap) {
         this.cap = cap;
     }
 
@@ -79,11 +79,11 @@ public class Sede {
         this.via = via;
     }
 
-    public long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(long telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 }
