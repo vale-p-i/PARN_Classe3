@@ -46,7 +46,7 @@ Provincia VARCHAR(2) NOT NULL,
 CAP CHAR(5) NOT NULL,
 Via VARCHAR(30) NOT NULL,
 Regione VARCHAR(20) NOT NULL,
-Telefono VARCHAR(14) NOT NULL,
+Telefono CHAR(14) NOT NULL,
 Mail varchar(40) NOT NULL,
 FOREIGN KEY (Azienda) REFERENCES Azienda(Utente),
 PRIMARY KEY(ID, Azienda)
@@ -94,11 +94,11 @@ PRIMARY KEY (Curriculum, Nome)
 
 CREATE TABLE Istruzione(
 Curriculum INT NOT NULL,
-Tipo VARCHAR(25) NOT NULL,
+Tipo VARCHAR(50) NOT NULL,
 Istituto VARCHAR(35) NOT NULL,
 DDI DATE NOT NULL,
 DDF DATE,
-Qualifica VARCHAR(30) NOT NULL,
+Qualifica VARCHAR(70) NOT NULL,
 FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona),
 PRIMARY KEY (Curriculum, Tipo, Istituto)
 );
@@ -108,7 +108,7 @@ Curriculum INT NOT NULL,
 Nome_Azienda VARCHAR(25) NOT NULL,
 Tipo_Impiego VARCHAR(15) NOT NULL,
 Mansioni VARCHAR(40) NOT NULL,
-Datore VARCHAR(15) NOT NULL,
+Datore VARCHAR(70) NOT NULL,
 Contatto VARCHAR(40) NOT NULL,
 Tipo_Azienda VARCHAR(40) NOT NULL,
 DDI DATE NOT NULL,
