@@ -5,7 +5,7 @@ import storage.entity.Azienda;
 import storage.entity.Persona;
 import storage.entity.Utente;
 import utils.ConPool;
-import utils.SettoriCompetenzaUtils;
+import utils.StringListUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +24,7 @@ public class UtenteDAO {
         pdstmt.setString(3, azienda.getLink());
         pdstmt.setString(4, azienda.getAreaInteresse());
         pdstmt.setInt(5, azienda.getNumeroDipendenti());
-        String dbContent = SettoriCompetenzaUtils.getStringFromList(azienda.getSettoriCompetenza());
+        String dbContent = StringListUtils.getStringFromList(azienda.getSettoriCompetenza());
         pdstmt.setString(6, dbContent);
 
         pdstmt.executeUpdate();
@@ -62,14 +62,14 @@ public class UtenteDAO {
         pdstmt.setString(3, azienda.getLink());
         pdstmt.setString(4, azienda.getAreaInteresse());
         pdstmt.setInt(5, azienda.getNumeroDipendenti());
-        String dbContent = SettoriCompetenzaUtils.getStringFromList(azienda.getSettoriCompetenza());
+        String dbContent = StringListUtils.getStringFromList(azienda.getSettoriCompetenza());
         pdstmt.setString(6, dbContent);
         pdstmt.setInt(7, azienda.getId());
 
         pdstmt.executeUpdate();
     }
 
-    public void aggiornaPerson(Persona persona) throws SQLException{
+    public void aggiornaPersona(Persona persona) throws SQLException{
         Connection connection = ConPool.getConnection();
         PreparedStatement pdstmt = connection.prepareStatement("UPDATE Persona SET Utente = ?, Cognome = ?, CF" +
                 " = ?, DDN = ?, F_Macroarea = ?, Pos_Des = ? WHERE Utente = ?", Statement.RETURN_GENERATED_KEYS);
@@ -108,6 +108,61 @@ public class UtenteDAO {
           return null;
     }
 
+    public Persona getPersonaById(int id) throws SQLException{
+        Connection connection = ConPool.getConnection();
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Persona WHERE Utente = ?");
+        pdstmt.setInt(1, id);
+        ResultSet rs = pdstmt.executeQuery();
+        Persona persona = new Persona();
+        while(rs.next()){
+            persona.setNome(rs.getString(2));
+            persona.setMail(rs.getString(3));
+            persona.setPassword(rs.getString(4));
+            persona.setRegione(rs.getString(5));
+            persona.setProvincia(rs.getString(6));
+            persona.setFoto(rs.getString(7));
+            persona.setCap(rs.getString(8));
+            persona.setTelefono(rs.getString(9));
+            persona.setCitta(rs.getString(10));
+            persona.setVia(rs.getString(11));
+            persona.setCognome(rs.getString(2));
+            persona.setCodiceFiscale(rs.getString(3));
+            java.sql.Date date = rs.getDate(4);
+            persona.setDataDiNascita(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+            persona.setFiltroMacroarea(rs.getString(5));
+            persona.setPosizioneDesiderata(rs.getString(6));
+        }
+        return persona;
+    }
+
+    public Azienda getAziendaById(int id) throws SQLException{
+        Connection connection = ConPool.getConnection();
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Azienda WHERE Utente = ?");
+        pdstmt.setInt(1, id);
+        ResultSet rs = pdstmt.executeQuery();
+        Azienda azienda = new Azienda();
+        while(rs.next()){
+            azienda.setNome(rs.getString(2));
+            azienda.setMail(rs.getString(3));
+            azienda.setPassword(rs.getString(4));
+            azienda.setRegione(rs.getString(5));
+            azienda.setProvincia(rs.getString(6));
+            azienda.setFoto(rs.getString(7));
+            azienda.setCap(rs.getString(8));
+            azienda.setTelefono(rs.getString(9));
+            azienda.setCitta(rs.getString(10));
+            azienda.setVia(rs.getString(11));
+            azienda.setPartitaIVA(rs.getString(2));
+            azienda.setRagioneSociale(rs.getString(3));
+            azienda.setLink(rs.getString(4));
+            azienda.setAreaInteresse(rs.getString(5));
+            azienda.setNumeroDipendenti(rs.getInt(6));
+            List<String> settori = StringListUtils.getSplittedString(rs.getString(7));
+            azienda.setSettoriCompetenza(settori);
+        }
+        return azienda;
+    }
+
     private Azienda findAzienda(ResultSet rs, int id) throws SQLException {
         Connection connection = ConPool.getConnection();
         PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Azienda WHERE Utente = ?");
@@ -129,7 +184,7 @@ public class UtenteDAO {
             azienda.setLink(newRs.getString(4));
             azienda.setAreaInteresse(newRs.getString(5));
             azienda.setNumeroDipendenti(newRs.getInt(6));
-            List<String> settori = SettoriCompetenzaUtils.getSplittedString(newRs.getString(7));
+            List<String> settori = StringListUtils.getSplittedString(newRs.getString(7));
             azienda.setSettoriCompetenza(settori);
             return azienda;
         }

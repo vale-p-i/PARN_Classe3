@@ -3,7 +3,7 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettoriCompetenzaUtils {
+public class StringListUtils {
     public static List<String> getSplittedString(String dbContent){
         List<String> items = new ArrayList<>();
 
