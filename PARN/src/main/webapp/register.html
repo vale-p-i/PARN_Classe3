@@ -11,7 +11,13 @@
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
+<script>
+    function add(){
+        alert("ciao");
+    }
+    var userSelection = document.getElementById('.agg');
+    userSelection.addEventListener('click', add);
+</script>
 </head>
 <body>
     <nav class="default-color" role="navigation">
@@ -23,10 +29,10 @@
           </ul>
     
           <ul id="nav-mobile" class="sidenav">
-            <li> class="active"<a class ="white-text" href="register.html">Registrazione</a></li>
+            <li class="active"><a class ="white-text" href="register.html">Registrazione</a></li>
             <li ><a class ="white-text" href="accesso.html">Accedi</a></li>
           </ul>
-          <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
         </div>
       </nav>
   
@@ -287,7 +293,7 @@
                                     <h5>Esperienza lavorativa</h5>
                                 </div>
                                 <div class="input-field col s1 m1">
-                                    <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addEsperienza()"><i class="material-icons">add</i></a>
+                                    <a class="btn-floating btn-small waves-effect waves-light default-color" id="agg" onclick="addEsperienza()"><i class="material-icons">add</i></a>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 m4">

@@ -14,28 +14,28 @@
 <body>
 <nav class="default-color" role="navigation">
     <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
+        <a id="logo-container" href="#" class="brand-logo"><img src="resource/logo.png" width="250" height="80"
+                                                                class="responsive-img"></a>
         <ul class="right hide-on-med-and-down">
-            <li><a class ="white-text" href="register.html">Registrazione</a></li>
-            <li><a class ="white-text" href="accesso.html">Accedi</a></li>
+            <li><a class="white-text" href="register.html">Registrazione</a></li>
+            <li><a class="white-text" href="accesso.html">Accedi</a></li>
         </ul>
 
         <ul id="nav-mobile" class="sidenav">
-            <li><a class ="white-text" href="register.html">Registrazione</a></li>
-            <li><a class ="white-text" href="accesso.html">Accedi</a></li>
+            <li><a class="white-text" href="register.html">Registrazione</a></li>
+            <li><a class="white-text" href="accesso.html">Accedi</a></li>
         </ul>
         <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
 </nav>
-
-
 
 <footer class="page-footer default-color">
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">PARN</h5>
-                <p class="grey-text text-lighten-4">Siamo un gruppo di studenti universitari che ha ideato questo progetto per il corso di Ingegneria del Software.</p>
+                <p class="grey-text text-lighten-4">Siamo un gruppo di studenti universitari che ha ideato questo
+                    progetto per il corso di Ingegneria del Software.</p>
 
 
             </div>
