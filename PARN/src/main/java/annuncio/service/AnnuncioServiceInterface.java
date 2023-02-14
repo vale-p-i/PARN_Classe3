@@ -1,6 +1,7 @@
 package annuncio.service;
 
 import storage.entity.Annuncio;
+import storage.entity.Azienda;
 import storage.entity.Candidatura;
 
 import java.sql.*;
@@ -16,6 +17,6 @@ public interface AnnuncioServiceInterface {
     public boolean aggiungiCandidatura(Annuncio annuncio, Candidatura candidatura);
     public boolean rimuoviCandidatura(Annuncio annuncio, Candidatura candidatura);
     public List<Candidatura> visualizzaCandidatura(Annuncio annuncio);
-
+    public List<Annuncio> getAnnuncioByAzienda(Azienda azienda);
     List<Annuncio> getAnnunciByStato(String in_corso);
 }

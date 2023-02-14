@@ -25,7 +25,7 @@ Link VARCHAR(30) NOT NULL,
 ADI VARCHAR(30) NOT NULL,
 N_Dip INT NOT NULL,
 Sett_Comp VARCHAR(30) NOT NULL,
-FOREIGN KEY (Utente) REFERENCES Utente(N_Reg)
+FOREIGN KEY (Utente) REFERENCES Utente(N_Reg) ON DELETE CASCADE
 );
 
 CREATE TABLE Persona(
@@ -35,7 +35,7 @@ CF CHAR(16) NOT NULL UNIQUE,
 DDN DATE NOT NULL,
 F_Macroarea VARCHAR(30) NOT NULL,
 Pos_Des VARCHAR(30) NOT NULL,
-FOREIGN KEY (Utente) REFERENCES Utente(N_Reg)
+FOREIGN KEY (Utente) REFERENCES Utente(N_Reg) ON DELETE CASCADE
 );
 
 CREATE TABLE Sede(
@@ -48,7 +48,7 @@ Via VARCHAR(30) NOT NULL,
 Regione VARCHAR(20) NOT NULL,
 Telefono CHAR(14) NOT NULL,
 Mail varchar(40) NOT NULL,
-FOREIGN KEY (Azienda) REFERENCES Azienda(Utente),
+FOREIGN KEY (Azienda) REFERENCES Azienda(Utente) ON DELETE CASCADE,
 PRIMARY KEY(ID, Azienda)
 );
 
@@ -64,7 +64,7 @@ Requisiti VARCHAR(500) NOT NULL,
 Keyword VARCHAR(150) NOT NULL,
 Preferenze VARCHAR(1000) NOT NULL,
 Ruolo VARCHAR(100) NOT NULL,
-FOREIGN KEY (Azienda) REFERENCES Azienda(Utente),
+FOREIGN KEY (Azienda) REFERENCES Azienda(Utente) ON DELETE CASCADE,
 FOREIGN KEY (Sede, Azienda) REFERENCES Sede(ID, Azienda)
 );
 
@@ -72,15 +72,15 @@ CREATE TABLE Candidatura(
 Annuncio INT NOT NULL,
 Persona INT NOT NULL,
 Data_Pub DATE NOT NULL,
-FOREIGN KEY (Annuncio) REFERENCES Annuncio(ID),
-FOREIGN KEY (Persona) REFERENCES Persona(Utente),
+FOREIGN KEY (Annuncio) REFERENCES Annuncio(ID) ON DELETE CASCADE,
+FOREIGN KEY (Persona) REFERENCES Persona(Utente) ON DELETE CASCADE,
 PRIMARY KEY (Annuncio, Persona)
 );
 
 CREATE TABLE Curriculum(
 Persona INT NOT NULL,
 Soft_Skills VARCHAR(75),
-FOREIGN KEY (Persona) REFERENCES Persona(Utente),
+FOREIGN KEY (Persona) REFERENCES Persona(Utente) ON DELETE CASCADE,
 PRIMARY KEY (Persona)
 );
 
@@ -88,7 +88,7 @@ CREATE TABLE Lingua(
 Curriculum INT NOT NULL,
 Nome VARCHAR(15) NOT NULL,
 Livello VARCHAR(15) NOT NULL,
-FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona),
+FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona) ON DELETE CASCADE,
 PRIMARY KEY (Curriculum, Nome)
 );
 
@@ -99,7 +99,7 @@ Istituto VARCHAR(35) NOT NULL,
 DDI DATE NOT NULL,
 DDF DATE,
 Qualifica VARCHAR(70) NOT NULL,
-FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona),
+FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona) ON DELETE CASCADE,
 PRIMARY KEY (Curriculum, Tipo, Istituto)
 );
 
@@ -113,6 +113,14 @@ Contatto VARCHAR(40) NOT NULL,
 Tipo_Azienda VARCHAR(40) NOT NULL,
 DDI DATE NOT NULL,
 DDF DATE,
-FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona),
+FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona) ON DELETE CASCADE,
 PRIMARY KEY (Curriculum, Nome_Azienda, Tipo_Impiego)
 );
+
+CREATE TRIGGER delete_sede_trigger
+AFTER DELETE ON Sede
+FOR EACH ROW
+UPDATE Annuncio
+SET Sede = (SELECT ID FROM Sede WHERE Azienda = OLD.Azienda LIMIT 1)
+WHERE Sede = OLD.ID AND Azienda = OLD.Azienda;
+

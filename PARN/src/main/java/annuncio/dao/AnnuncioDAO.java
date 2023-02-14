@@ -156,4 +156,18 @@ public class AnnuncioDAO {
         pdstmt.execute();
         connection.close();
     }
+
+    public List<Annuncio> getAnnunciByAzienda(Azienda azienda) throws SQLException {
+        connection=ConPool.getConnection();
+        PreparedStatement pdstmt = connection.prepareStatement(
+                "SELECT ID FROM Annuncio a WHERE a.Azienda = ?1");
+        pdstmt.setInt(1, azienda.getId());
+        ResultSet rs = pdstmt.executeQuery();
+        connection.close();
+        List<Annuncio> results = new ArrayList<>();
+        while (rs.next()) {
+            results.add(getAnnuncioById(rs.getInt(1)));
+        }
+        return results;
+    }
 }
