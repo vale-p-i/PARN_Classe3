@@ -5,7 +5,8 @@ public class Lingua  {
     private String Nome;
     private String Livello;
     private Curriculum curriculum;//?
-    public Lingua() {
+    public Lingua(Curriculum curriculum) {
+        this.curriculum = curriculum;
     }
 
     public Lingua(String nome, String livello) {

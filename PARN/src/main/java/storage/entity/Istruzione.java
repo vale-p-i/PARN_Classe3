@@ -11,6 +11,10 @@ public class Istruzione {
     private String tipo;
     private String istituto;
 
+    public Istruzione(Curriculum curriculum){
+        this.curriculum = curriculum;
+    }
+
     public Istruzione(Curriculum curriculum, LocalDateTime dataInizio, LocalDateTime dataFine, String qualifica,
                       String tipo, String istituto) {
         this.curriculum = curriculum;

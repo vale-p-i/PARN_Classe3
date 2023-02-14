@@ -11,7 +11,7 @@ import java.util.List;
 
 import static net.sf.saxon.om.EnumSetTool.except;
 
-public class AnnuncioService implements AnnuncioServiceInterface{
+public class AnnuncioService implements AnnuncioServiceInterface {
 
     private static AnnuncioDAO annuncioDAO = new AnnuncioDAO();
 

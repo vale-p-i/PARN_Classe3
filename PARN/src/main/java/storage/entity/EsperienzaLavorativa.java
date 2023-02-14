@@ -13,7 +13,11 @@ public class EsperienzaLavorativa {
     private String tipoImpiego;
     private List<String> mansioniPrincipali;
     private String nomeAzienda;
-    private Curriculum curriculum;//?
+    private Curriculum curriculum;
+
+    public EsperienzaLavorativa(Curriculum curriculum){
+        this.curriculum = curriculum;
+    }
 
     public EsperienzaLavorativa(LocalDateTime dataInizio, LocalDateTime dataFine, String tipoAzienda, String datore, String contatto, String tipoImpiego, List<String> mansioniPrincipali, String nomeAzienda, Curriculum curriculum) {
         this.dataInizio = dataInizio;
