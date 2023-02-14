@@ -23,7 +23,6 @@ public class Login extends HttpServlet {
 
         if(email != null && password != null){
             Utente utente = service.autenticazione(email, password);
-            System.out.println(utente);
             if(utente!=null && utente instanceof Azienda){
                 Azienda azienda = (Azienda) utente;
                 session.setAttribute("utente", azienda);
