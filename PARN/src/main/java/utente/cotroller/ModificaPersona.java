@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.*;
 import storage.entity.Persona;
 import storage.entity.Utente;
 import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 import utils.PasswordEncrypter;
 
 import java.io.IOException;
@@ -18,10 +19,11 @@ public class ModificaPersona extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
-        if(utente instanceof Persona){
+        UtenteServiceInterface service = new UtenteService();
+
+        if(utente instanceof Persona && utente != null){
             Persona persona = (Persona) utente;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-            UtenteService service = new UtenteService();
 
             persona.setNome(request.getParameter("nomePersona"));
             persona.setCognome(request.getParameter("cognome"));
@@ -37,14 +39,25 @@ public class ModificaPersona extends HttpServlet {
             persona.setFiltroMacroarea(request.getParameter("filtroMacroarea"));
             persona.setFoto(request.getParameter("fotoPersona"));
             persona.setMail(request.getParameter("mailPersona"));
+            String newPassword = PasswordEncrypter.encryptThisString(request.getParameter("password_Persona"));
             String oldPassword = request.getParameter("old_Password");
-            if(oldPassword.equals(persona.getPassword())){
-                persona.setPassword(PasswordEncrypter.encryptThisString(request.getParameter("password_Persona")));
-                service.aggiornaPersona(persona);
-                session.setAttribute("utente", persona);
-                request.getRequestDispatcher("./WEB_INF/modificaInfoPersona.jsp").forward(request, response);
+
+            if(persona.getNome() != null && persona.getCognome() != null && persona.getTelefono() != null &&
+                    persona.getCodiceFiscale() != null && persona.getDataDiNascita() != null &&
+                    persona.getRegione() != null && persona.getProvincia() != null && persona.getCitta() != null &&
+                    persona.getVia() != null && persona.getCap() != null && persona.getPosizioneDesiderata() != null &&
+                    persona.getFiltroMacroarea() != null && persona.getFoto() != null && persona.getMail() != null &&
+                    newPassword != null && oldPassword != null){
+
+                if(oldPassword.equals(persona.getPassword())){
+                    persona.setPassword(newPassword);
+                    service.aggiornaPersona(persona);
+                    session.setAttribute("utente", persona);
+                    request.getRequestDispatcher("./WEB_INF/modificaInfoPersona.jsp").forward(request, response);
+                }
             }
-        }else response.sendRedirect(".");
+        }
+        response.sendRedirect(".");
     }
 
     @Override

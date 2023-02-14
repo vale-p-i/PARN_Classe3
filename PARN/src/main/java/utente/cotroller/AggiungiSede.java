@@ -7,6 +7,7 @@ import storage.entity.Azienda;
 import storage.entity.Sede;
 import storage.entity.Utente;
 import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,6 +18,8 @@ public class AggiungiSede extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
+        UtenteServiceInterface service = new UtenteService();
+
         if(utente instanceof Azienda){
             Azienda azienda = (Azienda) utente;
             String citta = request.getParameter("ciattaSede");
@@ -27,21 +30,21 @@ public class AggiungiSede extends HttpServlet {
             String telefono = request.getParameter("telefonoSede");
             String mail = request.getParameter("mailSede");
 
-            Sede sede = new Sede(azienda.getId(), regione, provincia, citta, cap, via, telefono, azienda, mail);
-            List<Sede> sedi = azienda.getSedi();
-            sedi.add(sede);
-            azienda.setSedi(sedi);
+            if(azienda!=null && citta != null && provincia != null && cap != null && via != null && regione != null &&
+                    telefono != null && mail != null){
+                Sede sede = new Sede(azienda.getId(), regione, provincia, citta, cap, via, telefono, azienda, mail);
+                List<Sede> sedi = azienda.getSedi();
+                sedi.add(sede);
+                azienda.setSedi(sedi);
 
-            UtenteService service = new UtenteService();
-            service.registraSede(sede);
-            service.aggiornaAzienda(azienda);
+                service.registraSede(sede);
+                service.aggiornaAzienda(azienda);
 
-            session.setAttribute("utente", azienda);
-            request.getRequestDispatcher("./WEB-INF/modificaInfoAzienda.jsp").forward(request, response);
+                session.setAttribute("utente", azienda);
+                request.getRequestDispatcher("./WEB-INF/modificaInfoAzienda.jsp").forward(request, response);
+            }
         }
-        else{
-            response.sendRedirect(".");
-        }
+        response.sendRedirect(".");
     }
 
     @Override

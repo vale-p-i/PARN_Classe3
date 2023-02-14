@@ -7,6 +7,7 @@ import storage.entity.Annuncio;
 import storage.entity.Azienda;
 import storage.entity.Sede;
 import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 import utils.PasswordEncrypter;
 
 import java.io.IOException;
@@ -17,6 +18,9 @@ import java.util.List;
 public class registerAzienda extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        UtenteServiceInterface service = new UtenteService();
+
         String nome = request.getParameter("nomeAzienda");
         String partitaIva = request.getParameter("piva");
         String telefono = request.getParameter("telefonoAzienda");
@@ -44,28 +48,32 @@ public class registerAzienda extends HttpServlet {
         String viaSede = request.getParameter("viaSede");
         String mailSede = request.getParameter("emailSede");
 
-        Azienda azienda = new Azienda(nome, email, password, regione, provincia, logo, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriComptenza, null, new ArrayList<Annuncio>());
-        UtenteService service = new UtenteService();
-        service.registraAzienda(azienda);
-        List<Sede> sedi = new ArrayList<>();
-        Sede sede;
-        if(regioneSede != null){
-            Sede newSede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, mailSede);
-            sede = newSede;
+        if(nome != null && partitaIva != null && telefono != null && ragioneSociale != null && sitoWeb != null &&
+                regione != null && provincia != null && citta != null && via != null && cap != null &&
+                areaInteresse != null && settoriComptenza != null && numeroDipendenti >= 0 && email != null &&
+                password != null && logo != null && regioneSede != null && provinciaSede != null && cittaSede != null &&
+                capSede != null && telefonoSede != null && viaSede != null && mailSede != null){
+
+            Azienda azienda = new Azienda(nome, email, password, regione, provincia, logo, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriComptenza, null, new ArrayList<Annuncio>());
+            service.registraAzienda(azienda);
+            List<Sede> sedi = new ArrayList<>();
+            Sede sede;
+            if(regioneSede != null){
+                Sede newSede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, mailSede);
+                sede = newSede;
+            }
+            else {
+                Sede newSede = new Sede(regione, provincia, citta, cap, via, telefono, azienda, email);
+                sede = newSede;
+            }
+            service.registraSede(sede);
+            sedi.add(sede);
+            if(service.autenticazione(email, password) != null){
+                session.setAttribute("utente", azienda);
+                request.getRequestDispatcher("./WEB-INF/areaAzienda.jsp").forward(request, response);
+            }
         }
-        else {
-            Sede newSede = new Sede(regione, provincia, citta, cap, via, telefono, azienda, email);
-            sede = newSede;
-        }
-        service.registraSede(sede);
-        sedi.add(sede);
-        if(service.autenticazione(email, password) != null){
-            HttpSession session = request.getSession();
-            session.setAttribute("utente", azienda);
-            request.getRequestDispatcher("./WEB-INF/areaAzienda.jsp").forward(request, response);
-        } else{
-            response.sendRedirect(".");
-        }
+        response.sendRedirect(".");
     }
 
     @Override

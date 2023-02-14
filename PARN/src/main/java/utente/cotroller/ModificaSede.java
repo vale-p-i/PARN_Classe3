@@ -7,6 +7,7 @@ import storage.entity.Azienda;
 import storage.entity.Sede;
 import storage.entity.Utente;
 import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 
 import java.io.IOException;
 
@@ -16,11 +17,11 @@ public class ModificaSede extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
+        UtenteServiceInterface service = new UtenteService();
 
         if(utente instanceof Azienda){
             Azienda azienda = (Azienda) utente;
 
-            UtenteService service = new UtenteService();
             Sede sede = service.getSedeById(azienda, Integer.parseInt(request.getParameter("id_Sede")));
         }
     }
