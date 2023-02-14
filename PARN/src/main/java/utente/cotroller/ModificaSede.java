@@ -41,13 +41,18 @@ public class ModificaSede extends HttpServlet {
             if(sede.getCitta() != null && sede.getProvincia() != null && sede.getCap() != null && sede.getVia() != null
                     && sede.getRegione() != null && sede.getTelefono() != null && sede.getMail() != null){
                 service.aggiornaSede(sede);
-
+                session.setAttribute("utente", azienda);
+                request.getRequestDispatcher("./WEB_INF/modificaInfoAzienda.jsp").forward(request, response);
+            }else{
+                response.sendRedirect(".");
             }
+        }else{
+            response.sendRedirect(".");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request, response);
     }
 }
