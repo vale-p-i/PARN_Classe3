@@ -42,9 +42,10 @@ public class AggiungiSede extends HttpServlet {
 
                 session.setAttribute("utente", azienda);
                 request.getRequestDispatcher("./WEB-INF/modificaInfoAzienda.jsp").forward(request, response);
-            }
+            }else response.sendRedirect(".");
+        }else{
+            response.sendRedirect(".");
         }
-        response.sendRedirect(".");
     }
 
     @Override
