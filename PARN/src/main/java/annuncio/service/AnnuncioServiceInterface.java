@@ -18,5 +18,10 @@ public interface AnnuncioServiceInterface {
     public boolean rimuoviCandidatura(Annuncio annuncio, Candidatura candidatura);
     public List<Candidatura> visualizzaCandidatura(Annuncio annuncio);
     public List<Annuncio> getAnnuncioByAzienda(Azienda azienda);
+    List<Annuncio> getAnnunciByStato(Azienda azienda, String in_corso);
     List<Annuncio> getAnnunciByStato(String in_corso);
+
+    Annuncio getAnnuncioById(Azienda azienda,int id);
+    String getStato(Annuncio annuncio);
+
 }

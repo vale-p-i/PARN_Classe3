@@ -43,7 +43,7 @@ public class ModificaSede extends HttpServlet {
 
                 service.aggiornaSede(sede);
                 session.setAttribute("utente", azienda);
-                request.getRequestDispatcher("./WEB_INF/modificaInfoAzienda.jsp").forward(request, response);
+                request.getRequestDispatcher("./WEB_INF/areaPersonaleAzienda.jsp").forward(request, response);
 
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");

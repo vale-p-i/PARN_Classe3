@@ -39,7 +39,7 @@ public class AggiungiSede extends HttpServlet {
                 service.aggiornaAzienda(azienda);
 
                 session.setAttribute("utente", azienda);
-                request.getRequestDispatcher("./WEB-INF/modificaInfoAzienda.jsp").forward(request, response);
+                request.getRequestDispatcher("./WEB-INF/areaPersonaleAzienda.jsp").forward(request, response);
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }
