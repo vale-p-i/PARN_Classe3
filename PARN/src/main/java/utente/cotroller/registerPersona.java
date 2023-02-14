@@ -31,7 +31,6 @@ public class registerPersona extends HttpServlet {
         String citta = request.getParameter("cittaPersona");
         String via = request.getParameter("viaPersona");
         String cap = request.getParameter("capPersona");
-        LocalDateTime data_nascita = LocalDateTime.parse(request.getParameter("data_nascita"), formatter);
         String posizioneDesiderata = request.getParameter("posizione");
         String filtroMacroarea = request.getParameter("filtroMacroarea");
         String fotoPersona = request.getParameter("fotoPersona");
@@ -123,7 +122,7 @@ public class registerPersona extends HttpServlet {
         for(String s:request.getParameter("soft_skills").split(","))
             softSkills.add(s);
 
-        Persona persona = new Persona(nome, emailPersona, passwordPersona, regionePersona, provinciaPersona, fotoPersona, cap, telefonoPersona, citta, via, cognome, cf, data_nascita, filtroMacroarea, posizioneDesiderata, null, null);
+        Persona persona = new Persona(nome, emailPersona, passwordPersona, regionePersona, provinciaPersona, fotoPersona, cap, telefonoPersona, citta, via, cognome, cf, data_n, filtroMacroarea, posizioneDesiderata, null, null);
         Curriculum curriculum = new Curriculum(softSkills, persona, esperienzeLavorative, lingue, istruzioni);
         for(EsperienzaLavorativa el : esperienzeLavorative)
             el.setCurriculum(curriculum);
