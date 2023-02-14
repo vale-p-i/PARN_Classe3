@@ -27,14 +27,19 @@ public class Login extends HttpServlet {
             if(utente!=null && utente instanceof Azienda){
                 Azienda azienda = (Azienda) utente;
                 session.setAttribute("utente", azienda);
-                request.getRequestDispatcher("./WEB-INF/areaAzienda.jsp").forward(request, response);
+                request.getRequestDispatcher("./WEB-INF/homepageAzienda.jsp").forward(request, response);
             } else if(utente!=null && utente instanceof Persona) {
                 Persona persona = (Persona) utente;
                 session.setAttribute("utente", persona);
-                request.getRequestDispatcher("./WEB-INF/areaPersona.jsp").forward(request, response);
+                request.getRequestDispatcher("./WEB-INF/homepagePersona.jsp").forward(request, response);
+            }
+            else{
+                response.sendRedirect(".");
             }
         }
-        response.sendRedirect(".");
+        else {
+            response.sendRedirect(".");
+        }
     }
 
     @Override
