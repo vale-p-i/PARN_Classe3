@@ -97,10 +97,17 @@ public class UtenteService implements UtenteServiceInterface{
     public boolean aggiornaSede(Sede sede) {
         try{
             utenteDAO.aggiornaSede(sede);
-            return true;
         }catch (SQLException e){
             return false;
         }
+
+        Azienda azienda = sede.getAzienda();
+        for(Sede s:azienda.getSedi()){
+            if(s.getId() == sede.getId() && s.getAzienda().getId() == sede.getAzienda().getId())
+                azienda.getSedi().remove(s);
+        }
+        azienda.getSedi().add(sede);
+        return true;
     }
 
     @Override
