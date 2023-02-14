@@ -18,9 +18,9 @@ public class CurriculumDAO {
         int id = persona.getId();
 
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT Soft_Skills" +
-                "FROM Curriculum" +
-                "WHERE Curriculum = ?");
+        PreparedStatement statement = connection.prepareStatement("SELECT Soft_Skills " +
+                "FROM Curriculum " +
+                "WHERE Persona = ?");
         statement.setInt(1, id);
 
         ResultSet resultSet = statement.executeQuery();
@@ -42,7 +42,7 @@ public class CurriculumDAO {
         List<Curriculum> listaCurriculum = new ArrayList<Curriculum>();
 
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Curriculum");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Curriculum ");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             //prendo la persona
@@ -92,7 +92,7 @@ public class CurriculumDAO {
         Connection connection = ConPool.getConnection();
         PreparedStatement statement = connection.
                 prepareStatement("SELECT Tipo, Istituto, DDI, DDF, Qualifica " +
-                        "FROM Istruzione" +
+                        "FROM Istruzione " +
                         "WHERE Curriculum = ?");
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
@@ -162,7 +162,7 @@ public class CurriculumDAO {
     }
     public void updateCurriculum(Curriculum curriculum) throws SQLException {
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("UPDATE Curriculum SET Soft_Skills = ?" +
+        PreparedStatement statement = connection.prepareStatement("UPDATE Curriculum SET Soft_Skills = ? " +
                 "WHERE Persona = ?");
 
         //parametri set
@@ -177,7 +177,7 @@ public class CurriculumDAO {
     }
     public void addEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa) throws SQLException {
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Esperienza (Curriculum, Nome_Azienda, Tipo_Impiego, Mansioni, Datore, Contatto, Tipo_Azienda, DDI, DDF)" +
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Esperienza (Curriculum, Nome_Azienda, Tipo_Impiego, Mansioni, Datore, Contatto, Tipo_Azienda, DDI, DDF) " +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         int id = esperienzaLavorativa.getCurriculum().getPersona().getId();
@@ -242,7 +242,7 @@ public class CurriculumDAO {
     }
     public void addIstruzione(Istruzione istruzione) throws SQLException {
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Istruzione (Curriculum, Tipo, Istituto, DDI, DDF, Qualifica)" +
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Istruzione (Curriculum, Tipo, Istituto, DDI, DDF, Qualifica) " +
                 " VALUES (?, ?, ?, ?, ?, ?)");
         int id = istruzione.getCurriculum().getPersona().getId();
         statement.setInt(1, id);

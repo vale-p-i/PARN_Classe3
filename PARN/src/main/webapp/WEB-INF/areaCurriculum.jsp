@@ -1,5 +1,5 @@
-<%@ page import="storage.entity.Annuncio" %>
-<%@ page import="storage.entity.Azienda" %>
+<%@ page import="storage.entity.*" %>
+<%@ page import="org.apache.catalina.Session" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,51 +47,71 @@
         <div class="row">
             <div class="curriculum">
                 <h4>Curriculum</h4>
+                <%
+                session = request.getSession(false);
+                Persona p=(Persona) session.getAttribute("utente");
+                Curriculum c= null;
+                if (p!=null) {
+                    c = p.getCurriculum();
+                    System.out.println("persona non è null");
+                }
+                %>
                 <div class="esperienzaLavorativa" id="esperienzaLavorativa">
-                    <div class="input-field col s11 m11">
-                        <h5>Esperienza lavorativa</h5>
-                    </div>
-                    <div class="input-field col s1 m1">
-                        <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addEsperienza()"><i class="material-icons">add</i></a>
-                    </div>
                     <div class="row">
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" type="text" class="validate">
-                            <label for="nomeAziendaEsperienza">Inserisci il nome del azienda</label>
+                        <div class="input-field col s11 m11">
+                            <h5>Esperienza lavorativa</h5>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Tipo azienda" id="tipoAzienda" name="tipoAzienda" type="text" class="validate">
-                            <label for="tipoAzienda">Inserisci il tipo di azienda</label>
-                        </div>
-                        <div class="input-field col s12 m4">
-                            <input placeholder="Tipo impiego" id="tipoImpiego" name="tipoImpiego" type="text" class="validate">
-                            <label for="tipoImpiego">Inserisci il tipo di impiego svolto</label>
+                        <div class="input-field col s1 m1">
+                            <a class="btn-floating btn-small waves-effect waves-light default-color" onclick="addEsperienza()"><i class="material-icons">add</i></a>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12 m3">
-                            <input placeholder="Nome Datore" id="nomeDatore" name="nomeDatore" type="text" class="validate">
-                            <label for="nomeDatore">Inserisci il nome del datore</label>
+                <%
+                    for (EsperienzaLavorativa e: c.getEsperienze()){
+                %>
+
+                    <div class="esperienza">
+                        <div class="row">
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" value="<%=e.getNomeAzienda()%>" type="text" class="validate">
+                                <label for="nomeAziendaEsperienza">Inserisci il nome del azienda</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Tipo azienda" id="tipoAzienda" name="tipoAzienda" value="<%=e.getTipoAzienda()%>" type="text" class="validate">
+                                <label for="tipoAzienda">Inserisci il tipo di azienda</label>
+                            </div>
+                            <div class="input-field col s12 m4">
+                                <input placeholder="Tipo impiego" id="tipoImpiego" value="<%=e.getTipoImpiego()%>" name="tipoImpiego" type="text" class="validate">
+                                <label for="tipoImpiego">Inserisci il tipo di impiego svolto</label>
+                            </div>
                         </div>
-                        <div class="input-field col s12 m3">
-                            <input placeholder="Contatto" id="contattoAzienda" name="contattoAzienda" type="text" class="validate">
-                            <label for="contattoAzienda">Inserisci il contatto del referente</label>
+                        <div class="row">
+                            <div class="input-field col s12 m3">
+                                <input placeholder="Nome Datore" id="nomeDatore" name="nomeDatore" value="<%=e.getDatore()%>" type="text" class="validate">
+                                <label for="nomeDatore">Inserisci il nome del datore</label>
+                            </div>
+                            <div class="input-field col s12 m3">
+                                <input placeholder="Contatto" id="contattoAzienda" name="contattoAzienda" value="<%=e.getContatto()%>" type="text" class="validate">
+                                <label for="contattoAzienda">Inserisci il contatto del referente</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input placeholder="Mansioni" id="mansioni" name="mansioni" type="text" value="<%=e.getMansioniPrincipali()%>" class="validate">
+                                <label for="mansioni">Inserisci le mansioni svolte</label>
+                            </div>
                         </div>
-                        <div class="input-field col s12 m6">
-                            <input placeholder="Mansioni" id="mansioni" name="mansioni" type="text" class="validate">
-                            <label for="mansioni">Inserisci le mansioni svolte</label>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input placeholder=" inizio" type="text" id="data_in_e" name="data_in_e" value="<%=e.getDataInizio()%>" class="datepicker">
+                                <label for="data_in_e">Data di inizio esperienza:</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input placeholder="Data fine" type="text" id="data_fin_e" name="data_fin_e" value="<%=e.getDataFine()%>" class="datepicker">
+                                <label for="data_fin_e">Data di inizio esperienza:</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12 m6">
-                            <input placeholder=" inizio" type="text" id="data_in_e" name="data_in_e"  class="datepicker">
-                            <label for="data_in_e">Data di inizio esperienza:</label>
-                        </div>
-                        <div class="input-field col s12 m6">
-                            <input placeholder="Data fine" type="text" id="data_fin_e" name="data_fin_e"  class="datepicker">
-                            <label for="data_fin_e">Data di inizio esperienza:</label>
-                        </div>
-                    </div>
+                    <%
+                        }
+                    %>
                 </div>
                 <div class="Lingua" id="lingua">
                     <div class="input-field col s11 m11">

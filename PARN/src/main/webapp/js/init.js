@@ -6,5 +6,6 @@
     $('.tabs').tabs();
     $('.datepicker').datepicker();
     $('input#input_text, textarea#textarea2').characterCounter();
+    $('.materialboxed').materialbox();
   }); // end of document ready
 })(jQuery); // end of jQuery name space
