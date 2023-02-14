@@ -32,13 +32,8 @@ public class Login extends HttpServlet {
                 session.setAttribute("utente", persona);
                 request.getRequestDispatcher("./WEB-INF/homepagePersona.jsp").forward(request, response);
             }
-            else{
-                response.sendRedirect(".");
-            }
-        }
-        else {
-            response.sendRedirect(".");
-        }
+            else response.sendRedirect(".");
+        }else response.sendRedirect(".");
     }
 
     @Override

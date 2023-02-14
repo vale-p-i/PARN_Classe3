@@ -23,7 +23,7 @@ public class ModificaSede extends HttpServlet {
             Azienda azienda = (Azienda) utente;
 
             String idString = request.getParameter("id_Sede");
-            int id = 0;
+            int id = -1;
             try{
                 id = Integer.parseInt(idString);
             } catch (NumberFormatException n){
@@ -40,14 +40,17 @@ public class ModificaSede extends HttpServlet {
 
             if(sede.getCitta() != null && sede.getProvincia() != null && sede.getCap() != null && sede.getVia() != null
                     && sede.getRegione() != null && sede.getTelefono() != null && sede.getMail() != null){
-                service.aggiornaSede(sede);
 
-            }
-        }
+                service.aggiornaSede(sede);
+                session.setAttribute("utente", azienda);
+                request.getRequestDispatcher("./WEB_INF/modificaInfoAzienda.jsp").forward(request, response);
+
+            }else response.sendRedirect(".");
+        }else response.sendRedirect(".");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request, response);
     }
 }

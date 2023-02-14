@@ -19,7 +19,6 @@ public class ModificaAzienda extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
-
         UtenteServiceInterface service = new UtenteService();
 
         if(utente instanceof Azienda && utente != null){
@@ -47,34 +46,28 @@ public class ModificaAzienda extends HttpServlet {
             try{
                 numeroDipendenti = Integer.parseInt(request.getParameter("dipendenti"));
             }catch (NumberFormatException n){
-                System.err.println("Conversion error "+n);
+                System.err.println("Conversion error " + n);
             }
             azienda.setNumeroDipendenti(numeroDipendenti);
+
             azienda.setMail(request.getParameter("emailAzienda"));
             azienda.setFoto(request.getParameter("logo"));
             String newPassword = PasswordEncrypter.encryptThisString(request.getParameter("password_Azienda"));
             String oldPassword = PasswordEncrypter.encryptThisString(request.getParameter("old_Password"));
 
-            if(azienda.getNome() != null && azienda.getPartitaIVA() != null && azienda.getTelefono() != null
-            && azienda.getRagioneSociale() != null && azienda.getLink() != null && azienda.getRegione() != null
-            && azienda.getProvincia() != null && azienda.getCitta() != null && azienda.getVia() != null
-            && azienda.getCap() != null && azienda.getAreaInteresse() != null && azienda.getSettoriCompetenza() != null
-            && azienda.getMail() != null && newPassword != null){
+            if(azienda.getNome() != null && azienda.getPartitaIVA() != null && azienda.getTelefono() != null &&
+                    azienda.getRagioneSociale() != null && azienda.getLink() != null && azienda.getRegione() != null &&
+                    azienda.getProvincia() != null && azienda.getCitta() != null && azienda.getVia() != null &&
+                    azienda.getCap() != null && azienda.getAreaInteresse() != null && azienda.getSettoriCompetenza() != null &&
+                    azienda.getMail() != null && newPassword != null && oldPassword.equals(azienda.getPassword())){
 
-                if(oldPassword.equals(azienda.getPassword())){
                     azienda.setPassword(newPassword);
                     service.aggiornaAzienda(azienda);
                     session.setAttribute("utente", azienda);
                     request.getRequestDispatcher("./WEB_INF/modificaInfoAzienda.jsp").forward(request, response);
-                }else{
-                    response.sendRedirect(".");
-                }
-            }else{
-                response.sendRedirect(".");
-            }
-        }else{
-            response.sendRedirect(".");
-        }
+
+            }else response.sendRedirect(".");
+        }else response.sendRedirect(".");
     }
 
     @Override
