@@ -2,16 +2,17 @@ package storage.entity;
 
 public class Lingua  {
 
-    private String Nome;
-    private String Livello;
-    private Curriculum curriculum;//?
+    private String nome;
+    private String livello;
+    private Curriculum curriculum;
     public Lingua(Curriculum curriculum) {
         this.curriculum = curriculum;
     }
 
-    public Lingua(String nome, String livello) {
-        Nome = nome;
-        Livello = livello;
+    public Lingua(String nome, String livello, Curriculum curriculum) {
+        this.nome = nome;
+        this.livello = livello;
+        this.curriculum = curriculum;
     }
 
     public Curriculum getCurriculum() {
@@ -23,18 +24,18 @@ public class Lingua  {
     }
 
     public String getNome() {
-        return Nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-        Nome = nome;
+        this.nome = nome;
     }
 
     public String getLivello() {
-        return Livello;
+        return livello;
     }
 
     public void setLivello(String livello) {
-        Livello = livello;
+        this.livello = livello;
     }
 }

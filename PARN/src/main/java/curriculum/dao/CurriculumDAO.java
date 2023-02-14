@@ -18,9 +18,7 @@ public class CurriculumDAO {
         int id = persona.getId();
 
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT Soft_Skills " +
-                "FROM Curriculum " +
-                "WHERE Persona = ?");
+        PreparedStatement statement = connection.prepareStatement("SELECT Soft_Skills FROM Curriculum WHERE Persona = ?");
         statement.setInt(1, id);
 
         ResultSet resultSet = statement.executeQuery();
@@ -42,7 +40,7 @@ public class CurriculumDAO {
         List<Curriculum> listaCurriculum = new ArrayList<Curriculum>();
 
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Curriculum ");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Curriculum");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             //prendo la persona
@@ -162,8 +160,7 @@ public class CurriculumDAO {
     }
     public void updateCurriculum(Curriculum curriculum) throws SQLException {
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("UPDATE Curriculum SET Soft_Skills = ? " +
-                "WHERE Persona = ?");
+        PreparedStatement statement = connection.prepareStatement("UPDATE Curriculum SET Soft_Skills = ? WHERE Persona = ?");
 
         //parametri set
         String skills = StringListUtils.getStringFromList(curriculum.getSoftSkill());
