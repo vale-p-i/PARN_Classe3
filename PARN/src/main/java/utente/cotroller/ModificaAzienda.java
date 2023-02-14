@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.*;
 import storage.entity.Azienda;
 import storage.entity.Utente;
 import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 import utils.PasswordEncrypter;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class ModificaAzienda extends HttpServlet {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
 
-        UtenteService service = new UtenteService();
+        UtenteServiceInterface service = new UtenteService();
 
         if(utente instanceof Azienda && utente != null){
             Azienda azienda = (Azienda) utente;

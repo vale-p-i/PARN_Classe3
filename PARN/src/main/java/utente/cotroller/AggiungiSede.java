@@ -7,6 +7,7 @@ import storage.entity.Azienda;
 import storage.entity.Sede;
 import storage.entity.Utente;
 import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,6 +18,8 @@ public class AggiungiSede extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
+        UtenteServiceInterface service = new UtenteService();
+
         if(utente instanceof Azienda){
             Azienda azienda = (Azienda) utente;
             String citta = request.getParameter("ciattaSede");
@@ -34,7 +37,6 @@ public class AggiungiSede extends HttpServlet {
                 sedi.add(sede);
                 azienda.setSedi(sedi);
 
-                UtenteService service = new UtenteService();
                 service.registraSede(sede);
                 service.aggiornaAzienda(azienda);
 

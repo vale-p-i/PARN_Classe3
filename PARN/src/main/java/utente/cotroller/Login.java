@@ -7,6 +7,7 @@ import storage.entity.Azienda;
 import storage.entity.Persona;
 import storage.entity.Utente;
 import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 import utils.PasswordEncrypter;
 
 import java.io.IOException;
@@ -17,18 +18,18 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = PasswordEncrypter.encryptThisString(request.getParameter("password"));
+        UtenteServiceInterface service = new UtenteService();
+        HttpSession session = request.getSession();
+
         if(email != null && password != null){
-            UtenteService service = new UtenteService();
             Utente utente = service.autenticazione(email, password);
             System.out.println(utente);
             if(utente!=null && utente instanceof Azienda){
                 Azienda azienda = (Azienda) utente;
-                HttpSession session = request.getSession();
                 session.setAttribute("utente", azienda);
                 request.getRequestDispatcher("./WEB-INF/areaAzienda.jsp").forward(request, response);
             } else if(utente!=null && utente instanceof Persona) {
                 Persona persona = (Persona) utente;
-                HttpSession session = request.getSession();
                 session.setAttribute("utente", persona);
                 request.getRequestDispatcher("./WEB-INF/areaPersona.jsp").forward(request, response);
             }

@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.*;
 import storage.entity.Persona;
 import storage.entity.Utente;
 import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 import utils.PasswordEncrypter;
 
 import java.io.IOException;
@@ -18,10 +19,11 @@ public class ModificaPersona extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
+        UtenteServiceInterface service = new UtenteService();
+
         if(utente instanceof Persona && utente != null){
             Persona persona = (Persona) utente;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-            UtenteService service = new UtenteService();
 
             persona.setNome(request.getParameter("nomePersona"));
             persona.setCognome(request.getParameter("cognome"));

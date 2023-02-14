@@ -5,6 +5,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import storage.entity.*;
 import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 import utils.PasswordEncrypter;
 
 import javax.swing.text.DateFormatter;
@@ -18,6 +19,9 @@ import java.util.List;
 public class registerPersona extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        UtenteServiceInterface service = new UtenteService();
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
 
         //Prendo tutti i parametri standard della persona
@@ -146,10 +150,8 @@ public class registerPersona extends HttpServlet {
                 i.setCurriculum(curriculum);
             persona.setCurriculum(curriculum);
 
-            UtenteService service = new UtenteService();
             service.registraPersona(persona);
             if(service.autenticazione(emailPersona, passwordPersona) != null){
-                HttpSession session = request.getSession();
                 session.setAttribute("utente", persona);
                 request.getRequestDispatcher("./WEB-INF/areaPersona.jsp").forward(request, response);
             }
