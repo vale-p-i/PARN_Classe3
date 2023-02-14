@@ -154,12 +154,8 @@ public class registerPersona extends HttpServlet {
             if(service.autenticazione(emailPersona, passwordPersona) != null){
                 session.setAttribute("utente", persona);
                 request.getRequestDispatcher("./WEB-INF/areaPersona.jsp").forward(request, response);
-            }else{
-                response.sendRedirect(".");
-            }
-        }else{
-            response.sendRedirect(".");
-        }
+            }else response.sendRedirect(".");
+        }else response.sendRedirect(".");
     }
 
 

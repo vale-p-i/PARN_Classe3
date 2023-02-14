@@ -33,9 +33,10 @@ public class registerAzienda extends HttpServlet {
         String cap = request.getParameter("capAzienda");
         String areaInteresse = request.getParameter("areaInteresse");
         String settoriCompetenzaString = request.getParameter("settoriCompetenza");
-        List<String> settoriComptenza = new ArrayList<>();
+        List<String> settoriCompetenza = new ArrayList<>();
         for(String s:settoriCompetenzaString.split(","))
-            settoriComptenza.add(s);
+            settoriCompetenza.add(s);
+
         int numeroDipendenti = 0;
         try{
             numeroDipendenti = Integer.parseInt(request.getParameter("dipendenti"));
@@ -56,33 +57,29 @@ public class registerAzienda extends HttpServlet {
 
         if(nome != null && partitaIva != null && telefono != null && ragioneSociale != null && sitoWeb != null &&
                 regione != null && provincia != null && citta != null && via != null && cap != null &&
-                areaInteresse != null && settoriComptenza != null && numeroDipendenti >= 0 && email != null &&
+                areaInteresse != null && settoriCompetenzaString != null && numeroDipendenti >= 0 && email != null &&
                 password != null && logo != null && regioneSede != null && provinciaSede != null && cittaSede != null &&
                 capSede != null && telefonoSede != null && viaSede != null && mailSede != null){
 
-            Azienda azienda = new Azienda(nome, email, password, regione, provincia, logo, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriComptenza, null, new ArrayList<Annuncio>());
+            Azienda azienda = new Azienda(nome, email, password, regione, provincia, logo, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriCompetenza, null, new ArrayList<Annuncio>());
             service.registraAzienda(azienda);
             List<Sede> sedi = new ArrayList<>();
             Sede sede;
+            Sede newSede;
             if(regioneSede != null){
-                Sede newSede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, mailSede);
-                sede = newSede;
+                newSede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, mailSede);
             }
             else {
-                Sede newSede = new Sede(regione, provincia, citta, cap, via, telefono, azienda, email);
-                sede = newSede;
+                newSede = new Sede(regione, provincia, citta, cap, via, telefono, azienda, email);
             }
+            sede = newSede;
             service.registraSede(sede);
             sedi.add(sede);
             if(service.autenticazione(email, password) != null){
                 session.setAttribute("utente", azienda);
                 request.getRequestDispatcher("./WEB-INF/areaAzienda.jsp").forward(request, response);
-            }else{
-                response.sendRedirect(".");
-            }
-        }else{
-            response.sendRedirect(".");
-        }
+            }else response.sendRedirect(".");
+        }else response.sendRedirect(".");
     }
 
     @Override
