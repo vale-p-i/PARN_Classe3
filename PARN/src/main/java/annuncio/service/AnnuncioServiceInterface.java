@@ -16,6 +16,5 @@ public interface AnnuncioServiceInterface {
     public boolean aggiungiCandidatura(Annuncio annuncio, Candidatura candidatura);
     public boolean rimuoviCandidatura(Annuncio annuncio, Candidatura candidatura);
     public List<Candidatura> visualizzaCandidatura(Annuncio annuncio);
-
     List<Annuncio> getAnnunciByStato(String in_corso);
 }

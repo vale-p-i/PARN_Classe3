@@ -113,4 +113,18 @@ public class UtenteService implements UtenteServiceInterface{
         }
         return utente;
     }
+
+    /**
+     * @param azienda 
+     * @return
+     */
+    @Override
+    public boolean eliminaAzienda(Azienda azienda) {
+        try {
+            utenteDAO.eliminaAzienda(azienda);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
