@@ -2,6 +2,10 @@
 <%@ page import="storage.entity.Azienda" %>
 <%@ page import="annuncio.service.AnnuncioServiceInterface" %>
 <%@ page import="annuncio.service.AnnuncioService" %>
+<%@ page import="org.apache.commons.beanutils.ConversionException" %>
+<%@ page import="java.util.List" %>
+<%@ page import="storage.entity.Sede" %>
+<%@ page import="storage.entity.Candidatura" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,17 +54,130 @@
 <div class="container">
     <div class="section-main min">
         <%
-            String id=request.getParameter("id");
+            String id_s=request.getParameter("id");
+            Integer id=null;
+            try {
+                id = Integer.parseInt(id_s);
+            }catch (ConversionException e){
+                ;
+            }
             session=request.getSession();
             Azienda az= (Azienda) session.getAttribute("utente");
+            List<Sede> list=az.getSedi();
             AnnuncioServiceInterface service=new AnnuncioService();
-            Annuncio annuncio=service.ge
+            Annuncio annuncio=null;
+            if (id!=null && az!=null)
+                annuncio=service.getAnnuncioById(az,id);
+            if (annuncio!=null){
+                session.setAttribute("annuncio",annuncio);
         %>
         <div class="row">
-            <h5>Annuncio</h5>
+            <div class="col s12 m12">
+                <h5>Annuncio</h5>
+            </div>
+            <form action="ModificaAnnuncio">
+                <div class="row">
+                    <div class="input-field col s6 m9">
+                        <input placeholder="Roulo" type="text" id="ruolo" name="ruolo"  value="<%=annuncio.getRuolo()%>" class="validate">
+                        <label for="ruolo">Ruolo</label>
+                    </div>
+                    <div class="input-field col s6 m3">
+                        <!-- Dropdown Structure -->
+
+                        <select name="sedelist" id="sedelist">
+                            <option value="" disabled selected>Scegli la sede</option>
+                            <%
+                                if(list!=null)
+                                    for (Sede s:list){
+                                        if(s.getId()==annuncio.getId()){
+
+                            %>
+                            <option selected disabled value="<%=s.getId()%>"><%=s.getCitta()%></option>
+                            <%
+                                }
+                                        else{
+                            %>
+                            <option disabled value="<%=s.getId()%>"><%=s.getCitta()%></option>
+                            <%
+                                        }
+                                    }
+                            %>
+                        </select>
+                        <label>Scegli la sede</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m12">
+                        <textarea id="descrizione" name="descrizione"class="materialize-textarea"><%=annuncio.getDescrizione()%></textarea>
+                        <label for="descrizione">Descrizione</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input placeholder="Data fine" type="text" id="data_scad" name="data_scad" value="<%=annuncio.getDataScadenza()%>"  class="datepicker">
+                        <label for="data_scad">Data di scadenza:</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <textarea id="keywords" name="keywords" class="materialize-textarea"><%=annuncio.getKeyword()%></textarea>
+                        <label for="keywords">Keyword</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input placeholder="Numero necessario" type="text" id="numeroDipendenti" value="<%=annuncio.getNumeroPersone()%>" name="numeroDipendenti"  class="validate">
+                        <label for="numeroDipendenti">Numero di dipendenti necessari</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <textarea id="preferenze" name="preferenze" class="materialize-textarea"><%=annuncio.getPreferenze()%></textarea>
+                        <label for="preferenze">Preferenze</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m12">
+                        <textarea id="requisiti" name="requisiti" class="materialize-textarea"><%=annuncio.getRequisiti()%></textarea>
+                        <label for="requisiti">Requisiti</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="right">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Modifica<i class="material-icons right">send</i></button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="center">
-            <img class="responsive-img" src="resource/statitiche.png">
+        <div class="row">
+            <div class="col s12 m12">
+                <h5>Candidati:</h5>
+            </div>
+            <div class="col s12 m12">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Link</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+        <%
+            if (annuncio.getCandidature()!=null){
+                if(annuncio.getCandidature().size()>0){
+                    for(Candidatura c: annuncio.getCandidature()){
+        %>
+                    <tr>
+                        <td><%=c.getPersona().getNome()%></td>
+                        <td><%=c.getPersona().getCognome()%></td>
+                        <td><a href="RedirectCurriculumView?redirect=<%=c.getPersona().getId()%>"><i class="material-icons">info</i></a></td>
+                    </tr>
+        <%
+                        }
+                    }
+                }
+            }
+        %>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

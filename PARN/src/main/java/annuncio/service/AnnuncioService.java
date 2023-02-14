@@ -68,6 +68,10 @@ public class AnnuncioService implements AnnuncioServiceInterface {
 
     @Override
     public Annuncio getAnnuncioById(Azienda azienda, int id) {
+        if (azienda.getAnnunci()!=null)
+            for (Annuncio a:azienda.getAnnunci())
+                if (a.getId()==id)
+                    return a;
         return null;
     }
 
