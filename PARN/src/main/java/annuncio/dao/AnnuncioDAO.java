@@ -66,12 +66,12 @@ public class AnnuncioDAO {
 
     /**
      * Metodo per ottenere una lista di Annunci dal database in base allo stato richiesto.
-     * @param in_corso Lo stato degli Annunci richiesti. Accetta solo i valori "In corso", "Scaduto" e "Chiuso".
+     * @param stato Lo stato degli Annunci richiesti. Accetta solo i valori "In corso", "Scaduto" e "Chiuso".
      * @return Una lista di Annunci con lo stato richiesto.
      * @throws SQLException Errore nella comunicazione con il database.
      * @throws IllegalArgumentException Se lo stato richiesto non è valido.
      */
-    public List<Annuncio> getAnnunciByStato(String in_corso) throws SQLException {
+    public List<Annuncio> getAnnunciByStato(String stato) throws SQLException {
         connection=ConPool.getConnection();
 
         String query = "";
@@ -79,11 +79,11 @@ public class AnnuncioDAO {
         CandidaturaService candidaturaService = new CandidaturaService();
         List<Annuncio> result = new ArrayList<>();
 
-        if (in_corso.toLowerCase().contains("in") && in_corso.toLowerCase().contains("corso"))
+        if (stato.toLowerCase().contains("in") && stato.toLowerCase().contains("corso"))
             query = "SELECT * FROM Annuncio a WHERE a.Attivo = 1 AND a.Scadenza > GETDATE()";
-        else if (in_corso.toLowerCase().contains("scaduto"))
+        else if (stato.toLowerCase().contains("scaduto"))
             query = "SELECT * FROM Annuncio a WHERE a.Attivo = 1 AND a.Scadenza < GETDATE()";
-        else if (in_corso.toLowerCase().contains("chiuso"))
+        else if (stato.toLowerCase().contains("chiuso"))
             query = "SELECT * FROM Annuncio a WHERE a.Attivo = 0";
         else
             throw new IllegalArgumentException();
