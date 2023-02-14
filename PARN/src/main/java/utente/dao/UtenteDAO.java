@@ -2,6 +2,8 @@ package utente.dao;
 
 import annuncio.service.AnnuncioService;
 import annuncio.service.AnnuncioServiceInterface;
+import curriculum.service.CurriculumService;
+import curriculum.service.CurriculumServiceInterface;
 import org.mariadb.jdbc.Statement;
 import storage.entity.Azienda;
 import storage.entity.Persona;
@@ -175,7 +177,7 @@ public class UtenteDAO {
           pdstmt.setString(1, mail);
           ResultSet rs = pdstmt.executeQuery();
           connection.close();
-
+          System.out.println(rs);
           if(rs.next()){
               if(password.equals(rs.getString(2))){
                   System.out.println("Le password sono uguali");
@@ -219,11 +221,11 @@ public class UtenteDAO {
             persona.setVia(rs.getString(10));
             persona.setCognome(rs.getString(11));
             persona.setCodiceFiscale(rs.getString(12));
-            //java.sql.Timestamp sqlTimestamp = rs.getTimestamp(13);
-            //persona.setDataDiNascita(sqlTimestamp.toLocalDateTime());
             persona.setDataDiNascita(rs.getObject(13, LocalDateTime.class));
             persona.setFiltroMacroarea(rs.getString(14));
             persona.setPosizioneDesiderata(rs.getString(15));
+            CurriculumServiceInterface service = new CurriculumService();
+            persona.setCurriculum(service.getCurriculumByPersona(persona));
             return persona;
         }
         return null;
@@ -260,6 +262,8 @@ public class UtenteDAO {
             azienda.setSettoriCompetenza(settori);
             List<Sede> sedi = getSediByAzienda(azienda);
             azienda.setSedi(sedi);
+            AnnuncioServiceInterface service = new AnnuncioService();
+            azienda.setAnnunci(service.getAnnuncioByAzienda(azienda));
             return azienda;
         }
         return null;
@@ -288,14 +292,8 @@ public class UtenteDAO {
         return sedi;
     }
 
-    private void eliminaUtente(Utente u) throws SQLException {
-        PreparedStatement pdstmt = connection.prepareStatement("DELETE FROM Utente u WHERE u.N_Reg = ?1");
-        pdstmt.setInt(1, u.getId());
-        pdstmt.execute();
-    }
-
-    public void eliminaAzienda(Azienda azienda) throws SQLException {
-        eliminaUtente(azienda); //Utilizzando ON DELETE CASCADE nel DB viene eliminato tutto il resto delle tabelle
-        //ritenute eliminabili che si riferivano a questa azienda
+    public void eliminaAzienda(Azienda azienda) {
+        /*PreparedStatement pdstmt = connection.prepareStatement("DELETE FROM Azienda a WHERE a.Utente = ?1");
+        pdstmt.setInt(1, azienda.getId());*/
     }
 }
