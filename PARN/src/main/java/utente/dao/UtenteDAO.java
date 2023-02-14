@@ -182,24 +182,20 @@ public class UtenteDAO {
           pdstmt.setString(1, mail);
           ResultSet rs = pdstmt.executeQuery();
           connection.close();
-          System.out.println(rs);
-          if(rs.next()){
-              if(password.equals(rs.getString(2))){
-                  System.out.println("Le password sono uguali");
-                  Azienda azienda = getAziendaById(rs.getInt(1));
-                  System.out.println("prova ritorn"+azienda);
-                  if (azienda!=null)
+
+          rs.next();
+            if(password.equals(rs.getString(2))){
+                Azienda azienda = getAziendaById(rs.getInt(1));
+                if (azienda!=null)
                       return  azienda;
                   else {
                       Persona persona = getPersonaById(rs.getInt(1));
                       if (persona!= null)
                           return persona;
                   }
-              }
-              else
-                  System.out.println("else1");
-          }
-          return null;
+
+            }
+            return null;
     }
 
     public Persona getPersonaById(int id) throws SQLException{

@@ -89,7 +89,7 @@ public class CandidaturaDAO {
             candidatura = new Candidatura(
                     persona,
                     annuncio,
-                    null, //curriculumServiceInterface.getCurriculumByPersona(persona), //TODO: rimuovere null quando vale ha finito
+                    curriculumServiceInterface.getCurriculumByPersona(persona),
                     rs.getObject(3, LocalDateTime.class)
             );
         }

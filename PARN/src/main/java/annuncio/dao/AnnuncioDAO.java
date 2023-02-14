@@ -1,3 +1,7 @@
+/**
+ Classe per la gestione dell'Annuncio nel database.
+ */
+
 package annuncio.dao;
 
 import candidatura.service.CandidaturaService;
@@ -16,8 +20,18 @@ import java.util.List;
 
 public class AnnuncioDAO {
     private static Connection connection;
+
+    /**
+     * Costruttore vuoto della classe.
+     */
     public AnnuncioDAO(){}
 
+    /**
+     * Metodo per ottenere un Annuncio dal database tramite l'ID.
+     * @param id L'ID dell'Annuncio da cercare.
+     * @return L'Annuncio con l'ID richiesto.
+     * @throws SQLException Errore nella comunicazione con il database.
+     */
     public Annuncio getAnnuncioById(int id) throws SQLException {
         connection=ConPool.getConnection();
         PreparedStatement pdstmt = connection.prepareStatement("SELECT ID, Azienda, Attivo, Sede,N_Persone,Descrizione,Scadenza,Requisiti,Keyword,Preferenze,Ruolo FROM Annuncio WHERE ID = ?");
@@ -50,6 +64,13 @@ public class AnnuncioDAO {
         return annuncio;
     }
 
+    /**
+     * Metodo per ottenere una lista di Annunci dal database in base allo stato richiesto.
+     * @param in_corso Lo stato degli Annunci richiesti. Accetta solo i valori "In corso", "Scaduto" e "Chiuso".
+     * @return Una lista di Annunci con lo stato richiesto.
+     * @throws SQLException Errore nella comunicazione con il database.
+     * @throws IllegalArgumentException Se lo stato richiesto non è valido.
+     */
     public List<Annuncio> getAnnunciByStato(String in_corso) throws SQLException {
         connection=ConPool.getConnection();
 
@@ -92,6 +113,12 @@ public class AnnuncioDAO {
         return result;
     }
 
+
+    /**
+     * Crea un nuovo annuncio nel database.
+     * @param annuncio l'annuncio da creare
+     * @throws SQLException se si verifica un errore di accesso al database
+     */
     public void creaAnnuncio(Annuncio annuncio) throws SQLException {
         connection=ConPool.getConnection();
 
@@ -113,6 +140,11 @@ public class AnnuncioDAO {
         connection.close();
     }
 
+    /**
+     * Modifica l'annuncio specificato nel database.
+     * @param annuncio l'annuncio da modificare
+     * @throws SQLException se si verifica un errore di accesso al database
+     */
     public void modificaAnnuncio(Annuncio annuncio) throws SQLException{
         connection=ConPool.getConnection();
 
@@ -136,6 +168,11 @@ public class AnnuncioDAO {
         connection.close();
     }
 
+    /**
+     * Elimina l'annuncio con l'ID specificato dal database.
+     * @param id l'ID dell'annuncio da eliminare
+     * @throws SQLException se si verifica un errore di accesso al database
+     */
     public void eliminaAnnuncio(Annuncio annuncio) throws SQLException {
         connection=ConPool.getConnection();
 
@@ -146,6 +183,11 @@ public class AnnuncioDAO {
         connection.close();
     }
 
+    /**
+     * Chiude l'annuncio specificato dal database.
+     * @param annuncio l'annuncio da eliminare
+     * @throws SQLException se si verifica un errore di accesso al database
+     */
     public void chiusuraAnnuncio(Annuncio annuncio) throws SQLException {
         connection=ConPool.getConnection();
 
@@ -157,6 +199,11 @@ public class AnnuncioDAO {
         connection.close();
     }
 
+    /**
+     * Restituisce tutti gli annunci pubblicati da un'azienda.
+     * @param azienda l'azienda di cui si vogliono recuperare gli annunci
+     * @return una lista contenente tutti gli annunci pubblicati dall'azienda
+     */
     public List<Annuncio> getAnnunciByAzienda(Azienda azienda) throws SQLException {
         connection=ConPool.getConnection();
         PreparedStatement pdstmt = connection.prepareStatement(
