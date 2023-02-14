@@ -52,6 +52,8 @@ VALUES (4, "LOREM IPSUM DOLOR SIT AMET");
 #########################ESPERIENZA#########################
 INSERT INTO Esperienza (Curriculum, Nome_Azienda, Tipo_Impiego, Mansioni, Datore, Contatto, Tipo_Azienda, DDI, DDF)
 VALUES (2, "Megaditta", "Ragioniere", "Mai Capito", "Megadirettore naturale", "megadirettoregalattic@aruba.it", "Azienda Malvagia", "1975-03-27", "1999-12-24");
+INSERT INTO Esperienza (Curriculum, Nome_Azienda, Tipo_Impiego, Mansioni, Datore, Contatto, Tipo_Azienda, DDI, DDF)
+VALUES (2, "FilmItaliani", "Attore", "Protagonista", "Quelli del film", "ugofantozzi@arruba.it", "Di cinema", "1975-03-27", "1999-12-24");
 
 INSERT INTO Esperienza (Curriculum, Nome_Azienda, Tipo_Impiego, Mansioni, Datore, Contatto, Tipo_Azienda, DDI, DDF)
 VALUES (3, "SupermercatiTheRock", "Commesso", "Cassa", "Dwaine Jhonson", "supermercatidipietra@rock.it", "Catena di suoermercati", "2013-04-17", "2016-01-01");
