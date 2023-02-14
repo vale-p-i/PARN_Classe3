@@ -59,7 +59,7 @@
                 <div class="esperienzeLavorative" id="esperienzeLavorative">
                     <div class="row">
                         <div class="input-field col s12 m12">
-                            <h5>Esperienza lavorativa</h5>
+                            <h5>Esperienze lavorative</h5>
                         </div>
 
                     </div>
@@ -67,7 +67,12 @@
                     if (c!=null)
                     for (EsperienzaLavorativa e: c.getEsperienze()){
                 %>
+                    <div class="row">
+                        <div class="input-field col s12 m12">
+                            <h6>Esperienza:</h6>
+                        </div>
 
+                    </div>
                     <div class="esperienza">
                         <form action="modificaEsperienza">
                             <div class="row">
@@ -177,7 +182,7 @@
                 <div class="Lingue" id="lingua">
                     <div class="row">
                         <div class="input-field col s12 m12">
-                            <h5>Lingua</h5>
+                            <h5>Lingue</h5>
                         </div>
 
                     </div>
@@ -186,6 +191,12 @@
                             for(Lingua l :c.getLingue()){
                     %>
                     <div class="lingua">
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <h6>Lingua:</h6>
+                            </div>
+
+                        </div>
                         <form action="modificaLingua">
                             <div class="row">
                                 <div class="input-field col s12 m6">
@@ -237,7 +248,7 @@
                 <div class="Istruzioni" id="istruzione">
                     <div class="row">
                         <div class="input-field col s12 m12">
-                            <h5>Istruzione</h5>
+                            <h5>Istruzioni:</h5>
                         </div>
 
                     </div>
@@ -247,6 +258,12 @@
                                 System.out.println(c.getIstruzioni().size());
                     %>
                     <div class="istruzione">
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <h6>Istruzione:</h6>
+                            </div>
+
+                        </div>
                         <form action="modificaIstruzione" >
                             <div class="row">
                                 <div class="input-field col s12 m4">

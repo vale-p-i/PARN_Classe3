@@ -124,7 +124,7 @@ public class AnnuncioDAO {
 
         PreparedStatement pdstmt = connection.prepareStatement(
                 "INSERT INTO Annuncio(ID, Azienda, Attivo, Sede, N_Persone, Descrizione, Scadenza, Requisiti, Keyword, Preferenze, Ruolo)"+
-                        "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11)");
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         pdstmt.setInt(1, annuncio.getId());
         pdstmt.setInt(2, annuncio.getAzienda().getId());
         pdstmt.setBoolean(3, annuncio.isAttivo());
@@ -149,10 +149,10 @@ public class AnnuncioDAO {
         connection=ConPool.getConnection();
 
         PreparedStatement pdstmt = connection.prepareStatement(
-                "UPDATE Annuncio a SET a.Azienda = ?1, a.Attivo = ?2, a.Sede = ?3, a.N_Persone = ?4, " +
-                        "a.Descrizione = ?5, a.Scadenza = ?6, a.Requisiti = ?7, a.Keyword = ?8, a.Preferenze = ?9, " +
-                        "a.Ruolo = ?10 " +
-                        "WHERE a.ID = ?11");
+                "UPDATE Annuncio a SET a.Azienda = ?, a.Attivo = ?, a.Sede = ?, a.N_Persone = ?, " +
+                        "a.Descrizione = ?, a.Scadenza = ?, a.Requisiti = ?, a.Keyword = ?, a.Preferenze = ?, " +
+                        "a.Ruolo = ? " +
+                        "WHERE a.ID = ?");
         pdstmt.setInt(1, annuncio.getAzienda().getId());
         pdstmt.setBoolean(2, annuncio.isAttivo());
         pdstmt.setInt(3, annuncio.getSede().getId());
@@ -170,14 +170,14 @@ public class AnnuncioDAO {
 
     /**
      * Elimina l'annuncio con l'ID specificato dal database.
-     * @param id l'ID dell'annuncio da eliminare
+     * @param  annuncio l'ID dell'annuncio da eliminare
      * @throws SQLException se si verifica un errore di accesso al database
      */
     public void eliminaAnnuncio(Annuncio annuncio) throws SQLException {
         connection=ConPool.getConnection();
 
         PreparedStatement pdstmt = connection.prepareStatement(
-                "DELETE FROM Annuncio a WHERE a.ID = $1");
+                "DELETE FROM Annuncio a WHERE a.ID = ?");
         pdstmt.setInt(1, annuncio.getId());
         pdstmt.execute();
         connection.close();
@@ -192,7 +192,7 @@ public class AnnuncioDAO {
         connection=ConPool.getConnection();
 
         PreparedStatement pdstmt = connection.prepareStatement(
-                "UPDATE Annuncio SET Attivo = ?1 WHERE ID = ?2");
+                "UPDATE Annuncio SET Attivo = ? WHERE ID = ?");
         pdstmt.setBoolean(1, false);
         pdstmt.setInt(2, annuncio.getId());
         pdstmt.execute();
@@ -207,14 +207,31 @@ public class AnnuncioDAO {
     public List<Annuncio> getAnnunciByAzienda(Azienda azienda) throws SQLException {
         connection=ConPool.getConnection();
         PreparedStatement pdstmt = connection.prepareStatement(
-                "SELECT ID FROM Annuncio a WHERE a.Azienda = ?1");
+               "SELECT ID, Azienda, Attivo, Sede,N_Persone,Descrizione,Scadenza,Requisiti,Keyword,Preferenze,Ruolo FROM Annuncio a WHERE a.Azienda = ?");
         pdstmt.setInt(1, azienda.getId());
         ResultSet rs = pdstmt.executeQuery();
         connection.close();
         List<Annuncio> results = new ArrayList<>();
+        UtenteServiceInterface utenteService=new UtenteService();
+        CandidaturaServiceInterface candidaturaService=new CandidaturaService();
         while (rs.next()) {
-            results.add(getAnnuncioById(rs.getInt(1)));
+            Annuncio annuncio = new Annuncio(
+                    rs.getInt(1),
+                    azienda,
+                    rs.getBoolean(3),
+                    utenteService.getSedeById(azienda, rs.getInt(4)),
+                    rs.getInt(5),
+                    rs.getString(6),
+                    rs.getDate(7).toLocalDate().atStartOfDay(),
+                    StringListUtils.getSplittedString(rs.getString(8)),
+                    StringListUtils.getSplittedString(rs.getString(9)),
+                    StringListUtils.getSplittedString(rs.getString(10)),
+                    rs.getString(11),
+                    null);
+            annuncio.setCandidature(candidaturaService.getCandidatureByAnnuncio(annuncio));
+            results.add(annuncio);
         }
         return results;
+
     }
 }

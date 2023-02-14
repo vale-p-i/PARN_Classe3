@@ -52,7 +52,7 @@ public class ModificaPersona extends HttpServlet {
                     persona.setPassword(newPassword);
                     service.aggiornaPersona(persona);
                     session.setAttribute("utente", persona);
-                    request.getRequestDispatcher("./WEB_INF/modificaInfoPersona.jsp").forward(request, response);
+                    request.getRequestDispatcher("./WEB_INF/areaPersonalePersona.jsp").forward(request, response);
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }

@@ -1,5 +1,9 @@
 <%@ page import="storage.entity.Annuncio" %>
 <%@ page import="storage.entity.Azienda" %>
+<%@ page import="org.checkerframework.checker.units.qual.A" %>
+<%@ page import="java.util.List" %>
+<%@ page import="annuncio.service.AnnuncioServiceInterface" %>
+<%@ page import="annuncio.service.AnnuncioService" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,16 +34,62 @@
                     <a href="#user" class="mod-a"><img height="100" width="100" class="circle" src="resource/img.png"></a>
                 </div>
             </li>
-            <li><a href="RedirectServlet?redirect=homepagePersona" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
-            <li><a href="RedirectServlet?redirect=areaPersonalePersona" class="waves-effect waves-light btn-large white default-color-text">AreaPersonale</a></li>
-            <li><a href="RedirectServlet?redirect=areaCurriculum" class="waves-effect waves-light btn-large white default-color-text">Curriculum</a></li>
-            <li><a href="RedirectServlet?redirect=areaCandidatureInviate" class="waves-effect waves-light btn-large white default-color-text">Candidature Inviate</a></li>
+            <li><a href="RedirectServlet?redirect=homepageAzienda" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
+            <li><a href="RedirectServlet?redirect=areaPersonaleAzienda" class="waves-effect waves-light btn-large white default-color-text">AreaPersonale</a></li>
+            <li><hr style="margin: 0 10% 0 10%"></li>
+            <li><div class="center"><h6>Annunci</h6></div></li>
+            <li><a href="RedirectServlet?redirect=annunciAttivi" class="waves-effect waves-light btn-large white default-color-text">In Corso</a></li>
+            <li><a href="RedirectServlet?redirect=annunciScaduti" class="waves-effect waves-light btn-large white default-color-text">Scadute</a></li>
+            <li><a href="RedirectServlet?redirect=annunciChiusi" class="waves-effect waves-light btn-large white default-color-text">Chiusi</a></li>
+            <li><a href="RedirectServlet?redirect=creaAnnuncio" class="waves-effect waves-light btn-large white default-color-text">Crea Annuncio</a></li>
             <li><a href="Logout" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
         </ul>
         <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons white-text">menu</i></a>
         <a id="logo-container" href="index.html" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
     </div>
 </nav>
+
+<div class="container">
+    <div class="section-main min">
+        <div class="row">
+            <h5>Annunci attivi:</h5>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Ruolo </th>
+                <th>Numero di persone</th>
+                <th>Sede</th>
+                <th>Descrizione</th>
+                <th>Data di scadenza</th>
+                <th>Link</th>
+            </tr>
+            </thead>
+            <tbody>
+        <%
+            session = request.getSession(false);
+            Azienda a=(Azienda) session.getAttribute("utente");
+            AnnuncioServiceInterface service=new AnnuncioService();
+            List<Annuncio> list=service.getAnnunciByStato(a,Annuncio.IN_CORSO);
+            if(list!=null){
+                for(Annuncio ann: list){
+        %>
+            <tr>
+                <td><%=ann.getRuolo()%> </td>
+                <td><%=ann.getNumeroPersone()%></td>
+                <td><%=ann.getSede().toString()%></td>
+                <td><%=ann.getDescrizione()%></td>
+                <td><%=ann.getDataScadenza()%></td>
+                <td><a href="infoAnnuncio?id=<%=ann.getId()%>">Info<i class="material-icons">info</i></a></td>
+            </tr>
+        <%
+                }
+            }
+        %>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <footer class="page-footer default-color">
     <div class="container">

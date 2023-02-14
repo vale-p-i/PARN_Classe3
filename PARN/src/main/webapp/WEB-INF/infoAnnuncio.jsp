@@ -1,5 +1,7 @@
 <%@ page import="storage.entity.Annuncio" %>
 <%@ page import="storage.entity.Azienda" %>
+<%@ page import="annuncio.service.AnnuncioServiceInterface" %>
+<%@ page import="annuncio.service.AnnuncioService" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,8 +49,15 @@
 
 <div class="container">
     <div class="section-main min">
+        <%
+            String id=request.getParameter("id");
+            session=request.getSession();
+            Azienda az= (Azienda) session.getAttribute("utente");
+            AnnuncioServiceInterface service=new AnnuncioService();
+            Annuncio annuncio=service.ge
+        %>
         <div class="row">
-            <h5>Statistiche annuncio:</h5>
+            <h5>Annuncio</h5>
         </div>
         <div class="center">
             <img class="responsive-img" src="resource/statitiche.png">

@@ -20,7 +20,7 @@ public class MatchingService implements MatchingServiceInterface{
     public List<Annuncio> personalizzaAnnunci(Curriculum curriculum) {
         List<Annuncio> returnment=new ArrayList<>();
         AnnuncioServiceInterface serviceAnnucio=new AnnuncioService();
-        List<Annuncio> all=serviceAnnucio.getAnnunciByStato("In corso");
+        List<Annuncio> all=serviceAnnucio.getAnnunciByStato(Annuncio.IN_CORSO);
         List<String> Qualifiche=new ArrayList<>();
         for (Istruzione i:curriculum.getIstruzioni())
             Qualifiche.add(i.getQualifica());

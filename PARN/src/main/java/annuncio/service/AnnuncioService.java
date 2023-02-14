@@ -8,6 +8,8 @@ import storage.entity.Azienda;
 import storage.entity.Candidatura;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static net.sf.saxon.om.EnumSetTool.except;
@@ -31,13 +33,56 @@ public class AnnuncioService implements AnnuncioServiceInterface {
     }
 
     @Override
+    public List<Annuncio> getAnnunciByStato(Azienda azienda,String in_corso) {
+        LocalDateTime today=LocalDateTime.now();
+        List<Annuncio> returnment=new ArrayList<>();
+        if (azienda.getAnnunci()!=null)
+            for(Annuncio a: azienda.getAnnunci()){
+                switch (in_corso){
+                    case Annuncio.IN_CORSO:
+                        if (a.isAttivo()&&a.getDataScadenza().isAfter(today))
+                            returnment.add(a);
+                        break;
+                    case Annuncio.SCADUTO:
+                        if (a.isAttivo()&&(a.getDataScadenza().isBefore(today)||a.getDataScadenza().equals(today)))
+                            returnment.add(a);
+                        break;
+                    case Annuncio.CHIUSO:
+                        if(!a.isAttivo())
+                            returnment.add(a);
+                        break;
+                }
+            }
+        if (returnment.isEmpty())
+            return null;
+        return returnment;
+    }
+
     public List<Annuncio> getAnnunciByStato(String in_corso) {
-        try{
+        try {
             return annuncioDAO.getAnnunciByStato(in_corso);
         } catch (SQLException e) {
-            return null;
+            throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Annuncio getAnnuncioById(Azienda azienda, int id) {
+        return null;
+    }
+
+    @Override
+    public String getStato(Annuncio a) {
+        LocalDateTime today=LocalDateTime.now();
+        if (a.isAttivo()&&a.getDataScadenza().isAfter(today))
+            return Annuncio.IN_CORSO;
+        else if (a.isAttivo()&&(a.getDataScadenza().isBefore(today)||a.getDataScadenza().equals(today)))
+            return Annuncio.SCADUTO;
+        else if(!a.isAttivo())
+            return Annuncio.CHIUSO;
+        return null;
+    }
+
 
     @Override
     public boolean creaAnnuncio(Annuncio annuncio) {
