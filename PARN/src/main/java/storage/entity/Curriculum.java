@@ -1,5 +1,6 @@
 package storage.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Curriculum {
@@ -9,12 +10,19 @@ public class Curriculum {
     private List<Lingua> lingue;
     private List<Istruzione> istruzioni;
 
-    public Curriculum(List<String> softSkill, Persona persona, List<EsperienzaLavorativa> esperienze, List<Lingua> lingue, List<Istruzione> istruzioni) {
+    public Curriculum(Persona persona, List<String> softSkill, List<EsperienzaLavorativa> esperienze, List<Lingua> lingue, List<Istruzione> istruzioni) {
         this.softSkill = softSkill;
         this.persona = persona;
         this.esperienze = esperienze;
         this.lingue = lingue;
         this.istruzioni = istruzioni;
+    }
+    public Curriculum(Persona persona, List<String> softSkill) {
+        this.softSkill = softSkill;
+        this.persona = persona;
+        this.esperienze = new ArrayList<EsperienzaLavorativa>();
+        this.lingue = new ArrayList<Lingua>();
+        this.istruzioni = new ArrayList<Istruzione>();
     }
 
     public List<String> getSoftSkill() {

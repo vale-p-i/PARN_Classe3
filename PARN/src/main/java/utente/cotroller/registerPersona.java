@@ -141,7 +141,7 @@ public class registerPersona extends HttpServlet {
             }
 
             Persona persona = new Persona(nome, emailPersona, passwordPersona, regionePersona, provinciaPersona, fotoPersona, cap, telefonoPersona, citta, via, cognome, cf, data_n, filtroMacroarea, posizioneDesiderata, null, null);
-            Curriculum curriculum = new Curriculum(softSkills, persona, esperienzeLavorative, lingue, istruzioni);
+            Curriculum curriculum = new Curriculum(persona, softSkills, esperienzeLavorative, lingue, istruzioni);
             for(EsperienzaLavorativa el : esperienzeLavorative)
                 el.setCurriculum(curriculum);
             for(Lingua l : lingue)
