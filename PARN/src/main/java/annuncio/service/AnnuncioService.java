@@ -4,6 +4,7 @@ import annuncio.dao.AnnuncioDAO;
 import candidatura.service.CandidaturaService;
 import candidatura.service.CandidaturaServiceInterface;
 import storage.entity.Annuncio;
+import storage.entity.Azienda;
 import storage.entity.Candidatura;
 
 import java.sql.SQLException;
@@ -127,5 +128,18 @@ public class AnnuncioService implements AnnuncioServiceInterface {
     public List<Candidatura> visualizzaCandidatura(Annuncio annuncio) {
         CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
         return candidaturaServiceInterface.getCandidatureByAnnuncio(annuncio);
+    }
+
+    /**
+     * @param azienda 
+     * @return
+     */
+    @Override
+    public List<Annuncio> getAnnuncioByAzienda(Azienda azienda) {
+       try {
+           return annuncioDAO.getAnnunciByAzienda(azienda);
+       } catch (SQLException e) {
+           return null;
+       }
     }
 }
