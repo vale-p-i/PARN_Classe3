@@ -26,17 +26,66 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package utils;
 
 
+import org.apache.catalina.core.ApplicationContext;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.apache.tomcat.jdbc.pool.DataSource;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.TimeZone;
 
 public class ConPool {
     private static DataSource datasource;
     //Instanzia la connessione al DB
     public static Connection getConnection() throws SQLException {
-        if (datasource == null) {
+        InitialContext initialContext = null;
+        Boolean imp;
+        try {
+            initialContext = new InitialContext();
+            imp = (Boolean) initialContext.lookup("java:comp/env/Implementazione");
+        } catch (NamingException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(imp);
+        if (imp!=null){
+            if (imp){
+                System.out.println("in");
+                return getConnectionRemote();
+            }
+            else {
+                System.out.println("out");
+
+                return getConnectionLocal();
+            }
+        }
+        else {
+            return getConnectionRemote();
+        }
+    }
+
+    private static Connection getConnectionLocal() throws SQLException {
+        if (datasource==null) {
+            PoolProperties p = new PoolProperties();
+            p.setUrl("jdbc:mysql://localhost:3306/TSPW?serverTimezone=" + TimeZone.getDefault().getID());
+            p.setDriverClassName("com.mysql.cj.jdbc.Driver");
+            p.setUsername("java");
+            p.setPassword("1234");
+            p.setMaxActive(100);
+            p.setInitialSize(10);
+            p.setMinIdle(10);
+            p.setRemoveAbandonedTimeout(60);
+            p.setRemoveAbandoned(true);
+            datasource = new DataSource();
+            datasource.setPoolProperties(p);
+        }
+        return datasource.getConnection();
+    }
+
+    private static Connection getConnectionRemote() throws SQLException {
+        if (datasource==null) {
             PoolProperties p = new PoolProperties();
             p.setUrl("jdbc:mariadb://fishbucket.tk:3306/PARNDB?serverTimezone=UTC");
             p.setDriverClassName("org.mariadb.jdbc.Driver");
@@ -52,5 +101,4 @@ public class ConPool {
         }
         return datasource.getConnection();
     }
-
 }
