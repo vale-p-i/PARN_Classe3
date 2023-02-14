@@ -47,22 +47,14 @@ public class ModificaPersona extends HttpServlet {
                     persona.getRegione() != null && persona.getProvincia() != null && persona.getCitta() != null &&
                     persona.getVia() != null && persona.getCap() != null && persona.getPosizioneDesiderata() != null &&
                     persona.getFiltroMacroarea() != null && persona.getFoto() != null && persona.getMail() != null &&
-                    newPassword != null && oldPassword != null){
+                    newPassword != null && oldPassword != null && oldPassword.equals(persona.getPassword())){
 
-                if(oldPassword.equals(persona.getPassword())){
                     persona.setPassword(newPassword);
                     service.aggiornaPersona(persona);
                     session.setAttribute("utente", persona);
                     request.getRequestDispatcher("./WEB_INF/modificaInfoPersona.jsp").forward(request, response);
-                }else{
-                    response.sendRedirect(".");
-                }
-            }else{
-                response.sendRedirect(".");
-            }
-        }else{
-            response.sendRedirect(".");
-        }
+            }else response.sendRedirect(".");
+        }else response.sendRedirect(".");
     }
 
     @Override

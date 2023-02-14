@@ -33,9 +33,7 @@ public class AggiungiSede extends HttpServlet {
             if(azienda!=null && citta != null && provincia != null && cap != null && via != null && regione != null &&
                     telefono != null && mail != null){
                 Sede sede = new Sede(azienda.getId(), regione, provincia, citta, cap, via, telefono, azienda, mail);
-                List<Sede> sedi = azienda.getSedi();
-                sedi.add(sede);
-                azienda.setSedi(sedi);
+                azienda.getSedi().add(sede);
 
                 service.registraSede(sede);
                 service.aggiornaAzienda(azienda);
@@ -43,13 +41,11 @@ public class AggiungiSede extends HttpServlet {
                 session.setAttribute("utente", azienda);
                 request.getRequestDispatcher("./WEB-INF/modificaInfoAzienda.jsp").forward(request, response);
             }else response.sendRedirect(".");
-        }else{
-            response.sendRedirect(".");
-        }
+        }else response.sendRedirect(".");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request, response);
     }
 }
