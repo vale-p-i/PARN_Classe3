@@ -22,7 +22,7 @@ public class registerPersona extends HttpServlet {
         HttpSession session = request.getSession();
         UtenteServiceInterface service = new UtenteService();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         //Prendo tutti i parametri standard della persona
         String nome = request.getParameter("nomePersona");

@@ -5,16 +5,12 @@ import annuncio.service.AnnuncioServiceInterface;
 import curriculum.service.CurriculumService;
 import curriculum.service.CurriculumServiceInterface;
 import org.mariadb.jdbc.Statement;
-import storage.entity.Azienda;
-import storage.entity.Persona;
-import storage.entity.Sede;
-import storage.entity.Utente;
+import storage.entity.*;
 import utils.ConPool;
 import utils.StringListUtils;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +58,13 @@ public class UtenteDAO {
             String dbContent = StringListUtils.getStringFromList(azienda.getSettoriCompetenza());
             pdstmt.setString(7, dbContent);
 
+            AnnuncioServiceInterface service = new AnnuncioService();
+            for(Annuncio a : azienda.getAnnunci())
+                service.creaAnnuncio(a);
+
+            for(Sede s : azienda.getSedi())
+                addSede(s);
+
             pdstmt.executeUpdate();
             connection.close();
             azienda.setId(id);
@@ -82,6 +85,8 @@ public class UtenteDAO {
         pdstmt.setString(5, persona.getFiltroMacroarea());
         pdstmt.setString(6, persona.getPosizioneDesiderata());
 
+        CurriculumServiceInterface service = new CurriculumService();
+        service.creaCurriculum(persona.getCurriculum());
         pdstmt.executeUpdate();
         connection.close();
         persona.setId(id);
