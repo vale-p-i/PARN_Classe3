@@ -45,46 +45,51 @@ public class UtenteService implements UtenteServiceInterface{
         }
 
     @Override
-    public void registraPersona(Persona persona) {
+    public boolean registraPersona(Persona persona) {
         try{
             utenteDAO.addPersona(persona);
+            return true;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 
     @Override
-    public void registraAzienda(Azienda azienda) {
+    public boolean registraAzienda(Azienda azienda) {
         try{
             utenteDAO.addAzienda(azienda);
+            return true;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 
     @Override
-    public void registraSede(Sede sede){
+    public boolean registraSede(Sede sede){
         try{
             utenteDAO.addSede(sede);
+            return true;
         } catch (SQLException e){
-            throw new RuntimeException(e);
+            return false;
         }
     }
     @Override
-    public void aggiornaPersona(Persona persona) {
+    public boolean aggiornaPersona(Persona persona) {
         try{
             utenteDAO.aggiornaPersona(persona);
+            return true;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 
     @Override
-    public void aggiornaAzienda(Azienda azienda) {
+    public boolean aggiornaAzienda(Azienda azienda) {
         try{
             utenteDAO.aggiornaAzienda(azienda);
+            return true;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 

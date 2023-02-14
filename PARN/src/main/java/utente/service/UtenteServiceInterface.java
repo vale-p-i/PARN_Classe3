@@ -10,10 +10,10 @@ public interface UtenteServiceInterface {
     Azienda getAziendaById(int id);
 
     Sede getSedeById(Azienda s,int id);
-    void registraPersona(Persona persona);
-    void registraAzienda(Azienda azienda);
-    void registraSede(Sede sede);
-    void aggiornaPersona(Persona persona);
-    void aggiornaAzienda(Azienda azienda);
+    boolean registraPersona(Persona persona);
+    boolean registraAzienda(Azienda azienda);
+    boolean registraSede(Sede sede);
+    boolean aggiornaPersona(Persona persona);
+    boolean aggiornaAzienda(Azienda azienda);
     Utente autenticazione(String mail, String password);
 }
