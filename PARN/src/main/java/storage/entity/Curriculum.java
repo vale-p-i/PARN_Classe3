@@ -10,6 +10,13 @@ public class Curriculum {
     private List<Lingua> lingue;
     private List<Istruzione> istruzioni;
 
+    public Curriculum(Persona persona, List<String> softSkill, List<EsperienzaLavorativa> esperienze, List<Lingua> lingue, List<Istruzione> istruzioni) {
+        this.softSkill = softSkill;
+        this.persona = persona;
+        this.esperienze = esperienze;
+        this.lingue = lingue;
+        this.istruzioni = istruzioni;
+    }
     public Curriculum(Persona persona, List<String> softSkill) {
         this.softSkill = softSkill;
         this.persona = persona;
