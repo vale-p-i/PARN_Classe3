@@ -16,7 +16,7 @@ public class UtenteService implements UtenteServiceInterface{
 
     @Override
     public Persona getPersonaById(int id) {
-        Persona persona = new Persona();
+        Persona persona = null;
         try{
             persona = utenteDAO.getPersonaById(id);
         } catch (SQLException e) {

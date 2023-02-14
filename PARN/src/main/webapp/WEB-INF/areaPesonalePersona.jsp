@@ -1,3 +1,5 @@
+<%@ page import="storage.entity.Annuncio" %>
+<%@ page import="storage.entity.Azienda" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,21 +12,32 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
 </head>
 <body>
 <nav class="default-color" role="navigation">
-    <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
-        <ul class="right hide-on-med-and-down">
-            <li><a class ="white-text" href="register.html">Registrazione</a></li>
-            <li><a class ="white-text" href="accesso.html">Accedi</a></li>
+    <div class="nav-wrapper">
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <div class="right-align">
+                    <a class="sidenav-close" href="#!">
+                        <i class="medium material-icons  close-close white-text">close</i>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="center-image">
+                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" src="resource/img.png"></a>
+                </div>
+            </li>
+            <li><a href="#!" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
+            <li><a href="#!" class="waves-effect waves-light btn-large white default-color-text">AreaPersonale</a></li>
+            <li><a href="#!" class="waves-effect waves-light btn-large white default-color-text">Curriculum</a></li>
+            <li><a href="#!" class="waves-effect waves-light btn-large white default-color-text">Candidature Inviate</a></li>
+            <li><a href="#!" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
         </ul>
-
-        <ul id="nav-mobile" class="sidenav">
-            <li><a class ="white-text" href="register.html">Registrazione</a></li>
-            <li><a class ="white-text" href="accesso.html">Accedi</a></li>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons white-text">menu</i></a>
+        <a id="logo-container" href="index.html" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
     </div>
 </nav>
 
