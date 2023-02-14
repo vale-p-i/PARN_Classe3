@@ -19,8 +19,7 @@ public class AnnuncioDAO {
     public AnnuncioDAO(){}
 
     public Annuncio getAnnuncioById(int id) throws SQLException {
-        if (connection.isClosed())
-            connection=ConPool.getConnection();
+        connection=ConPool.getConnection();
         PreparedStatement pdstmt = connection.prepareStatement("SELECT ID, Azienda, Attivo, Sede,N_Persone,Descrizione,Scadenza,Requisiti,Keyword,Preferenze,Ruolo FROM Annuncio WHERE ID = ?");
         pdstmt.setInt(1, id);
 
@@ -52,8 +51,8 @@ public class AnnuncioDAO {
     }
 
     public List<Annuncio> getAnnunciByStato(String in_corso) throws SQLException {
-        if (connection.isClosed())
-            connection=ConPool.getConnection();
+        connection=ConPool.getConnection();
+
         String query = "";
         UtenteServiceInterface utenteService = new UtenteService();
         CandidaturaService candidaturaService = new CandidaturaService();
@@ -94,8 +93,8 @@ public class AnnuncioDAO {
     }
 
     public void creaAnnuncio(Annuncio annuncio) throws SQLException {
-        if (connection.isClosed())
-            connection=ConPool.getConnection();
+        connection=ConPool.getConnection();
+
         PreparedStatement pdstmt = connection.prepareStatement(
                 "INSERT INTO Annuncio(ID, Azienda, Attivo, Sede, N_Persone, Descrizione, Scadenza, Requisiti, Keyword, Preferenze, Ruolo)"+
                         "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11)");
@@ -115,8 +114,8 @@ public class AnnuncioDAO {
     }
 
     public void modificaAnnuncio(Annuncio annuncio) throws SQLException{
-        if (connection.isClosed())
-            connection=ConPool.getConnection();
+        connection=ConPool.getConnection();
+
         PreparedStatement pdstmt = connection.prepareStatement(
                 "UPDATE Annuncio a SET a.Azienda = ?1, a.Attivo = ?2, a.Sede = ?3, a.N_Persone = ?4, " +
                         "a.Descrizione = ?5, a.Scadenza = ?6, a.Requisiti = ?7, a.Keyword = ?8, a.Preferenze = ?9, " +
@@ -138,8 +137,8 @@ public class AnnuncioDAO {
     }
 
     public void eliminaAnnuncio(Annuncio annuncio) throws SQLException {
-        if (connection.isClosed())
-            connection=ConPool.getConnection();
+        connection=ConPool.getConnection();
+
         PreparedStatement pdstmt = connection.prepareStatement(
                 "DELETE FROM Annuncio a WHERE a.ID = $1");
         pdstmt.setInt(1, annuncio.getId());
@@ -148,8 +147,8 @@ public class AnnuncioDAO {
     }
 
     public void chiusuraAnnuncio(Annuncio annuncio) throws SQLException {
-        if (connection.isClosed())
-            connection=ConPool.getConnection();
+        connection=ConPool.getConnection();
+
         PreparedStatement pdstmt = connection.prepareStatement(
                 "UPDATE Annuncio SET Attivo = ?1 WHERE ID = ?2");
         pdstmt.setBoolean(1, false);
