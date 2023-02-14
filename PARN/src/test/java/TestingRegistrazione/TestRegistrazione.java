@@ -1,19 +1,16 @@
 package TestingRegistrazione;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+
 import org.junit.jupiter.api.Test;
 import storage.entity.Annuncio;
 import storage.entity.Azienda;
 import storage.entity.Sede;
 import utente.service.UtenteService;
-import utils.PasswordEncrypter;
+import utente.service.UtenteServiceInterface;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import static junit.framework.Assert.assertFalse;
 
 public class TestRegistrazione {
 
@@ -63,6 +60,8 @@ public class TestRegistrazione {
         if (argList.size() != Profile.values().length)
             throw new IllegalArgumentException("Numero di argomenti non valido. EXPECTED: "+Profile.values().length+" BUT GOT: "+argList.size());
 
+        UtenteServiceInterface utenteService = new UtenteService();
+
         String nome = (String) argList.get(Profile.NOME.ordinal());
         String partitaIva = (String) argList.get(Profile.P_IVA.ordinal());
         String telefono = (String) argList.get(Profile.TELEFONO.ordinal());
@@ -81,7 +80,6 @@ public class TestRegistrazione {
         } catch (NumberFormatException e) {
             return false;
         }
-
         String email = (String) argList.get(Profile.MAIL.ordinal());
         String password = (String) argList.get(Profile.PASSWORD.ordinal());
         String logo = (String) argList.get(Profile.FOTO.ordinal());
@@ -95,30 +93,27 @@ public class TestRegistrazione {
 
         boolean success = true;
 
-        List<String> settoriComptenza = new ArrayList<>(Arrays.asList(settoriCompetenzaString.split(",")));
+        List<String> settoriCompetenza = new ArrayList<>();
+        Collections.addAll(settoriCompetenza, settoriCompetenzaString.split(","));
 
-        Azienda azienda = new Azienda(nome, email, password, regione, provincia, logo, cap, telefono, citta, via,
-                partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriComptenza,
-                null, new ArrayList<Annuncio>());
-
-        UtenteService utenteService = new UtenteService();
-        success = success && utenteService.registraAzienda(azienda);
-
+        Azienda azienda = new Azienda(nome, email, password, regione, provincia, logo, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriCompetenza, null, new ArrayList<Annuncio>());
+        utenteService.registraAzienda(azienda);
         List<Sede> sedi = new ArrayList<>();
-        Sede sede = new Sede();
-
+        Sede sede;
+        Sede newSede;
         if(regioneSede != null){
-            Sede newSede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, mailSede);
-            sede = newSede;
+            newSede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, mailSede);
         }
         else {
-            Sede newSede = new Sede(regione, provincia, citta, cap, via, telefono, azienda, email);
-            sede = newSede;
+            newSede = new Sede(regione, provincia, citta, cap, via, telefono, azienda, email);
         }
+        sede = newSede;
+        utenteService.registraSede(sede);
         sedi.add(sede);
 
-        success = success && utenteService.registraSede(sede);
 
+        success = success && utenteService.registraSede(sede);
+        utenteService.eliminaAzienda(azienda);
 
         return success;
     }
