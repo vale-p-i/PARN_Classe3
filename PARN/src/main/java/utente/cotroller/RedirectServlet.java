@@ -11,8 +11,9 @@ public class RedirectServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String redirect = request.getParameter("redirect");
-
-        request.getRequestDispatcher("./WEB-INF/"+redirect).forward(request, response);
+        if(redirect != null)
+            request.getRequestDispatcher("./WEB-INF/"+redirect).forward(request, response);
+        else response.sendRedirect(".");
     }
 
     @Override
