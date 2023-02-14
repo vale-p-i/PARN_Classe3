@@ -39,6 +39,7 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         }
     }
 
+    @Override
     public boolean creaAnnuncio(Annuncio annuncio) {
         try {
             annuncioDAO.creaAnnuncio(annuncio);

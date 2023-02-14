@@ -5,16 +5,12 @@ import annuncio.service.AnnuncioServiceInterface;
 import curriculum.service.CurriculumService;
 import curriculum.service.CurriculumServiceInterface;
 import org.mariadb.jdbc.Statement;
-import storage.entity.Azienda;
-import storage.entity.Persona;
-import storage.entity.Sede;
-import storage.entity.Utente;
+import storage.entity.*;
 import utils.ConPool;
 import utils.StringListUtils;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +58,13 @@ public class UtenteDAO {
             String dbContent = StringListUtils.getStringFromList(azienda.getSettoriCompetenza());
             pdstmt.setString(7, dbContent);
 
+            AnnuncioServiceInterface service = new AnnuncioService();
+            for(Annuncio a : azienda.getAnnunci())
+                service.creaAnnuncio(a);
+
+            for(Sede s : azienda.getSedi())
+                addSede(s);
+
             pdstmt.executeUpdate();
             connection.close();
             azienda.setId(id);
@@ -82,6 +85,8 @@ public class UtenteDAO {
         pdstmt.setString(5, persona.getFiltroMacroarea());
         pdstmt.setString(6, persona.getPosizioneDesiderata());
 
+        CurriculumServiceInterface service = new CurriculumService();
+        service.creaCurriculum(persona.getCurriculum());
         pdstmt.executeUpdate();
         connection.close();
         persona.setId(id);
@@ -177,24 +182,20 @@ public class UtenteDAO {
           pdstmt.setString(1, mail);
           ResultSet rs = pdstmt.executeQuery();
           connection.close();
-          System.out.println(rs);
-          if(rs.next()){
-              if(password.equals(rs.getString(2))){
-                  System.out.println("Le password sono uguali");
-                  Azienda azienda = getAziendaById(rs.getInt(1));
-                  System.out.println("prova ritorn"+azienda);
-                  if (azienda!=null)
+
+          rs.next();
+            if(password.equals(rs.getString(2))){
+                Azienda azienda = getAziendaById(rs.getInt(1));
+                if (azienda!=null)
                       return  azienda;
                   else {
                       Persona persona = getPersonaById(rs.getInt(1));
                       if (persona!= null)
                           return persona;
                   }
-              }
-              else
-                  System.out.println("else1");
-          }
-          return null;
+
+            }
+            return null;
     }
 
     public Persona getPersonaById(int id) throws SQLException{

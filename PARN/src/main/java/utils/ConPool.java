@@ -49,21 +49,14 @@ public class ConPool {
         } catch (NamingException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(imp);
         if (imp!=null){
-            if (imp){
-                System.out.println("in");
+            if (imp)
                 return getConnectionRemote();
-            }
-            else {
-                System.out.println("out");
-
+            else
                 return getConnectionLocal();
-            }
         }
-        else {
+        else
             return getConnectionRemote();
-        }
     }
 
     private static Connection getConnectionLocal() throws SQLException {
