@@ -17,17 +17,22 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
-        String password = PasswordEncrypter.encryptThisString(request.getParameter("password"));
+        String tmppass=request.getParameter("password");
+        String password=null;
+        if(tmppass!=null)
+             password= PasswordEncrypter.encryptThisString(tmppass);
         UtenteServiceInterface service = new UtenteService();
         HttpSession session = request.getSession();
 
         if(email != null && password != null){
             Utente utente = service.autenticazione(email, password);
             if(utente!=null && utente instanceof Azienda){
+                System.out.println("azienda");
                 Azienda azienda = (Azienda) utente;
                 session.setAttribute("utente", azienda);
                 request.getRequestDispatcher("./WEB-INF/homepageAzienda.jsp").forward(request, response);
             } else if(utente!=null && utente instanceof Persona) {
+                System.out.println("persona");
                 Persona persona = (Persona) utente;
                 session.setAttribute("utente", persona);
                 request.getRequestDispatcher("./WEB-INF/homepagePersona.jsp").forward(request, response);

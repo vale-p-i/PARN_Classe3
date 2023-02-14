@@ -567,6 +567,10 @@
 }
 
 .min{
+  min-height: 530px;
+}
+
+.min-annuncio{
   min-height: 200px;
 }
 

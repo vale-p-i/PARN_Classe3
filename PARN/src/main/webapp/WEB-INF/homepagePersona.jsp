@@ -30,11 +30,11 @@
             <a href="#user" class="mod-a"><img height="100" width="100" class="circle" src="resource/img.png"></a>
             </div>
         </li>
-        <li><a href="#!" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
-        <li><a href="" class="waves-effect waves-light btn-large white default-color-text">AreaPersonale</a></li>
-        <li><a href="" class="waves-effect waves-light btn-large white default-color-text">Curriculum</a></li>
-        <li><a href="#!" class="waves-effect waves-light btn-large white default-color-text">Candidature Inviate</a></li>
-        <li><a href="#!" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
+        <li><a href="RedirectServlet?redirect=homepagePersona" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
+        <li><a href="RedirectServlet?redirect=areaPersonalePersona" class="waves-effect waves-light btn-large white default-color-text">AreaPersonale</a></li>
+        <li><a href="RedirectServlet?redirect=areaCurriculum" class="waves-effect waves-light btn-large white default-color-text">Curriculum</a></li>
+        <li><a href="RedirectServlet?redirect=areaCandidatureInviate" class="waves-effect waves-light btn-large white default-color-text">Candidature Inviate</a></li>
+        <li><a href="Logout" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
     </ul>
     <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons white-text">menu</i></a>
     <a id="logo-container" href="index.html" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="col s12 m12">
-            <div class="card horizontal min">
+            <div class="card horizontal min-annuncio">
                 <div class="card-image mrgin">
                     <img width="100" class="activator" height="100" src="resource/ibm.jpeg">
                 </div>
