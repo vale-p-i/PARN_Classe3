@@ -36,7 +36,13 @@ public class registerAzienda extends HttpServlet {
         List<String> settoriComptenza = new ArrayList<>();
         for(String s:settoriCompetenzaString.split(","))
             settoriComptenza.add(s);
-        int numeroDipendenti = Integer.parseInt(request.getParameter("dipendenti"));
+        int numeroDipendenti = 0;
+        try{
+            numeroDipendenti = Integer.parseInt(request.getParameter("dipendenti"));
+        }catch (NumberFormatException n){
+            System.err.println("Conversion error "+n);
+        }
+
         String email = request.getParameter("emailAzienda");
         String password = PasswordEncrypter.encryptThisString(request.getParameter("password_Azienda"));
         String logo = request.getParameter("logo");
@@ -71,9 +77,12 @@ public class registerAzienda extends HttpServlet {
             if(service.autenticazione(email, password) != null){
                 session.setAttribute("utente", azienda);
                 request.getRequestDispatcher("./WEB-INF/areaAzienda.jsp").forward(request, response);
+            }else{
+                response.sendRedirect(".");
             }
+        }else{
+            response.sendRedirect(".");
         }
-        response.sendRedirect(".");
     }
 
     @Override

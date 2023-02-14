@@ -127,7 +127,7 @@ public class UtenteDAO {
         connection=ConPool.getConnection();
 
         PreparedStatement pdstmt = connection.prepareStatement("UPDATE Persona SET Utente = ?, Cognome = ?, CF" +
-                " = ?, DDN = ?, F_Macroarea = ?, Pos_Des = ? WHERE Utente = ?", Statement.RETURN_GENERATED_KEYS);
+                " = ?, DDN = ?, F_Macroarea = ?, Pos_Des = ? WHERE Utente = ?");
         pdstmt.setInt(1, persona.getId());
         pdstmt.setString(2, persona.getCognome());
         pdstmt.setString(3, persona.getCodiceFiscale());
@@ -141,6 +141,23 @@ public class UtenteDAO {
         connection.close();
     }
 
+    public void aggiornaSede(Sede sede) throws SQLException{
+        if(connection.isClosed())
+            connection=ConPool.getConnection();
+        PreparedStatement pdstmt = connection.prepareStatement("UPDATE Sede SET ID = ?, Azienda = ?, Citta = ?, " +
+                "Provincia = ?, CAP = ?, Via = ?, Regione = ?, Telefono = ?, Mail = ? WHERE ID = ?");
+        pdstmt.setInt(1, sede.getId());
+        pdstmt.setInt(2, sede.getAzienda().getId());
+        pdstmt.setString(3, sede.getCitta());
+        pdstmt.setString(4, sede.getProvincia());
+        pdstmt.setString(5, sede.getCap());
+        pdstmt.setString(6, sede.getVia());
+        pdstmt.setString(7, sede.getRegione());
+        pdstmt.setString(8, sede.getTelefono());
+        pdstmt.setString(9, sede.getMail());
+        pdstmt.executeUpdate();
+        connection.close();
+    }
     public void rimuoviPersona(Persona persona) throws SQLException{
         System.out.println("Questo metodo non è stato ancora implementato");
     }

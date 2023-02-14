@@ -43,7 +43,13 @@ public class ModificaAzienda extends HttpServlet {
                 settoriComptenza.add(s);
 
             azienda.setSettoriCompetenza(settoriComptenza);
-            azienda.setNumeroDipendenti(Integer.parseInt(request.getParameter("dipendenti")));
+            int numeroDipendenti = 0;
+            try{
+                numeroDipendenti = Integer.parseInt(request.getParameter("dipendenti"));
+            }catch (NumberFormatException n){
+                System.err.println("Conversion error "+n);
+            }
+            azienda.setNumeroDipendenti(numeroDipendenti);
             azienda.setMail(request.getParameter("emailAzienda"));
             azienda.setFoto(request.getParameter("logo"));
             String newPassword = PasswordEncrypter.encryptThisString(request.getParameter("password_Azienda"));
@@ -53,17 +59,22 @@ public class ModificaAzienda extends HttpServlet {
             && azienda.getRagioneSociale() != null && azienda.getLink() != null && azienda.getRegione() != null
             && azienda.getProvincia() != null && azienda.getCitta() != null && azienda.getVia() != null
             && azienda.getCap() != null && azienda.getAreaInteresse() != null && azienda.getSettoriCompetenza() != null
-            && azienda.getNumeroDipendenti() >= 0 && azienda.getMail() != null && newPassword != null){
+            && azienda.getMail() != null && newPassword != null){
 
                 if(oldPassword.equals(azienda.getPassword())){
                     azienda.setPassword(newPassword);
                     service.aggiornaAzienda(azienda);
                     session.setAttribute("utente", azienda);
                     request.getRequestDispatcher("./WEB_INF/modificaInfoAzienda.jsp").forward(request, response);
+                }else{
+                    response.sendRedirect(".");
                 }
+            }else{
+                response.sendRedirect(".");
             }
+        }else{
+            response.sendRedirect(".");
         }
-        response.sendRedirect(".");
     }
 
     @Override
