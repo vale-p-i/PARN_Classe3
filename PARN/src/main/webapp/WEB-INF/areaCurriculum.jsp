@@ -12,7 +12,15 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
+    <script>
+        <%session=request.getSession();
+        Utente u= (Utente) session.getAttribute("utente");
+        if (u==null){%>
+        window.location.href = "./index.jsp";
+        <%
+            }
+        %>
+    </script>
 </head>
 <body>
 <nav class="default-color" role="navigation">
@@ -37,7 +45,7 @@
             <li><a href="Logout" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
         </ul>
         <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons white-text">menu</i></a>
-        <a id="logo-container" href="index.html" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
+        <a id="logo-container" href="index.jsp" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
     </div>
 </nav>
 
@@ -68,10 +76,14 @@
                     for (EsperienzaLavorativa e: c.getEsperienze()){
                 %>
                     <div class="row">
-                        <div class="input-field col s12 m12">
+                        <div class="input-field col s11 m11">
                             <h6>Esperienza:</h6>
                         </div>
-
+                        <div class="right">
+                            <form action="EliminaEsperienza">
+                            <a type="submit"><i class="material-icons tiny red-text">cancel</i>Elimina</a>
+                            </form>
+                        </div>
                     </div>
                     <div class="esperienza">
                         <form action="modificaEsperienza">
@@ -195,7 +207,11 @@
                             <div class="input-field col s12 m12">
                                 <h6>Lingua:</h6>
                             </div>
-
+                            <div class="right">
+                                <form action="EliminaLingua">
+                                    <a type="submit"><i class="material-icons tiny red-text">cancel</i>Elimina</a>
+                                </form>
+                            </div>
                         </div>
                         <form action="modificaLingua">
                             <div class="row">
@@ -204,7 +220,23 @@
                                     <label for="nomeLingua">Inserisci il nome della lingua</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Livello Lingua" id="livelloLingua" name="livelloLingua" value="<%=l.getLivello()%>" type="text" class="validate">
+                                    <select name="livelloLingua" id="livelloLingua">
+                                        <option value="" disabled>Scegli il livello</option>
+                                        <%
+                                            for (String livello: Lingua.LIVELLI){
+                                                if(l.getLivello().equals(livello)){
+                                        %>
+                                        <option selected value="<%=livello%>"><%=livello%></option>
+                                        <%
+                                                }
+                                            else{
+                                        %>
+                                        <option value="<%=livello%>"><%=livello%></option>
+                                        <%
+                                            }
+                                            }
+                                        %>
+                                    </select>
                                     <label for="livelloLingua">Inserisci il livello della lingua</label>
                                 </div>
                             </div>
@@ -232,7 +264,17 @@
                                     <label for="nomeLingua">Inserisci il nome della lingua</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Livello Lingua" id="livelloLingua" name="livelloLingua"  type="text" class="validate" required>
+
+                                    <select name="livelloLingua" id="livelloLingua">
+                                        <option value="" disabled>Scegli il livello</option>
+                                        <%
+                                            for (String livello: Lingua.LIVELLI){
+                                        %>
+                                            <option value="<%=livello%>"><%=livello%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
                                     <label for="livelloLingua">Inserisci il livello della lingua</label>
                                 </div>
                             </div>
@@ -250,7 +292,11 @@
                         <div class="input-field col s12 m12">
                             <h5>Istruzioni:</h5>
                         </div>
-
+                        <div class="right">
+                            <form action="EliminaIstruzione">
+                                <a type="submit"><i class="material-icons tiny red-text">cancel</i>Elimina</a>
+                            </form>
+                        </div>
                     </div>
                     <%
                         if(c!=null)
@@ -359,9 +405,9 @@
             <div class="col l3 s12">
                 <h5 class="white-text">Link</h5>
                 <ul>
-                    <li><a class="white-text" href="register.html">Registrazione</a></li>
-                    <li><a class="white-text" href="accesso.html">Login</a></li>
-                    <li><a class="white-text" href="index.html">Home</a></li>
+                    <li><a class="white-text" href="register.jsp">Registrazione</a></li>
+                    <li><a class="white-text" href="accesso.jsp">Login</a></li>
+                    <li><a class="white-text" href="index.jsp">Home</a></li>
                 </ul>
             </div>
         </div>

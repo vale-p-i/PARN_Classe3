@@ -1,3 +1,4 @@
+<%@ page import="storage.entity.Utente" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,19 +11,31 @@
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script>
+    <%
+  session=request.getSession();
+  Utente u= (Utente) session.getAttribute("utente");
+  if (u!=null){
+%>
+    window.location.href = "./Login";
+    <%
+    }
+    %>
+
+  </script>
 </head>
 <body>
   <nav class="default-color" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="index.html" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
+      <a id="logo-container" href="index.jsp" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
       <ul class="right hide-on-med-and-down">
-        <li><a class ="white-text" href="register.html">Registrazione</a></li>
-        <li class="active"><a class ="white-text" href="accesso.html">Accedi</a></li>
+        <li><a class ="white-text" href="register.jsp">Registrazione</a></li>
+        <li class="active"><a class ="white-text" href="accesso.jsp">Accedi</a></li>
       </ul>
 
       <ul id="nav-mobile" class="sidenav">
-        <li><a class ="white-text" href="register.html">Registrazione</a></li>
-        <li class="active"><a class ="white-text" href="accesso.html">Accedi</a></li>
+        <li><a class ="white-text" href="register.jsp">Registrazione</a></li>
+        <li class="active"><a class ="white-text" href="accesso.jsp">Accedi</a></li>
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
     </div>
@@ -59,7 +72,7 @@
       <div class="row">
         <div class="col s12 m12">
             <button class="btn waves-effect waves-light default-color" type="submit" name="action">Accedi<i class="material-icons right">send</i></button>
-			<p size="4">Non sei ancora iscritto? Clicca <a size="4" href="register.html">qui</a>.</p>
+			<p size="4">Non sei ancora iscritto? Clicca <a size="4" href="register.jsp">qui</a>.</p>
 
         </div>
       </div>
@@ -85,9 +98,9 @@
         <div class="col l3 s12">
           <h5 class="white-text">Link</h5>
           <ul>
-            <li><a class="white-text" href="register.html">Registrazione</a></li>
-            <li><a class="white-text" href="accesso.html">Login</a></li>
-            <li><a class="white-text" href="index.html">Home</a></li>
+            <li><a class="white-text" href="register.jsp">Registrazione</a></li>
+            <li><a class="white-text" href="accesso.jsp">Login</a></li>
+            <li><a class="white-text" href="index.jsp">Home</a></li>
           </ul>
         </div>
       </div>
