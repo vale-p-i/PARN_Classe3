@@ -53,18 +53,20 @@ public class CurriculumService implements  CurriculumServiceInterface{
             return false;
         }
 
+        boolean flag = true;
         for(EsperienzaLavorativa e: curriculum.getEsperienze()){
-            aggiungiEsperienzaLavorativa(e);
+            flag = aggiungiEsperienzaLavorativa(e) && flag;
         }
 
         for(Lingua l: curriculum.getLingue()) {
-            aggiungiLingua(l);
+            flag = aggiungiLingua(l) && flag;
         }
 
         for(Istruzione i: curriculum.getIstruzioni()) {
-            aggiungiIstruzione(i);
+            flag = aggiungiIstruzione(i) && flag;
         }
-        return true;
+
+        return flag;
     }
 
     /**
@@ -116,8 +118,9 @@ public class CurriculumService implements  CurriculumServiceInterface{
 
         //viene aggiunta l'esperienza lavorativa all'oggetto Curriculum
         Curriculum curriculum = esperienzaLavorativa.getCurriculum();
-        curriculum.getEsperienze().add(esperienzaLavorativa);
-
+        if(!curriculum.getEsperienze().contains(esperienzaLavorativa)) {
+            curriculum.getEsperienze().add(esperienzaLavorativa);
+        }
         return  true;
     }
 
@@ -137,7 +140,9 @@ public class CurriculumService implements  CurriculumServiceInterface{
 
         //viene aggiunta la lingua all'oggetto curriculum
         Curriculum curriculum = lingua.getCurriculum();
-        curriculum.getLingue().add(lingua);
+        if(!curriculum.getLingue().contains(lingua)){
+            curriculum.getLingue().add(lingua);
+        }
 
         return true;
     }
@@ -156,9 +161,12 @@ public class CurriculumService implements  CurriculumServiceInterface{
             return false;
         }
 
-        //viene aggiunta l'istruzione al'oggetto curriculum
+        //viene aggiunta l'istruzione all'oggetto curriculum
         Curriculum curriculum = istruzione.getCurriculum();
-        curriculum.getIstruzioni().add(istruzione);
+        if(!curriculum.getIstruzioni().contains(istruzione)){
+            curriculum.getIstruzioni().add(istruzione);
+        }
+
         return true;
     }
 
