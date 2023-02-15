@@ -66,14 +66,19 @@
             </tr>
             </thead>
             <tbody>
-        <%
-            session = request.getSession(false);
-            Azienda a=(Azienda) session.getAttribute("utente");
-            AnnuncioServiceInterface service=new AnnuncioService();
-            if (session.getAttribute("annuncio")!=null)
-                session.removeAttribute("annuncio");
-            List<Annuncio> list=service.getAnnunciByStato(a,Annuncio.IN_CORSO);
-            if(list!=null){
+            <%
+                session = request.getSession(false);
+                Azienda a=(Azienda) session.getAttribute("utente");
+                AnnuncioServiceInterface service=new AnnuncioService();
+                if (session.getAttribute("annuncio")!=null)
+                    session.removeAttribute("annuncio");
+                List<Annuncio> list=service.getAnnunciByStato(a,Annuncio.IN_CORSO);
+                if(list!=null){
+                    if(list.isEmpty()){
+            %>
+            <tr><td colspan="6">Nessun anncuncio scaduto</td> </tr>
+            <%
+                }
                 for(Annuncio ann: list){
         %>
             <tr>
@@ -87,7 +92,12 @@
         <%
                 }
             }
+                else{
         %>
+            <tr><td colspan="6">Nessun anncuncio scaduto</td> </tr>
+            <%
+                }
+            %>
             </tbody>
         </table>
     </div>
