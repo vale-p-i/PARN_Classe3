@@ -21,8 +21,7 @@ public class UtenteDAO {
 
     private int addUtente(Utente utente) throws SQLException{
         connection = ConPool.getConnection();
-
-        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Utente (Nome, Mail, Pass, Regione," +
+        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Utente (Nome, Mail, Pa"+"ss, Regione," +
                 " Provincia, Foto, CAP, Telefono, Citta, Via) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         pdstmt.setString(1, utente.getNome());
         pdstmt.setString(2, utente.getMail());
@@ -97,7 +96,7 @@ public class UtenteDAO {
     public Sede addSede(Sede sede) throws SQLException{
         connection=ConPool.getConnection();
 
-        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Sede (Azienda, Citta, Provincia, Cap," +
+        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Sede (Azienda, Citta, Provincia, CAP," +
                 "Via, Regione, Telefono, Mail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         pdstmt.setInt(1, sede.getAzienda().getId());
         pdstmt.setString(2, sede.getCitta());
@@ -165,6 +164,29 @@ public class UtenteDAO {
         pdstmt.setString(7, sede.getRegione());
         pdstmt.setString(8, sede.getTelefono());
         pdstmt.setString(9, sede.getMail());
+        pdstmt.executeUpdate();
+        connection.close();
+    }
+
+    public void aggiornaUtente(Utente utente) throws SQLException{
+        connection=ConPool.getConnection();
+
+        PreparedStatement pdstmt = connection.prepareStatement("UPDATE Utente SET N_Reg = ?, Nome = ?, Mail" +
+                " = ?, Pass = ?, Regione = ?, Provincia = ?, Foto = ?, CAP = ?, Telefono = ?, Citta = ?, " +
+                "Via = ? WHERE Utente = ?");
+        pdstmt.setInt(1, utente.getId());
+        pdstmt.setString(2, utente.getNome());
+        pdstmt.setString(3, utente.getMail());
+        pdstmt.setString(4, utente.getPassword());
+        pdstmt.setString(5, utente.getRegione());
+        pdstmt.setString(6, utente.getProvincia());
+        pdstmt.setString(7, utente.getFoto());
+        pdstmt.setString(8, utente.getCap());
+        pdstmt.setString(9, utente.getTelefono());
+        pdstmt.setString(10, utente.getCitta());
+        pdstmt.setString(11, utente.getVia());
+        pdstmt.setInt(12, utente.getId());
+
         pdstmt.executeUpdate();
         connection.close();
     }

@@ -28,7 +28,7 @@ public class ModificaPersona extends HttpServlet {
             persona.setNome(request.getParameter("nomePersona"));
             persona.setCognome(request.getParameter("cognome"));
             persona.setTelefono(request.getParameter("telefonoPersona"));
-            persona.setCodiceFiscale(request.getParameter("coficeFiscale"));
+            persona.setCodiceFiscale(request.getParameter("codiceFiscale"));
             persona.setDataDiNascita(LocalDateTime.parse(request.getParameter("data_n"), formatter));
             persona.setRegione(request.getParameter("regionePersona"));
             persona.setProvincia(request.getParameter("provinciaPersona"));
@@ -39,21 +39,12 @@ public class ModificaPersona extends HttpServlet {
             persona.setFiltroMacroarea(request.getParameter("filtroMacroarea"));
             persona.setFoto(request.getParameter("fotoPersona"));
             persona.setMail(request.getParameter("mailPersona"));
-            String newPassword = PasswordEncrypter.encryptThisString(request.getParameter("password_Persona"));
-            String oldPassword = request.getParameter("old_Password");
 
-            if(persona.getNome() != null && persona.getCognome() != null && persona.getTelefono() != null &&
-                    persona.getCodiceFiscale() != null && persona.getDataDiNascita() != null &&
-                    persona.getRegione() != null && persona.getProvincia() != null && persona.getCitta() != null &&
-                    persona.getVia() != null && persona.getCap() != null && persona.getPosizioneDesiderata() != null &&
-                    persona.getFiltroMacroarea() != null && persona.getFoto() != null && persona.getMail() != null &&
-                    newPassword != null && oldPassword != null && oldPassword.equals(persona.getPassword())){
+            //Separare la modifica della password in un'altra servlet
 
-                    persona.setPassword(newPassword);
-                    service.aggiornaPersona(persona);
-                    session.setAttribute("utente", persona);
-                    request.getRequestDispatcher("./WEB_INF/areaPersonalePersona.jsp").forward(request, response);
-            }else response.sendRedirect(".");
+            service.aggiornaPersona(persona);
+            session.setAttribute("utente", persona);
+            request.getRequestDispatcher("./WEB_INF/areaPersonalePersona.jsp").forward(request, response);
         }else response.sendRedirect(".");
     }
 

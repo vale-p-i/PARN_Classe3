@@ -42,9 +42,10 @@ public class ModificaAzienda extends HttpServlet {
                 settoriComptenza.add(s);
 
             azienda.setSettoriCompetenza(settoriComptenza);
+            String numeroDipendentiString = request.getParameter("dipendenti");
             int numeroDipendenti = 0;
             try{
-                numeroDipendenti = Integer.parseInt(request.getParameter("dipendenti"));
+                numeroDipendenti = Integer.parseInt(numeroDipendentiString);
             }catch (NumberFormatException n){
                 System.err.println("Conversion error " + n);
             }
@@ -52,21 +53,10 @@ public class ModificaAzienda extends HttpServlet {
 
             azienda.setMail(request.getParameter("emailAzienda"));
             azienda.setFoto(request.getParameter("logo"));
-            String newPassword = PasswordEncrypter.encryptThisString(request.getParameter("password_Azienda"));
-            String oldPassword = PasswordEncrypter.encryptThisString(request.getParameter("old_Password"));
 
-            if(azienda.getNome() != null && azienda.getPartitaIVA() != null && azienda.getTelefono() != null &&
-                    azienda.getRagioneSociale() != null && azienda.getLink() != null && azienda.getRegione() != null &&
-                    azienda.getProvincia() != null && azienda.getCitta() != null && azienda.getVia() != null &&
-                    azienda.getCap() != null && azienda.getAreaInteresse() != null && azienda.getSettoriCompetenza() != null &&
-                    azienda.getMail() != null && newPassword != null && oldPassword.equals(azienda.getPassword())){
-
-                    azienda.setPassword(newPassword);
-                    service.aggiornaAzienda(azienda);
-                    session.setAttribute("utente", azienda);
-                    request.getRequestDispatcher("./WEB_INF/areaPersonaleAzienda.jsp").forward(request, response);
-
-            }else response.sendRedirect(".");
+            service.aggiornaAzienda(azienda);
+            session.setAttribute("utente", azienda);
+            request.getRequestDispatcher("./WEB_INF/areaPersonaleAzienda.jsp").forward(request, response);
         }else response.sendRedirect(".");
     }
 

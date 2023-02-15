@@ -29,34 +29,38 @@ public class CreaAnnuncio extends HttpServlet {
 
         if(utente instanceof Azienda && utente != null){
             Azienda azienda = (Azienda) utente;
-            int idSede = -1;
-            int numeroPersone = 0;
-            try {
-                idSede = Integer.parseInt(request.getParameter("id_Sede"));
-                numeroPersone = Integer.parseInt(request.getParameter("numero_Persone"));
-            }catch (NumberFormatException n){
-                System.out.println("Conversion error " + n);
-            }
-            String descrizione = request.getParameter("descrizione");
-            LocalDateTime scadenza = LocalDateTime.parse(request.getParameter("scadenza"), formatter);
-            List<String> requisiti = new ArrayList<>();
-            for(String s:request.getParameter("requisiti").split(","))
-                requisiti.add(s);
-            List<String> keywords = new ArrayList<>();
-            for(String s:request.getParameter("keywords").split(","))
-                keywords.add(s);
-            List<String> preferenze = new ArrayList<>();
-            for(String s:request.getParameter("preferenze").split(","))
-                preferenze.add(s);
-            String ruolo = request.getParameter("ruolo");
+            String idSedeString = request.getParameter("sedelist");
+            if(idSedeString != null){
+                int idSede = -1;
+                int numeroPersone = 0;
+                try {
+                    idSede = Integer.parseInt(idSedeString);
+                    numeroPersone = Integer.parseInt(request.getParameter("numeroDipendenti"));
+                }catch (NumberFormatException n){
+                    System.out.println("Conversion error " + n);
+                    throw  new IllegalArgumentException();
+                }
+                String descrizione = request.getParameter("descrizione");
+                LocalDateTime scadenza = LocalDateTime.parse(request.getParameter("data_scad"), formatter);
+                List<String> requisiti = new ArrayList<>();
+                for(String s:request.getParameter("requisiti").split(","))
+                    requisiti.add(s);
+                List<String> keywords = new ArrayList<>();
+                for(String s:request.getParameter("keywords").split(","))
+                    keywords.add(s);
+                List<String> preferenze = new ArrayList<>();
+                for(String s:request.getParameter("preferenze").split(","))
+                    preferenze.add(s);
+                String ruolo = request.getParameter("ruolo");
 
-            Annuncio annuncio = new Annuncio(-1, azienda, true, serviceUtente.getSedeById(azienda, idSede),
-                    numeroPersone, descrizione, scadenza, requisiti, keywords, preferenze, ruolo, null);
+                Annuncio annuncio = new Annuncio(-1, azienda, true, serviceUtente.getSedeById(azienda, idSede),
+                        numeroPersone, descrizione, scadenza, requisiti, keywords, preferenze, ruolo, null);
 
-            serviceAnnuncio.creaAnnuncio(annuncio);
-            serviceUtente.aggiornaAzienda(azienda);
-            session.setAttribute("utente", azienda);
-            request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+                serviceAnnuncio.creaAnnuncio(annuncio);
+                serviceUtente.aggiornaAzienda(azienda);
+                session.setAttribute("utente", azienda);
+                request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+            }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }
 

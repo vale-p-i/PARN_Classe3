@@ -29,13 +29,14 @@ public class CreaCandidatura extends HttpServlet {
         if(utente != null && utente instanceof Persona){
             Persona persona = (Persona) utente;
 
-            String idAnnuncioString = request.getParameter("ida_Annuncio");
+            String idAnnuncioString = request.getParameter("id_annuncio");
             if(idAnnuncioString != null){
                 int idAnnuncio = -1;
                 try{
                     idAnnuncio = Integer.parseInt(idAnnuncioString);
                 }catch (NumberFormatException n){
                     System.out.println("Conversion error " + n);
+                    throw new IllegalArgumentException();
                 }
                 Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
                 Candidatura candidatura = new Candidatura(persona, annuncio, persona.getCurriculum(), LocalDateTime.now());

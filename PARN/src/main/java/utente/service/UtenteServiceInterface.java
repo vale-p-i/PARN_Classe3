@@ -16,6 +16,8 @@ public interface UtenteServiceInterface {
     boolean aggiornaPersona(Persona persona);
     boolean aggiornaAzienda(Azienda azienda);
     boolean aggiornaSede(Sede sede);
+
+    boolean aggiornaUtente(Utente utente);
     Utente autenticazione(String mail, String password);
     boolean eliminaAzienda(Azienda azienda);
 }

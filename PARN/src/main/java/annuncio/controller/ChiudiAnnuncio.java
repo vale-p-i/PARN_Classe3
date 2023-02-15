@@ -25,13 +25,14 @@ public class ChiudiAnnuncio extends HttpServlet {
         if(utente instanceof Azienda && utente != null){
             Azienda azienda = (Azienda) utente;
 
-            String idAnnuncioString = request.getParameter("id_Annuncio");
+            String idAnnuncioString = request.getParameter("id_annuncio");
             if(idAnnuncioString!=null){
                 int idAnnuncio = -1;
                 try{
                     idAnnuncio = Integer.parseInt(idAnnuncioString);
                 }catch (NumberFormatException n){
                     System.out.println("Conversion error " + n);
+                    throw new IllegalArgumentException();
                 }
                 Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
                 serviceAnnuncio.chiusuraAnnuncio(annuncio);

@@ -28,19 +28,16 @@ public class AggiungiSede extends HttpServlet {
             String via = request.getParameter("viaSede");
             String regione = request.getParameter("regioneSede");
             String telefono = request.getParameter("telefonoSede");
-            String mail = request.getParameter("mailSede");
+            String mail = request.getParameter("emailSede");
 
-            if(azienda!=null && citta != null && provincia != null && cap != null && via != null && regione != null &&
-                    telefono != null && mail != null){
-                Sede sede = new Sede(azienda.getId(), regione, provincia, citta, cap, via, telefono, azienda, mail);
-                azienda.getSedi().add(sede);
+            Sede sede = new Sede(azienda.getId(), regione, provincia, citta, cap, via, telefono, azienda, mail);
+            azienda.getSedi().add(sede);
 
-                service.registraSede(sede);
-                service.aggiornaAzienda(azienda);
+            service.registraSede(sede);
+            service.aggiornaAzienda(azienda);
 
-                session.setAttribute("utente", azienda);
-                request.getRequestDispatcher("./WEB-INF/areaPersonaleAzienda.jsp").forward(request, response);
-            }else response.sendRedirect(".");
+            session.setAttribute("utente", azienda);
+            request.getRequestDispatcher("./WEB-INF/areaPersonaleAzienda.jsp").forward(request, response);
         }else response.sendRedirect(".");
     }
 
