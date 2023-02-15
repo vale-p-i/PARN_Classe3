@@ -59,7 +59,7 @@
 %>
 
 <div class="container">
-    <div class="section-main">
+    <div class="section-main min">
         <div class="row">
             <div class="row">
                 <div class="col s6 m6">
@@ -90,9 +90,9 @@
                     <p>Ruolo:<%=acc.getRuolo()%></p>
                     <p>Sede:<%=acc.getSede()%></p>
                     <p>Preferenze:<%=acc.getPreferenze()%></p>
-                    <form >
-                        <input type="hidden" value="idpersona">
-                        <input type="hidden" value="idannnuncio">
+                    <form action="CreaCandidatura">
+                        <input type="hidden" name="id_persona" id="id_persona" value="<%=p.getId()%>">
+                        <input type="hidden" name="id_annuncio" id="id_annuncio" value="<%=acc.getId()%>">
                         <button class="btn waves-effect waves-light default-color" type="submit" name="action">Candidati
                             <i class="material-icons right">send</i>
                         </button>

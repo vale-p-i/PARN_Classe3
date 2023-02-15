@@ -1,15 +1,16 @@
 package storage.entity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Candidatura {
     private Persona persona;
     private Annuncio annuncio;
     private Curriculum curriculum;
-    private LocalDateTime data;
+    private LocalDate data;
 
-    public Candidatura(Persona persona, Annuncio annuncio, Curriculum curriculum, LocalDateTime data) {
+    public Candidatura(Persona persona, Annuncio annuncio, Curriculum curriculum, LocalDate data) {
         this.persona = persona;
         this.annuncio = annuncio;
         this.curriculum = curriculum;
@@ -44,11 +45,11 @@ public class Candidatura {
         this.curriculum = curriculum;
     }
 
-    public LocalDateTime getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 }
