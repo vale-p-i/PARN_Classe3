@@ -24,6 +24,7 @@ public class ModificaEsperienza extends HttpServlet {
         Utente utente = (Utente) session.getAttribute("utente");
 
         if(utente != null) {
+
             if(utente instanceof  Persona){
                 Persona persona = (Persona) utente;
 
@@ -51,16 +52,34 @@ public class ModificaEsperienza extends HttpServlet {
                 if(nomeAziendaEsperienza != null && tipoAzienda != null && tipoImpiego != null
                         && nomeDatore != null && contattoAzienda != null && !mansioni.isEmpty()
                         && ddi != null) {
+                    System.out.println("4");
+
                     Curriculum curriculum = persona.getCurriculum();
-                    EsperienzaLavorativa esperienzaLavorativa = new EsperienzaLavorativa(ddi, ddf, tipoAzienda,
-                            nomeDatore, contattoAzienda, tipoImpiego, mansioni, nomeAziendaEsperienza, curriculum);
-                    CurriculumServiceInterface serviceInterface = new CurriculumService();
-                    if(!serviceInterface.aggiornaEsperienzaLavorativa(esperienzaLavorativa)){
-                        System.err.println("L'aggiornamento dell'esperienza non è andata a buon fine");
+                    EsperienzaLavorativa esperienzaLavorativa = null;
+                    for(EsperienzaLavorativa e: curriculum.getEsperienze()){
+                        if(e.getNomeAzienda().equals(nomeAziendaEsperienza) && e.getTipoImpiego().equals(tipoImpiego)){
+                            esperienzaLavorativa = e;
+                            continue;
+                        }
                     }
 
-                    session.setAttribute("utente", persona);
-                    request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
+                    if(esperienzaLavorativa != null) {
+                        esperienzaLavorativa.setTipoAzienda(tipoAzienda);
+                        esperienzaLavorativa.setTipoImpiego(tipoImpiego);
+                        esperienzaLavorativa.setDatore(nomeDatore);
+                        esperienzaLavorativa.setContatto(contattoAzienda);
+                        esperienzaLavorativa.setMansioniPrincipali(mansioni);
+                        esperienzaLavorativa.setDataInizio(ddi);
+                        esperienzaLavorativa.setDataFine(ddf);
+
+                        CurriculumServiceInterface serviceInterface = new CurriculumService();
+                        if(!serviceInterface.aggiornaEsperienzaLavorativa(esperienzaLavorativa)){
+                            System.err.println("L'aggiornamento dell'esperienza non è andata a buon fine");
+                        }
+
+                        session.setAttribute("utente", persona);
+                        request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
+                    } else response.sendRedirect(".");
 
                 } else response.sendRedirect(".");
 

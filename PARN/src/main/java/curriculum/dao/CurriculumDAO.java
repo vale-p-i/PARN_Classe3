@@ -8,7 +8,6 @@ import utils.StringListUtils;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -194,7 +193,7 @@ public class CurriculumDAO {
     public  void removeEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa) throws SQLException {
         Connection connection = ConPool.getConnection();
         PreparedStatement statement = connection.prepareStatement("DELETE FROM Esperienza WHERE " +
-                "Curriculum = ?, Nome_Azienda = ?, Tipo_Impiego = ?");
+                "Curriculum = ? AND Nome_Azienda = ? AND Tipo_Impiego = ?");
         statement.setInt(1, esperienzaLavorativa.getCurriculum().getPersona().getId());
         statement.setString(2, esperienzaLavorativa.getNomeAzienda());
         statement.setString(3, esperienzaLavorativa.getTipoImpiego());
@@ -203,8 +202,7 @@ public class CurriculumDAO {
     }
     public void updateEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa) throws SQLException {
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("UPDATE Esperienza SET " +
-                "Mansioni = ?, Datore = ?, Contatto = ?, Tipo_Azienda = ?, DDI = ?, DDF, = ? WHERE Curriculum = ?, Nome_Azienda = ?, Tipo_Impiego = ?");
+        PreparedStatement statement = connection.prepareStatement("UPDATE Esperienza SET Mansioni = ?, Datore = ?, Contatto = ?, Tipo_Azienda = ?, DDI = ?, DDF = ? WHERE Curriculum = ? AND Nome_Azienda = ? AND Tipo_Impiego = ?");
 
         //parametri set
         String mansioni = StringListUtils.getStringFromList(esperienzaLavorativa.getMansioniPrincipali());
@@ -251,7 +249,7 @@ public class CurriculumDAO {
     public void removeIstruzione(Istruzione istruzione) throws SQLException {
         Connection connection = ConPool.getConnection();
         PreparedStatement statement = connection.prepareStatement("DELETE FROM Istruzione WHERE " +
-                "Curriculum = ?, Tipo = ?, Istituto = ?");
+                "Curriculum = ? AND Tipo = ? AND Istituto = ?");
         statement.setInt(1, istruzione.getCurriculum().getPersona().getId());
         statement.setString(2, istruzione.getTipo());
         statement.setString(3, istruzione.getIstituto());
@@ -261,7 +259,7 @@ public class CurriculumDAO {
     public void updateIstruzione(Istruzione istruzione) throws SQLException {
         Connection connection = ConPool.getConnection();
         PreparedStatement statement = connection.prepareStatement("UPDATE Istruzione SET " +
-                "DDI = ?, DDF = ?, Qualifica = ? WHERE Curriculum = ?, Tipo = ?, Istituto = ?");
+                "DDI = ?, DDF = ?, Qualifica = ? WHERE Curriculum = ? AND Tipo = ? AND Istituto = ?");
 
         //parametri set
         java.sql.Date ddi = java.sql.Date.valueOf(istruzione.getDataInizio());
@@ -293,7 +291,7 @@ public class CurriculumDAO {
     }
     public void removeLingua(Lingua lingua) throws SQLException {
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM Lingua WHERE Curriculum = ?, Nome = ?");
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Lingua WHERE Curriculum = ? AND Nome = ?");
         statement.setInt(1, lingua.getCurriculum().getPersona().getId());
         statement.setString(2, lingua.getNome());
 
@@ -301,7 +299,7 @@ public class CurriculumDAO {
     }
     public void updateLingua(Lingua lingua) throws SQLException {
         Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("UPDATE Lingua SET Livello = ? WHERE Curriculum = ?, Nome = ?");
+        PreparedStatement statement = connection.prepareStatement("UPDATE Lingua SET Livello = ? WHERE Curriculum = ? AND Nome = ?");
 
         //parametri set
         statement.setString(1, lingua.getLivello());

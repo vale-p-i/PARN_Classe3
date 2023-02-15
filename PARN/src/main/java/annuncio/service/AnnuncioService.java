@@ -161,27 +161,6 @@ public class AnnuncioService implements AnnuncioServiceInterface {
     }
 
     @Override
-    public boolean rimuoviCandidatura(Annuncio annuncio, Candidatura candidatura) {
-        CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
-
-        for (int i = 0; i < annuncio.getCandidature().size(); i++){
-            if (annuncio.getCandidature().get(i).equals(candidatura))
-                annuncio.getCandidature().remove(i);
-        }
-
-        return candidaturaServiceInterface.eliminaCandidatura(candidatura);
-    }
-
-    /**
-     * public List<Candidatura> visualizzaCandidatura(Annuncio annuncio) {
-     *         CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
-     *         return candidaturaServiceInterface.getCandidatureByAnnuncio(annuncio);
-     *     }
-     *
-      */
-
-
-    @Override
     public List<Annuncio> getAnnuncioByAzienda(Azienda azienda) {
        try {
            return annuncioDAO.getAnnunciByAzienda(azienda);

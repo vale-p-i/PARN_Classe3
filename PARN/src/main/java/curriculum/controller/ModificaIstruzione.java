@@ -40,14 +40,28 @@ public class ModificaIstruzione extends HttpServlet {
                 if(nomeIstituto != null && tipoIstruzione != null && nomeQualifica != null
                         && ddi != null) {
                     Curriculum curriculum = persona.getCurriculum();
-                    Istruzione istruzione = new Istruzione(curriculum, ddi, ddf, nomeQualifica, tipoIstruzione, nomeIstituto);
-                    CurriculumServiceInterface serviceInterface = new CurriculumService();
-                    if(!serviceInterface.aggiornaIstruzione(istruzione)){
-                        System.err.println("L'aggiornamento dell'istruzione non è andato a buon fine");
+                    Istruzione istruzione = null;
+
+                    for(Istruzione i: curriculum.getIstruzioni()){
+                        if(i.getIstituto().equals(nomeIstituto) && i.getTipo().equals(tipoIstruzione)){
+                            istruzione = i;
+                            continue;
+                        }
                     }
 
-                    session.setAttribute("utente", persona);
-                    request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
+                    if(istruzione != null){
+                        istruzione.setQualifica(nomeQualifica);
+                        istruzione.setDataInizio(ddi);
+                        istruzione.setDataFine(ddf);
+
+                        CurriculumServiceInterface serviceInterface = new CurriculumService();
+                        if(!serviceInterface.aggiornaIstruzione(istruzione)){
+                            System.err.println("L'aggiornamento dell'istruzione non è andato a buon fine");
+                        }
+
+                        session.setAttribute("utente", persona);
+                        request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
+                    } else response.sendRedirect(".");
 
                 } else response.sendRedirect(".");
 
