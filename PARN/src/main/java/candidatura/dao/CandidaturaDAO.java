@@ -22,8 +22,7 @@ public class CandidaturaDAO {
     private static Connection connection;
 
     public CandidaturaDAO() {}
-
-
+    
     /**
      * Ritorna una lista di Candidature alle quali la persona ha sottoscritto. Altrimenti null
      * @param persona oggetto Persona
@@ -36,7 +35,6 @@ public class CandidaturaDAO {
         CurriculumServiceInterface curriculumService = new CurriculumService();
         connection=ConPool.getConnection();
 
-        Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura WHERE Persona = ?");
         pdstmt.setInt(1, persona.getId());
 
@@ -64,7 +62,6 @@ public class CandidaturaDAO {
         UtenteServiceInterface personaService = new UtenteService();
         connection=ConPool.getConnection();
 
-        Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Candidatura WHERE Annuncio = ?");
         pdstmt.setInt(1, annuncio.getId());
 
@@ -96,7 +93,7 @@ public class CandidaturaDAO {
         CurriculumServiceInterface curriculumServiceInterface = new CurriculumService();
         connection=ConPool.getConnection();
 
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT Annuncio, Persona, Data_Pub FROM Candidatura" +
+        PreparedStatement pdstmt = connection.prepareStatement("SELECT Annuncio, Persona, Data_Pub FROM Candidatura " +
                 " WHERE Persona = ? AND Annuncio = ?");
         pdstmt.setInt(1, persona.getId());
         pdstmt.setInt(2, annuncio.getId());
@@ -123,7 +120,6 @@ public class CandidaturaDAO {
     public void creaCandidatura(Candidatura candidatura) throws SQLException {
         connection=ConPool.getConnection();
 
-        Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
                 "INSERT INTO Candidatura(Annuncio, Persona, Data_Pub) VALUES (?, ?, ?)");
         pdstmt.setInt(1, candidatura.getAnnuncio().getId());
@@ -142,7 +138,6 @@ public class CandidaturaDAO {
     public void eliminaCandidatura(Candidatura candidatura) throws SQLException {
         connection=ConPool.getConnection();
 
-        Statement stmt = (Statement) connection.createStatement();
         PreparedStatement pdstmt = connection.prepareStatement(
                 "DELETE FROM Candidatura WHERE Annuncio = ? AND Persona = ?");
         pdstmt.setInt(1, candidatura.getAnnuncio().getId());

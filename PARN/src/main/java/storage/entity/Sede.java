@@ -110,4 +110,10 @@ public class Sede {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    @Override
+    public String toString() {
+        return
+                citta+  ", via='" + via + '\'' + ", telefono='" + telefono ;
+    }
 }

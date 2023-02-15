@@ -1,5 +1,14 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: danielerusso
+  Date: 14/02/23
+  Time: 18:01
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page import="storage.entity.Annuncio" %>
 <%@ page import="storage.entity.Azienda" %>
+<%@ page import="java.util.List" %>
+<%@ page import="storage.entity.Sede" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +45,7 @@
             <li><div class="center"><h6>Annunci</h6></div></li>
             <li><a href="RedirectServlet?redirect=annunciAttivi" class="waves-effect waves-light btn-large white default-color-text">In Corso</a></li>
             <li><a href="RedirectServlet?redirect=annunciScaduti" class="waves-effect waves-light btn-large white default-color-text">Scadute</a></li>
-            <li><a href="RedirectServlet?redirect=annunciChiusi" class="waves-effect waves-light btn-large white default-color-text">Chiusi</a></li>
+            <li><a href="RedirectServlet?redirect=annunciChiusi!" class="waves-effect waves-light btn-large white default-color-text">Chiusi</a></li>
             <li><a href="RedirectServlet?redirect=creaAnnuncio" class="waves-effect waves-light btn-large white default-color-text">Crea Annuncio</a></li>
             <li><a href="Logout" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
         </ul>
@@ -48,11 +57,76 @@
 <div class="container">
     <div class="section-main min">
         <div class="row">
-            <h5>Statistiche annuncio:</h5>
+            <h5>Crea Annuncio</h5>
         </div>
-        <div class="center">
-            <img class="responsive-img" src="resource/statitiche.png">
-        </div>
+        <%
+            session=request.getSession();
+            Azienda az= (Azienda) session.getAttribute("utente");
+            List<Sede> list=null;
+            if (az!=null)
+                list=az.getSedi();
+        %>
+        <form action="creaAnnuncio">
+            <div class="row">
+                <div class="input-field col s6 m9">
+                    <input placeholder="Roulo" type="text" id="ruolo" name="ruolo"  class="validate">
+                    <label for="ruolo">Ruolo</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <!-- Dropdown Structure -->
+
+                    <select name="sedelist" id="sedelist">
+                        <option value="" disabled selected>Scegli la sede</option>
+                        <%
+                            if(list!=null)
+                                for (Sede s:list){
+                                    %>
+                            <option value="<%=s.getId()%>"><%=s.getCitta()%></option>
+                        <%
+                                }
+                        %>
+                    </select>
+                    <label>Scegli la sede</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12">
+                    <textarea id="descrizione" name="descrizione" class="materialize-textarea"></textarea>
+                    <label for="descrizione">Descrizione</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input placeholder="Data fine" type="text" id="data_scad" name="data_scad"  class="datepicker">
+                    <label for="data_scad">Data di scadenza:</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <textarea id="keywords" name="keywords" class="materialize-textarea"></textarea>
+                    <label for="keywords">Keyword</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input placeholder="Numero necessario" type="text" id="numeroDipendenti" name="numeroDipendenti"  class="validate">
+                    <label for="numeroDipendenti">Numero di dipendenti necessari</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <textarea id="preferenze" name="preferenze" class="materialize-textarea"></textarea>
+                    <label for="preferenze">Preferenze</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12">
+                    <textarea id="requisiti" name="requisiti" class="materialize-textarea"></textarea>
+                    <label for="requisiti">Requisiti</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="right">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Salva<i class="material-icons right">send</i></button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 

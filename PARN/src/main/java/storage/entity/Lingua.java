@@ -1,5 +1,7 @@
 package storage.entity;
 
+import java.util.Objects;
+
 public class Lingua  {
 
     private String nome;
@@ -37,5 +39,18 @@ public class Lingua  {
 
     public void setLivello(String livello) {
         this.livello = livello;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lingua lingua = (Lingua) o;
+        return Objects.equals(nome, lingua.nome) && Objects.equals(livello, lingua.livello) && Objects.equals(curriculum, lingua.curriculum);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, livello, curriculum);
     }
 }

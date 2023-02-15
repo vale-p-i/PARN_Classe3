@@ -66,9 +66,29 @@ public interface AnnuncioServiceInterface {
      */
     public List<Annuncio> getAnnuncioByAzienda(Azienda azienda);
     /**
+     * Permette di ottenere gli annunci con un certo stato di una azienda.
+     * @param stato la stringa che specifica lo stato dell'annuncio ES: in corso, chiuso, ecc
+     * @param azienda oggetto Azienda
+     * @return Ritorna una lista di annunci
+     */
+    List<Annuncio> getAnnunciByStato(Azienda azienda, String in_corso);
+    /**
      * Permette di ottenere gli annunci con un certo stato
      * @param stato la stringa che specifica lo stato dell'annuncio ES: in corso, chiuso, ecc
      * @return Ritorna una lista di annunci
      */
-    List<Annuncio> getAnnunciByStato(String stato);
+    List<Annuncio> getAnnunciByStato(String in_corso);
+    /**
+    * Permette di ottenere l'annuncio di una determinata azienda dato l'id
+    * @param oggetto Azienda
+    * @param int
+    * @return Annuncio
+    */
+    Annuncio getAnnuncioById(Azienda azienda,int id);
+    /**
+    * Permette di ottenere lo stato di un annuncio
+    * @param annuncio oggetto Annuncio
+    * @return String
+    */
+    String getStato(Annuncio annuncio);
 }

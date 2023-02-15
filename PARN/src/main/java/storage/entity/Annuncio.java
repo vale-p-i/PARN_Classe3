@@ -5,6 +5,11 @@ import java.util.List;
 
 public class Annuncio {
 
+    public static final String  IN_CORSO="In Corso";
+    public static final String  SCADUTO="Scaduto";
+    public static final String  CHIUSO="Chiuso";
+
+
     private int id;
     private Azienda azienda;
     private boolean attivo;
