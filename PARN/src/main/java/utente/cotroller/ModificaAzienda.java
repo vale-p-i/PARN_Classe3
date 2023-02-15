@@ -55,9 +55,9 @@ public class ModificaAzienda extends HttpServlet {
             azienda.setFoto(request.getParameter("logo"));
 
             if(service.aggiornaAzienda(azienda))
-                System.out.println("pass");
+                System.out.println("aggiornaAzienda pass");
             else
-                System.out.println("err");
+                System.out.println("aggiornaAzienda err");
             session.setAttribute("utente", azienda);
             request.getRequestDispatcher("./WEB-INF/areaPersonaleAzienda.jsp").forward(request, response);
         }else response.sendRedirect(".");
