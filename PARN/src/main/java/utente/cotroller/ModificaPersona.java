@@ -10,6 +10,7 @@ import utente.service.UtenteServiceInterface;
 import utils.PasswordEncrypter;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -23,13 +24,12 @@ public class ModificaPersona extends HttpServlet {
 
         if(utente instanceof Persona && utente != null){
             Persona persona = (Persona) utente;
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
 
             persona.setNome(request.getParameter("nomePersona"));
             persona.setCognome(request.getParameter("cognome"));
             persona.setTelefono(request.getParameter("telefonoPersona"));
             persona.setCodiceFiscale(request.getParameter("codiceFiscale"));
-            persona.setDataDiNascita(LocalDateTime.parse(request.getParameter("data_n"), formatter));
+            persona.setDataDiNascita(LocalDate.parse(request.getParameter("data_n")));
             persona.setRegione(request.getParameter("regionePersona"));
             persona.setProvincia(request.getParameter("provinciaPersona"));
             persona.setCitta(request.getParameter("cittaPersona"));

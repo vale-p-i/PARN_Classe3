@@ -151,18 +151,18 @@
             %>
             <div class="row">
                 <div class="input-field col s12 m12">
-                    <input placeholder="Password Attuale" id="oldPassword_Persona" name="oldPassword_Persona" type="password" class="validate" required>
-                    <label for="oldPassword_Persona">Inserisci la password attuale:</label>
+                    <input placeholder="Password Attuale" id="oldPassword" name="oldPassword" type="password" class="validate" required>
+                    <label for="oldPassword">Inserisci la password attuale:</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <input placeholder="Nuova password" id="newPassword_Persona1" name="newPassword_Persona1" type="password" class="validate" required>
-                    <label for="newPassword_Persona1">Inserisci la nuova password:</label>
+                    <input placeholder="Nuova password" id="newPassword" name="newPassword" type="password" class="validate" required>
+                    <label for="newPassword">Inserisci la nuova password:</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <input placeholder="Conferma password" id="newPassword_Persona2" name="newPassword_Persona2" type="password" class="validate" required>
-                    <label for="newPassword_Persona2">Conferma la nuova password:</label>
+                    <input placeholder="Conferma password" id="newPasswordConferma" name="newPasswordConferma" type="password" class="validate" required>
+                    <label for="newPasswordConferma">Conferma la nuova password:</label>
                 </div>
             </div>
             <div class="row">
@@ -210,6 +210,7 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>
+<script src="js/data.js"></script>
 
 </body>
 </html>

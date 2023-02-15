@@ -3,6 +3,9 @@ package utente.cotroller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import matching.service.MatchingService;
+import matching.service.MatchingServiceInterface;
+import storage.entity.Annuncio;
 import storage.entity.Azienda;
 import storage.entity.Persona;
 import storage.entity.Utente;
@@ -11,6 +14,7 @@ import utente.service.UtenteServiceInterface;
 import utils.PasswordEncrypter;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "Login", value = "/Login")
 public class Login extends HttpServlet {
@@ -34,6 +38,9 @@ public class Login extends HttpServlet {
             } else if(utente!=null && utente instanceof Persona) {
                 System.out.println("persona");
                 Persona persona = (Persona) utente;
+                MatchingServiceInterface serviceMat=new MatchingService();
+                List<Annuncio> list= serviceMat.personalizzaAnnunci(persona.getCurriculum());
+                session.setAttribute("myList",list);
                 session.setAttribute("utente", persona);
                 request.getRequestDispatcher("./WEB-INF/homepagePersona.jsp").forward(request, response);
             }
