@@ -21,8 +21,7 @@ public class UtenteDAO {
 
     private int addUtente(Utente utente) throws SQLException{
         connection = ConPool.getConnection();
-
-        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Utente (Nome, Mail, Pass, Regione," +
+        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Utente (Nome, Mail, Pa"+"ss, Regione," +
                 " Provincia, Foto, CAP, Telefono, Citta, Via) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         pdstmt.setString(1, utente.getNome());
         pdstmt.setString(2, utente.getMail());
@@ -97,7 +96,7 @@ public class UtenteDAO {
     public Sede addSede(Sede sede) throws SQLException{
         connection=ConPool.getConnection();
 
-        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Sede (Azienda, Citta, Provincia, Cap," +
+        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Sede (Azienda, Citta, Provincia, CAP," +
                 "Via, Regione, Telefono, Mail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         pdstmt.setInt(1, sede.getAzienda().getId());
         pdstmt.setString(2, sede.getCitta());
