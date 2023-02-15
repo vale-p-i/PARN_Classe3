@@ -7,6 +7,7 @@ import utils.ConPool;
 import utils.StringListUtils;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,10 +100,10 @@ public class CurriculumDAO {
             istruzione.setTipo(resultSet.getString(1));
             istruzione.setIstituto(resultSet.getString(2));
 
-            LocalDateTime ddi = resultSet.getObject(3, LocalDateTime.class);
+            LocalDate ddi = resultSet.getObject(3, LocalDate.class);
             istruzione.setDataInizio(ddi);
 
-            LocalDateTime ddf = resultSet.getObject(4, LocalDateTime.class);
+            LocalDate ddf = resultSet.getObject(4, LocalDate.class);
             istruzione.setDataInizio(ddf);
 
             istruzione.setQualifica(resultSet.getString(5));
@@ -136,10 +137,10 @@ public class CurriculumDAO {
             esperienzaLavorativa.setContatto(resultSet.getString(5));
             esperienzaLavorativa.setTipoAzienda(resultSet.getString(6));
 
-            LocalDateTime ddi = resultSet.getObject(7, LocalDateTime.class);
+            LocalDate ddi = resultSet.getObject(7, LocalDate.class);
             esperienzaLavorativa.setDataInizio(ddi);
 
-            LocalDateTime ddf = resultSet.getObject(8, LocalDateTime.class);
+            LocalDate ddf = resultSet.getObject(8, LocalDate.class);
             esperienzaLavorativa.setDataFine(ddf);
             listaEsperienze.add(esperienzaLavorativa);
         }
@@ -185,12 +186,12 @@ public class CurriculumDAO {
         statement.setString(5, esperienzaLavorativa.getDatore());
         statement.setString(6, esperienzaLavorativa.getContatto());
         statement.setString(7, esperienzaLavorativa.getTipoAzienda());
-        java.sql.Date ddi = java.sql.Date.valueOf(esperienzaLavorativa.getDataInizio().toLocalDate());
+        java.sql.Date ddi = java.sql.Date.valueOf(esperienzaLavorativa.getDataInizio());
         statement.setDate(8, ddi);
         if(esperienzaLavorativa.getDataFine() == null){
             statement.setNull(9,Types.DATE);
         } else{
-            java.sql.Date ddf = java.sql.Date.valueOf(esperienzaLavorativa.getDataFine().toLocalDate());
+            java.sql.Date ddf = java.sql.Date.valueOf(esperienzaLavorativa.getDataFine());
             statement.setDate(9, ddf);
         }
 
@@ -219,12 +220,12 @@ public class CurriculumDAO {
         statement.setString(2, esperienzaLavorativa.getDatore());
         statement.setString(3, esperienzaLavorativa.getContatto());
         statement.setString(4, esperienzaLavorativa.getTipoAzienda());
-        java.sql.Date ddi = java.sql.Date.valueOf(esperienzaLavorativa.getDataInizio().toLocalDate());
+        java.sql.Date ddi = java.sql.Date.valueOf(esperienzaLavorativa.getDataInizio());
         statement.setDate(5, ddi);
         if(esperienzaLavorativa.getDataFine() == null){
             statement.setNull(6,Types.DATE);
         } else{
-            java.sql.Date ddf = java.sql.Date.valueOf(esperienzaLavorativa.getDataFine().toLocalDate());
+            java.sql.Date ddf = java.sql.Date.valueOf(esperienzaLavorativa.getDataFine());
             statement.setDate(6, ddf);
         }
 
@@ -244,12 +245,12 @@ public class CurriculumDAO {
         statement.setInt(1, id);
         statement.setString(2, istruzione.getTipo());
         statement.setString(3, istruzione.getIstituto());
-        java.sql.Date ddi = java.sql.Date.valueOf(istruzione.getDataInizio().toLocalDate());
+        java.sql.Date ddi = java.sql.Date.valueOf(istruzione.getDataInizio());
         statement.setDate(4, ddi);
         if(istruzione.getDataFine() == null){
             statement.setNull(5,Types.DATE);
         } else{
-            java.sql.Date ddf = java.sql.Date.valueOf(istruzione.getDataFine().toLocalDate());
+            java.sql.Date ddf = java.sql.Date.valueOf(istruzione.getDataFine());
             statement.setDate(5, ddf);
         }
         statement.setString(6, istruzione.getQualifica());
@@ -274,12 +275,12 @@ public class CurriculumDAO {
                 "DDI = ?, DDF = ?, Qualifica = ? WHERE Curriculum = ?, Tipo = ?, Istituto = ?");
 
         //parametri set
-        java.sql.Date ddi = java.sql.Date.valueOf(istruzione.getDataInizio().toLocalDate());
+        java.sql.Date ddi = java.sql.Date.valueOf(istruzione.getDataInizio());
         statement.setDate(1, ddi);
         if(istruzione.getDataFine() == null){
             statement.setNull(2,Types.DATE);
         } else{
-            java.sql.Date ddf = java.sql.Date.valueOf(istruzione.getDataFine().toLocalDate());
+            java.sql.Date ddf = java.sql.Date.valueOf(istruzione.getDataFine());
             statement.setDate(2, ddf);
         }
         statement.setString(3, istruzione.getQualifica());

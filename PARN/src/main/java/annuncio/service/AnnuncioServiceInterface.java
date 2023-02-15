@@ -91,4 +91,6 @@ public interface AnnuncioServiceInterface {
     * @return String
     */
     String getStato(Annuncio annuncio);
+
+    boolean canAnnuncioAccessToSearch(Annuncio a);
 }

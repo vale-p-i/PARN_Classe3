@@ -58,7 +58,7 @@
             Integer id=null;
             try {
                 id = Integer.parseInt(id_s);
-            }catch (ConversionException e){
+            }catch (NumberFormatException e){
                 ;
             }
             session=request.getSession();
@@ -72,6 +72,11 @@
                 session.setAttribute("annuncio",annuncio);
         %>
         <div class="row">
+            <div class="row">
+                <div class="left">
+                    <a onclick="history.back()"><i class="material-icons tiny">arrow_back</i>Torna indietro</a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col s10 m10">
                     <h5>Annuncio</h5>
@@ -147,6 +152,15 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="left">
+                        <%
+                            if (service.canAnnuncioAccessToSearch(annuncio)){
+                        %>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Ricerca Avanzata<i class="material-icons right">search</i></button>
+                        <%
+                            }
+                        %>
+                    </div>
                     <div class="right">
                         <button class="btn waves-effect waves-light" type="submit" name="action">Modifica<i class="material-icons right">send</i></button>
                     </div>
@@ -178,11 +192,21 @@
                         <td><a href="RedirectCurriculumView?redirect=<%=c.getPersona().getId()%>"><i class="material-icons">info</i></a></td>
                     </tr>
         <%
+            }
+        }
+        else{
+        %>
+            <tr><td colspan="3">Nessun candidato</td></tr>
+        <%
                         }
-                    }
                 }
             }
+            else{
         %>
+            <tr><td colspan="3">Nessun candidato</td></tr>
+        <%
+            }
+                    %>
                     </tbody>
                 </table>
             </div>
@@ -196,7 +220,6 @@
             <div class="col l6 s12">
                 <h5 class="white-text">PARN</h5>
                 <p class="grey-text text-lighten-4">Siamo un gruppo di studenti universitari che ha ideato questo progetto per il corso di Ingegneria del Software.</p>
-
 
             </div>
             <div class="col l3 s12">

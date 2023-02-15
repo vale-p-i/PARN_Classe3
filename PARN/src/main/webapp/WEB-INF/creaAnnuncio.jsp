@@ -16,6 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>PARN</title>
 
+
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -45,7 +46,7 @@
             <li><div class="center"><h6>Annunci</h6></div></li>
             <li><a href="RedirectServlet?redirect=annunciAttivi" class="waves-effect waves-light btn-large white default-color-text">In Corso</a></li>
             <li><a href="RedirectServlet?redirect=annunciScaduti" class="waves-effect waves-light btn-large white default-color-text">Scadute</a></li>
-            <li><a href="RedirectServlet?redirect=annunciChiusi!" class="waves-effect waves-light btn-large white default-color-text">Chiusi</a></li>
+            <li><a href="RedirectServlet?redirect=annunciChiusi" class="waves-effect waves-light btn-large white default-color-text">Chiusi</a></li>
             <li><a href="RedirectServlet?redirect=creaAnnuncio" class="waves-effect waves-light btn-large white default-color-text">Crea Annuncio</a></li>
             <li><a href="Logout" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
         </ul>
@@ -66,7 +67,7 @@
             if (az!=null)
                 list=az.getSedi();
         %>
-        <form action="creaAnnuncio">
+        <form action="CreaAnnuncio">
             <div class="row">
                 <div class="input-field col s6 m9">
                     <input placeholder="Roulo" type="text" id="ruolo" name="ruolo"  class="validate">
@@ -78,11 +79,18 @@
                     <select name="sedelist" id="sedelist">
                         <option value="" disabled selected>Scegli la sede</option>
                         <%
-                            if(list!=null)
-                                for (Sede s:list){
+                            if(list!=null){
+                                if (!list.isEmpty())
+                                    for (Sede s:list){
                                     %>
                             <option value="<%=s.getId()%>"><%=s.getCitta()%></option>
                         <%
+                                }
+                            else{
+                                System.out.println("vuota");
+                                }
+                            }else{
+                                System.out.println("null");
                                 }
                         %>
                     </select>
@@ -163,6 +171,7 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>
+<script src="js/data.js"></script>
 
 </body>
 </html>

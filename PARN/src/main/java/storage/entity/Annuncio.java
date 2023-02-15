@@ -1,5 +1,6 @@
 package storage.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Annuncio {
     private Sede sede;
     private int numeroPersone;
     private String descrizione;
-    private LocalDateTime dataScadenza;
+    private LocalDate dataScadenza;
     private List<String> requisiti;
     private List<String> keyword;
     private List<String> preferenze;
@@ -24,7 +25,7 @@ public class Annuncio {
     private List<Candidatura> candidature;
 
     public Annuncio(int id, Azienda azienda, boolean attivo, Sede sede, int numeroPersone, String descrizione,
-                    LocalDateTime dataScadenza, List<String> requisiti, List<String> keyword, List<String> preferenze,
+                    LocalDate dataScadenza, List<String> requisiti, List<String> keyword, List<String> preferenze,
                     String ruolo, List<Candidatura> candidature) {
         this.id = id;               //1
         this.azienda = azienda;     //2
@@ -88,11 +89,11 @@ public class Annuncio {
         this.descrizione = descrizione;
     }
 
-    public LocalDateTime getDataScadenza() {
+    public LocalDate getDataScadenza() {
         return dataScadenza;
     }
 
-    public void setDataScadenza(LocalDateTime dataScadenza) {
+    public void setDataScadenza(LocalDate dataScadenza) {
         this.dataScadenza = dataScadenza;
     }
 

@@ -158,18 +158,18 @@
             %>
             <div class="row">
                 <div class="input-field col s12 m12">
-                    <input placeholder="Password Attuale" id="oldPassword_Persona" name="oldPassword_Persona" type="password" class="validate" required>
-                    <label for="oldPassword_Persona">Inserisci la password attuale:</label>
+                    <input placeholder="Password Attuale" id="oldPassword" name="oldPassword" type="password" class="validate" required>
+                    <label for="oldPassword">Inserisci la password attuale:</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <input placeholder="Nuova password" id="newPassword_Persona1" name="newPassword_Persona1" type="password" class="validate" required>
-                    <label for="newPassword_Persona1">Inserisci la nuova password:</label>
+                    <input placeholder="Nuova password" id="newPassword" name="newPassword" type="password" class="validate" required>
+                    <label for="newPassword">Inserisci la nuova password:</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <input placeholder="Conferma password" id="newPassword_Persona2" name="newPassword_Persona2" type="password" class="validate" required>
-                    <label for="newPassword_Persona2">Conferma la nuova password:</label>
+                    <input placeholder="Conferma password" id="newPasswordConferma" name="newPasswordConferma" type="password" class="validate" required>
+                    <label for="newPasswordConferma">Conferma la nuova password:</label>
                 </div>
             </div>
             <div class="row">
@@ -201,37 +201,37 @@
                 </div>
                 <form action="ModificaSede">
                     <div class="row">
-                        <input type="hidden" value="<%=s.getId()%>" id="id" name="id">
+                        <input type="hidden" value="<%=s.getId()%>" id="id_Sede" name="id_Sede">
                         <div class="row">
                             <div class="input-field col s12 m3">
-                                <input placeholder="Regione Sede" type="text" id="regioneSede" name="regioneSede" value="<%=s.getRegione()%>" class="validate">
-                                <label for="regioneSede">Inserici la regione</label>
+                                <input placeholder="Regione Sede" type="text" id="regione_Sede" name="regione_Sede" value="<%=s.getRegione()%>" class="validate">
+                                <label for="regione_Sede">Inserici la regione</label>
                             </div>
                             <div class="input-field col s12 m3">
-                                <input placeholder="Provincia Sede" type="text" id="provinciaSede" value="<%=s.getProvincia()%>" name="provinciaSede"  class="validate">
-                                <label for="provinciaSede">Inserici la provincia</label>
+                                <input placeholder="Provincia Sede" type="text" id="provincia_Sede" value="<%=s.getProvincia()%>" name="provincia_Sede"  class="validate">
+                                <label for="provincia_Sede">Inserici la provincia</label>
                             </div>
                             <div class="input-field col s12 m3">
-                                <input placeholder="Citta Sede" type="text" id="cittaSede" name="cittaSede"  value="<%=s.getCitta()%>" class="validate">
-                                <label for="cittaSede">Inserici la citta</label>
+                                <input placeholder="Citta Sede" type="text" id="citta_Sede" name="citta_Sede"  value="<%=s.getCitta()%>" class="validate">
+                                <label for="citta_Sede">Inserici la citta</label>
                             </div>
                             <div class="input-field col s12 m3">
-                                <input placeholder="CAP Sede" id="capSede" name="capSede" type="text" value="<%=s.getCap()%>" class="validate">
-                                <label for="capSede">Inserisci il CAP</label>
+                                <input placeholder="CAP Sede" id="cap_Sede" name="cap_Sede" type="text" value="<%=s.getCap()%>" class="validate">
+                                <label for="cap_Sede">Inserisci il CAP</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12 m4">
-                                <input placeholder="Telefono Sede" id="telefonoSede" name="telefonoSede" value="<%=s.getTelefono()%>" type="text" class="validate">
-                                <label for="telefonoSede">Inserisci il telefono</label>
+                                <input placeholder="Telefono Sede" id="telefono_Sede" name="telefono_Sede" value="<%=s.getTelefono()%>" type="text" class="validate">
+                                <label for="telefono_Sede">Inserisci il telefono</label>
                             </div>
                             <div class="input-field col s12 m4">
-                                <input placeholder="Via Sede" type="text" id="viaSede" name="viaSede" value="<%=s.getVia()%>" class="validate">
-                                <label for="viaSede">Inserici la via della sede</label>
+                                <input placeholder="Via Sede" type="text" id="via_Sede" name="via_Sede" value="<%=s.getVia()%>" class="validate">
+                                <label for="via_Sede">Inserici la via della sede</label>
                             </div>
                             <div class="input-field col s12 m4">
-                                <input placeholder="e-mail" id="emailSede" name="emailSede" type="email" value="<%=s.getMail()%>" class="validate">
-                                <label for="emailSede">Inserisci la Mail:</label>
+                                <input placeholder="e-mail" id="email_Sede" name="email_Sede" type="email" value="<%=s.getMail()%>" class="validate">
+                                <label for="email_Sede">Inserisci la Mail:</label>
                             </div>
                         </div>
                     </div>

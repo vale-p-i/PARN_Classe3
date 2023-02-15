@@ -34,11 +34,11 @@ public class ChiudiAnnuncio extends HttpServlet {
                     System.out.println("Conversion error " + n);
                     throw new IllegalArgumentException();
                 }
-                Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
+                Annuncio annuncio = serviceAnnuncio.getAnnuncioById(azienda,idAnnuncio);
                 serviceAnnuncio.chiusuraAnnuncio(annuncio);
                 serviceUtente.aggiornaAzienda(azienda);
                 session.setAttribute("utente", azienda);
-                request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+                request.getRequestDispatcher("./WEB-INF/annunciChiusi.jsp").forward(request, response);
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }
