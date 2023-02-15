@@ -55,6 +55,14 @@ function addLingua(){
         "                                    <label for=\"nomeLingua" + counterLingua + "\">Inserisci il nome della lingua</label>\n" +
         "                                </div>\n" +
         "                                <div class=\"input-field col s12 m6\">\n" +
+        "                                    <select name=\"livelloLingua" + counterLingua + "\" id=\"libelloLingua" + counterLingua + "\">" +
+        "                                       <option value=\"\" disabled>Scegli il livello</option>" +
+        "                                       <option value=\"Madrelingua\">Madrelingua</option>" +
+        "                                       <option value=\"Avanzato\">Avanzato</option>" +
+        "                                       <option value=\"Medio\">Mediio</option>" +
+        "                                       <option value=\"Sufficiente\">Sufficiente</option>" +
+        "                                       <option value=\"Insufficiente\">Insufficiente</option>" +
+        "                                    </select>" +
         "                                    <input placeholder=\"Livello Lingua\" id=\"livelloLingua" + counterLingua + "\" name=\"livelloLingua" + counterLingua + "\" type=\"text\" class=\"validate\">\n" +
         "                                    <label for=\"livelloLingua" + counterLingua + "\">Inserisci il livello della lingua</label>\n" +
         "                                </div> \n";

@@ -115,9 +115,8 @@ public class registerPersona extends HttpServlet {
             String tipoImpiego = request.getParameter("tipoImpiego"+counter);
             String contattoAzienda = request.getParameter("contattoAzienda"+counter);
 
+            String mansioniString = request.getParameter("mansioni"+counter);
             List<String> mansioni = new ArrayList<>();
-            for(String s:request.getParameter("mansioni"+counter).split(","))
-                mansioni.add(s);
 
             LocalDate ddi = null;
             if(request.getParameter("data_in_e"+counter) != null){
@@ -131,6 +130,8 @@ public class registerPersona extends HttpServlet {
 
             if(nomeAziendaEsperienza != null && tipoAzienda != null && nomeDatore != null &&
                     contattoAzienda != null && !mansioni.isEmpty() && ddi != null){
+                for(String s:mansioniString.split(","))
+                    mansioni.add(s);
                 EsperienzaLavorativa esperienzaLavorativa = new EsperienzaLavorativa(ddi, ddf, tipoAzienda, nomeDatore,
                         contattoAzienda, tipoImpiego, mansioni, nomeAziendaEsperienza, curriculum);
                 curriculum.getEsperienze().add(esperienzaLavorativa);
