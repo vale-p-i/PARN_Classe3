@@ -152,7 +152,7 @@
                 <h5>Modifica password</h5>
             </div>
         </div>
-        <form action="ModificaPasswordUtente">
+        <form action="ModificaPassword">
             <%
                 if(a!= null){
             %>

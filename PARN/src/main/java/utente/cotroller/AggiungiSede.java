@@ -22,7 +22,7 @@ public class AggiungiSede extends HttpServlet {
 
         if(utente instanceof Azienda){
             Azienda azienda = (Azienda) utente;
-            String citta = request.getParameter("ciattaSede");
+            String citta = request.getParameter("cittaSede");
             String provincia = request.getParameter("provinciaSede");
             String cap = request.getParameter("capSede");
             String via = request.getParameter("viaSede");
@@ -33,8 +33,8 @@ public class AggiungiSede extends HttpServlet {
             Sede sede = new Sede(azienda.getId(), regione, provincia, citta, cap, via, telefono, azienda, mail);
             azienda.getSedi().add(sede);
 
-            service.registraSede(sede);
-            service.aggiornaAzienda(azienda);
+            System.out.println(service.registraSede(sede));
+            System.out.println(service.aggiornaAzienda(azienda));
 
             session.setAttribute("utente", azienda);
             request.getRequestDispatcher("./WEB-INF/areaPersonaleAzienda.jsp").forward(request, response);

@@ -95,7 +95,7 @@ public class UtenteDAO {
     public Sede addSede(Sede sede) throws SQLException{
         connection=ConPool.getConnection();
 
-        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Sede (Azienda, Citta, Provincia, CAP," +
+        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Sede (Azienda, Citta, Provincia, CAP, " +
                 "Via, Regione, Telefono, Mail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         pdstmt.setInt(1, sede.getAzienda().getId());
         pdstmt.setString(2, sede.getCitta());
