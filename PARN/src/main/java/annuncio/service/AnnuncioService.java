@@ -93,10 +93,6 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         }
 
         Azienda azienda = annuncio.getAzienda();
-        for(Annuncio a : azienda.getAnnunci())
-            if(a.getId() == annuncio.getId())
-                azienda.getAnnunci().remove(a);
-
         azienda.getAnnunci().add(annuncio);
         return true;
     }
