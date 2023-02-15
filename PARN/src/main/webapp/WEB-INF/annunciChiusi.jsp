@@ -52,7 +52,7 @@
 <div class="container">
     <div class="section-main min">
         <div class="row">
-            <h5>Annunci Scaduti :</h5>
+            <h5>Annunci Chiusi :</h5>
         </div>
         <table>
             <thead>
@@ -72,14 +72,14 @@
                 AnnuncioServiceInterface service=new AnnuncioService();
                 if (session.getAttribute("annuncio")!=null)
                     session.removeAttribute("annuncio");
-                List<Annuncio> list=service.getAnnunciByStato(a,Annuncio.SCADUTO);
+                List<Annuncio> list=service.getAnnunciByStato(a,Annuncio.CHIUSO);
                 if(list!=null){
                     if(list.isEmpty()){
             %>
-                    <tr><td colspan="6">Nessun anncuncio scaduto</td> </tr>
+            <tr><td colspan="6">Nessun anncuncio scaduto</td> </tr>
             <%
-                    }
-                    for(Annuncio ann: list){
+                }
+                for(Annuncio ann: list){
             %>
             <tr>
                 <td><%=ann.getRuolo()%> </td>
@@ -87,14 +87,14 @@
                 <td><%=ann.getSede().toString()%></td>
                 <td><%=ann.getDescrizione()%></td>
                 <td><%=ann.getDataScadenza()%></td>
-                <td><a href="RedirectAnnuncio?redirect=<%=ann.getId()%>"><i class="material-icons">info</i></a></td>
+                <td><a class="grey-text"><i class="material-icons">info</i></a></td>
             </tr>
             <%
-                    }
                 }
-                else{
+            }
+            else{
             %>
-                <tr><td colspan="6">Nessun anncuncio scaduto</td> </tr>
+            <tr><td colspan="6">Nessun anncuncio scaduto</td> </tr>
             <%
                 }
             %>
