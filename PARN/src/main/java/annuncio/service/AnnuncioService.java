@@ -88,30 +88,48 @@ public class AnnuncioService implements AnnuncioServiceInterface {
     public boolean creaAnnuncio(Annuncio annuncio) {
         try {
             annuncioDAO.creaAnnuncio(annuncio);
-            return true;
         } catch (SQLException e) {
             return false;
         }
+
+        Azienda azienda = annuncio.getAzienda();
+        for(Annuncio a : azienda.getAnnunci())
+            if(a.getId() == annuncio.getId())
+                azienda.getAnnunci().remove(a);
+
+        azienda.getAnnunci().add(annuncio);
+        return true;
     }
 
     @Override
     public boolean modificaAnnuncio(Annuncio annuncio) {
         try {
             annuncioDAO.modificaAnnuncio(annuncio);
-            return true;
         } catch (SQLException e) {
             return false;
         }
+
+        Azienda azienda = annuncio.getAzienda();
+        for(Annuncio a : azienda.getAnnunci())
+            if(a.getId() == annuncio.getId())
+                azienda.getAnnunci().remove(a);
+        return true;
     }
 
     @Override
     public boolean eliminaAnnuncio(Annuncio annuncio) {
         try {
             annuncioDAO.eliminaAnnuncio(annuncio);
-            return true;
         } catch (SQLException e) {
             return false;
         }
+
+        Azienda azienda = annuncio.getAzienda();
+        for(Annuncio a : azienda.getAnnunci())
+            if(a.getId() == annuncio.getId())
+                azienda.getAnnunci().remove(a);
+
+        return true;
     }
 
     @Override

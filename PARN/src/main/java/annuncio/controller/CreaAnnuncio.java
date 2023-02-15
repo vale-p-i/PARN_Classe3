@@ -33,7 +33,7 @@ public class CreaAnnuncio extends HttpServlet {
             int numeroPersone = 0;
             try {
                 idSede = Integer.parseInt(request.getParameter("id_Sede"));
-                numeroPersone = Integer.parseInt(request.getParameter("numero_Persona"));
+                numeroPersone = Integer.parseInt(request.getParameter("numero_Persone"));
             }catch (NumberFormatException n){
                 System.out.println("Conversion error " + n);
             }
