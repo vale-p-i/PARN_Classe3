@@ -74,7 +74,10 @@ public class registerAzienda extends HttpServlet {
         String viaSede = request.getParameter("viaSede");
         String emailSede = request.getParameter("emailSede");
 
-        if(!settoriCompetenzaString.isEmpty() && numeroDipendenti >= 0){
+        //if(!settoriCompetenzaString.isEmpty() && numeroDipendenti >= 0){
+
+            System.out.println("dentro");
+
             //Upload immagine sul server
             String rootPath = String.valueOf(request.getServletContext().getResource("/").getPath());
             String fileExtention = logo.getSubmittedFileName().substring(logo.getSubmittedFileName().indexOf('.'));
@@ -94,12 +97,13 @@ public class registerAzienda extends HttpServlet {
             }
             sedi.add(sede);
             azienda.setSedi(sedi);
-            service.registraAzienda(azienda);
+            boolean success = service.registraAzienda(azienda);
+            System.out.println(success);
             if(service.autenticazione(email, password) != null){
                 session.setAttribute("utente", azienda);
                 request.getRequestDispatcher("./WEB-INF/areaPersonaleAzienda.jsp").forward(request, response);
             }else response.sendRedirect(".");
-        }else response.sendRedirect(".");
+        //}else response.sendRedirect(".");
     }
 
     @Override

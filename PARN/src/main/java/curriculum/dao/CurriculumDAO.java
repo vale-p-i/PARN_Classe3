@@ -56,7 +56,6 @@ public class CurriculumDAO {
             listaCurriculum.add(curriculum);
         }
 
-        connection.close();
         return  listaCurriculum;
     }
     public List<Lingua> getLingueByCurriculum(Curriculum curriculum) throws SQLException {
@@ -79,7 +78,6 @@ public class CurriculumDAO {
             listaLingue.add(lingua);
         }
 
-        connection.close();
         return listaLingue;
     }
     public List<Istruzione> getIstruzioniByCurriculum(Curriculum curriculum) throws SQLException {
@@ -109,7 +107,6 @@ public class CurriculumDAO {
             listaIstruzione.add(istruzione);
         }
 
-        connection.close();
         return listaIstruzione;
     }
     public List<EsperienzaLavorativa> getEsperienzeLavorativeByCurriculum(Curriculum curriculum) throws SQLException {
@@ -144,7 +141,6 @@ public class CurriculumDAO {
             listaEsperienze.add(esperienzaLavorativa);
         }
 
-        connection.close();
         return listaEsperienze;
     }
     public void addCurriculum(Curriculum curriculum) throws SQLException {
@@ -155,7 +151,6 @@ public class CurriculumDAO {
         statement.setString(2, skills);
 
         statement.executeUpdate();
-        connection.close();
     }
     public void updateCurriculum(Curriculum curriculum) throws SQLException {
         Connection connection = ConPool.getConnection();
@@ -169,7 +164,6 @@ public class CurriculumDAO {
         statement.setInt(2, curriculum.getPersona().getId());
 
         statement.executeUpdate();
-        connection.close();
     }
     public void addEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa) throws SQLException {
         Connection connection = ConPool.getConnection();
@@ -195,7 +189,6 @@ public class CurriculumDAO {
         }
 
         statement.executeUpdate();
-        connection.close();
     }
     public  void removeEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa) throws SQLException {
         Connection connection = ConPool.getConnection();
@@ -206,7 +199,6 @@ public class CurriculumDAO {
         statement.setString(3, esperienzaLavorativa.getTipoImpiego());
 
         statement.executeUpdate();
-        connection.close();
     }
     public void updateEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa) throws SQLException {
         Connection connection = ConPool.getConnection();
@@ -234,7 +226,6 @@ public class CurriculumDAO {
         statement.setString(9, esperienzaLavorativa.getTipoImpiego());
 
         statement.executeUpdate();
-        connection.close();
     }
     public void addIstruzione(Istruzione istruzione) throws SQLException {
         Connection connection = ConPool.getConnection();
@@ -255,7 +246,6 @@ public class CurriculumDAO {
         statement.setString(6, istruzione.getQualifica());
 
         statement.executeUpdate();
-        connection.close();
     }
     public void removeIstruzione(Istruzione istruzione) throws SQLException {
         Connection connection = ConPool.getConnection();
@@ -266,7 +256,6 @@ public class CurriculumDAO {
         statement.setString(3, istruzione.getIstituto());
 
         statement.executeUpdate();
-        connection.close();
     }
     public void updateIstruzione(Istruzione istruzione) throws SQLException {
         Connection connection = ConPool.getConnection();
@@ -290,7 +279,6 @@ public class CurriculumDAO {
         statement.setString(6, istruzione.getIstituto());
 
         statement.executeUpdate();
-        connection.close();
     }
     public void addLingua(Lingua lingua) throws SQLException {
         Connection connection = ConPool.getConnection();
@@ -301,7 +289,6 @@ public class CurriculumDAO {
         statement.setString(3, lingua.getLivello());
 
         statement.executeUpdate();
-        connection.close();
     }
     public void removeLingua(Lingua lingua) throws SQLException {
         Connection connection = ConPool.getConnection();
@@ -310,7 +297,6 @@ public class CurriculumDAO {
         statement.setString(2, lingua.getNome());
 
         statement.executeUpdate();
-        connection.close();
     }
     public void updateLingua(Lingua lingua) throws SQLException {
         Connection connection = ConPool.getConnection();
@@ -324,6 +310,5 @@ public class CurriculumDAO {
         statement.setString(3, lingua.getNome());
 
         statement.executeUpdate();
-        connection.close();
     }
 }

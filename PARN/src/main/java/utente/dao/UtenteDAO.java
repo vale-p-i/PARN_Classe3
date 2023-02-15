@@ -34,68 +34,82 @@ public class UtenteDAO {
         pdstmt.setString(9, utente.getCitta());
         pdstmt.setString(10, utente.getVia());
         pdstmt.executeUpdate();
-        connection.close();
+        //connection.close();
         ResultSet rs = pdstmt.getGeneratedKeys();
         if(rs.next())
             return rs.getInt(1);
         else return -10;
     }
     public Azienda addAzienda(Azienda azienda) throws SQLException{
-        connection=ConPool.getConnection();
+        try {
+            connection=ConPool.getConnection();
 
         int id = addUtente(azienda);
-        if(id!=-10){
-            PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Azienda (Utente, P_IVA, Rag_Soc, Link, " +
-                    "ADI, N_Dip, Sett_Comp) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            pdstmt.setInt(1, id);
-            pdstmt.setString(2, azienda.getPartitaIVA());
-            pdstmt.setString(3, azienda.getRagioneSociale());
-            pdstmt.setString(4, azienda.getLink());
-            pdstmt.setString(5, azienda.getAreaInteresse());
-            pdstmt.setInt(6, azienda.getNumeroDipendenti());
-            String dbContent = StringListUtils.getStringFromList(azienda.getSettoriCompetenza());
-            pdstmt.setString(7, dbContent);
+        System.out.println("ID: "+id);
+            if (id != -10) {
+                System.out.println("OK");
+                PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Azienda(Utente, P_IVA, Rag_Soc, Link, ADI, N_Dip, Sett_Comp) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-            /**
-             * AnnuncioServiceInterface service = new AnnuncioService();
-             *             for(Annuncio a : azienda.getAnnunci())
-             *                 service.creaAnnuncio(a);
-             */
+                System.out.println("PREPDSMT" + pdstmt.toString());
 
-            pdstmt.executeUpdate();
-            connection.close();
-            azienda.setId(id);
-            for(Sede s : azienda.getSedi())
-                addSede(s);
-            return azienda;
-        }else return null;
+                pdstmt.setInt(1, id);
+                pdstmt.setString(2, azienda.getPartitaIVA());
+                pdstmt.setString(3, azienda.getRagioneSociale());
+                pdstmt.setString(4, azienda.getLink());
+                pdstmt.setString(5, azienda.getAreaInteresse());
+                pdstmt.setInt(6, azienda.getNumeroDipendenti());
+                String dbContent = StringListUtils.getStringFromList(azienda.getSettoriCompetenza());
+                pdstmt.setString(7, dbContent);
+
+                System.out.println("PDSMT" + pdstmt.toString());
+
+                pdstmt.execute();
+                //connection.close();
+
+                System.out.println("CONNECTION CLOSED");
+
+                azienda.setId(id);
+
+                System.out.println("ID AZIENDA: " + azienda.getId());
+
+                for (Sede s : azienda.getSedi())
+                    addSede(s);
+                for (Sede s : azienda.getSedi())
+                    System.out.println("SEDE AZIENDA: " + s.getId());
+
+                return azienda;
+            } else return null;
+        } catch (Exception e){
+            System.out.println("ERRORE: "+e);
+        }
+        return null;
     }
 
     public Persona addPersona(Persona persona) throws SQLException{
         connection=ConPool.getConnection();
         int id = addUtente(persona);
-        if(id != -10){
-            PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Persona (Utente, Cognome, CF, DDN, " +
-                    "F_Macroarea, Pos_Des) VALUES (?, ?, ?, ?, ?, ?)");
-            pdstmt.setInt(1, id);
-            pdstmt.setString(2, persona.getCognome());
-            pdstmt.setString(3, persona.getCodiceFiscale());
-            java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita().toLocalDate());
-            pdstmt.setDate(4, sqlDate);
-            pdstmt.setString(5, persona.getFiltroMacroarea());
-            pdstmt.setString(6, persona.getPosizioneDesiderata());
+        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Persona (Utente, Cognome, CF, DDN, " +
+                "F_Macroarea, Pos_Des) VALUES (?, ?, ?, ?, ?, ?)");
+        pdstmt.setInt(1, id);
+        pdstmt.setString(2, persona.getCognome());
+        pdstmt.setString(3, persona.getCodiceFiscale());
+        java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita().toLocalDate());
+        pdstmt.setDate(4, sqlDate);
+        pdstmt.setString(5, persona.getFiltroMacroarea());
+        pdstmt.setString(6, persona.getPosizioneDesiderata());
 
-            CurriculumServiceInterface service = new CurriculumService();
-            service.creaCurriculum(persona.getCurriculum());
-            pdstmt.executeUpdate();
-            connection.close();
-            persona.setId(id);
-            return persona;
-        }return null;
+        CurriculumServiceInterface service = new CurriculumService();
+        service.creaCurriculum(persona.getCurriculum());
+        pdstmt.executeUpdate();
+        //connection.close();
+        persona.setId(id);
+        return persona;
     }
 
     public Sede addSede(Sede sede) throws SQLException{
         connection=ConPool.getConnection();
+
+        System.out.println("ADDSEDE Azienda: "+sede.getAzienda());
 
         PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Sede (Azienda, Citta, Provincia, CAP," +
                 "Via, Regione, Telefono, Mail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
@@ -110,9 +124,11 @@ public class UtenteDAO {
         pdstmt.executeUpdate();
         ResultSet rs = pdstmt.getGeneratedKeys();
         if(rs.next()){
+            System.out.println("inRS");
             sede.setId(rs.getInt(1));
             return sede;
         }
+        System.out.println("ERR");
         return null;
     }
 
@@ -130,7 +146,7 @@ public class UtenteDAO {
         pdstmt.setInt(7, azienda.getId());
 
         pdstmt.executeUpdate();
-        connection.close();
+        //connection.close();
     }
 
     public void aggiornaPersona(Persona persona) throws SQLException{
@@ -148,7 +164,6 @@ public class UtenteDAO {
         pdstmt.setInt(7, persona.getId());
 
         pdstmt.executeUpdate();
-        connection.close();
     }
 
     public void aggiornaSede(Sede sede) throws SQLException{
@@ -166,7 +181,7 @@ public class UtenteDAO {
         pdstmt.setString(8, sede.getTelefono());
         pdstmt.setString(9, sede.getMail());
         pdstmt.executeUpdate();
-        connection.close();
+        //connection.close();
     }
 
     public void aggiornaUtente(Utente utente) throws SQLException{
@@ -189,7 +204,7 @@ public class UtenteDAO {
         pdstmt.setInt(12, utente.getId());
 
         pdstmt.executeUpdate();
-        connection.close();
+        //connection.close();
     }
     public void rimuoviPersona(Persona persona) throws SQLException{
         System.out.println("Questo metodo non è stato ancora implementato");
@@ -205,7 +220,7 @@ public class UtenteDAO {
         PreparedStatement pdstmt = connection.prepareStatement("SELECT u.N_Reg, u.Pass, u.Mail FROM Utente u WHERE u.Mail = ?");
           pdstmt.setString(1, mail);
           ResultSet rs = pdstmt.executeQuery();
-          connection.close();
+          //connection.close();
 
           rs.next();
             if(password.equals(rs.getString(2))){
@@ -230,7 +245,7 @@ public class UtenteDAO {
                 "p.Pos_Des FROM Persona p, Utente u WHERE u.N_Reg = ? AND p.Utente = u.N_Reg");
         pdstmt.setInt(1, id);
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
+        //connection.close();
         Persona persona = new Persona();
         if(rs.next()){
             persona.setId(id);
@@ -264,7 +279,7 @@ public class UtenteDAO {
                 "a.N_Dip, a.Sett_Comp FROM Azienda a, Utente u WHERE u.N_Reg = ? AND a.Utente = u.N_Reg");
         pdstmt.setInt(1, id);
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
+        //connection.close();
         Azienda azienda = new Azienda();
         if(rs.next()){
             azienda.setId(id);
@@ -300,7 +315,7 @@ public class UtenteDAO {
         PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Sede WHERE Azienda = ?");
         pdstmt.setInt(1, azienda.getId());
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
+        //connection.close();
         List<Sede> sedi = new ArrayList<>();
         while(rs.next()){
             Sede sede = new Sede(rs.getInt(1),
