@@ -35,8 +35,8 @@ public class PDFCurriculum {
                 curriculum.getPersona().getNome() +
                 curriculum.getPersona().getTelefono() +
                 ".pdf";
-        File file = new File(filename); //aggiungere destinazione
-        PdfWriter writer = new PdfWriter(""); //aggiungere destinazione
+        File file = new File(filename);
+        PdfWriter writer = new PdfWriter(filename);
         PdfDocument pdf = new PdfDocument(writer);
         Document doc = new Document(pdf);
 
@@ -72,6 +72,7 @@ public class PDFCurriculum {
         }
 
         doc.close();
-        return ""; //path al pdf
+        return "" + curriculum.getPersona().getCognome() + curriculum.getPersona().getNome() +
+                curriculum.getPersona().getTelefono() + ".pdf";
     }
 }
