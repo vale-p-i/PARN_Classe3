@@ -62,12 +62,11 @@ public class UtenteDAO {
              *                 service.creaAnnuncio(a);
              */
 
-            for(Sede s : azienda.getSedi())
-                addSede(s);
-
             pdstmt.executeUpdate();
             connection.close();
             azienda.setId(id);
+            for(Sede s : azienda.getSedi())
+                addSede(s);
             return azienda;
         }else return null;
     }
@@ -75,22 +74,24 @@ public class UtenteDAO {
     public Persona addPersona(Persona persona) throws SQLException{
         connection=ConPool.getConnection();
         int id = addUtente(persona);
-        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Persona (Utente, Cognome, CF, DDN, " +
-                "F_Macroarea, Pos_Des) VALUES (?, ?, ?, ?, ?, ?)");
-        pdstmt.setInt(1, id);
-        pdstmt.setString(2, persona.getCognome());
-        pdstmt.setString(3, persona.getCodiceFiscale());
-        java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita().toLocalDate());
-        pdstmt.setDate(4, sqlDate);
-        pdstmt.setString(5, persona.getFiltroMacroarea());
-        pdstmt.setString(6, persona.getPosizioneDesiderata());
+        if(id != -10){
+            PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Persona (Utente, Cognome, CF, DDN, " +
+                    "F_Macroarea, Pos_Des) VALUES (?, ?, ?, ?, ?, ?)");
+            pdstmt.setInt(1, id);
+            pdstmt.setString(2, persona.getCognome());
+            pdstmt.setString(3, persona.getCodiceFiscale());
+            java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita().toLocalDate());
+            pdstmt.setDate(4, sqlDate);
+            pdstmt.setString(5, persona.getFiltroMacroarea());
+            pdstmt.setString(6, persona.getPosizioneDesiderata());
 
-        CurriculumServiceInterface service = new CurriculumService();
-        service.creaCurriculum(persona.getCurriculum());
-        pdstmt.executeUpdate();
-        connection.close();
-        persona.setId(id);
-        return persona;
+            CurriculumServiceInterface service = new CurriculumService();
+            service.creaCurriculum(persona.getCurriculum());
+            pdstmt.executeUpdate();
+            connection.close();
+            persona.setId(id);
+            return persona;
+        }return null;
     }
 
     public Sede addSede(Sede sede) throws SQLException{
