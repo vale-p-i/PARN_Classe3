@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.*;
 import storage.entity.*;
 import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
+import utils.ImageManager.ImageManager;
 import utils.PasswordEncrypter;
 
 import javax.swing.text.DateFormatter;
@@ -15,6 +16,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 @WebServlet(name = "registerPersona", value = "/registerPersona")
 public class registerPersona extends HttpServlet {
     @Override
@@ -37,13 +41,19 @@ public class registerPersona extends HttpServlet {
         String cap = request.getParameter("capPersona");
         String posizioneDesiderata = request.getParameter("posizione");
         String filtroMacroarea = request.getParameter("filtroMacroarea");
-        String fotoPersona = request.getParameter("fotoPersona");
+        Part fotoPersona = request.getPart("fotoPersona");
         String emailPersona = request.getParameter("mailPersona");
         String passwordPersona = PasswordEncrypter.encryptThisString(request.getParameter("password_Persona"));
 
+        //Upload immagine sul server
+        String rootPath = String.valueOf(request.getServletContext().getResource("/").getPath());
+        String fileExtention = fotoPersona.getSubmittedFileName().substring(fotoPersona.getSubmittedFileName().indexOf('.'));
+        ImageManager imageManager = new ImageManager(rootPath, emailPersona, fotoPersona, fileExtention);
+        String imagePath = imageManager.saveImage();
+
         //Crea la persona
         Persona persona = new Persona(nome, emailPersona, passwordPersona, regionePersona, provinciaPersona,
-                fotoPersona, cap, telefonoPersona, citta, via, cognome, cf, data_n, filtroMacroarea,
+                imagePath, cap, telefonoPersona, citta, via, cognome, cf, data_n, filtroMacroarea,
                 posizioneDesiderata, null, null);
 
         //Prendo le softskills

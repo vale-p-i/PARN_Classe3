@@ -49,7 +49,7 @@
                     <li class="tab col s3"><a class="active" href="#Persona">Persona</a></li>
                 </ul>
                 <div id="Azienda" class="col s12 m12 center">
-                    <form class="col s12" method="post" id="invioAzienda" action="registerAzienda">
+                    <form class="col s12" method="post" id="invioAzienda" action="registerAzienda" enctype="multipart/form-data">
                         <div class="row">
                             <div class="input-field col s12 m3">
                                 <input placeholder="Nome" id="nomeAzienda" name="nomeAzienda" type="text" class="validate" required>
@@ -137,7 +137,7 @@
                                 <div class="file-field input-field">
                                     <div class="btn">
                                         <span>File</span>
-                                        <input type="file">
+                                        <input type="file" accept="image/png, image/jpeg">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" id="logo" name="logo" placeholder="Logo azienda">
@@ -157,33 +157,33 @@
                                 <div id="Discorde" class="col s12 m12 center">
                                     <div class="row"> 
                                         <div class="input-field col s12 m3">
-                                            <input placeholder="Regione Sede" type="text" id="regioneSede" name="regioneSede"  class="validate" required>
+                                            <input placeholder="Regione Sede" type="text" id="regioneSede" name="regioneSede"  class="validate" >
                                             <label for="regioneSede">Inserici la regione</label> 
                                         </div>
                                         <div class="input-field col s12 m3">
-                                            <input placeholder="Provincia Sede" type="text" id="provinciaSede" name="provinciaSede"  class="validate" required>
+                                            <input placeholder="Provincia Sede" type="text" id="provinciaSede" name="provinciaSede"  class="validate" >
                                             <label for="provinciaSede">Inserici la provincia</label> 
                                         </div>
                                         <div class="input-field col s12 m3">
-                                            <input placeholder="Città Sede" type="text" id="cittaSede" name="cittaSede"  class="validate" required>
+                                            <input placeholder="Città Sede" type="text" id="cittaSede" name="cittaSede"  class="validate" >
                                             <label for="cittaSede">Inserici la città</label> 
                                         </div>
                                         <div class="input-field col s12 m3">
-                                            <input placeholder="CAP Sede" id="capSede" name="capSede" type="text" class="validate" required>
+                                            <input placeholder="CAP Sede" id="capSede" name="capSede" type="text" class="validate" >
                                             <label for="capSede">Inserisci il CAP</label>
                                           </div>
                                     </div>
                                     <div class="row"> 
                                         <div class="input-field col s12 m4">
-                                            <input placeholder="Telefono Sede" id="telefonoSede" name="telefonoSede" type="text" class="validate" required>
+                                            <input placeholder="Telefono Sede" id="telefonoSede" name="telefonoSede" type="text" class="validate" >
                                             <label for="telefonoSede">Inserisci il telefono</label>
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <input placeholder="Via Sede" type="text" id="viaSede" name="viaSede"  class="validate" required>
+                                            <input placeholder="Via Sede" type="text" id="viaSede" name="viaSede"  class="validate" >
                                             <label for="viaSede">Inserici la via della sede</label> 
                                         </div>
                                         <div class="input-field col s12 m4">
-                                            <input placeholder="e-mail" id="emailSede" name="emailSede" type="email" class="validate" required>
+                                            <input placeholder="e-mail" id="emailSede" name="emailSede" type="email" class="validate" >
                                             <label for="emailSede">Inserisci la Mail:</label>
                                         </div>
                                     </div>     
@@ -200,7 +200,7 @@
                     </form>
                 </div>
                 <div id="Persona" class="col s12">
-                    <form class="col s12" method="post" id="invioPersona" action="registerPersona">
+                    <form class="col s12" method="post" id="invioPersona" action="registerPersona" enctype="multipart/form-data">
                         <div class="row">
                             <div class="input-field col s12 m4">
                                 <input placeholder="Nome" id="nomePersona" name="nomePersona" type="text" class="validate" required>
@@ -260,7 +260,7 @@
                                 <div class="file-field input-field">
                                     <div class="btn">
                                         <span>File</span>
-                                        <input type="file">
+                                        <input type="file" accept="image/png, image/jpeg">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" id="fotoPersona" name="fotoPersona" placeholder="Foto personale">
