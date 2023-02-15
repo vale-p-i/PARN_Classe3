@@ -8,12 +8,16 @@ import storage.entity.Azienda;
 import storage.entity.Sede;
 import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
+import utils.ImageManager.ImageManager;
 import utils.PasswordEncrypter;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 @WebServlet(name = "registerAzienda", value = "/registerAzienda")
 public class registerAzienda extends HttpServlet {
     @Override
@@ -34,7 +38,20 @@ public class registerAzienda extends HttpServlet {
         String areaInteresse = request.getParameter("areaInteresse");
         String email = request.getParameter("emailAzienda");
         String password = PasswordEncrypter.encryptThisString(request.getParameter("password_Azienda"));
-        String logo = request.getParameter("logo");
+        Part logo = request.getPart("logo");
+
+        if (logo == null)
+            throw new ServletException();
+
+        if (request.getPart("logo").equals(null))
+            throw new ServletException();
+
+        try {
+            System.out.println("Logo File: " + logo.getSubmittedFileName());
+        } catch (Exception e){
+            System.out.println("PART IS NULL");
+            throw new IllegalStateException();
+        }
 
         String settoriCompetenzaString = request.getParameter("settoriCompetenza");
         List<String> settoriCompetenza = new ArrayList<>();
@@ -57,8 +74,13 @@ public class registerAzienda extends HttpServlet {
         String mailSede = request.getParameter("emailSede");
 
         if(!settoriCompetenzaString.isEmpty() && numeroDipendenti >= 0){
+            //Upload immagine sul server
+            String rootPath = String.valueOf(request.getServletContext().getResource("/").getPath());
+            String fileExtention = logo.getSubmittedFileName().substring(logo.getSubmittedFileName().indexOf('.'));
+            ImageManager imageManager = new ImageManager(rootPath, email, logo, fileExtention);
+            String imagePath = imageManager.saveImage();
 
-            Azienda azienda = new Azienda(nome, email, password, regione, provincia, logo, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriCompetenza, null, new ArrayList<Annuncio>());
+            Azienda azienda = new Azienda(nome, email, password, regione, provincia, imagePath, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriCompetenza, null, new ArrayList<Annuncio>());
             service.registraAzienda(azienda);
             List<Sede> sedi = new ArrayList<>();
             Sede sede;
