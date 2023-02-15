@@ -7,12 +7,9 @@ import storage.entity.Persona;
 import storage.entity.Utente;
 import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
-import utils.PasswordEncrypter;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @WebServlet(name = "ModificaPersona", value = "/ModificaPersona")
 public class ModificaPersona extends HttpServlet {
@@ -44,7 +41,7 @@ public class ModificaPersona extends HttpServlet {
 
             service.aggiornaPersona(persona);
             session.setAttribute("utente", persona);
-            request.getRequestDispatcher("./WEB_INF/areaPersonalePersona.jsp").forward(request, response);
+            request.getRequestDispatcher("./WEB-INF/areaPersonalePersona.jsp").forward(request, response);
         }else response.sendRedirect(".");
     }
 

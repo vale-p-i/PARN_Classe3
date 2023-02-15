@@ -95,7 +95,7 @@ public class UtenteDAO {
     public Sede addSede(Sede sede) throws SQLException{
         connection=ConPool.getConnection();
 
-        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Sede (Azienda, Citta, Provincia, CAP," +
+        PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Sede (Azienda, Citta, Provincia, CAP, " +
                 "Via, Regione, Telefono, Mail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         pdstmt.setInt(1, sede.getAzienda().getId());
         pdstmt.setString(2, sede.getCitta());
@@ -116,7 +116,7 @@ public class UtenteDAO {
 
     public void aggiornaAzienda(Azienda azienda) throws SQLException{
         connection=ConPool.getConnection();
-
+        aggiornaUtente(azienda);
         PreparedStatement pdstmt = connection.prepareStatement("UPDATE Azienda SET  P_IVA = ?, Rag_Soc = ?, Link = ?, ADI = ?, N_Dip = ?, Sett_Comp = ? WHERE Utente = ?", Statement.RETURN_GENERATED_KEYS);
         pdstmt.setString(1, azienda.getPartitaIVA());
         pdstmt.setString(2, azienda.getRagioneSociale());
@@ -128,18 +128,19 @@ public class UtenteDAO {
         pdstmt.setInt(7, azienda.getId());
 
         pdstmt.executeUpdate();
+
     }
 
     public void aggiornaPersona(Persona persona) throws SQLException{
         connection=ConPool.getConnection();
-
+        aggiornaUtente(persona);
         PreparedStatement pdstmt = connection.prepareStatement("UPDATE Persona SET Utente = ?, Cognome = ?, CF" +
                 " = ?, DDN = ?, F_Macroarea = ?, Pos_Des = ? WHERE Utente = ?");
         pdstmt.setInt(1, persona.getId());
         pdstmt.setString(2, persona.getCognome());
         pdstmt.setString(3, persona.getCodiceFiscale());
         java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita());
-        pdstmt.setDate(3, sqlDate);
+        pdstmt.setDate(4, sqlDate);
         pdstmt.setString(5, persona.getFiltroMacroarea());
         pdstmt.setString(6, persona.getPosizioneDesiderata());
         pdstmt.setInt(7, persona.getId());
@@ -150,39 +151,38 @@ public class UtenteDAO {
     public void aggiornaSede(Sede sede) throws SQLException{
         if(connection.isClosed())
             connection=ConPool.getConnection();
-        PreparedStatement pdstmt = connection.prepareStatement("UPDATE Sede SET ID = ?, Azienda = ?, Citta = ?, " +
+        PreparedStatement pdstmt = connection.prepareStatement("UPDATE Sede SET Azienda = ?, Citta = ?, " +
                 "Provincia = ?, CAP = ?, Via = ?, Regione = ?, Telefono = ?, Mail = ? WHERE ID = ?");
-        pdstmt.setInt(1, sede.getId());
-        pdstmt.setInt(2, sede.getAzienda().getId());
-        pdstmt.setString(3, sede.getCitta());
-        pdstmt.setString(4, sede.getProvincia());
-        pdstmt.setString(5, sede.getCap());
-        pdstmt.setString(6, sede.getVia());
-        pdstmt.setString(7, sede.getRegione());
-        pdstmt.setString(8, sede.getTelefono());
-        pdstmt.setString(9, sede.getMail());
+        pdstmt.setInt(1, sede.getAzienda().getId());
+        pdstmt.setString(2, sede.getCitta());
+        pdstmt.setString(3, sede.getProvincia());
+        pdstmt.setString(4, sede.getCap());
+        pdstmt.setString(5, sede.getVia());
+        pdstmt.setString(6, sede.getRegione());
+        pdstmt.setString(7, sede.getTelefono());
+        pdstmt.setString(8, sede.getMail());
+        pdstmt.setInt(9, sede.getId());
+
         pdstmt.executeUpdate();
     }
 
     public void aggiornaUtente(Utente utente) throws SQLException{
         connection=ConPool.getConnection();
 
-        PreparedStatement pdstmt = connection.prepareStatement("UPDATE Utente SET N_Reg = ?, Nome = ?, Mail" +
+        PreparedStatement pdstmt = connection.prepareStatement("UPDATE Utente SET Nome = ?, Mail" +
                 " = ?, Pass = ?, Regione = ?, Provincia = ?, Foto = ?, CAP = ?, Telefono = ?, Citta = ?, " +
-                "Via = ? WHERE Utente = ?");
-        pdstmt.setInt(1, utente.getId());
-        pdstmt.setString(2, utente.getNome());
-        pdstmt.setString(3, utente.getMail());
-        pdstmt.setString(4, utente.getPassword());
-        pdstmt.setString(5, utente.getRegione());
-        pdstmt.setString(6, utente.getProvincia());
-        pdstmt.setString(7, utente.getFoto());
-        pdstmt.setString(8, utente.getCap());
-        pdstmt.setString(9, utente.getTelefono());
-        pdstmt.setString(10, utente.getCitta());
-        pdstmt.setString(11, utente.getVia());
-        pdstmt.setInt(12, utente.getId());
-
+                "Via = ? WHERE N_Reg = ?");
+        pdstmt.setString(1, utente.getNome());
+        pdstmt.setString(2, utente.getMail());
+        pdstmt.setString(3, utente.getPassword());
+        pdstmt.setString(4, utente.getRegione());
+        pdstmt.setString(5, utente.getProvincia());
+        pdstmt.setString(6, utente.getFoto());
+        pdstmt.setString(7, utente.getCap());
+        pdstmt.setString(8, utente.getTelefono());
+        pdstmt.setString(9, utente.getCitta());
+        pdstmt.setString(10, utente.getVia());
+        pdstmt.setInt(11, utente.getId());
         pdstmt.executeUpdate();
     }
     public void rimuoviPersona(Persona persona) throws SQLException{

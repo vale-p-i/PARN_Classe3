@@ -74,6 +74,7 @@ public class UtenteService implements UtenteServiceInterface{
             utenteDAO.addSede(sede);
             return true;
         } catch (SQLException e){
+            System.err.println(e);
             return false;
         }
     }
@@ -105,12 +106,6 @@ public class UtenteService implements UtenteServiceInterface{
             return false;
         }
 
-        Azienda azienda = sede.getAzienda();
-        for(Sede s:azienda.getSedi()){
-            if(s.getId() == sede.getId() && s.getAzienda().getId() == sede.getAzienda().getId())
-                azienda.getSedi().remove(s);
-        }
-        azienda.getSedi().add(sede);
         return true;
     }
 

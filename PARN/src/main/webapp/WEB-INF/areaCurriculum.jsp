@@ -77,7 +77,7 @@
                         <form action="modificaEsperienza">
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" value="<%=e.getNomeAzienda()%>" type="text" class="validate">
+                                    <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" value="<%=e.getNomeAzienda()%>" type="text" class="validate" disabled>
                                     <label for="nomeAziendaEsperienza">Inserisci il nome del azienda</label>
                                 </div>
                                 <div class="input-field col s12 m4">
@@ -85,7 +85,7 @@
                                     <label for="tipoAzienda">Inserisci il tipo di azienda</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Tipo impiego" id="tipoImpiego" value="<%=e.getTipoImpiego()%>" name="tipoImpiego" type="text" class="validate">
+                                    <input placeholder="Tipo impiego" id="tipoImpiego" value="<%=e.getTipoImpiego()%>" name="tipoImpiego" type="text" class="validate" disabled>
                                     <label for="tipoImpiego">Inserisci il tipo di impiego svolto</label>
                                 </div>
                             </div>
@@ -134,35 +134,35 @@
                         <form action="creaNuovaEsperienza">
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza"  type="text" class="validate">
+                                    <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza"  type="text" class="validate" required>
                                     <label for="nomeAziendaEsperienza">Inserisci il nome del azienda</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Tipo azienda" id="tipoAzienda" name="tipoAzienda"  type="text" class="validate">
+                                    <input placeholder="Tipo azienda" id="tipoAzienda" name="tipoAzienda"  type="text" class="validate" required>
                                     <label for="tipoAzienda">Inserisci il tipo di azienda</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Tipo impiego" id="tipoImpiego"  name="tipoImpiego" type="text" class="validate">
+                                    <input placeholder="Tipo impiego" id="tipoImpiego"  name="tipoImpiego" type="text" class="validate" required>
                                     <label for="tipoImpiego">Inserisci il tipo di impiego svolto</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m3">
-                                    <input placeholder="Nome Datore" id="nomeDatore" name="nomeDatore" type="text" class="validate">
+                                    <input placeholder="Nome Datore" id="nomeDatore" name="nomeDatore" type="text" class="validate" required>
                                     <label for="nomeDatore">Inserisci il nome del datore</label>
                                 </div>
                                 <div class="input-field col s12 m3">
-                                    <input placeholder="Contatto" id="contattoAzienda" name="contattoAzienda"  type="text" class="validate">
+                                    <input placeholder="Contatto" id="contattoAzienda" name="contattoAzienda"  type="text" class="validate" required>
                                     <label for="contattoAzienda">Inserisci il contatto del referente</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Mansioni" id="mansioni" name="mansioni" type="text"  class="validate">
+                                    <input placeholder="Mansioni" id="mansioni" name="mansioni" type="text"  class="validate" required>
                                     <label for="mansioni">Inserisci le mansioni svolte</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder=" inizio" type="text" id="data_in_e" name="data_in_e" class="datepicker">
+                                    <input placeholder=" inizio" type="text" id="data_in_e" name="data_in_e" class="datepicker" required>
                                     <label for="data_in_e">Data di inizio esperienza:</label>
                                 </div>
                                 <div class="input-field col s12 m6">
@@ -200,7 +200,7 @@
                         <form action="modificaLingua">
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Nome lingua" id="nomeLingua" name="nomeLingua" value="<%=l.getNome()%>" type="text" class="validate">
+                                    <input placeholder="Nome lingua" id="nomeLingua" name="nomeLingua" value="<%=l.getNome()%>" type="text" class="validate" disabled>
                                     <label for="nomeLingua">Inserisci il nome della lingua</label>
                                 </div>
                                 <div class="input-field col s12 m6">
@@ -228,11 +228,11 @@
                         <form action="creaLingua">
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Nome lingua" id="nomeLingua" name="nomeLingua"  type="text" class="validate">
+                                    <input placeholder="Nome lingua" id="nomeLingua" name="nomeLingua"  type="text" class="validate" required>
                                     <label for="nomeLingua">Inserisci il nome della lingua</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Livello Lingua" id="livelloLingua" name="livelloLingua"  type="text" class="validate">
+                                    <input placeholder="Livello Lingua" id="livelloLingua" name="livelloLingua"  type="text" class="validate" required>
                                     <label for="livelloLingua">Inserisci il livello della lingua</label>
                                 </div>
                             </div>
@@ -267,11 +267,11 @@
                         <form action="modificaIstruzione" >
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Nome Istituto" id="nomeIstituto" value="<%=i.getIstituto()%>" name="nomeIstituto" type="text" class="validate">
+                                    <input placeholder="Nome Istituto" id="nomeIstituto" value="<%=i.getIstituto()%>" name="nomeIstituto" type="text" class="validate" disabled>
                                     <label for="nomeIstituto">Inserisci il nome del istituto</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Tipo Istruttore" id="tipoIstruzione" value="<%=i.getTipo()%>" name="tipoIstruzione" type="text" class="validate">
+                                    <input placeholder="Tipo Istruttore" id="tipoIstruzione" value="<%=i.getTipo()%>" name="tipoIstruzione" type="text" class="validate" disabled>
                                     <label for="tipoIstruzione">Inserisci il tipo di istruzione</label>
                                 </div>
                                 <div class="input-field col s12 m4">
@@ -309,21 +309,21 @@
                     <form action="creaIstruzione" >
                         <div class="row">
                             <div class="input-field col s12 m4">
-                                <input placeholder="Nome Istituto" id="nomeIstituto"  name="nomeIstituto" type="text" class="validate">
+                                <input placeholder="Nome Istituto" id="nomeIstituto"  name="nomeIstituto" type="text" class="validate" required>
                                 <label for="nomeIstituto">Inserisci il nome del istituto</label>
                             </div>
                             <div class="input-field col s12 m4">
-                                <input placeholder="Tipo Istruttore" id="tipoIstruzione" name="tipoIstruzione" type="text" class="validate">
+                                <input placeholder="Tipo Istruttore" id="tipoIstruzione" name="tipoIstruzione" type="text" class="validate" required>
                                 <label for="tipoIstruzione">Inserisci il tipo di istruzione</label>
                             </div>
                             <div class="input-field col s12 m4">
-                                <input placeholder="Nome Qualifica" id="nomeQualifica"  name="nomeQualifica" type="text" class="validate">
+                                <input placeholder="Nome Qualifica" id="nomeQualifica"  name="nomeQualifica" type="text" class="validate" required>
                                 <label for="nomeQualifica">Inserisci il nome della qualifica</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input placeholder=" inizio" type="text" id="data_in_i"  name="data_in_i"  class="datepicker">
+                                <input placeholder=" inizio" type="text" id="data_in_i"  name="data_in_i"  class="datepicker" required>
                                 <label for="data_in_i">Data di inizio Istruzione:</label>
                             </div>
                             <div class="input-field col s12 m6">

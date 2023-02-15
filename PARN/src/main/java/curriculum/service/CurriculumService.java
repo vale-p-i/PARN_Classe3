@@ -186,7 +186,8 @@ public class CurriculumService implements  CurriculumServiceInterface{
 
         //toglie l'esperienza lavorativa vecchia e aggiunge quella aggiornata
         Curriculum curriculum = esperienzaLavorativa.getCurriculum();
-        for(EsperienzaLavorativa e: curriculum.getEsperienze()){
+        for (int i = 0; i < curriculum.getEsperienze().size(); i++) {
+            EsperienzaLavorativa e = curriculum.getEsperienze().get(i);
             if(e.getNomeAzienda().equals(esperienzaLavorativa.getNomeAzienda()) && e.getTipoImpiego().equals(esperienzaLavorativa.getTipoImpiego()))
                 curriculum.getEsperienze().remove(e);
         }
@@ -210,7 +211,8 @@ public class CurriculumService implements  CurriculumServiceInterface{
 
         //toglie la lingua vecchia e aggiunge quella aggiornata
         Curriculum curriculum = lingua.getCurriculum();
-        for(Lingua l: curriculum.getLingue()){
+        for(int i = 0; i < curriculum.getLingue().size(); i++){
+            Lingua l = curriculum.getLingue().get(i);
             if(l.getNome().equals(lingua.getNome())){
                 curriculum.getLingue().remove(l);
             }
@@ -235,9 +237,10 @@ public class CurriculumService implements  CurriculumServiceInterface{
 
         //toglie l'istruzione vecchia e aggiunge quella aggiornata
         Curriculum curriculum = istruzione.getCurriculum();
-        for(Istruzione i: curriculum.getIstruzioni()){
-            if(i.getIstituto().equals(istruzione.getIstituto()) && i.getTipo().equals(istruzione.getTipo())){
-                curriculum.getIstruzioni().remove(i);
+        for(int i = 0; i < curriculum.getIstruzioni().size(); i++){
+            Istruzione is = curriculum.getIstruzioni().get(i);
+            if(is.getIstituto().equals(istruzione.getIstituto()) && is.getTipo().equals(istruzione.getTipo())){
+                curriculum.getIstruzioni().remove(is);
             }
         }
         curriculum.getIstruzioni().add(istruzione);
@@ -259,7 +262,9 @@ public class CurriculumService implements  CurriculumServiceInterface{
         }
 
         Curriculum curriculum = esperienzaLavorativa.getCurriculum();
-        for(EsperienzaLavorativa e: curriculum.getEsperienze()){
+
+        for(int i = 0; i < curriculum.getEsperienze().size(); i++){
+            EsperienzaLavorativa e = curriculum.getEsperienze().get(i);
             if(esperienzaLavorativa.equals(e)){
                 curriculum.getEsperienze().remove(e);
             }
@@ -294,7 +299,9 @@ public class CurriculumService implements  CurriculumServiceInterface{
         }
 
         //rimuove la lingua dall'oggetto curriculum
-        for(Lingua l: curriculum.getLingue()){
+
+        for(int i = 0; i < curriculum.getLingue().size(); i++){
+            Lingua l = curriculum.getLingue().get(i);
             if(lingua.equals(l)){
                 curriculum.getLingue().remove(l);
             }
@@ -329,9 +336,10 @@ public class CurriculumService implements  CurriculumServiceInterface{
         }
 
         //rimuove l'istruzione dall'oggetto curriculum
-        for(Istruzione i: curriculum.getIstruzioni()){
-            if(istruzione.equals(i)) {
-                curriculum.getIstruzioni().remove(i);
+        for(int i = 0; i < curriculum.getIstruzioni().size(); i++){
+            Istruzione is = curriculum.getIstruzioni().get(i);
+            if(istruzione.equals(is)) {
+                curriculum.getIstruzioni().remove(is);
             }
         }
         return 2;

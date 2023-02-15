@@ -147,10 +147,10 @@ public class AnnuncioDAO {
         connection=ConPool.getConnection();
 
         PreparedStatement pdstmt = connection.prepareStatement(
-                "UPDATE Annuncio a SET a.Azienda = ?, a.Attivo = ?, a.Sede = ?, a.N_Persone = ?, " +
-                        "a.Descrizione = ?, a.Scadenza = ?, a.Requisiti = ?, a.Keyword = ?, a.Preferenze = ?, " +
-                        "a.Ruolo = ? " +
-                        "WHERE a.ID = ?");
+                "UPDATE Annuncio SET Azienda = ?, Attivo = ?, Sede = ?, N_Persone = ?, " +
+                        "Descrizione = ?, Scadenza = ?, Requisiti = ?, Keyword = ?, Preferenze = ?, " +
+                        "Ruolo = ? " +
+                        "WHERE ID = ?");
         pdstmt.setInt(1, annuncio.getAzienda().getId());
         pdstmt.setBoolean(2, annuncio.isAttivo());
         pdstmt.setInt(3, annuncio.getSede().getId());
@@ -174,7 +174,7 @@ public class AnnuncioDAO {
         connection=ConPool.getConnection();
 
         PreparedStatement pdstmt = connection.prepareStatement(
-                "DELETE FROM Annuncio a WHERE a.ID = ?");
+                "DELETE FROM Annuncio WHERE ID = ?");
         pdstmt.setInt(1, annuncio.getId());
         pdstmt.execute();
     }
@@ -202,7 +202,7 @@ public class AnnuncioDAO {
     public List<Annuncio> getAnnunciByAzienda(Azienda azienda) throws SQLException {
         connection=ConPool.getConnection();
         PreparedStatement pdstmt = connection.prepareStatement(
-               "SELECT ID, Azienda, Attivo, Sede,N_Persone,Descrizione,Scadenza,Requisiti,Keyword,Preferenze,Ruolo FROM Annuncio a WHERE a.Azienda = ?");
+               "SELECT ID, Azienda, Attivo, Sede,N_Persone,Descrizione,Scadenza,Requisiti,Keyword,Preferenze,Ruolo FROM Annuncio WHERE Azienda = ?");
         pdstmt.setInt(1, azienda.getId());
         ResultSet rs = pdstmt.executeQuery();
         List<Annuncio> results = new ArrayList<>();
