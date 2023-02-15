@@ -19,7 +19,8 @@ import java.io.IOException;
 
 public class PDFCurriculum implements PDFCurriculumInterface {
 
-    private static final String REGULAR = "./font/arialn.ttf";
+    private String rootPath;
+    private static final String REGULAR = "../font/arialn.ttf";
 
     /**
      * Questo metodo prende un oggetto curriculum, crea il formato pdf del curriculum e
@@ -29,12 +30,13 @@ public class PDFCurriculum implements PDFCurriculumInterface {
      * @throws IOException se non riesce a creare il PDfWriter o non riesce a creare il Font
      */
     public String downloadCurriculum(Curriculum curriculum) throws IOException {
-        String filename = "./pdf/";
+
+        String filename = "../pdf/";
         filename = filename +
                 curriculum.getPersona().getCognome() +
                 curriculum.getPersona().getNome() +
-                curriculum.getPersona().getTelefono() +
                 ".pdf";
+        System.out.println(filename);
         File file = new File(filename);
         PdfWriter writer = new PdfWriter(filename);
         PdfDocument pdf = new PdfDocument(writer);
@@ -42,16 +44,18 @@ public class PDFCurriculum implements PDFCurriculumInterface {
 
         FontProgram fontProgram = FontProgramFactory.createFont(REGULAR);
         PdfFont font = PdfFontFactory.createFont(fontProgram, PdfEncodings.WINANSI, PdfFontFactory.EmbeddingStrategy.PREFER_EMBEDDED);
+        //PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
 
         Table table = new Table(4).useAllAvailableWidth().setFixedLayout();
+
 
         StrutturaCurriculum struttura = new StrutturaCurriculum(font, table);
 
         String foto = curriculum.getPersona().getFoto();
         if(foto == null){
-            struttura.aggiungiIntestazione("./image/no-profile-picture-icon.png");
+            struttura.aggiungiIntestazione("../img/no-profile-picture-icon.png");
         } else {
-            struttura.aggiungiIntestazione(foto);
+            struttura.aggiungiIntestazione("../img/no-profile-picture-icon.png");
         }
 
         struttura.aggiungiInformazioniPersonali(curriculum.getPersona());
@@ -72,7 +76,10 @@ public class PDFCurriculum implements PDFCurriculumInterface {
         }
 
         doc.close();
-        return "" + curriculum.getPersona().getCognome() + curriculum.getPersona().getNome() +
-                curriculum.getPersona().getTelefono() + ".pdf";
+
+        return "" + curriculum.getPersona().getCognome() +
+                curriculum.getPersona().getNome() +
+                ".pdf";
+
     }
 }
