@@ -1,4 +1,6 @@
 <%@ page import="storage.entity.*" %>
+<%@ page import="curriculum.service.CurriculumServiceInterface" %>
+<%@ page import="curriculum.service.CurriculumService" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -210,7 +212,12 @@
                 </div>
                 <div class="row">
                     <div class="right">
-                        <button class="btn waves-effect waves-light"  name="action">Download<i class="material-icons right">file_download</i></button>
+                        <%
+                            CurriculumServiceInterface service=new CurriculumService();
+                        %>
+                        <a href="/pdf/<%=service.downloadCurriculum(c)%>" download="pdf">
+                            <button class="btn waves-effect waves-light"  name="action" type="button">Download<i class="material-icons right">file_download</i></button>
+                        </a>
                     </div>
                 </div>
             </div>

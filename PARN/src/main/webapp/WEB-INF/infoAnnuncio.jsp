@@ -72,8 +72,16 @@
                 session.setAttribute("annuncio",annuncio);
         %>
         <div class="row">
-            <div class="col s12 m12">
-                <h5>Annuncio</h5>
+            <div class="row">
+                <div class="col s10 m10">
+                    <h5>Annuncio</h5>
+                </div>
+                <div class="right">
+                    <form action="ChiudiAnnuncio">
+                        <input type="hidden" name="id_annuncio" id="id_annuncio" value="<%=annuncio.getId()%>">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Chiudi<i class="material-icons right">archive</i></button>
+                    </form>
+                </div>
             </div>
             <form action="ModificaAnnuncio">
                 <div class="row">
