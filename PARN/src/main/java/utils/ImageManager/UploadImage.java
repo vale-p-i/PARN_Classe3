@@ -29,13 +29,21 @@ public class UploadImage extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<p>Hello World!</p>");
 
-        String rootPath = String.valueOf(request.getServletContext().getResource("/"));
-        String codiceFiscale = request.getParameter("codiceFiscale");
+        String rootPath = String.valueOf(request.getServletContext().getResource("/").getPath());
+        String email = request.getParameter("email");
         Part imagePart = request.getPart("image");
-        String fileExtention = request.getParameter("fileExtention");
+        String fileExtention = imagePart.getSubmittedFileName().substring(imagePart.getSubmittedFileName().indexOf('.'));
 
-        ImageManager imageManager = new ImageManager(rootPath, codiceFiscale, imagePart, fileExtention);
+        System.out.println("rootPath: "+rootPath);
+        System.out.println("codiceFiscale: "+email);
+        System.out.println("fileExt: "+fileExtention);
+
+        ImageManager imageManager = new ImageManager(rootPath, email, imagePart, fileExtention);
         String resultUrl = imageManager.saveImage();
+
+        System.out.println("ResultURL: "+resultUrl);
+
+        response.sendRedirect("testUploadFoto.jsp");
     }
     @Override
     protected void doPost(HttpServletRequest request,

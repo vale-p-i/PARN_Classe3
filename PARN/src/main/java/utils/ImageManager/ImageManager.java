@@ -7,13 +7,13 @@ import java.io.IOException;
 
 public class ImageManager {
 
-    private String rootPath, codideFiscale, fileExtension;
-    private static String subfolder = "pictures/";
+    private String rootPath, mail, fileExtension;
+    private static String subfolder = "resources/pictures/";
     private Part filePart;
 
-    public ImageManager(String rootPath, String codideFiscale, Part filePart, String fileExtention) {
+    public ImageManager(String rootPath, String mail, Part filePart, String fileExtention) {
         this.rootPath = rootPath;
-        this.codideFiscale = codideFiscale;
+        this.mail = mail;
         this.filePart = filePart;
         this.fileExtension = fileExtention;
     }
@@ -21,20 +21,24 @@ public class ImageManager {
     public String saveImage() throws IOException {
         String saveDir = createDirectory();
         saveFileInDirectory(saveDir);
-        return saveDir+"image"+fileExtension;
+        return subfolder+mail+"/image"+fileExtension;
     }
 
-    private void saveFileInDirectory(String saveDir) throws IOException {
-        filePart.write(saveDir+"picture.jpg");
+    private void saveFileInDirectory(String saveDir){
+        try {
+            filePart.write(saveDir + "/picture.jpg");
+        } catch (IOException e) {
+            System.err.println("IMPOSSIBILE SALVARE IMMAGINE IN: "+saveDir+"/picture.jpg");
+        }
     }
 
     private String createDirectory() throws IOException {
-        File folder = new File(rootPath+subfolder+codideFiscale);
+        File folder = new File(rootPath+subfolder+ mail);
         boolean success = folder.mkdirs();
         if (success)
-            return folder.getAbsolutePath();
+            return rootPath+subfolder+ mail;
         else
-            throw new IOException();
+            throw new IOException("CANNOT CREATE FOLDER IN PATH: "+rootPath+subfolder+ mail);
     }
 
 }
