@@ -32,6 +32,10 @@ public class registerAzienda extends HttpServlet {
         String via = request.getParameter("viaAzienda");
         String cap = request.getParameter("capAzienda");
         String areaInteresse = request.getParameter("areaInteresse");
+        String email = request.getParameter("emailAzienda");
+        String password = PasswordEncrypter.encryptThisString(request.getParameter("password_Azienda"));
+        String logo = request.getParameter("logo");
+
         String settoriCompetenzaString = request.getParameter("settoriCompetenza");
         List<String> settoriCompetenza = new ArrayList<>();
         for(String s:settoriCompetenzaString.split(","))
@@ -40,13 +44,10 @@ public class registerAzienda extends HttpServlet {
         int numeroDipendenti = 0;
         try{
             numeroDipendenti = Integer.parseInt(request.getParameter("dipendenti"));
-        }catch (NumberFormatException n){
+        } catch (NumberFormatException n) {
             System.err.println("Conversion error "+n);
         }
 
-        String email = request.getParameter("emailAzienda");
-        String password = PasswordEncrypter.encryptThisString(request.getParameter("password_Azienda"));
-        String logo = request.getParameter("logo");
         String regioneSede = request.getParameter("regioneSede");
         String provinciaSede = request.getParameter("provinciaSede");
         String cittaSede = request.getParameter("cittaSede");
@@ -55,11 +56,7 @@ public class registerAzienda extends HttpServlet {
         String viaSede = request.getParameter("viaSede");
         String mailSede = request.getParameter("emailSede");
 
-        if(nome != null && partitaIva != null && telefono != null && ragioneSociale != null && sitoWeb != null &&
-                regione != null && provincia != null && citta != null && via != null && cap != null &&
-                areaInteresse != null && settoriCompetenzaString != null && numeroDipendenti >= 0 && email != null &&
-                password != null && logo != null && regioneSede != null && provinciaSede != null && cittaSede != null &&
-                capSede != null && telefonoSede != null && viaSede != null && mailSede != null){
+        if(!settoriCompetenzaString.isEmpty() && numeroDipendenti >= 0){
 
             Azienda azienda = new Azienda(nome, email, password, regione, provincia, logo, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriCompetenza, null, new ArrayList<Annuncio>());
             service.registraAzienda(azienda);

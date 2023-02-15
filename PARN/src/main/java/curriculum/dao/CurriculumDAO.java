@@ -1,6 +1,5 @@
 package curriculum.dao;
 
-import org.checkerframework.checker.units.qual.C;
 import storage.entity.*;
 import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;

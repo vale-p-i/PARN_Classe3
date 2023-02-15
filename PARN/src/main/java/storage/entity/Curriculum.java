@@ -2,6 +2,7 @@ package storage.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Curriculum {
     private List<String> softSkill;
@@ -63,5 +64,18 @@ public class Curriculum {
 
     public void setIstruzioni(List<Istruzione> istruzioni) {
         this.istruzioni = istruzioni;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Curriculum that = (Curriculum) o;
+        return Objects.equals(softSkill, that.softSkill) && Objects.equals(persona, that.persona) && Objects.equals(esperienze, that.esperienze) && Objects.equals(lingue, that.lingue) && Objects.equals(istruzioni, that.istruzioni);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(softSkill, persona, esperienze, lingue, istruzioni);
     }
 }

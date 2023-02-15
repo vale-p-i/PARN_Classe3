@@ -17,11 +17,10 @@ import java.util.List;
 public class UtenteDAO {
     private static Connection connection;
 
-    public UtenteDAO() {
-    }
+    public UtenteDAO() {}
 
     private int addUtente(Utente utente) throws SQLException{
-        connection=ConPool.getConnection();
+        connection = ConPool.getConnection();
 
         PreparedStatement pdstmt = connection.prepareStatement("INSERT INTO Utente (Nome, Mail, Pass, Regione," +
                 " Provincia, Foto, CAP, Telefono, Citta, Via) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
@@ -58,9 +57,11 @@ public class UtenteDAO {
             String dbContent = StringListUtils.getStringFromList(azienda.getSettoriCompetenza());
             pdstmt.setString(7, dbContent);
 
-            AnnuncioServiceInterface service = new AnnuncioService();
-            for(Annuncio a : azienda.getAnnunci())
-                service.creaAnnuncio(a);
+            /**
+             * AnnuncioServiceInterface service = new AnnuncioService();
+             *             for(Annuncio a : azienda.getAnnunci())
+             *                 service.creaAnnuncio(a);
+             */
 
             for(Sede s : azienda.getSedi())
                 addSede(s);
