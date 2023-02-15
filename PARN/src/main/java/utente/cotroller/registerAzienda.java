@@ -38,7 +38,7 @@ public class registerAzienda extends HttpServlet {
         String areaInteresse = request.getParameter("areaInteresse");
         String email = request.getParameter("emailAzienda");
         String password = PasswordEncrypter.encryptThisString(request.getParameter("password_Azienda"));
-        Part logo = request.getPart("logo");
+        Part logo = request.getPart("immagine");
 
         if (logo == null)
             throw new ServletException();
@@ -80,6 +80,7 @@ public class registerAzienda extends HttpServlet {
             String fileExtention = logo.getSubmittedFileName().substring(logo.getSubmittedFileName().indexOf('.'));
             ImageManager imageManager = new ImageManager(rootPath, email, logo, fileExtention);
             String imagePath = imageManager.saveImage();
+            System.out.println("IMAGE PATH: "+imagePath);
 
             Azienda azienda = new Azienda(nome, email, password, regione, provincia, imagePath, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriCompetenza, null, new ArrayList<Annuncio>());
             List<Sede> sedi = new ArrayList<>();

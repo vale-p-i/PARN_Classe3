@@ -41,7 +41,7 @@ public class registerPersona extends HttpServlet {
         String cap = request.getParameter("capPersona");
         String posizioneDesiderata = request.getParameter("posizione");
         String filtroMacroarea = request.getParameter("filtroMacroarea");
-        Part fotoPersona = request.getPart("fotoPersona");
+        Part fotoPersona = request.getPart("immagine");
         String emailPersona = request.getParameter("mailPersona");
         String passwordPersona = PasswordEncrypter.encryptThisString(request.getParameter("password_Persona"));
 
