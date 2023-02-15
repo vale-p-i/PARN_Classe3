@@ -74,6 +74,7 @@ public class UtenteService implements UtenteServiceInterface{
             utenteDAO.addSede(sede);
             return true;
         } catch (SQLException e){
+            System.err.println(e);
             return false;
         }
     }
