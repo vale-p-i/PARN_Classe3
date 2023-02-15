@@ -1,5 +1,7 @@
 package utente.service;
 
+import curriculum.service.CurriculumService;
+import curriculum.service.CurriculumServiceInterface;
 import storage.entity.Azienda;
 import storage.entity.Persona;
 import storage.entity.Sede;
@@ -48,10 +50,12 @@ public class UtenteService implements UtenteServiceInterface{
     public boolean registraPersona(Persona persona) {
         try{
             utenteDAO.addPersona(persona);
-            return true;
         } catch (SQLException e) {
             return false;
         }
+
+        CurriculumServiceInterface curriculumService = new CurriculumService();
+        return curriculumService.creaCurriculum(persona.getCurriculum());
     }
 
     @Override

@@ -2,6 +2,7 @@ package storage.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 public class EsperienzaLavorativa {
 
@@ -101,5 +102,18 @@ public class EsperienzaLavorativa {
 
     public void setCurriculum(Curriculum curriculum) {
         this.curriculum = curriculum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EsperienzaLavorativa that = (EsperienzaLavorativa) o;
+        return Objects.equals(dataInizio, that.dataInizio) && Objects.equals(dataFine, that.dataFine) && Objects.equals(tipoAzienda, that.tipoAzienda) && Objects.equals(datore, that.datore) && Objects.equals(contatto, that.contatto) && Objects.equals(tipoImpiego, that.tipoImpiego) && Objects.equals(mansioniPrincipali, that.mansioniPrincipali) && Objects.equals(nomeAzienda, that.nomeAzienda) && Objects.equals(curriculum, that.curriculum);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dataInizio, dataFine, tipoAzienda, datore, contatto, tipoImpiego, mansioniPrincipali, nomeAzienda, curriculum);
     }
 }

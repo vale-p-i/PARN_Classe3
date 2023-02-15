@@ -1,6 +1,7 @@
 package storage.entity;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Istruzione {
 
@@ -71,5 +72,18 @@ public class Istruzione {
 
     public void setIstituto(String istituto) {
         this.istituto = istituto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Istruzione that = (Istruzione) o;
+        return Objects.equals(curriculum, that.curriculum) && Objects.equals(dataInizio, that.dataInizio) && Objects.equals(dataFine, that.dataFine) && Objects.equals(qualifica, that.qualifica) && Objects.equals(tipo, that.tipo) && Objects.equals(istituto, that.istituto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(curriculum, dataInizio, dataFine, qualifica, tipo, istituto);
     }
 }
