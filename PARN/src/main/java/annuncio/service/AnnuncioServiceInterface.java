@@ -54,12 +54,6 @@ public interface AnnuncioServiceInterface {
      */
     public boolean rimuoviCandidatura(Annuncio annuncio, Candidatura candidatura);
     /**
-     * Permette di ottenere le candidature dato un annuncio
-     * @param annuncio oggetto Annuncio
-     * @return Ritorna una lista di candidature
-     */
-    public List<Candidatura> visualizzaCandidatura(Annuncio annuncio);
-    /**
      * Permette di ottenere gli annunci pubblicati da un azienda
      * @param azienda oggetto Annuncio
      * @return Ritorna una lista di annunci

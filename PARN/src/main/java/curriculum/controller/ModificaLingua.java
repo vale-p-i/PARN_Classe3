@@ -38,7 +38,7 @@ public class ModificaLingua extends HttpServlet {
                     }
 
                     session.setAttribute("utente", persona);
-                    request.getRequestDispatcher("./WEB_INF/areaCurriculum.jsp").forward(request, response);
+                    request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
 
                 } else response.sendRedirect(".");
 
