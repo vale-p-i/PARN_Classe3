@@ -41,9 +41,10 @@ public class registerAzienda extends HttpServlet {
         for(String s:settoriCompetenzaString.split(","))
             settoriCompetenza.add(s);
 
+        String numeroDipendentiString = request.getParameter("dipendenti");
         int numeroDipendenti = 0;
         try{
-            numeroDipendenti = Integer.parseInt(request.getParameter("dipendenti"));
+            numeroDipendenti = Integer.parseInt(numeroDipendentiString);
         } catch (NumberFormatException n) {
             System.err.println("Conversion error "+n);
         }
@@ -54,7 +55,7 @@ public class registerAzienda extends HttpServlet {
         String capSede= request.getParameter("capSede");
         String telefonoSede = request.getParameter("telefonoSede");
         String viaSede = request.getParameter("viaSede");
-        String mailSede = request.getParameter("emailSede");
+        String emailSede = request.getParameter("emailSede");
 
         if(!settoriCompetenzaString.isEmpty() && numeroDipendenti >= 0){
 
@@ -63,8 +64,9 @@ public class registerAzienda extends HttpServlet {
             List<Sede> sedi = new ArrayList<>();
             Sede sede;
             Sede newSede;
-            if(regioneSede != null){
-                newSede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, mailSede);
+            if(regioneSede != null && provinciaSede != null && cittaSede != null && capSede != null &&
+                    telefonoSede != null && viaSede != null && emailSede != null){
+                newSede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, emailSede);
             }
             else {
                 newSede = new Sede(regione, provincia, citta, cap, via, telefono, azienda, email);

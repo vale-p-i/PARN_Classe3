@@ -29,7 +29,7 @@ public class CancellaCandidatura extends HttpServlet {
         if(utente != null && utente instanceof Persona){
             Persona persona = (Persona) utente;
 
-            String idAnnuncioString = request.getParameter("id_Annuncio");
+            String idAnnuncioString = request.getParameter("id_annuncio");
             if(idAnnuncioString != null){
                 int idAnnuncio = -1;
                 try {

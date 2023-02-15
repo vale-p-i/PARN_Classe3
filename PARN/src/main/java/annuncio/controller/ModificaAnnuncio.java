@@ -29,47 +29,57 @@ public class ModificaAnnuncio extends HttpServlet {
 
         if(utente != null && utente instanceof Azienda){
             Azienda azienda = (Azienda) utente;
-            int idAnnuncio = -1;
-            try{
-                idAnnuncio = Integer.parseInt(request.getParameter("id_Annuncio"));
-            }catch (NumberFormatException n){
-                System.out.println("Conversion error " + n);
-            }
+            String idAnnuncioString = request.getParameter("id_Annuncio");
+            if(idAnnuncioString!=null){
+                int idAnnuncio = -1;
+                try{
+                    idAnnuncio = Integer.parseInt(idAnnuncioString);
+                }catch (NumberFormatException n){
+                    System.out.println("Conversion error " + n);
+                    throw new IllegalArgumentException();
+                }
 
-            Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
+                Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
+                String idSedeString = request.getParameter("sedelist");
+                if(idSedeString!=null){
+                    try{
+                        annuncio.setSede(serviceUtente.getSedeById(azienda, Integer.parseInt(idSedeString)));
+                    }catch (NumberFormatException n){
+                        System.out.println("Conversion error " + n);
+                        throw new NullPointerException();
+                    }
+                    try{
+                        annuncio.setNumeroPersone(Integer.parseInt(request.getParameter("numeroDipendenti")));
+                    }catch (NumberFormatException n){
+                        System.out.println("Conversion error " + n);
+                    }
 
-            try{
-                annuncio.setSede(serviceUtente.getSedeById(azienda, Integer.parseInt(request.getParameter("id_Sede"))));
-                annuncio.setNumeroPersone(Integer.parseInt(request.getParameter("numero_Persone")));
-            }catch (NumberFormatException n){
-                System.out.println("Conversion error " + n);
-                throw new NullPointerException();
-            }
+                    annuncio.setAttivo(Boolean.getBoolean(request.getParameter("attivo")));
+                    annuncio.setDescrizione(request.getParameter("descrizione"));
+                    annuncio.setDataScadenza(LocalDateTime.parse(request.getParameter("data_scad"), formatter));
 
-            annuncio.setAttivo(Boolean.getBoolean(request.getParameter("attivo")));
-            annuncio.setDescrizione(request.getParameter("descrizione"));
-            annuncio.setDataScadenza(LocalDateTime.parse(request.getParameter("scadenza"), formatter));
+                    List<String> requisiti = new ArrayList<>();
+                    for(String s:request.getParameter("requisiti").split(","))
+                        requisiti.add(s);
+                    annuncio.setRequisiti(requisiti);
 
-            List<String> requisiti = new ArrayList<>();
-            for(String s:request.getParameter("requisiti").split(","))
-                requisiti.add(s);
-            annuncio.setRequisiti(requisiti);
+                    List<String> keywords = new ArrayList<>();
+                    for(String s:request.getParameter("keywords").split(","))
+                        keywords.add(s);
+                    annuncio.setKeyword(keywords);
 
-            List<String> keywords = new ArrayList<>();
-            for(String s:request.getParameter("keywords").split(","))
-                keywords.add(s);
-            annuncio.setKeyword(keywords);
+                    List<String> preferenze = new ArrayList<>();
+                    for(String s:request.getParameter("preferenze").split(","))
+                        preferenze.add(s);
+                    annuncio.setPreferenze(preferenze);
+                    annuncio.setRuolo(request.getParameter("ruolo"));
 
-            List<String> preferenze = new ArrayList<>();
-            for(String s:request.getParameter("preferenze").split(","))
-                preferenze.add(s);
-            annuncio.setPreferenze(preferenze);
-            annuncio.setRuolo(request.getParameter("ruolo"));
-
-            serviceAnnuncio.modificaAnnuncio(annuncio);
-            serviceUtente.aggiornaAzienda(azienda);
-            session.setAttribute("utente", azienda);
-            request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+                    serviceAnnuncio.modificaAnnuncio(annuncio);
+                    serviceUtente.aggiornaAzienda(azienda);
+                    session.setAttribute("utente", azienda);
+                    request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+                }else response.sendRedirect(".");
+            }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }
 

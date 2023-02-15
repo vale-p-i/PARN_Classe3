@@ -24,19 +24,22 @@ public class EliminaAnnuncio extends HttpServlet {
 
         if(utente != null && utente instanceof Azienda){
             Azienda azienda = (Azienda) utente;
-            int idAnnuncio = -1;
-            try{
-                idAnnuncio = Integer.parseInt(request.getParameter("id_annuncio"));
-            }catch (NumberFormatException n){
-                System.out.println("Conversion error " + n);
-                throw new NullPointerException();
-            }
-            Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
-            serviceAnnuncio.eliminaAnnuncio(annuncio);
+            String idAnnuncioString = request.getParameter("id_annuncio");
+            if(idAnnuncioString != null){
+                int idAnnuncio = -1;
+                try{
+                    idAnnuncio = Integer.parseInt(idAnnuncioString);
+                }catch (NumberFormatException n){
+                    System.out.println("Conversion error " + n);
+                    throw new IllegalArgumentException();
+                }
+                Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
+                serviceAnnuncio.eliminaAnnuncio(annuncio);
 
-            serviceUtente.aggiornaAzienda(azienda);
-            session.setAttribute("utente", azienda);
-            request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+                serviceUtente.aggiornaAzienda(azienda);
+                session.setAttribute("utente", azienda);
+                request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+            }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }
 
