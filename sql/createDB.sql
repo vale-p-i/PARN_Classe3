@@ -10,7 +10,7 @@ create table Utente(
 	Pass varchar(256) NOT NULL,
 	Regione VARCHAR(20) NOT NULL,
 	Provincia VARCHAR(2) NOT NULL,
-	Foto VARCHAR(30),
+	Foto VARCHAR(60),
 	CAP  CHAR(5) NOT NULL,
 	Telefono CHAR(14) NOT NULL, 
 	Citta VARCHAR(50) NOT NULL,

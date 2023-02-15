@@ -95,7 +95,7 @@ INSERT INTO Annuncio (ID, Azienda, Attivo, Sede, N_Persone, Descrizione, Scadenz
 VALUES (2, 5, 1, 5, 5, 'Cercasi sviluppatore software con esperienza in Java e C++', '2023-03-15', 'Conoscenza avanzata di Java e C++', 'sviluppatore, software, Java, C++', 'Esperienza in sviluppo di applicazioni mobile', 'Sviluppatore Software');
 
 INSERT INTO Annuncio (ID, Azienda, Attivo, Sede, N_Persone, Descrizione, Scadenza, Requisiti, Keyword, Preferenze, Ruolo)
-VALUES (2, 1, 1,  1, 2, 'Cercasi sviluppatore web con esperienza in C e Rust', '2023-02-13', 'Conoscenza avanzata di C e Rust', 'sviluppatore, sistemi operativi', 'Esperienza in progetti complessi', 'Sviluppatore buono');
+VALUES (3, 1, 1,  1, 2, 'Cercasi sviluppatore web con esperienza in C e Rust', '2023-02-13', 'Conoscenza avanzata di C e Rust', 'sviluppatore, sistemi operativi', 'Esperienza in progetti complessi', 'Sviluppatore buono');
 #########################CANDIDATURA#########################
 INSERT INTO Candidatura (Annuncio, Persona, Data_Pub)
 VALUES (1, 2, "2022-12-10");
@@ -107,6 +107,8 @@ VALUES (2, 4, "2023-01-04");
 INSERT INTO Candidatura (Annuncio, Persona, Data_Pub)
 VALUES (2, 3, "2023-01-14");
 
+INSERT INTO Candidatura (Annuncio, Persona, Data_Pub)
+VALUES (3, 2, "2023-02-10");
 
 
 

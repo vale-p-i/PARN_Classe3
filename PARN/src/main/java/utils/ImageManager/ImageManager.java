@@ -21,7 +21,7 @@ public class ImageManager {
     public String saveImage() throws IOException {
         String saveDir = createDirectory();
         saveFileInDirectory(saveDir);
-        return subfolder+mail+"/image"+fileExtension;
+        return "resources/pictures/"+mail+"/image"+fileExtension;
     }
 
     private void saveFileInDirectory(String saveDir){
