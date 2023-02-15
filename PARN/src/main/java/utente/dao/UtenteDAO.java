@@ -307,8 +307,10 @@ public class UtenteDAO {
         return sedi;
     }
 
-    public void eliminaAzienda(Azienda azienda) {
-        /*PreparedStatement pdstmt = connection.prepareStatement("DELETE FROM Azienda a WHERE a.Utente = ?1");
-        pdstmt.setInt(1, azienda.getId());*/
+    public void eliminaUtenteById(int id) throws SQLException {
+        connection=ConPool.getConnection();
+        PreparedStatement pdstmt = connection.prepareStatement("DELETE FROM Utente WHERE N_REG = ?");
+        pdstmt.setInt(1, id);
+        pdstmt.executeUpdate();
     }
 }

@@ -137,9 +137,23 @@ public class UtenteService implements UtenteServiceInterface{
     @Override
     public boolean eliminaAzienda(Azienda azienda) {
         try {
-            utenteDAO.eliminaAzienda(azienda);
+            utenteDAO.eliminaUtenteById(azienda.getId());
             return true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    /**
+     * @param persona 
+     * @return
+     */
+    @Override
+    public boolean eliminaPersona(Persona persona) {
+        try {
+            utenteDAO.eliminaUtenteById(persona.getId());
+            return true;
+        } catch (SQLException e) {
             return false;
         }
     }
