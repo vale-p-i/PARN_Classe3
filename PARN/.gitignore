@@ -37,3 +37,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Per il pc di Carlo ###
+web.xml
+ConPool*

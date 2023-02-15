@@ -19,10 +19,6 @@ public class AnnuncioService implements AnnuncioServiceInterface {
     private static AnnuncioDAO annuncioDAO = new AnnuncioDAO();
 
 
-    /**
-     * @param id 
-     * @return
-     */
     @Override
     public Annuncio getAnnuncioById(int id) {
         try {
@@ -98,10 +94,6 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         }
     }
 
-    /**
-     * @param annuncio 
-     * @return
-     */
     @Override
     public boolean modificaAnnuncio(Annuncio annuncio) {
         try {
@@ -112,10 +104,6 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         }
     }
 
-    /**
-     * @param annuncio 
-     * @return
-     */
     @Override
     public boolean eliminaAnnuncio(Annuncio annuncio) {
         try {
@@ -126,10 +114,6 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         }
     }
 
-    /**
-     * @param annuncio 
-     * @return
-     */
     @Override
     public boolean chiusuraAnnuncio(Annuncio annuncio) {
         try {
@@ -141,11 +125,6 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         
     }
 
-    /**
-     * @param annuncio 
-     * @param candidatura
-     * @return
-     */
     @Override
     public boolean aggiungiCandidatura(Annuncio annuncio, Candidatura candidatura) {
         CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
@@ -153,11 +132,6 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         return candidaturaServiceInterface.creaCandidatura(candidatura);
     }
 
-    /**
-     * @param annuncio 
-     * @param candidatura
-     * @return
-     */
     @Override
     public boolean rimuoviCandidatura(Annuncio annuncio, Candidatura candidatura) {
         CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
@@ -170,20 +144,12 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         return candidaturaServiceInterface.eliminaCandidatura(candidatura);
     }
 
-    /**
-     * @param annuncio 
-     * @return
-     */
     @Override
     public List<Candidatura> visualizzaCandidatura(Annuncio annuncio) {
         CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
         return candidaturaServiceInterface.getCandidatureByAnnuncio(annuncio);
     }
 
-    /**
-     * @param azienda 
-     * @return
-     */
     @Override
     public List<Annuncio> getAnnuncioByAzienda(Azienda azienda) {
        try {

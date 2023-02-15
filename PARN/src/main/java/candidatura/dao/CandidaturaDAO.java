@@ -22,7 +22,13 @@ public class CandidaturaDAO {
     private static Connection connection;
 
     public CandidaturaDAO() {}
-
+    
+    /**
+     * Ritorna una lista di Candidature alle quali la persona ha sottoscritto. Altrimenti null
+     * @param persona oggetto Persona
+     * @return List\<Candidatura\>
+     * @throws SQLException in caso ci sia un eccezione nell'esecuzione della query
+     */
     public List<Candidatura> getCandidatueByPersona(Persona persona) throws SQLException {
         List<Candidatura> result = new ArrayList<>();
         AnnuncioServiceInterface annuncioService = new AnnuncioService();
@@ -45,6 +51,12 @@ public class CandidaturaDAO {
         return result;
     }
 
+    /**
+     * Ritorna una lista di Candidature appartenenti a un annuncio. Altrimenti null
+     * @param annuncio oggetto Annuncio
+     * @return List\<Candidatura\>
+     * @throws SQLException in caso ci sia un eccezione nell'esecuzione della query
+     */
     public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio) throws SQLException {
         List<Candidatura> result = new ArrayList<>();
         UtenteServiceInterface personaService = new UtenteService();
@@ -69,6 +81,13 @@ public class CandidaturaDAO {
         return result;
     }
 
+    /**
+     * Ritorna una Candidatura identificata univocamente da una persona e un annuncio. Altrimenti null
+     * @param persona oggetto Persona
+     * @param annuncio oggetto Annuncio
+     * @return oggetto Candidatura
+     * @throws SQLException in caso ci sia un eccezione nell'esecuzione della query
+     */
     public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio) throws SQLException {
 
         CurriculumServiceInterface curriculumServiceInterface = new CurriculumService();
@@ -93,6 +112,11 @@ public class CandidaturaDAO {
         return candidatura;
     }
 
+    /**
+     * Persiste una candidatura all'interno del database
+     * @param candidatura oggetto Candidatura
+     * @throws SQLException in caso ci sia un eccezione nell'esecuzione della query
+     */
     public void creaCandidatura(Candidatura candidatura) throws SQLException {
         connection=ConPool.getConnection();
 
@@ -106,6 +130,11 @@ public class CandidaturaDAO {
         connection.close();
     }
 
+    /**
+     * Elimina una candidatura dal database
+     * @param candidatura oggetto Candidatura
+     * @throws SQLException in caso ci sia un eccezione nell'esecuzione della query
+     */
     public void eliminaCandidatura(Candidatura candidatura) throws SQLException {
         connection=ConPool.getConnection();
 
