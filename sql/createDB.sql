@@ -117,10 +117,3 @@ FOREIGN KEY (Curriculum) REFERENCES Curriculum(Persona) ON DELETE CASCADE,
 PRIMARY KEY (Curriculum, Nome_Azienda, Tipo_Impiego)
 );
 
-CREATE TRIGGER delete_sede_trigger
-AFTER DELETE ON Sede
-FOR EACH ROW
-UPDATE Annuncio
-SET Sede = (SELECT ID FROM Sede WHERE Azienda = OLD.Azienda LIMIT 1)
-WHERE Sede = OLD.ID AND Azienda = OLD.Azienda;
-

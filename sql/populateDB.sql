@@ -84,7 +84,7 @@ VALUE (3, "Klingoniano", "Madrelingua");
 INSERT INTO Lingua (Curriculum, Nome, Livello)
 VALUE (4, "Italiano", "Madrelingua");
 INSERT INTO Lingua (Curriculum, Nome, Livello)
-VALUE (4, "Inglese", "Buono");
+VALUE (4, "Inglese", "Medio");
 
 
 #########################ANNUNCI#########################
