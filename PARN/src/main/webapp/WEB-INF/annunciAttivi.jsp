@@ -70,6 +70,8 @@
             session = request.getSession(false);
             Azienda a=(Azienda) session.getAttribute("utente");
             AnnuncioServiceInterface service=new AnnuncioService();
+            if (session.getAttribute("annuncio")!=null)
+                session.removeAttribute("annuncio");
             List<Annuncio> list=service.getAnnunciByStato(a,Annuncio.IN_CORSO);
             if(list!=null){
                 for(Annuncio ann: list){
@@ -80,7 +82,7 @@
                 <td><%=ann.getSede().toString()%></td>
                 <td><%=ann.getDescrizione()%></td>
                 <td><%=ann.getDataScadenza()%></td>
-                <td><a href="infoAnnuncio?id=<%=ann.getId()%>">Info<i class="material-icons">info</i></a></td>
+                <td><a href="RedirectAnnuncio?redirect=<%=ann.getId()%>"><i class="material-icons">info</i></a></td>
             </tr>
         <%
                 }
