@@ -32,7 +32,7 @@ public class ModificaIstruzione extends HttpServlet {
                 }
 
                 LocalDate ddf = null;
-                if(request.getParameter("data_fin_i") != null){
+                if(request.getParameter("data_fin_i") != null && request.getParameter("data_fin_i").length() >1){
                     ddf = LocalDate.parse(request.getParameter("data_fin_i"));
                 }
 
@@ -47,7 +47,7 @@ public class ModificaIstruzione extends HttpServlet {
                     }
 
                     session.setAttribute("utente", persona);
-                    request.getRequestDispatcher("./WEB_INF/areaCurriculum.jsp").forward(request, response);
+                    request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
 
                 } else response.sendRedirect(".");
 

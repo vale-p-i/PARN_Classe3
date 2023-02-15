@@ -172,11 +172,14 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         return candidaturaServiceInterface.eliminaCandidatura(candidatura);
     }
 
-    @Override
-    public List<Candidatura> visualizzaCandidatura(Annuncio annuncio) {
-        CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
-        return candidaturaServiceInterface.getCandidatureByAnnuncio(annuncio);
-    }
+    /**
+     * public List<Candidatura> visualizzaCandidatura(Annuncio annuncio) {
+     *         CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
+     *         return candidaturaServiceInterface.getCandidatureByAnnuncio(annuncio);
+     *     }
+     *
+      */
+
 
     @Override
     public List<Annuncio> getAnnuncioByAzienda(Azienda azienda) {
