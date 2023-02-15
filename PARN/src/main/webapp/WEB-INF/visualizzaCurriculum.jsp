@@ -213,9 +213,9 @@
                 <div class="row">
                     <div class="right">
                         <%
-                            CurriculumServiceInterface service=new CurriculumService();
+                            //CurriculumServiceInterface service=new CurriculumService();
                         %>
-                        <a href="/pdf/<%=service.downloadCurriculum(c)%>" download="pdf">
+                        <a href="/pdf/" download="pdf">
                             <button class="btn waves-effect waves-light"  name="action" type="button">Download<i class="material-icons right">file_download</i></button>
                         </a>
                     </div>

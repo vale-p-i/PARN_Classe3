@@ -1,5 +1,9 @@
 <%@ page import="storage.entity.Annuncio" %>
 <%@ page import="storage.entity.Azienda" %>
+<%@ page import="matching.service.MatchingService" %>
+<%@ page import="matching.service.MatchingServiceInterface" %>
+<%@ page import="java.util.List" %>
+<%@ page import="storage.entity.Persona" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +46,9 @@
 </nav>
 
 <%
-    Annuncio acc=new Annuncio(1,new Azienda(2,"intel","mail@mail.it","password","Calabria","Calabia",null,"84128","3245649827","Calabira","delle calabire","11111111", "bella","linko","area",5,null,null,null),true,null,5,"bella desc nfjdsbfjksdlhlflncraaytvuabyvruaesbukrfvhvduivhdfjadhdv hesiuthuiahvueuivt hiesagtvregehufhcsdhfnhtieuvhtihpuah",null,null,null,null,"ruolo",null);
+    session=request.getSession();
+    Persona p= (Persona) session.getAttribute("utente");
+    List<Annuncio> list= (List<Annuncio>) session.getAttribute("myList");
 %>
 
 <div class="container">
@@ -56,6 +62,13 @@
                     <input placeholder="Ricerca" id="keyword" type="text" class="validate">
                 </div>
             </div>
+        </div>
+        <%
+            if (list!=null){
+                if(!list.isEmpty()){
+                    for (Annuncio acc:list){
+        %>
+        <div class="row">
             <div class="col s12 m12">
             <div class="card horizontal min-annuncio">
                 <div class="card-image mrgin">
@@ -81,7 +94,28 @@
             </div>
         </div>
         </div>
-
+<%
+            }
+        }
+            else{
+%>
+        <div class="row">
+            <div class="col s12 m12">
+                Nessun annuncio per te
+            </div>
+        </div>
+        <%
+           }
+            }else{
+        %>
+        <div class="row">
+            <div class="col s12 m12">
+                Nessun annuncio per te
+            </div>
+        </div>
+        <%
+            }
+        %>
     </div>
 </div>
 

@@ -8,6 +8,7 @@ import storage.entity.Azienda;
 import storage.entity.Candidatura;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class AnnuncioService implements AnnuncioServiceInterface {
 
     @Override
     public List<Annuncio> getAnnunciByStato(Azienda azienda,String in_corso) {
-        LocalDateTime today=LocalDateTime.now();
+        LocalDate today= LocalDate.now();
         List<Annuncio> returnment=new ArrayList<>();
         if (azienda.getAnnunci()!=null)
             for(Annuncio a: azienda.getAnnunci()){
@@ -73,7 +74,7 @@ public class AnnuncioService implements AnnuncioServiceInterface {
 
     @Override
     public String getStato(Annuncio a) {
-        LocalDateTime today=LocalDateTime.now();
+        LocalDate today=LocalDate.now();
         if (a.isAttivo()&&a.getDataScadenza().isAfter(today))
             return Annuncio.IN_CORSO;
         else if (a.isAttivo()&&(a.getDataScadenza().isBefore(today)||a.getDataScadenza().equals(today)))
@@ -81,6 +82,19 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         else if(!a.isAttivo())
             return Annuncio.CHIUSO;
         return null;
+    }
+
+    @Override
+    public boolean canAnnuncioAccessToSearch(Annuncio a) {
+        if (getStato(a).equals(Annuncio.SCADUTO)){
+            double percentuale=(100*a.getCandidature().size())/a.getNumeroPersone();
+            percentuale/=100;
+            if (percentuale<=0.5)
+                return true;
+            else
+                return false;
+        }
+        return false;
     }
 
 
@@ -121,16 +135,18 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         }
 
         Azienda azienda = annuncio.getAzienda();
+        System.out.println(azienda.getAnnunci().size());
         for(Annuncio a : azienda.getAnnunci())
             if(a.getId() == annuncio.getId())
                 azienda.getAnnunci().remove(a);
-
+        System.out.println(azienda.getAnnunci().size());
         return true;
     }
 
     @Override
     public boolean chiusuraAnnuncio(Annuncio annuncio) {
         try {
+            annuncio.setAttivo(false);
             annuncioDAO.chiusuraAnnuncio(annuncio);
             return true;
         } catch (SQLException e) {

@@ -12,6 +12,7 @@ import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class ModificaAnnuncio extends HttpServlet {
 
                     annuncio.setAttivo(Boolean.getBoolean(request.getParameter("attivo")));
                     annuncio.setDescrizione(request.getParameter("descrizione"));
-                    annuncio.setDataScadenza(LocalDateTime.parse(request.getParameter("data_scad"), formatter));
+                    annuncio.setDataScadenza(LocalDate.parse(request.getParameter("data_scad")));
 
                     List<String> requisiti = new ArrayList<>();
                     for(String s:request.getParameter("requisiti").split(","))
@@ -77,7 +78,7 @@ public class ModificaAnnuncio extends HttpServlet {
                     serviceAnnuncio.modificaAnnuncio(annuncio);
                     serviceUtente.aggiornaAzienda(azienda);
                     session.setAttribute("utente", azienda);
-                    request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+                    request.getRequestDispatcher("./WEB-INF/areaPersonalePersona.jsp").forward(request, response);
                 }else response.sendRedirect(".");
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");

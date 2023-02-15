@@ -11,6 +11,7 @@ import utils.PasswordEncrypter;
 
 import javax.swing.text.DateFormatter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,14 +27,13 @@ public class registerPersona extends HttpServlet {
         HttpSession session = request.getSession();
         UtenteServiceInterface service = new UtenteService();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         //Prendo tutti i parametri standard della persona
         String nome = request.getParameter("nomePersona");
         String cognome = request.getParameter("cognome");
         String telefonoPersona = request.getParameter("telefonoPersona");
         String cf = request.getParameter("codiceFiscale");
-        LocalDateTime data_n = LocalDateTime.parse(request.getParameter("data_n"), formatter);
+        LocalDate data_n = LocalDate.parse(request.getParameter("data_n"));
         String regionePersona = request.getParameter("regionePersona");
         String provinciaPersona = request.getParameter("provinciaPersona");
         String citta = request.getParameter("cittaPersona");
@@ -88,14 +88,14 @@ public class registerPersona extends HttpServlet {
             String tipoIstruzione = request.getParameter("tipoIstruzione"+counter);
             String nomeQualifica = request.getParameter("nomeQualifica"+counter);
 
-            LocalDateTime ddi = null;
+            LocalDate ddi = null;
             if(request.getParameter("data_in_i"+counter) != null){
-                ddi = LocalDateTime.parse(request.getParameter("data_in_i"+counter), formatter);
+                ddi = LocalDate.parse(request.getParameter("data_in_i"+counter));
             }
 
-            LocalDateTime ddf = null;
+            LocalDate ddf = null;
             if(request.getParameter("data_fin_i"+counter) != null){
-                ddf = LocalDateTime.parse(request.getParameter("data_fin_i"+counter), formatter);
+                ddf = LocalDate.parse(request.getParameter("data_fin_i"+counter));
             }
 
             if(nomeIstituto != null && tipoIstruzione != null && nomeQualifica != null && ddi != null){
@@ -119,14 +119,14 @@ public class registerPersona extends HttpServlet {
             for(String s:request.getParameter("mansioni"+counter).split(","))
                 mansioni.add(s);
 
-            LocalDateTime ddi = null;
+            LocalDate ddi = null;
             if(request.getParameter("data_in_e"+counter) != null){
-                ddi = LocalDateTime.parse(request.getParameter("data_in_e"+counter), formatter);
+                ddi = LocalDate.parse(request.getParameter("data_in_e"+counter));
             }
 
-            LocalDateTime ddf = null;
+            LocalDate ddf = null;
             if(request.getParameter("data_fin_e"+counter) != null){
-                ddf = LocalDateTime.parse(request.getParameter("data_fin_e"+counter), formatter);
+                ddf = LocalDate.parse(request.getParameter("data_fin_e"+counter));
             }
 
             if(nomeAziendaEsperienza != null && tipoAzienda != null && nomeDatore != null &&

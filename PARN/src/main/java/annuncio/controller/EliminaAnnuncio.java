@@ -21,6 +21,7 @@ public class EliminaAnnuncio extends HttpServlet {
         Utente utente = (Utente) session.getAttribute("utente");
         AnnuncioServiceInterface serviceAnnuncio = new AnnuncioService();
         UtenteServiceInterface serviceUtente = new UtenteService();
+        System.out.println("1");
 
         if(utente != null && utente instanceof Azienda){
             Azienda azienda = (Azienda) utente;
@@ -33,12 +34,12 @@ public class EliminaAnnuncio extends HttpServlet {
                     System.out.println("Conversion error " + n);
                     throw new IllegalArgumentException();
                 }
-                Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
+                Annuncio annuncio = serviceAnnuncio.getAnnuncioById(azienda,idAnnuncio);
                 serviceAnnuncio.eliminaAnnuncio(annuncio);
 
                 serviceUtente.aggiornaAzienda(azienda);
                 session.setAttribute("utente", azienda);
-                request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+                request.getRequestDispatcher("./WEB-INF/annunciAttivi.jsp").forward(request, response);
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }

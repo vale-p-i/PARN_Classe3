@@ -6,6 +6,7 @@ package annuncio.dao;
 
 import candidatura.service.CandidaturaService;
 import candidatura.service.CandidaturaServiceInterface;
+import org.checkerframework.checker.units.qual.A;
 import storage.entity.Annuncio;
 import storage.entity.Azienda;
 import storage.entity.Candidatura;
@@ -51,7 +52,7 @@ public class AnnuncioDAO {
                     utenteService.getSedeById(azienda, rs.getInt(4)),
                     rs.getInt(5),
                     rs.getString(6),
-                    rs.getDate(7).toLocalDate().atStartOfDay(),
+                    rs.getDate(7).toLocalDate(),
                     StringListUtils.getSplittedString(rs.getString(8)),
                     StringListUtils.getSplittedString(rs.getString(9)),
                     StringListUtils.getSplittedString(rs.getString(10)),
@@ -78,11 +79,11 @@ public class AnnuncioDAO {
         CandidaturaService candidaturaService = new CandidaturaService();
         List<Annuncio> result = new ArrayList<>();
 
-        if (stato.toLowerCase().contains("in") && stato.toLowerCase().contains("corso"))
-            query = "SELECT * FROM Annuncio a WHERE a.Attivo = 1 AND a.Scadenza > GETDATE()";
-        else if (stato.toLowerCase().contains("scaduto"))
-            query = "SELECT * FROM Annuncio a WHERE a.Attivo = 1 AND a.Scadenza < GETDATE()";
-        else if (stato.toLowerCase().contains("chiuso"))
+        if (Annuncio.IN_CORSO.equals(stato))
+            query = "SELECT * FROM Annuncio a WHERE a.Attivo = 1 AND a.Scadenza > CURDATE()";
+        else if (Annuncio.SCADUTO.equals(stato))
+            query = "SELECT * FROM Annuncio a WHERE a.Attivo = 1 AND a.Scadenza > CURDATE()";
+        else if (Annuncio.CHIUSO.equals(stato))
             query = "SELECT * FROM Annuncio a WHERE a.Attivo = 0";
         else
             throw new IllegalArgumentException();
@@ -98,7 +99,7 @@ public class AnnuncioDAO {
                     utenteService.getSedeById(azienda,rs.getInt(4)),
                     rs.getInt(5),
                     rs.getString(6),
-                    rs.getDate(7).toLocalDate().atStartOfDay(),
+                    rs.getDate(7).toLocalDate(),
                     StringListUtils.getSplittedString(rs.getString(8)),
                     StringListUtils.getSplittedString(rs.getString(9)),
                     StringListUtils.getSplittedString(rs.getString(10)),
@@ -129,7 +130,7 @@ public class AnnuncioDAO {
         pdstmt.setInt(4, annuncio.getSede().getId());
         pdstmt.setInt(5, annuncio.getNumeroPersone());
         pdstmt.setString(6, annuncio.getDescrizione());
-        pdstmt.setDate(7, java.sql.Date.valueOf(annuncio.getDataScadenza().toLocalDate().toString()));
+        pdstmt.setDate(7, java.sql.Date.valueOf(annuncio.getDataScadenza()));
         pdstmt.setString(8, StringListUtils.getStringFromList(annuncio.getRequisiti()));
         pdstmt.setString(9, StringListUtils.getStringFromList(annuncio.getKeyword()));
         pdstmt.setString(10, StringListUtils.getStringFromList(annuncio.getPreferenze()));
@@ -155,7 +156,7 @@ public class AnnuncioDAO {
         pdstmt.setInt(3, annuncio.getSede().getId());
         pdstmt.setInt(4, annuncio.getNumeroPersone());
         pdstmt.setString(5, annuncio.getDescrizione());
-        pdstmt.setDate(6, java.sql.Date.valueOf(annuncio.getDataScadenza().toLocalDate().toString()));
+        pdstmt.setDate(6, java.sql.Date.valueOf(annuncio.getDataScadenza()));
         pdstmt.setString(7, StringListUtils.getStringFromList(annuncio.getRequisiti()));
         pdstmt.setString(8, StringListUtils.getStringFromList(annuncio.getKeyword()));
         pdstmt.setString(9, StringListUtils.getStringFromList(annuncio.getPreferenze()));
@@ -188,7 +189,7 @@ public class AnnuncioDAO {
 
         PreparedStatement pdstmt = connection.prepareStatement(
                 "UPDATE Annuncio SET Attivo = ? WHERE ID = ?");
-        pdstmt.setBoolean(1, false);
+        pdstmt.setBoolean(1, annuncio.isAttivo());
         pdstmt.setInt(2, annuncio.getId());
         pdstmt.execute();
     }
@@ -215,7 +216,7 @@ public class AnnuncioDAO {
                     utenteService.getSedeById(azienda, rs.getInt(4)),
                     rs.getInt(5),
                     rs.getString(6),
-                    rs.getDate(7).toLocalDate().atStartOfDay(),
+                    rs.getDate(7).toLocalDate(),
                     StringListUtils.getSplittedString(rs.getString(8)),
                     StringListUtils.getSplittedString(rs.getString(9)),
                     StringListUtils.getSplittedString(rs.getString(10)),

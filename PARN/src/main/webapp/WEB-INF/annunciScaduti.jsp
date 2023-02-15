@@ -52,6 +52,11 @@
 <div class="container">
     <div class="section-main min">
         <div class="row">
+            <div class="left">
+                <a href="RedirectServlet?redirect=homepageAzienda"><i class="material-icons tiny">arrow_back</i> Torna indietro</a>
+            </div>
+        </div>
+        <div class="row">
             <h5>Annunci Scaduti :</h5>
         </div>
         <table>
@@ -63,6 +68,8 @@
                 <th>Descrizione</th>
                 <th>Data di scadenza</th>
                 <th>Link</th>
+                <th>Archivia</th>
+                <th>Elimina</th>
             </tr>
             </thead>
             <tbody>
@@ -88,6 +95,9 @@
                 <td><%=ann.getDescrizione()%></td>
                 <td><%=ann.getDataScadenza()%></td>
                 <td><a href="RedirectAnnuncio?redirect=<%=ann.getId()%>"><i class="material-icons">info</i></a></td>
+                <td><a href="ChiudiAnnuncio?id_annuncio=<%=ann.getId()%>"><i class="material-icons">archive</i></a></td>
+                <td><a href="EliminaAnnuncio?id_annuncio=<%=ann.getId()%>"><i class="material-icons red-text">cancel</i></a></td>
+
             </tr>
             <%
                     }
