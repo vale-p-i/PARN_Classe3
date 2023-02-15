@@ -89,7 +89,7 @@
                     <span class="card-title grey-text text-darken-4"><%=acc.getAzienda().getNome()%><i class="material-icons right">close</i></span>
                     <p>Ruolo:<%=acc.getRuolo()%></p>
                     <p>Sede:<%=acc.getSede()%></p>
-                    <p>Preferenze:<%=acc.getPreferenze()%></p>
+                    <p>Preferenze:<%=String.join(",", acc.getPreferenze())%></p>
                     <form >
                         <input type="hidden" value="idpersona">
                         <input type="hidden" value="idannnuncio">
