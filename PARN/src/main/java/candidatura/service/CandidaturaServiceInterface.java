@@ -4,13 +4,39 @@ import storage.entity.Annuncio;
 import storage.entity.Candidatura;
 import storage.entity.Persona;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface CandidaturaServiceInterface {
+
+    /**
+     * Ritorna una lista di Candidature appartenenti a un annuncio.
+     * @param annuncio Oggetto Annuncio
+     * @return Ritorna una lista di Candidature appartenenti a un annuncio.
+     */
     public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio);
+    /**
+     * Ritorna una Candidatura identificata univocamente da una persona e un annuncio, altrimenti null se inesistente
+     * @param persona Oggetto Persona
+     * @param annuncio Annuncio
+     * @return Candidatura
+     */
     public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio);
+    /**
+     * Ritorna una lista di Candidature alle quali la persona ha sottoscritto.
+     * @param persona Oggetto Persona
+     * @return List\<Candidatura\>
+     */
     public List<Candidatura> getCandidatueByPersona(Persona persona);
+    /**
+     * Persiste una candidatura nel database. In caso di successo ritorna true, altrimenti false
+     * @param candidatura Oggetto Candidatura
+     * @return boolean
+     */
     public boolean creaCandidatura(Candidatura candidatura);
+    /**
+     * Elimina una candidatura dal database. In caso di successo rutorna true, false altrimenti
+     * @param candidatura Oggetto Candidatura
+     * @return boolean
+     */
     public boolean eliminaCandidatura(Candidatura candidatura);
 }

@@ -10,53 +10,63 @@ import java.util.List;
 public interface AnnuncioServiceInterface {
 
     /**
-     * @param id L'ID dell'Annuncio da cercare.
+     * Permette di ottenere un Annuncio dato il suo ID
+     * @param id int
      * @return Ritorna true se ha avuto successo, altrimenti false
      */
     public Annuncio getAnnuncioById(int id);
     /**
-     * @param annuncio L'Annuncio da creare.
+     * Permette di persistere un annuncio nel database. In caso di successo ritorna true, altrimenti false
+     * @param annuncio oggetto Annuncio
      * @return Ritorna true se ha avuto successo, altrimenti false
      */
     public boolean creaAnnuncio(Annuncio annuncio);
     /**
-     * @param annuncio l'annuncio da modificare
+     * Permette di modificare un annuncio presente nel DB.
+     * @param annuncio oggetto Annuncio
      * @return Ritorna true se ha avuto successo, altrimenti false
      */
     public boolean modificaAnnuncio(Annuncio annuncio);
     /**
-     * @param annuncio l'annuncio da eliminare
+     * Permette di eliminare un annuncio dal db.
+     * @param annuncio oggetto Annuncio
      * @return Ritorna true se ha avuto successo, altrimenti false
      */
     public boolean eliminaAnnuncio(Annuncio annuncio);
     /**
-     * @param annuncio l'annuncio da chiudere
+     * Permette di chiudere un annuncio
+     * @param annuncio oggetto Annuncio
      * @return Ritorna true se ha avuto successo, altrimenti false
      */
     public boolean chiusuraAnnuncio(Annuncio annuncio);
     /**
-     * @param annuncio l'annuncio al quale aggiungere la candidatura
-     * @param candidatura la candidatura da aggiungere all'annuncio
+     * Permette di aggiungere una candidatura ad un annuncio
+     * @param annuncio oggetto Annuncio
+     * @param candidatura oggetto candidatura
      * @return Ritorna true se ha avuto successo, altrimenti false
      */
     public boolean aggiungiCandidatura(Annuncio annuncio, Candidatura candidatura);
     /**
-     * @param annuncio l'annuncio dal quale rimuovere la candidatura
-     * @param candidatura la candidatura da rimuovere dall'annuncio
+     * Permette di rimuovere una candidatura da un annuncio
+     * @param annuncio oggetto Annuncio
+     * @param candidatura oggetto Candidatura
      * @return Ritorna true se ha avuto successo, altrimenti false
      */
     public boolean rimuoviCandidatura(Annuncio annuncio, Candidatura candidatura);
     /**
-     * @param annuncio l'annuncio dal quale prendere le candidature
+     * Permette di ottenere le candidature dato un annuncio
+     * @param annuncio oggetto Annuncio
      * @return Ritorna una lista di candidature
      */
     public List<Candidatura> visualizzaCandidatura(Annuncio annuncio);
     /**
-     * @param azienda l'azienda sulla quale cercare gli annunci
+     * Permette di ottenere gli annunci pubblicati da un azienda
+     * @param azienda oggetto Annuncio
      * @return Ritorna una lista di annunci
      */
     public List<Annuncio> getAnnuncioByAzienda(Azienda azienda);
     /**
+     * Permette di ottenere gli annunci con un certo stato
      * @param stato la stringa che specifica lo stato dell'annuncio ES: in corso, chiuso, ecc
      * @return Ritorna una lista di annunci
      */
