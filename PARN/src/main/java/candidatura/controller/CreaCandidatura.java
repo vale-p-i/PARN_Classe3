@@ -43,7 +43,7 @@ public class CreaCandidatura extends HttpServlet {
                 serviceAnnuncio.aggiungiCandidatura(annuncio, candidatura);
                 serviceUtente.aggiornaPersona(persona);
                 session.setAttribute("utente", persona);
-                request.getRequestDispatcher("./WEB_INF/visualizzaCandidature.jsp").forward(request, response);
+                request.getRequestDispatcher("./WEB-INF/visualizzaCandidature.jsp").forward(request, response);
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }

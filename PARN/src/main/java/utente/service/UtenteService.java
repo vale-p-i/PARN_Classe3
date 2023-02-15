@@ -105,12 +105,6 @@ public class UtenteService implements UtenteServiceInterface{
             return false;
         }
 
-        Azienda azienda = sede.getAzienda();
-        for(Sede s:azienda.getSedi()){
-            if(s.getId() == sede.getId() && s.getAzienda().getId() == sede.getAzienda().getId())
-                azienda.getSedi().remove(s);
-        }
-        azienda.getSedi().add(sede);
         return true;
     }
 
