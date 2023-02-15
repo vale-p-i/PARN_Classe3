@@ -28,7 +28,7 @@ public class registerPersona extends HttpServlet {
         String nome = request.getParameter("nomePersona");
         String cognome = request.getParameter("cognome");
         String telefonoPersona = request.getParameter("telefonoPersona");
-        String cf = request.getParameter("coficeFiscale");
+        String cf = request.getParameter("codiceFiscale");
         LocalDateTime data_n = LocalDateTime.parse(request.getParameter("data_n"), formatter);
         String regionePersona = request.getParameter("regionePersona");
         String provinciaPersona = request.getParameter("provinciaPersona");
@@ -41,121 +41,96 @@ public class registerPersona extends HttpServlet {
         String emailPersona = request.getParameter("mailPersona");
         String passwordPersona = PasswordEncrypter.encryptThisString(request.getParameter("password_Persona"));
 
-
-        //Prendo tutti i campi di esperienza lavorativa obbligatoria
-        String nomeAziendaEsperienza = request.getParameter("nomeAziendaEsperienza1");
-        String tipoAzienda = request.getParameter("tipoAzienda1");
-        String nomeDatore = request.getParameter("nomeDatore1");
-        String contattoAzienda = request.getParameter("contattoAzienda1");
-        List<String> mansioni = new ArrayList<>();
-        for(String s:request.getParameter("mansioni1").split(","))
-            mansioni.add(s);
-        LocalDateTime data_in_e = LocalDateTime.parse(request.getParameter("data_in_e1"), formatter);
-        LocalDateTime data_fin_e = LocalDateTime.parse(request.getParameter("data_fin_e1"), formatter);
-        List<EsperienzaLavorativa> esperienzeLavorative = new ArrayList<>();
-        EsperienzaLavorativa espLav = new EsperienzaLavorativa(data_in_e, data_fin_e, tipoAzienda, nomeDatore, contattoAzienda, tipoAzienda, mansioni, nomeAziendaEsperienza, null);
-        esperienzeLavorative.add(espLav);
-
-        //Prendo tutti i campi di linuga obbligatoria
-        String nomeLingua = request.getParameter("nomeLingua1");
-        String livelloLingua = request.getParameter("livelloLingua1");
-        Lingua lingua = new Lingua(nomeLingua, livelloLingua);
-        List<Lingua> lingue = new ArrayList<>();
-        lingue.add(lingua);
-
-        //Prendo tutti i campi di istruzione obbligatoria
-        String nomeIstituto = request.getParameter("nomeIstituto1");
-        String tipoIstruzione = request.getParameter("tipoIstruzione1");
-        String nomeQualifica = request.getParameter("nomeQualifica1");
-        LocalDateTime data_in_i = LocalDateTime.parse(request.getParameter("data_in_i1"), formatter);
-        LocalDateTime data_fin_i = LocalDateTime.parse(request.getParameter("data_fin_i1"), formatter);
-        Istruzione istruzione = new Istruzione(null, data_in_i, data_fin_i, nomeQualifica, tipoIstruzione, nomeIstituto);
-        List<Istruzione> istruzioni = new ArrayList<>();
-        istruzioni.add(istruzione);
+        //Crea la persona
+        Persona persona = new Persona(nome, emailPersona, passwordPersona, regionePersona, provinciaPersona,
+                fotoPersona, cap, telefonoPersona, citta, via, cognome, cf, data_n, filtroMacroarea,
+                posizioneDesiderata, null, null);
 
         //Prendo le softskills
         List<String> softSkills = new ArrayList<>();
         for(String s:request.getParameter("soft_skills").split(","))
             softSkills.add(s);
 
-        if(nome != null && cognome != null && telefonoPersona != null && cf != null && data_n != null &&
-                regionePersona != null && provinciaPersona != null && citta != null && via != null &&
-                cap != null && posizioneDesiderata != null && filtroMacroarea != null && fotoPersona != null &&
-                emailPersona != null && passwordPersona != null && nomeAziendaEsperienza != null && tipoAzienda != null &&
-                nomeDatore != null && contattoAzienda != null && mansioni != null && data_in_e != null && data_fin_e != null &&
-                esperienzeLavorative != null){
+        //Creo il curriculum senza le liste e lo aggiungo alla persona
+        Curriculum curriculum = new Curriculum(persona, softSkills);
+        persona.setCurriculum(curriculum);
 
-            //Ciclo sulle esperienze successive se ce ne sono
-            boolean flag = true;
-            int counter = 1;
-            while(flag){
-                counter++;
-                String tmpNomeAziendaEsperienza = request.getParameter("nomeAziendaEsperienza"+counter);
-                String tmpTipoAzienda = request.getParameter("tipoAzienda"+counter);
-                String tmpNomeDatore = request.getParameter("nomeDatore"+counter);
-                String tmpContattoAzienda = request.getParameter("contattoAzienda"+counter);
-                List<String> tmpMansioni = new ArrayList<>();
-                for(String s:request.getParameter("mansioni"+counter).split(","))
-                    tmpMansioni.add(s);
-                LocalDateTime tmpData_in_e = LocalDateTime.parse(request.getParameter("data_in_e"+counter), formatter);
-                LocalDateTime tmpData_fin_e = LocalDateTime.parse(request.getParameter("data_fin_e"+counter), formatter);
+        //Prendo tutte le lingue inserite
+        boolean flag = true;
+        int counter = 0;
+        while(flag){
+            counter++;
+            String nomeLingua = request.getParameter("nomeLingua"+counter);
+            String livellolingua = request.getParameter("livelloLingua"+counter);
 
-                if(tmpNomeAziendaEsperienza != null && tmpTipoAzienda != null && tmpNomeDatore != null &&
-                        tmpContattoAzienda != null && tmpMansioni != null && tmpData_in_e != null && tmpData_fin_e != null){
-                    EsperienzaLavorativa tmpEspLav = new EsperienzaLavorativa(tmpData_in_e, tmpData_fin_e, tmpTipoAzienda, tmpNomeDatore, tmpContattoAzienda, tmpTipoAzienda, tmpMansioni, tmpNomeAziendaEsperienza, null);
-                    esperienzeLavorative.add(tmpEspLav);
-                }else flag = false;
+            if(nomeLingua != null && livellolingua != null) {
+                Lingua lingua = new Lingua(nomeLingua, livellolingua, curriculum);
+                curriculum.getLingue().add(lingua);
+            } else flag = false;
+        }
+
+        //Prendo tutti i campi istruzione inseriti
+        flag = true;
+        counter = 0;
+        while (flag) {
+            counter++;
+            String nomeIstituto = request.getParameter("nomeIstituto"+counter);
+            String tipoIstruzione = request.getParameter("tipoIstruzione"+counter);
+            String nomeQualifica = request.getParameter("nomeQualifica"+counter);
+
+            LocalDateTime ddi = null;
+            if(request.getParameter("data_in_i"+counter) != null){
+                ddi = LocalDateTime.parse(request.getParameter("data_in_i"+counter), formatter);
             }
 
-            //Prendo tutti i campi di lingua aggiuntivi se ci sono e li aggiungo alla lista
-            flag = true;
-            counter = 1;
-            while(flag){
-                counter++;
-
-                String tmpNomeLingua = request.getParameter("nomeLingua"+counter);
-                String tmpLivellolingua = request.getParameter("livelloLingua"+counter);
-
-                if(tmpNomeLingua != null && tmpLivellolingua != null){
-                    Lingua tmpLingua = new Lingua(tmpNomeLingua, tmpLivellolingua);
-                    lingue.add(tmpLingua);
-                }else flag = false;
+            LocalDateTime ddf = null;
+            if(request.getParameter("data_fin_i"+counter) != null){
+                ddf = LocalDateTime.parse(request.getParameter("data_fin_i"+counter), formatter);
             }
 
-            //Prendo tutti i campi di istruzione aggiuntivi se ci sono e li aggiungo alla lista
-            flag = true;
-            counter = 1;
-            while (flag){
-                counter++;
-                String tmpNomeIstituto = request.getParameter("nomeIstituto"+counter);
-                String tmpTipoIstruzione = request.getParameter("tipoIstruzione"+counter);
-                String tmpNomeQualifica = request.getParameter("nomeQualifica"+counter);
-                LocalDateTime tmpData_in_i = LocalDateTime.parse(request.getParameter("data_in_i"+counter), formatter);
-                LocalDateTime tmpData_fin_i = LocalDateTime.parse(request.getParameter("data_fin_i"+counter), formatter);
+            if(nomeIstituto != null && tipoIstruzione != null && nomeQualifica != null && ddi != null){
+                Istruzione istruzione = new Istruzione(curriculum, ddi, ddf, nomeQualifica, tipoIstruzione, nomeIstituto);
+                curriculum.getIstruzioni().add(istruzione);
+            } else flag = false;
+        }
 
-                if(tmpNomeIstituto != null && tmpTipoIstruzione != null && tmpNomeQualifica != null && tmpData_in_i != null &&
-                        tmpData_fin_i != null){
-                    Istruzione tmpIstruzione = new Istruzione(null, tmpData_in_i, tmpData_fin_i, tmpNomeQualifica, tmpTipoIstruzione, tmpNomeIstituto);
-                    istruzioni.add(istruzione);
-                }
+        //Prendo tutte le esperienze lavorative inserite
+        flag = true;
+        counter = 0;
+        while(flag) {
+            counter++;
+            String nomeAziendaEsperienza = request.getParameter("nomeAziendaEsperienza"+counter);
+            String tipoAzienda = request.getParameter("tipoAzienda"+counter);
+            String nomeDatore = request.getParameter("nomeDatore"+counter);
+            String contattoAzienda = request.getParameter("contattoAzienda"+counter);
+
+            List<String> mansioni = new ArrayList<>();
+            for(String s:request.getParameter("mansioni"+counter).split(","))
+                mansioni.add(s);
+
+            LocalDateTime ddi = null;
+            if(request.getParameter("data_in_e"+counter) != null){
+                ddi = LocalDateTime.parse(request.getParameter("data_in_e"+counter), formatter);
             }
 
-            Persona persona = new Persona(nome, emailPersona, passwordPersona, regionePersona, provinciaPersona, fotoPersona, cap, telefonoPersona, citta, via, cognome, cf, data_n, filtroMacroarea, posizioneDesiderata, null, null);
-            Curriculum curriculum = new Curriculum(persona, softSkills, esperienzeLavorative, lingue, istruzioni);
-            for(EsperienzaLavorativa el : esperienzeLavorative)
-                el.setCurriculum(curriculum);
-            for(Lingua l : lingue)
-                l.setCurriculum(curriculum);
-            for(Istruzione i : istruzioni)
-                i.setCurriculum(curriculum);
-            persona.setCurriculum(curriculum);
+            LocalDateTime ddf = null;
+            if(request.getParameter("data_fin_e"+counter) != null){
+                ddf = LocalDateTime.parse(request.getParameter("data_fin_e"+counter), formatter);
+            }
 
-            service.registraPersona(persona);
-            if(service.autenticazione(emailPersona, passwordPersona) != null){
-                session.setAttribute("utente", persona);
-                request.getRequestDispatcher("./WEB-INF/areaPersona.jsp").forward(request, response);
-            }else response.sendRedirect(".");
-        }else response.sendRedirect(".");
+            if(nomeAziendaEsperienza != null && tipoAzienda != null && nomeDatore != null &&
+                    contattoAzienda != null && !mansioni.isEmpty() && ddi != null){
+                EsperienzaLavorativa esperienzaLavorativa = new EsperienzaLavorativa(ddi, ddf, tipoAzienda, nomeDatore,
+                        contattoAzienda, tipoAzienda, mansioni, nomeAziendaEsperienza, curriculum);
+                curriculum.getEsperienze().add(esperienzaLavorativa);
+            } else flag = false;
+        }
+
+        service.registraPersona(persona);
+        if(service.autenticazione(emailPersona, passwordPersona) != null) {
+            session.setAttribute("utente", persona);
+            request.getRequestDispatcher("./WEB-INF/areaPersona.jsp").forward(request, response);
+        } else response.sendRedirect(".");
     }
 
 

@@ -52,6 +52,18 @@ public class CurriculumService implements  CurriculumServiceInterface{
         } catch (SQLException e){
             return false;
         }
+
+        for(EsperienzaLavorativa e: curriculum.getEsperienze()){
+            aggiungiEsperienzaLavorativa(e);
+        }
+
+        for(Lingua l: curriculum.getLingue()) {
+            aggiungiLingua(l);
+        }
+
+        for(Istruzione i: curriculum.getIstruzioni()) {
+            aggiungiIstruzione(i);
+        }
         return true;
     }
 
