@@ -83,20 +83,18 @@ public class registerAzienda extends HttpServlet {
             System.out.println("IMAGE PATH: "+imagePath);
 
             Azienda azienda = new Azienda(nome, email, password, regione, provincia, imagePath, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriCompetenza, null, new ArrayList<Annuncio>());
-            service.registraAzienda(azienda);
             List<Sede> sedi = new ArrayList<>();
             Sede sede;
-            Sede newSede;
             if(regioneSede != null && provinciaSede != null && cittaSede != null && capSede != null &&
                     telefonoSede != null && viaSede != null && emailSede != null){
-                newSede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, emailSede);
+                sede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, emailSede);
             }
             else {
-                newSede = new Sede(regione, provincia, citta, cap, via, telefono, azienda, email);
+                sede = new Sede(regione, provincia, citta, cap, via, telefono, azienda, email);
             }
-            sede = newSede;
-            service.registraSede(sede);
             sedi.add(sede);
+            azienda.setSedi(sedi);
+            service.registraAzienda(azienda);
             if(service.autenticazione(email, password) != null){
                 session.setAttribute("utente", azienda);
                 request.getRequestDispatcher("./WEB-INF/areaPersonaleAzienda.jsp").forward(request, response);
