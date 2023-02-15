@@ -140,7 +140,7 @@ public class UtenteDAO {
         pdstmt.setString(2, persona.getCognome());
         pdstmt.setString(3, persona.getCodiceFiscale());
         java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita());
-        pdstmt.setDate(3, sqlDate);
+        pdstmt.setDate(4, sqlDate);
         pdstmt.setString(5, persona.getFiltroMacroarea());
         pdstmt.setString(6, persona.getPosizioneDesiderata());
         pdstmt.setInt(7, persona.getId());
