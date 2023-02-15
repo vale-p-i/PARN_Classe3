@@ -17,7 +17,7 @@ import storage.entity.Curriculum;
 import java.io.File;
 import java.io.IOException;
 
-public class PDFCurriculum {
+public class PDFCurriculum implements PDFCurriculumInterface {
 
     private static final String REGULAR = "./font/arialn.ttf";
 
