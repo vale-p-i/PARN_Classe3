@@ -13,6 +13,7 @@ import utils.PasswordEncrypter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
@@ -40,23 +41,8 @@ public class registerAzienda extends HttpServlet {
         String password = PasswordEncrypter.encryptThisString(request.getParameter("password_Azienda"));
         Part logo = request.getPart("immagine");
 
-        if (logo == null)
-            throw new ServletException();
-
-        if (request.getPart("logo").equals(null))
-            throw new ServletException();
-
-        try {
-            System.out.println("Logo File: " + logo.getSubmittedFileName());
-        } catch (Exception e){
-            System.out.println("PART IS NULL");
-            throw new IllegalStateException();
-        }
-
         String settoriCompetenzaString = request.getParameter("settoriCompetenza");
-        List<String> settoriCompetenza = new ArrayList<>();
-        for(String s:settoriCompetenzaString.split(","))
-            settoriCompetenza.add(s);
+        List<String> settoriCompetenza = new ArrayList<>(Arrays.asList(settoriCompetenzaString.split(",")));
 
         String numeroDipendentiString = request.getParameter("dipendenti");
         int numeroDipendenti = 0;
@@ -74,16 +60,11 @@ public class registerAzienda extends HttpServlet {
         String viaSede = request.getParameter("viaSede");
         String emailSede = request.getParameter("emailSede");
 
-        //if(!settoriCompetenzaString.isEmpty() && numeroDipendenti >= 0){
-
-            System.out.println("dentro");
-
             //Upload immagine sul server
             String rootPath = String.valueOf(request.getServletContext().getResource("/").getPath());
             String fileExtention = logo.getSubmittedFileName().substring(logo.getSubmittedFileName().indexOf('.'));
             ImageManager imageManager = new ImageManager(rootPath, email, logo, fileExtention);
             String imagePath = imageManager.saveImage();
-            System.out.println("IMAGE PATH: "+imagePath);
 
             Azienda azienda = new Azienda(nome, email, password, regione, provincia, imagePath, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriCompetenza, null, new ArrayList<Annuncio>());
             List<Sede> sedi = new ArrayList<>();
@@ -98,12 +79,11 @@ public class registerAzienda extends HttpServlet {
             sedi.add(sede);
             azienda.setSedi(sedi);
             boolean success = service.registraAzienda(azienda);
-            System.out.println(success);
+
             if(service.autenticazione(email, password) != null){
                 session.setAttribute("utente", azienda);
                 request.getRequestDispatcher("./WEB-INF/areaPersonaleAzienda.jsp").forward(request, response);
             }else response.sendRedirect(".");
-        //}else response.sendRedirect(".");
     }
 
     @Override
