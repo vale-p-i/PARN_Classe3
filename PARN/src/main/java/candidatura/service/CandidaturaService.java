@@ -51,6 +51,9 @@ public class CandidaturaService implements CandidaturaServiceInterface{
         catch (SQLException e){
             return false;
         }
+
+        Persona persona = candidatura.getPersona();
+        persona.getCandidature().add(candidatura);
         return true;
     }
 
@@ -66,6 +69,9 @@ public class CandidaturaService implements CandidaturaServiceInterface{
         catch (SQLException e){
             return false;
         }
+
+        Persona persona = candidatura.getPersona();
+        persona.getCandidature().remove(candidatura);
         return true;
     }
 

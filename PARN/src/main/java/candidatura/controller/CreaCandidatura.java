@@ -1,32 +1,36 @@
-package annuncio.controller;
+package candidatura.controller;
 
 import annuncio.service.AnnuncioService;
 import annuncio.service.AnnuncioServiceInterface;
+import candidatura.service.CandidaturaService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import storage.entity.Annuncio;
-import storage.entity.Azienda;
+import storage.entity.Candidatura;
+import storage.entity.Persona;
 import storage.entity.Utente;
 import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
-@WebServlet(name = "ChiudiAnnuncio", value = "/ChiudiAnnuncio")
-public class ChiudiAnnuncio extends HttpServlet {
+@WebServlet(name = "CreaCandidatura", value = "/CreaCandidatura")
+public class CreaCandidatura extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        Utente utente = (Utente) session;
         AnnuncioServiceInterface serviceAnnuncio = new AnnuncioService();
+        CandidaturaService serviceCandidatura = new CandidaturaService();
         UtenteServiceInterface serviceUtente = new UtenteService();
 
-        Utente utente = (Utente) session.getAttribute("utente");
-        if(utente instanceof Azienda && utente != null){
-            Azienda azienda = (Azienda) utente;
+        if(utente != null && utente instanceof Persona){
+            Persona persona = (Persona) utente;
 
-            String idAnnuncioString = request.getParameter("id_Annuncio");
-            if(idAnnuncioString!=null){
+            String idAnnuncioString = request.getParameter("ida_Annuncio");
+            if(idAnnuncioString != null){
                 int idAnnuncio = -1;
                 try{
                     idAnnuncio = Integer.parseInt(idAnnuncioString);
@@ -34,10 +38,12 @@ public class ChiudiAnnuncio extends HttpServlet {
                     System.out.println("Conversion error " + n);
                 }
                 Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
-                serviceAnnuncio.chiusuraAnnuncio(annuncio);
-                serviceUtente.aggiornaAzienda(azienda);
-                session.setAttribute("utente", azienda);
-                request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+                Candidatura candidatura = new Candidatura(persona, annuncio, persona.getCurriculum(), LocalDateTime.now());
+                serviceCandidatura.creaCandidatura(candidatura);
+                serviceAnnuncio.aggiungiCandidatura(annuncio, candidatura);
+                serviceUtente.aggiornaPersona(persona);
+                session.setAttribute("utente", persona);
+                request.getRequestDispatcher("./WEB_INF/visualizzaCandidature.jsp").forward(request, response);
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }

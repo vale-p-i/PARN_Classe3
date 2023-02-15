@@ -54,11 +54,10 @@ public class CreaAnnuncio extends HttpServlet {
                     numeroPersone, descrizione, scadenza, requisiti, keywords, preferenze, ruolo, null);
 
             serviceAnnuncio.creaAnnuncio(annuncio);
-            azienda.getAnnunci().add(annuncio);
             serviceUtente.aggiornaAzienda(azienda);
             session.setAttribute("utente", azienda);
             request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
-        }
+        }else response.sendRedirect(".");
     }
 
     @Override
