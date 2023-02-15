@@ -17,8 +17,6 @@ public class TestRegistrazione {
 
     @Test
     public void doTestRegistrazione(){
-        
-
         ArrayList<Object> parameterList = new ArrayList<>();
         for (Profile correctProfile : Profile.values())
             parameterList.add( correctProfile.getValue() );

@@ -34,14 +34,8 @@ public class UploadImage extends HttpServlet {
         Part imagePart = request.getPart("image");
         String fileExtention = imagePart.getSubmittedFileName().substring(imagePart.getSubmittedFileName().indexOf('.'));
 
-        System.out.println("rootPath: "+rootPath);
-        System.out.println("codiceFiscale: "+email);
-        System.out.println("fileExt: "+fileExtention);
-
         ImageManager imageManager = new ImageManager(rootPath, email, imagePart, fileExtention);
         String resultUrl = imageManager.saveImage();
-
-        System.out.println("ResultURL: "+resultUrl);
 
         response.sendRedirect("testUploadFoto.jsp");
     }

@@ -31,8 +31,7 @@ public class ChiudiAnnuncio extends HttpServlet {
                 try{
                     idAnnuncio = Integer.parseInt(idAnnuncioString);
                 }catch (NumberFormatException n){
-                    System.out.println("Conversion error " + n);
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException(n);
                 }
                 Annuncio annuncio = serviceAnnuncio.getAnnuncioById(azienda,idAnnuncio);
                 serviceAnnuncio.chiusuraAnnuncio(annuncio);

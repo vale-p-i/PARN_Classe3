@@ -31,12 +31,10 @@ public class Login extends HttpServlet {
         if(email != null && password != null){
             Utente utente = service.autenticazione(email, password);
             if(utente!=null && utente instanceof Azienda){
-                System.out.println("azienda");
                 Azienda azienda = (Azienda) utente;
                 session.setAttribute("utente", azienda);
                 request.getRequestDispatcher("./WEB-INF/homepageAzienda.jsp").forward(request, response);
             } else if(utente!=null && utente instanceof Persona) {
-                System.out.println("persona");
                 Persona persona = (Persona) utente;
                 MatchingServiceInterface serviceMat=new MatchingService();
                 List<Annuncio> list= serviceMat.personalizzaAnnunci(persona.getCurriculum());
