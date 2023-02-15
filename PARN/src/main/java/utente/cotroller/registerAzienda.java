@@ -98,7 +98,7 @@ public class registerAzienda extends HttpServlet {
             sedi.add(sede);
             if(service.autenticazione(email, password) != null){
                 session.setAttribute("utente", azienda);
-                request.getRequestDispatcher("./WEB-INF/areaAzienda.jsp").forward(request, response);
+                request.getRequestDispatcher("./WEB-INF/areaPersonaleAzienda.jsp").forward(request, response);
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }

@@ -115,6 +115,16 @@ public class UtenteService implements UtenteServiceInterface{
     }
 
     @Override
+    public boolean aggiornaUtente(Utente utente) {
+        try{
+            utenteDAO.aggiornaUtente(utente);
+            return true;
+        }catch (SQLException e){
+            return false;
+        }
+    }
+
+    @Override
     public Utente autenticazione(String mail, String password) {
         Utente utente;
         try{
