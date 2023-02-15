@@ -14,9 +14,9 @@
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <script>
-        <%session=request.getSession();
-        Utente u= (Utente) session.getAttribute("utente");
-        if (u==null){%>
+        <%session = request.getSession(false);
+    Azienda azz=(Azienda) session.getAttribute("utente");
+    if (azz==null){%>
         window.location.href = "./index.jsp";
         <%
             }
@@ -36,7 +36,7 @@
             </li>
             <li>
                 <div class="center-image">
-                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" src="resource/img.png"></a>
+                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" onerror="this.onerror=null; this.src='resource/img.png'" src="<%=azz.getFoto()%>"></a>
                 </div>
             </li>
             <li><a href="RedirectServlet?redirect=homepageAzienda" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
@@ -60,7 +60,6 @@
             <div class="curriculum">
                 <h4>Curriculum Candidato</h4>
                 <%
-                    session = request.getSession(false);
                     Annuncio a= (Annuncio) session.getAttribute("annuncio");
                     int id= Integer.parseInt(request.getParameter("id"));
                     Curriculum c= null;

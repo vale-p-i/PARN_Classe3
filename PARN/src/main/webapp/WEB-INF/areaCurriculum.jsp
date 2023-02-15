@@ -13,9 +13,9 @@
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <script>
-        <%session=request.getSession();
-        Utente u= (Utente) session.getAttribute("utente");
-        if (u==null){%>
+        <%session = request.getSession(false);
+        Persona p=(Persona) session.getAttribute("utente");
+        if (p==null){%>
         window.location.href = "./index.jsp";
         <%
             }
@@ -35,7 +35,7 @@
             </li>
             <li>
                 <div class="center-image">
-                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" src="resource/img.png"></a>
+                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" onerror="this.onerror=null; this.src='resource/img.png'" src="<%=p.getFoto()%>"></a>
                 </div>
             </li>
             <li><a href="RedirectServlet?redirect=homepagePersona" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
@@ -56,14 +56,32 @@
             <div class="curriculum">
                 <h4>Curriculum</h4>
                 <%
-                session = request.getSession(false);
-                Persona p=(Persona) session.getAttribute("utente");
+
                 Curriculum c= null;
                 if (p!=null) {
                     c = p.getCurriculum();
                     System.out.println("persona non è null");
                 }
                 %>
+                <div class="soft">
+                    <%
+                        if (c!=null){
+                    %>
+                    <form action="ModificaCurriculum">
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <input placeholder="Soft Skills" type="text" id="soft_skills" name="soft_skills"  class="validate" value="<%=String.join(",",c.getSoftSkill())%>" required>
+                                <label for="soft_skills">Soft Skills</label>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Modifica<i class="material-icons right">send</i></button>
+                        </div>
+                    </form>
+                    <%
+                        }
+                    %>
+                </div>
                 <div class="esperienzeLavorative" id="esperienzeLavorative">
                     <div class="row">
                         <div class="input-field col s12 m12">
@@ -76,15 +94,17 @@
                     for (EsperienzaLavorativa e: c.getEsperienze()){
                 %>
                     <div class="row">
-                        <div class="input-field col s11 m11">
+                        <div class="left">
                             <h6>Esperienza:</h6>
                         </div>
+                    <form action="EliminaEsperienza">
                         <div class="right">
-                            <form action="EliminaEsperienza">
-                            <a type="submit"><i class="material-icons tiny red-text">cancel</i>Elimina</a>
-                            </form>
+                            <input type="hidden" name="nomeAziendaEsperienza" id="nomeAziendaEsperienza" value="<%=e.getNomeAzienda()%>">
+                            <input type="hidden" name="tipoImpiego" id="tipoImpiego" value="<%=e.getTipoImpiego()%>">
+                            <button class="btn waves-effect waves-light red" type="submit" name="action">Elimina</button>
                         </div>
-                    </div>
+                    </form>
+                </div>
                     <div class="esperienza">
                         <form action="modificaEsperienza">
                             <div class="row">
@@ -117,12 +137,12 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder=" inizio" type="text" id="data_in_e" name="data_in_e" value="<%=e.getDataInizio()%>" class="datepicker">
+                                    <input placeholder="Data inizio" type="date" id="data_in_e" name="data_in_e" value="<%=e.getDataInizio()%>" class="validate">
                                     <label for="data_in_e">Data di inizio esperienza:</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Data fine" type="text" id="data_fin_e" name="data_fin_e" value="<%=e.getDataFine()%>" class="datepicker">
-                                    <label for="data_fin_e">Data di inizio esperienza:</label>
+                                    <input placeholder="Data fine" type="date" id="data_fin_e" name="data_fin_e" value="<%=e.getDataFine()%>" class="validate">
+                                    <label for="data_fin_e">Data di fine esperienza:</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -174,12 +194,12 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder=" inizio" type="text" id="data_in_e" name="data_in_e" class="datepicker" required>
+                                    <input placeholder="Data inizio" type="date" id="data_in_e" name="data_in_e" class="validate" required>
                                     <label for="data_in_e">Data di inizio esperienza:</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Data fine" type="text" id="data_fin_e" name="data_fin_e"  class="datepicker">
-                                    <label for="data_fin_e">Data di inizio esperienza:</label>
+                                    <input placeholder="Data fine" type="date" id="data_fin_e" name="data_fin_e"  class="validate">
+                                    <label for="data_fin_e">Data di fine esperienza:</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -204,12 +224,13 @@
                     %>
                     <div class="lingua">
                         <div class="row">
-                            <div class="input-field col s12 m12">
+                            <div class="left">
                                 <h6>Lingua:</h6>
                             </div>
                             <div class="right">
                                 <form action="EliminaLingua">
-                                    <a type="submit"><i class="material-icons tiny red-text">cancel</i>Elimina</a>
+                                    <input type="hidden" name="nomeLingua" id="nomeLingua" value="<%=l.getNome()%>">
+                                    <button class="btn waves-effect waves-light red" type="submit" name="action">Elimina</button>
                                 </form>
                             </div>
                         </div>
@@ -289,13 +310,8 @@
                 </div>
                 <div class="Istruzioni" id="istruzione">
                     <div class="row">
-                        <div class="input-field col s12 m12">
+                        <div class="left">
                             <h5>Istruzioni:</h5>
-                        </div>
-                        <div class="right">
-                            <form action="EliminaIstruzione">
-                                <a type="submit"><i class="material-icons tiny red-text">cancel</i>Elimina</a>
-                            </form>
                         </div>
                     </div>
                     <%
@@ -303,12 +319,19 @@
                             for(Istruzione i: c.getIstruzioni()){
                                 System.out.println(c.getIstruzioni().size());
                     %>
+
                     <div class="istruzione">
                         <div class="row">
-                            <div class="input-field col s12 m12">
+                            <div class="left">
                                 <h6>Istruzione:</h6>
                             </div>
-
+                            <div class="right">
+                                <form action="EliminaIstruzione">
+                                    <input type="hidden" name="tipoIstruzione" id="tipoIstruzione" value="<%=i.getTipo()%>">
+                                    <input type="hidden" name="tipoIstituto" id="tipoIstituto" value="<%=i.getIstituto()%>">
+                                    <button class="btn waves-effect waves-light red" type="submit" name="action">Elimina</button>
+                                </form>
+                            </div>
                         </div>
                         <form action="modificaIstruzione" >
                             <div class="row">
@@ -327,12 +350,12 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder=" inizio" type="text" id="data_in_i" value="<%=i.getDataInizio()%>" name="data_in_i"  class="datepicker">
+                                    <input placeholder=" inizio" type="date" id="data_in_i" value="<%=i.getDataInizio()%>" name="data_in_i"  class="validate">
                                     <label for="data_in_i">Data di inizio Istruzione:</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Data fine" type="text" id="data_fin_i" value="<%=i.getDataFine()%>" name="data_fin_i"  class="datepicker">
-                                    <label for="data_fin_i">Data di inizio Istruzione:</label>
+                                    <input placeholder="Data fine" type="date" id="data_fin_i" value="<%=i.getDataFine()%>" name="data_fin_i"  class="validate">
+                                    <label for="data_fin_i">Data di fine Istruzione:</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -349,7 +372,7 @@
                 <div class="istruzione">
                     <div class="row">
                         <div class="col s12 m12">
-                            <h5>Inserisci nuova Istruzione<h4>
+                            <h5>Inserisci nuova Istruzione</h5>
                         </div>
                     </div>
                     <form action="creaIstruzione" >
@@ -369,12 +392,12 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input placeholder=" inizio" type="text" id="data_in_i"  name="data_in_i"  class="datepicker" required>
+                                <input placeholder="Data inizio" type="date" id="data_in_i"  name="data_in_i"  class="validate" required>
                                 <label for="data_in_i">Data di inizio Istruzione:</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <input placeholder="Data fine" type="text" id="data_fin_i"  name="data_fin_i"  class="datepicker">
-                                <label for="data_fin_i">Data di inizio Istruzione:</label>
+                                <input placeholder="Data fine" type="date" id="data_fin_i"  name="data_fin_i"  class="validate">
+                                <label for="data_fin_i">Data di fine Istruzione:</label>
                             </div>
                         </div>
                         <div class="row">

@@ -12,9 +12,10 @@
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <script>
-        <%session=request.getSession();
-        Utente u= (Utente) session.getAttribute("utente");
-        if (u==null){%>
+        <%
+        session = request.getSession(false);
+        Persona p=(Persona) session.getAttribute("utente");
+        if (p==null){%>
         window.location.href = "./index.jsp";
         <%
             }
@@ -23,6 +24,9 @@
 </head>
 <body>
 <nav class="default-color" role="navigation">
+    <%
+
+    %>
     <div class="nav-wrapper">
         <ul id="slide-out" class="sidenav">
             <li>
@@ -34,7 +38,7 @@
             </li>
             <li>
                 <div class="center-image">
-                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" src="resource/img.png"></a>
+                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" onerror="this.onerror=null; this.src='resource/img.png'" src="<%=p.getFoto()%>"></a>
                 </div>
             </li>
             <li><a href="RedirectServlet?redirect=homepagePersona" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
@@ -50,10 +54,7 @@
 
 <div class="container">
     <div class="section-main">
-        <%
-            session = request.getSession(false);
-            Persona p=(Persona) session.getAttribute("utente");
-        %>
+
         <div class="row">
             <div class="input-field col s12 m12">
                 <h5>Modifica dati</h5>
@@ -83,7 +84,7 @@
                     <label for="codiceFiscale">Codice fiscale</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input placeholder="Data" type="text" id="data_n" name="data_n"  value="<%=p.getDataDiNascita()%>" class="datepicker" required>
+                    <input placeholder="Data" type="date" id="data_n" name="data_n"  value="<%=p.getDataDiNascita()%>" class="validate" required>
                     <label for="data_n">Data di nascita:</label>
                 </div>
                 <div class="input-field col s12 m3">
