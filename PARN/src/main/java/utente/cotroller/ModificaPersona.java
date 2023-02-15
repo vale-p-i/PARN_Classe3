@@ -44,7 +44,7 @@ public class ModificaPersona extends HttpServlet {
 
             service.aggiornaPersona(persona);
             session.setAttribute("utente", persona);
-            request.getRequestDispatcher("./WEB_INF/areaPersonalePersona.jsp").forward(request, response);
+            request.getRequestDispatcher("./WEB-INF/areaPersonalePersona.jsp").forward(request, response);
         }else response.sendRedirect(".");
     }
 

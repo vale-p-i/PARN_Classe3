@@ -117,7 +117,7 @@
                     <label for="areaInteresse">Inserisci il l'area di competenza</label>
                 </div>
                 <div class="input-field col s12 m5">
-                    <input placeholder="Settore di competenza" id="settoriCompetenza" name="settoriCompetenza" value="<%=a.getSettoriCompetenza()%>" type="text" class="validate">
+                    <input placeholder="Settore di competenza" id="settoriCompetenza" name="settoriCompetenza" value="<%=String.join(",",a.getSettoriCompetenza())%>" type="text" class="validate">
                     <label for="settoriCompetenza">Inserisci i settori di competenza</label>
                 </div>
                 <div class="input-field col s12 m2">

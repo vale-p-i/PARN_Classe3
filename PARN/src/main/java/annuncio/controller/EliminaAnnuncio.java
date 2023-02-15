@@ -23,17 +23,24 @@ public class EliminaAnnuncio extends HttpServlet {
         UtenteServiceInterface serviceUtente = new UtenteService();
 
         if(utente != null && utente instanceof Azienda){
+            System.out.println("2");
             Azienda azienda = (Azienda) utente;
             String idAnnuncioString = request.getParameter("id_annuncio");
             if(idAnnuncioString != null){
+                System.out.println("3");
                 int idAnnuncio = -1;
                 try{
                     idAnnuncio = Integer.parseInt(idAnnuncioString);
                 }catch (NumberFormatException n){
                     throw new IllegalArgumentException(n);
                 }
+                System.out.println("3 "+idAnnuncio);
                 Annuncio annuncio = serviceAnnuncio.getAnnuncioById(azienda,idAnnuncio);
-                serviceAnnuncio.eliminaAnnuncio(annuncio);
+                if(serviceAnnuncio.eliminaAnnuncio(annuncio)){
+                    System.out.println("pass ");
+                }else{
+                    System.out.println("faild");
+                }
 
                 serviceUtente.aggiornaAzienda(azienda);
                 session.setAttribute("utente", azienda);
