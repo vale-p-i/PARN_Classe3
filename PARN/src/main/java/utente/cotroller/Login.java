@@ -36,6 +36,7 @@ public class Login extends HttpServlet {
                 request.getRequestDispatcher("./WEB-INF/homepageAzienda.jsp").forward(request, response);
             } else if(utente!=null && utente instanceof Persona) {
                 Persona persona = (Persona) utente;
+                System.out.println("foto"+ persona.getFoto());
                 MatchingServiceInterface serviceMat=new MatchingService();
                 List<Annuncio> list= serviceMat.personalizzaAnnunci(persona.getCurriculum());
                 session.setAttribute("myList",list);
