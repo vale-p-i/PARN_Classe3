@@ -108,11 +108,13 @@ public class StrutturaCurriculum {
             if(lingua.getLivello().equals("Madrelingua"))
                 aggiungiHeader2("MADRELINGUA", lingua.getNome());
         }
-        aggiungiHeader2("ALTRE LINGUE", " ");
-        for(Lingua lingua: lingue){
-            if(!lingua.getLivello().equals("Madrelingua")){
-                aggiungiRigaNormale("Lingua", lingua.getNome());
-                aggiungiRigaNormale("Lingua", lingua.getNome());
+        if(lingue.size()>1) {
+            aggiungiHeader2("ALTRE LINGUE", " ");
+            for(Lingua lingua: lingue){
+                if(!lingua.getLivello().equals("Madrelingua")){
+                    aggiungiRigaNormale("Lingua", lingua.getNome());
+                    aggiungiRigaNormale("Lingua", lingua.getNome());
+                }
             }
         }
         aggiungiRigaVuota();
