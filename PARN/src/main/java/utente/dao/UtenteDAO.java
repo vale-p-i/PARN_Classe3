@@ -11,7 +11,6 @@ import utils.StringListUtils;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class UtenteDAO {
         pdstmt.setString(9, utente.getCitta());
         pdstmt.setString(10, utente.getVia());
         pdstmt.executeUpdate();
-        connection.close();
+
         ResultSet rs = pdstmt.getGeneratedKeys();
         if(rs.next())
             return rs.getInt(1);
@@ -64,7 +63,6 @@ public class UtenteDAO {
              */
 
             pdstmt.executeUpdate();
-            connection.close();
             azienda.setId(id);
             for(Sede s : azienda.getSedi())
                 addSede(s);
@@ -89,7 +87,6 @@ public class UtenteDAO {
             CurriculumServiceInterface service = new CurriculumService();
             service.creaCurriculum(persona.getCurriculum());
             pdstmt.executeUpdate();
-            connection.close();
             persona.setId(id);
             return persona;
         }return null;
@@ -131,7 +128,6 @@ public class UtenteDAO {
         pdstmt.setInt(7, azienda.getId());
 
         pdstmt.executeUpdate();
-        connection.close();
     }
 
     public void aggiornaPersona(Persona persona) throws SQLException{
@@ -149,7 +145,6 @@ public class UtenteDAO {
         pdstmt.setInt(7, persona.getId());
 
         pdstmt.executeUpdate();
-        connection.close();
     }
 
     public void aggiornaSede(Sede sede) throws SQLException{
@@ -167,7 +162,6 @@ public class UtenteDAO {
         pdstmt.setString(8, sede.getTelefono());
         pdstmt.setString(9, sede.getMail());
         pdstmt.executeUpdate();
-        connection.close();
     }
 
     public void aggiornaUtente(Utente utente) throws SQLException{
@@ -190,7 +184,6 @@ public class UtenteDAO {
         pdstmt.setInt(12, utente.getId());
 
         pdstmt.executeUpdate();
-        connection.close();
     }
     public void rimuoviPersona(Persona persona) throws SQLException{
         System.out.println("Questo metodo non è stato ancora implementato");
@@ -206,7 +199,6 @@ public class UtenteDAO {
         PreparedStatement pdstmt = connection.prepareStatement("SELECT u.N_Reg, u.Pass, u.Mail FROM Utente u WHERE u.Mail = ?");
           pdstmt.setString(1, mail);
           ResultSet rs = pdstmt.executeQuery();
-          connection.close();
 
           rs.next();
             if(password.equals(rs.getString(2))){
@@ -231,7 +223,6 @@ public class UtenteDAO {
                 "p.Pos_Des FROM Persona p, Utente u WHERE u.N_Reg = ? AND p.Utente = u.N_Reg");
         pdstmt.setInt(1, id);
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
         Persona persona = new Persona();
         if(rs.next()){
             persona.setId(id);
@@ -265,7 +256,6 @@ public class UtenteDAO {
                 "a.N_Dip, a.Sett_Comp FROM Azienda a, Utente u WHERE u.N_Reg = ? AND a.Utente = u.N_Reg");
         pdstmt.setInt(1, id);
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
         Azienda azienda = new Azienda();
         if(rs.next()){
             azienda.setId(id);
@@ -301,7 +291,6 @@ public class UtenteDAO {
         PreparedStatement pdstmt = connection.prepareStatement("SELECT * FROM Sede WHERE Azienda = ?");
         pdstmt.setInt(1, azienda.getId());
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
         List<Sede> sedi = new ArrayList<>();
         while(rs.next()){
             Sede sede = new Sede(rs.getInt(1),

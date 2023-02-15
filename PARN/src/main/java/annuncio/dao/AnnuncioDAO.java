@@ -43,7 +43,6 @@ public class AnnuncioDAO {
         Annuncio annuncio = null;
 
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
         while (rs.next()) {
             Azienda azienda = utenteService.getAziendaById(rs.getInt(2));
             annuncio = new Annuncio(
@@ -91,7 +90,6 @@ public class AnnuncioDAO {
 
         PreparedStatement pdstmt = connection.prepareStatement(query);
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
         while (rs.next()) {
             Azienda azienda=utenteService.getAziendaById(rs.getInt(2));
             Annuncio annuncio = new Annuncio (
@@ -138,7 +136,6 @@ public class AnnuncioDAO {
         pdstmt.setString(10, StringListUtils.getStringFromList(annuncio.getPreferenze()));
         pdstmt.setString(11, annuncio.getRuolo());
         pdstmt.executeQuery();
-        connection.close();
     }
 
     /**
@@ -166,7 +163,6 @@ public class AnnuncioDAO {
         pdstmt.setString(10, annuncio.getRuolo());
         pdstmt.setInt(11, annuncio.getId());
         pdstmt.executeUpdate();
-        connection.close();
     }
 
     /**
@@ -181,7 +177,6 @@ public class AnnuncioDAO {
                 "DELETE FROM Annuncio a WHERE a.ID = ?");
         pdstmt.setInt(1, annuncio.getId());
         pdstmt.execute();
-        connection.close();
     }
 
     /**
@@ -197,7 +192,6 @@ public class AnnuncioDAO {
         pdstmt.setBoolean(1, annuncio.isAttivo());
         pdstmt.setInt(2, annuncio.getId());
         pdstmt.execute();
-        connection.close();
     }
 
     /**
@@ -211,7 +205,6 @@ public class AnnuncioDAO {
                "SELECT ID, Azienda, Attivo, Sede,N_Persone,Descrizione,Scadenza,Requisiti,Keyword,Preferenze,Ruolo FROM Annuncio a WHERE a.Azienda = ?");
         pdstmt.setInt(1, azienda.getId());
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
         List<Annuncio> results = new ArrayList<>();
         UtenteServiceInterface utenteService=new UtenteService();
         CandidaturaServiceInterface candidaturaService=new CandidaturaService();

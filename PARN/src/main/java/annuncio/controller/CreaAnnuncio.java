@@ -38,8 +38,7 @@ public class CreaAnnuncio extends HttpServlet {
                     idSede = Integer.parseInt(idSedeString);
                     numeroPersone = Integer.parseInt(request.getParameter("numeroDipendenti"));
                 }catch (NumberFormatException n){
-                    System.out.println("Conversion error " + n);
-                    throw  new IllegalArgumentException();
+                    throw  new IllegalArgumentException(n);
                 }
                 String descrizione = request.getParameter("descrizione");
                 LocalDate data_S=LocalDate.parse(request.getParameter("data_scad"));

@@ -135,11 +135,9 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         }
 
         Azienda azienda = annuncio.getAzienda();
-        System.out.println(azienda.getAnnunci().size());
         for(Annuncio a : azienda.getAnnunci())
             if(a.getId() == annuncio.getId())
                 azienda.getAnnunci().remove(a);
-        System.out.println(azienda.getAnnunci().size());
         return true;
     }
 

@@ -36,8 +36,7 @@ public class ModificaAnnuncio extends HttpServlet {
                 try{
                     idAnnuncio = Integer.parseInt(idAnnuncioString);
                 }catch (NumberFormatException n){
-                    System.out.println("Conversion error " + n);
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException(n);
                 }
 
                 Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
@@ -46,8 +45,7 @@ public class ModificaAnnuncio extends HttpServlet {
                     try{
                         annuncio.setSede(serviceUtente.getSedeById(azienda, Integer.parseInt(idSedeString)));
                     }catch (NumberFormatException n){
-                        System.out.println("Conversion error " + n);
-                        throw new NullPointerException();
+                        throw new IllegalArgumentException(n);
                     }
                     try{
                         annuncio.setNumeroPersone(Integer.parseInt(request.getParameter("numeroDipendenti")));

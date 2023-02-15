@@ -39,7 +39,6 @@ public class CandidaturaDAO {
         pdstmt.setInt(1, persona.getId());
 
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
         while (rs.next()) {
             result.add(
                     new Candidatura(
@@ -66,7 +65,6 @@ public class CandidaturaDAO {
         pdstmt.setInt(1, annuncio.getId());
 
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
         while (rs.next()) {
             Persona tmp=personaService.getPersonaById(rs.getInt(2));
             result.add(
@@ -98,7 +96,6 @@ public class CandidaturaDAO {
         pdstmt.setInt(1, persona.getId());
         pdstmt.setInt(2, annuncio.getId());
         ResultSet rs = pdstmt.executeQuery();
-        connection.close();
         Candidatura candidatura = null;
 
         while (rs.next()) {
@@ -127,7 +124,6 @@ public class CandidaturaDAO {
         pdstmt.setDate(3, java.sql.Date.valueOf(candidatura.getData().toLocalDate()));
 
         pdstmt.executeUpdate();
-        connection.close();
     }
 
     /**
@@ -144,7 +140,6 @@ public class CandidaturaDAO {
         pdstmt.setInt(2, candidatura.getPersona().getId());
 
         pdstmt.execute();
-        connection.close();
     }
 
 

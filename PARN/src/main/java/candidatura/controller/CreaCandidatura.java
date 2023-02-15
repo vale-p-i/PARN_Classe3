@@ -35,8 +35,7 @@ public class CreaCandidatura extends HttpServlet {
                 try{
                     idAnnuncio = Integer.parseInt(idAnnuncioString);
                 }catch (NumberFormatException n){
-                    System.out.println("Conversion error " + n);
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException(n);
                 }
                 Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
                 Candidatura candidatura = new Candidatura(persona, annuncio, persona.getCurriculum(), LocalDateTime.now());

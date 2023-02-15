@@ -21,7 +21,6 @@ public class EliminaAnnuncio extends HttpServlet {
         Utente utente = (Utente) session.getAttribute("utente");
         AnnuncioServiceInterface serviceAnnuncio = new AnnuncioService();
         UtenteServiceInterface serviceUtente = new UtenteService();
-        System.out.println("1");
 
         if(utente != null && utente instanceof Azienda){
             Azienda azienda = (Azienda) utente;
@@ -31,8 +30,7 @@ public class EliminaAnnuncio extends HttpServlet {
                 try{
                     idAnnuncio = Integer.parseInt(idAnnuncioString);
                 }catch (NumberFormatException n){
-                    System.out.println("Conversion error " + n);
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException(n);
                 }
                 Annuncio annuncio = serviceAnnuncio.getAnnuncioById(azienda,idAnnuncio);
                 serviceAnnuncio.eliminaAnnuncio(annuncio);
