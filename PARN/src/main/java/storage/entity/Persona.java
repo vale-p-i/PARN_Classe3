@@ -1,5 +1,6 @@
 package storage.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -7,13 +8,13 @@ public class Persona extends Utente {
 
     private String cognome;
     private String codiceFiscale;
-    private LocalDateTime dataDiNascita;
+    private LocalDate dataDiNascita;
     private String filtroMacroarea;
     private String posizioneDesiderata;
     private Curriculum curriculum;
     private List<Candidatura> candidature;
 
-    public Persona(int id, String nome, String mail, String password, String regione, String provincia, String foto, String cap, String telefono, String citta, String via, String cognome, String codiceFiscale, LocalDateTime dataDiNascita, String filtroMacroarea, String posizioneDesiderata, Curriculum curriculum, List<Candidatura> candidature) {
+    public Persona(int id, String nome, String mail, String password, String regione, String provincia, String foto, String cap, String telefono, String citta, String via, String cognome, String codiceFiscale, LocalDate dataDiNascita, String filtroMacroarea, String posizioneDesiderata, Curriculum curriculum, List<Candidatura> candidature) {
         super(id, nome, mail, password, regione, provincia, foto, cap, telefono, citta, via);
         this.cognome = cognome;
         this.codiceFiscale = codiceFiscale;
@@ -24,7 +25,7 @@ public class Persona extends Utente {
         this.candidature = candidature;
     }
 
-    public Persona(String nome, String mail, String password, String regione, String provincia, String foto, String cap, String telefono, String citta, String via, String cognome, String codiceFiscale, LocalDateTime dataDiNascita, String filtroMacroarea, String posizioneDesiderata, Curriculum curriculum, List<Candidatura> candidature) {
+    public Persona(String nome, String mail, String password, String regione, String provincia, String foto, String cap, String telefono, String citta, String via, String cognome, String codiceFiscale, LocalDate dataDiNascita, String filtroMacroarea, String posizioneDesiderata, Curriculum curriculum, List<Candidatura> candidature) {
         super(nome, mail, password, regione, provincia, foto, cap, telefono, citta, via);
         this.cognome = cognome;
         this.codiceFiscale = codiceFiscale;
@@ -52,11 +53,11 @@ public class Persona extends Utente {
         this.codiceFiscale = codiceFiscale;
     }
 
-    public LocalDateTime getDataDiNascita() {
+    public LocalDate getDataDiNascita() {
         return dataDiNascita;
     }
 
-    public void setDataDiNascita(LocalDateTime dataDiNascita) {
+    public void setDataDiNascita(LocalDate dataDiNascita) {
         this.dataDiNascita = dataDiNascita;
     }
 

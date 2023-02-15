@@ -10,6 +10,7 @@ import utils.ConPool;
 import utils.StringListUtils;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,7 @@ public class UtenteDAO {
             pdstmt.setInt(1, id);
             pdstmt.setString(2, persona.getCognome());
             pdstmt.setString(3, persona.getCodiceFiscale());
-            java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita().toLocalDate());
+            java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita());
             pdstmt.setDate(4, sqlDate);
             pdstmt.setString(5, persona.getFiltroMacroarea());
             pdstmt.setString(6, persona.getPosizioneDesiderata());
@@ -141,7 +142,7 @@ public class UtenteDAO {
         pdstmt.setInt(1, persona.getId());
         pdstmt.setString(2, persona.getCognome());
         pdstmt.setString(3, persona.getCodiceFiscale());
-        java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita().toLocalDate());
+        java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita());
         pdstmt.setDate(3, sqlDate);
         pdstmt.setString(5, persona.getFiltroMacroarea());
         pdstmt.setString(6, persona.getPosizioneDesiderata());
@@ -246,7 +247,7 @@ public class UtenteDAO {
             persona.setVia(rs.getString(10));
             persona.setCognome(rs.getString(11));
             persona.setCodiceFiscale(rs.getString(12));
-            persona.setDataDiNascita(rs.getObject(13, LocalDateTime.class));
+            persona.setDataDiNascita(rs.getObject(13, LocalDate.class));
             persona.setFiltroMacroarea(rs.getString(14));
             persona.setPosizioneDesiderata(rs.getString(15));
             CurriculumServiceInterface service = new CurriculumService();

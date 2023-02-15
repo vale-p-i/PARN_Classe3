@@ -1,13 +1,14 @@
 package storage.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Istruzione {
 
     private Curriculum curriculum;//?
-    private LocalDateTime dataInizio;
-    private LocalDateTime dataFine;
+    private LocalDate dataInizio;
+    private LocalDate dataFine;
     private String qualifica;
     private String tipo;
     private String istituto;
@@ -16,7 +17,7 @@ public class Istruzione {
         this.curriculum = curriculum;
     }
 
-    public Istruzione(Curriculum curriculum, LocalDateTime dataInizio, LocalDateTime dataFine, String qualifica,
+    public Istruzione(Curriculum curriculum, LocalDate dataInizio, LocalDate dataFine, String qualifica,
                       String tipo, String istituto) {
         this.curriculum = curriculum;
         this.dataInizio = dataInizio;
@@ -34,19 +35,19 @@ public class Istruzione {
         this.curriculum = curriculum;
     }
 
-    public LocalDateTime getDataInizio() {
+    public LocalDate getDataInizio() {
         return dataInizio;
     }
 
-    public void setDataInizio(LocalDateTime dataInizio) {
+    public void setDataInizio(LocalDate dataInizio) {
         this.dataInizio = dataInizio;
     }
 
-    public LocalDateTime getDataFine() {
+    public LocalDate getDataFine() {
         return dataFine;
     }
 
-    public void setDataFine(LocalDateTime dataFine) {
+    public void setDataFine(LocalDate dataFine) {
         this.dataFine = dataFine;
     }
 

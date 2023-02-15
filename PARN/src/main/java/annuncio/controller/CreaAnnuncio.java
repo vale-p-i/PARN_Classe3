@@ -12,6 +12,7 @@ import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,13 +24,13 @@ public class CreaAnnuncio extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         UtenteServiceInterface serviceUtente = new UtenteService();
         AnnuncioServiceInterface serviceAnnuncio = new AnnuncioService();
 
         if(utente instanceof Azienda && utente != null){
             Azienda azienda = (Azienda) utente;
             String idSedeString = request.getParameter("sedelist");
+            System.out.println("sede"+idSedeString);
             if(idSedeString != null){
                 int idSede = -1;
                 int numeroPersone = 0;
@@ -41,7 +42,7 @@ public class CreaAnnuncio extends HttpServlet {
                     throw  new IllegalArgumentException();
                 }
                 String descrizione = request.getParameter("descrizione");
-                LocalDateTime scadenza = LocalDateTime.parse(request.getParameter("data_scad"), formatter);
+                LocalDate data_S=LocalDate.parse(request.getParameter("data_scad"));
                 List<String> requisiti = new ArrayList<>();
                 for(String s:request.getParameter("requisiti").split(","))
                     requisiti.add(s);
@@ -53,13 +54,13 @@ public class CreaAnnuncio extends HttpServlet {
                     preferenze.add(s);
                 String ruolo = request.getParameter("ruolo");
 
-                Annuncio annuncio = new Annuncio(-1, azienda, true, serviceUtente.getSedeById(azienda, idSede),
-                        numeroPersone, descrizione, scadenza, requisiti, keywords, preferenze, ruolo, null);
+                Annuncio annuncio = new Annuncio(idSede, azienda, true, serviceUtente.getSedeById(azienda, idSede),
+                        numeroPersone, descrizione, data_S, requisiti, keywords, preferenze, ruolo, null);
 
                 serviceAnnuncio.creaAnnuncio(annuncio);
                 serviceUtente.aggiornaAzienda(azienda);
                 session.setAttribute("utente", azienda);
-                request.getRequestDispatcher("./WEB_INF/visualizzaAnnunci.jsp").forward(request, response);
+                request.getRequestDispatcher("./WEB-INF/annunciAttivi.jsp").forward(request, response);
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }

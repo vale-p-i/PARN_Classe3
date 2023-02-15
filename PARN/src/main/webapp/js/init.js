@@ -4,7 +4,6 @@
     $('.sidenav').sidenav();
     $('.parallax').parallax();
     $('.tabs').tabs();
-    $('.datepicker').datepicker();
     $('input#input_text, textarea#textarea2').characterCounter();
     $('.materialboxed').materialbox();
     $('.dropdown-trigger').dropdown();
