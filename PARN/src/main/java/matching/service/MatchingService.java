@@ -1,18 +1,15 @@
 package matching.service;
 
-
 import annuncio.service.AnnuncioService;
 import annuncio.service.AnnuncioServiceInterface;
 import curriculum.service.CurriculumService;
 import curriculum.service.CurriculumServiceInterface;
 import storage.entity.*;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MatchingService implements MatchingServiceInterface{
-
 
     @Override
     public List<Annuncio> personalizzaAnnunci(Curriculum curriculum) {
