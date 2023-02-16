@@ -66,11 +66,11 @@
             %>
             <div class="row">
                 <div class="input-field col s12 m4">
-                    <input placeholder="Nome" id="nomePersona" value="<%=p.getNome()%>" name="nomePersona" type="text" class="validate" required>
+                    <input placeholder="Nome" id="nomePersona" value="<%=p.getNome()%>" name="nomePersona" type="text" class="validate" required readonly>
                     <label for="nomePersona">Inserisci il nome</label>
                 </div>
                 <div class="input-field col s12 m4">
-                    <input placeholder="Cognome" id="cognome" name="cognome" value="<%=p.getCognome()%>" type="text" class="validate" required>
+                    <input placeholder="Cognome" id="cognome" name="cognome" value="<%=p.getCognome()%>" type="text" class="validate" required readonly>
                     <label for="cognome">Inserisci il cognome</label>
                 </div>
                 <div class="input-field col s12 m4">
@@ -80,11 +80,11 @@
             </div>
             <div class="row">
                 <div class="input-field col s12 m3">
-                    <input placeholder="Codice fiscale" type="text" id="codiceFiscale" name="codiceFiscale" value="<%=p.getCodiceFiscale()%>"  class="validate" required>
+                    <input placeholder="Codice fiscale" type="text" id="codiceFiscale" name="codiceFiscale" value="<%=p.getCodiceFiscale()%>"  class="validate" required readonly>
                     <label for="codiceFiscale">Codice fiscale</label>
                 </div>
                 <div class="input-field col s12 m3">
-                    <input placeholder="Data" type="date" id="data_n" name="data_n"  value="<%=p.getDataDiNascita()%>" class="validate" required>
+                    <input placeholder="Data" type="date" id="data_n" name="data_n"  value="<%=p.getDataDiNascita()%>" class="validate" required readonly>
                     <label for="data_n">Data di nascita:</label>
                 </div>
                 <div class="input-field col s12 m3">
