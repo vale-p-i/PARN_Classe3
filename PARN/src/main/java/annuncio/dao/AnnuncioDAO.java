@@ -6,7 +6,6 @@ package annuncio.dao;
 
 import candidatura.service.CandidaturaService;
 import candidatura.service.CandidaturaServiceInterface;
-import org.checkerframework.checker.units.qual.A;
 import storage.entity.Annuncio;
 import storage.entity.Azienda;
 import storage.entity.Candidatura;

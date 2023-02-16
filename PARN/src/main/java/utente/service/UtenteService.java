@@ -13,7 +13,8 @@ import java.sql.SQLException;
 public class UtenteService implements UtenteServiceInterface{
     private UtenteDAO utenteDAO;
 
-    public UtenteService(UtenteDAO utenteDAO) {this.utenteDAO = utenteDAO;}
+    public UtenteService(UtenteDAO utenteDAO) {
+        this.utenteDAO = utenteDAO;}
     public UtenteService(){
         this.utenteDAO = new UtenteDAO();
     }
@@ -111,12 +112,34 @@ public class UtenteService implements UtenteServiceInterface{
     }
     @Override
     public boolean aggiornaPersona(Persona persona) {
-        try{
-            utenteDAO.aggiornaPersona(persona);
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
+        if(persona.getMail().matches("^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,10}$")) {
+            if(persona.getRegione().matches("^([a-zA-Z]( [a-zA-Z]){0,1}){2,20}$")) {
+                if(persona.getProvincia().matches("^[A-Z]{2}$")){
+                    if(persona.getCap().matches("[0-9]{5}")) {
+                        if(persona.getTelefono().matches("(\\+)([0-9]){2} [0-9]{10}")){
+                            if(persona.getCitta().length() >= 2 && persona.getCitta().length() < 50){
+                                if(persona.getVia().length() >= 2 && persona.getVia().length() < 30) {
+                                    if(Persona.FILTRO_MACROAREA.contains(persona.getFiltroMacroarea())) {
+                                        if(persona.getPosizioneDesiderata().length() >= 2 && persona.getPosizioneDesiderata().length() < 30) {
+                                                return utenteDAO.aggiornaPersona(persona);
+                                        } else throw new IllegalArgumentException("La lunghezza della posizione desiderata non è corretta");
+
+                                    } else throw new IllegalArgumentException("Filtro macroarea non valido");
+
+                                } else throw new IllegalArgumentException("La lunghezza della via non è corretta");
+
+                            } else throw new IllegalArgumentException("La lunghezza della città non è corretta");
+
+                        } else throw new IllegalArgumentException("Il telefono non rispetta il formato");
+
+                    } else throw new IllegalArgumentException("Il CAP non rispetta il formato");
+
+                } else throw new IllegalArgumentException("La provincia non rispetta il formato");
+
+            } else throw new IllegalArgumentException("La regione non rispetta il fomrato");
+
+        } else throw new IllegalArgumentException("La mail non non rispetta il formato");
+
     }
 
     @Override

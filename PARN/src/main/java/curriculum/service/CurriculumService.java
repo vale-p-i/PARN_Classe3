@@ -187,10 +187,10 @@ public class CurriculumService implements  CurriculumServiceInterface{
         if(esperienzaLavorativa.getDataInizio()!=null) {
             if(!esperienzaLavorativa.getDataInizio().isAfter(LocalDate.now())) {
                 int lunghezzaTipoAzienda=esperienzaLavorativa.getTipoAzienda().length();
-                if(lunghezzaTipoAzienda>0&&lunghezzaTipoAzienda<=15) {
+                if(lunghezzaTipoAzienda > 0 && lunghezzaTipoAzienda<=40) {
                     int lunghezzaContatto=esperienzaLavorativa.getContatto().length();
                     if (lunghezzaContatto>0&&lunghezzaContatto<=70) {
-                        if(esperienzaLavorativa.getContatto().matches("^[A-z0-9._%+-]+@\\[A-z0-9.-]+\\.[A-z]{2,10}$")) {
+                        if(esperienzaLavorativa.getContatto().matches("^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,10}$")) {
                             int lunghezzaImpiego=esperienzaLavorativa.getTipoImpiego().length();
                             if(lunghezzaImpiego>0&&lunghezzaImpiego<=15){
                                 int lunghezzaMansioni=String.join(",",esperienzaLavorativa.getMansioniPrincipali()).length();
@@ -220,12 +220,7 @@ public class CurriculumService implements  CurriculumServiceInterface{
         //aggiorna la lingua lavorativa nel database
         if (Lingua.LIVELLI.contains(lingua.getLivello())) {
             if (lingua.getNome().length()>0&&lingua.getNome().length()<=15) {
-                try {
-                    curriculumDAO.updateLingua(lingua);
-                } catch (SQLException e) {
-                    return false;
-                }
-                return true;
+                return curriculumDAO.updateLingua(lingua);
             }else  throw new IllegalArgumentException("Lunghezza nome lingua non adatto");
         }else throw new IllegalArgumentException("Livello lingua non corretto");
     }
@@ -349,4 +344,6 @@ public class CurriculumService implements  CurriculumServiceInterface{
         }
         return 2;
     }
+
+
 }

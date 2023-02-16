@@ -11,7 +11,6 @@ import storage.entity.Utente;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(name = "ModificaCurriculum", value = "/ModificaCurriculum")
