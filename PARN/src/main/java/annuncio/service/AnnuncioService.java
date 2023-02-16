@@ -6,6 +6,7 @@ import candidatura.service.CandidaturaServiceInterface;
 import storage.entity.Annuncio;
 import storage.entity.Azienda;
 import storage.entity.Candidatura;
+import utente.dao.UtenteDAO;
 import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
 
@@ -20,6 +21,14 @@ import static net.sf.saxon.om.EnumSetTool.except;
 public class AnnuncioService implements AnnuncioServiceInterface {
 
     private static AnnuncioDAO annuncioDAO = new AnnuncioDAO();
+
+    public AnnuncioService(){
+
+    }
+
+    public AnnuncioService(AnnuncioDAO annuncioDAO){
+        this.annuncioDAO = annuncioDAO;
+    }
 
     @Override
     public Annuncio getAnnuncioById(int id) {
@@ -56,22 +65,31 @@ public class AnnuncioService implements AnnuncioServiceInterface {
                     (!annuncio.getDataScadenza().isAfter(LocalDate.now()) && !annuncio.getDataScadenza().equals(LocalDate.now())))
                 throw new IllegalArgumentException("La scadenza è antecedente alla data odierna");
         } else throw new IllegalArgumentException("La data di scadenza è null");
-        if(sizeOfRequisiti > 500 || !requisiti.matches(".")) //To-do, rifare la regex per i requisiti
-            throw new IllegalArgumentException("Il campo requisiti è sbagliato");
-        if(sizeOfPreferenze > 1000 || !preferenze.matches(".")) //To-do, rifare la regex per le preferenze
-            throw new IllegalArgumentException("Il campo preferenze è sbagliato");
-        if(sizeOfKeywords > 150 || !keywords.matches(".")) //To-do, rifare la regex per le keywords
-            throw new IllegalArgumentException("Il campo keywords è sbagliato");
+        if(sizeOfRequisiti > 500)
+            throw new IllegalArgumentException("Requisiti troppo lunghi");
+        if(!requisiti.matches("^[\\w\\d\\s.,;:!?()'\"-]*$"))
+            throw new IllegalArgumentException("I requisiti non rispettano il formato");
+        if(sizeOfRequisiti <= 0)
+            throw new IllegalArgumentException("Requisiti troppo corti");
+        if(sizeOfPreferenze > 1000)
+            throw new IllegalArgumentException("Preferenze troppo lunghe");
+        if(!preferenze.matches("^[\\w\\d\\s.,;:!?()'\"-]*$"))
+                throw new IllegalArgumentException("Le preferenze non rispettano il formato");
+        if(sizeOfPreferenze <= 0)
+            throw new IllegalArgumentException("Preferenze troppo corte");
+        if(sizeOfKeywords > 150)
+            throw new IllegalArgumentException("Keywords troppo lunghe");
+        if(!keywords.matches("^[\\w\\d\\s.,;:!?()'\"-]*$"))
+            throw new IllegalArgumentException("Le keywords non rispettano il formato");
+        if(sizeOfKeywords <= 0)
+            throw new IllegalArgumentException("Le keywords sono troppo corte");
 
-        try {
-            annuncioDAO.creaAnnuncio(annuncio);
-        } catch (SQLException e) {
-            return false;
-        }
+        boolean b=annuncioDAO.creaAnnuncio(annuncio);
+
 
         Azienda azienda = annuncio.getAzienda();
         azienda.getAnnunci().add(annuncio);
-        return true;
+        return b;
     }
 
     @Override
