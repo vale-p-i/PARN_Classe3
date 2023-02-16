@@ -19,24 +19,25 @@ public class MatchingService implements MatchingServiceInterface{
         List<Annuncio> returnment=new ArrayList<>();
         AnnuncioServiceInterface serviceAnnucio=new AnnuncioService();
         List<Annuncio> all=serviceAnnucio.getAnnunciByStato(Annuncio.IN_CORSO);
-        List<String> QualificheIstruzione=new ArrayList<>();
-        for (Istruzione i:curriculum.getIstruzioni())
-            QualificheIstruzione.add(i.getQualifica());
-        List<String> QualificheLavorative=new ArrayList<>();
-        for (EsperienzaLavorativa i:curriculum.getEsperienze())
-            QualificheLavorative.add(i.getTipoImpiego());
-        for (Annuncio a: all) {
-            boolean flag=false,flag1=true;
-            if (QualificheIstruzione.containsAll(a.getRequisiti())||QualificheLavorative.containsAll(a.getRequisiti()))
-                flag=true;
-            for (Candidatura c: a.getCandidature())
-                if(c.getPersona().getId()==curriculum.getPersona().getId())
-                    flag1=false;
-            if(flag&&flag1)
-                returnment.add(a);
-        }
-        return returnment;
-
+        if(all != null){
+            List<String> QualificheIstruzione=new ArrayList<>();
+            for (Istruzione i:curriculum.getIstruzioni())
+                QualificheIstruzione.add(i.getQualifica());
+            List<String> QualificheLavorative=new ArrayList<>();
+            for (EsperienzaLavorativa i:curriculum.getEsperienze())
+                QualificheLavorative.add(i.getTipoImpiego());
+            for (Annuncio a: all) {
+                boolean flag=false,flag1=true;
+                if (QualificheIstruzione.containsAll(a.getRequisiti())||QualificheLavorative.containsAll(a.getRequisiti()))
+                    flag=true;
+                for (Candidatura c: a.getCandidature())
+                    if(c.getPersona().getId()==curriculum.getPersona().getId())
+                        flag1=false;
+                if(flag&&flag1)
+                    returnment.add(a);
+            }
+            return returnment;
+        }else return null;
     }
 
     @Override

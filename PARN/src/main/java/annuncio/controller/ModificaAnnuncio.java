@@ -74,7 +74,6 @@ public class ModificaAnnuncio extends HttpServlet {
                     annuncio.setRuolo(request.getParameter("ruolo"));
 
                     serviceAnnuncio.modificaAnnuncio(annuncio);
-                    serviceUtente.aggiornaAzienda(azienda);
                     session.setAttribute("utente", azienda);
                     request.getRequestDispatcher("./WEB-INF/areaPersonalePersona.jsp").forward(request, response);
                 }else response.sendRedirect(".");
