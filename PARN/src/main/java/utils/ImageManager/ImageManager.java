@@ -8,7 +8,7 @@ import java.io.IOException;
 public class ImageManager {
 
     private String rootPath, mail, fileExtension;
-    private static String subfolder = "resources/pictures/";
+    private static String subfolder = "resource/pictures/";
     private Part filePart;
 
     public ImageManager(String rootPath, String mail, Part filePart, String fileExtention) {
