@@ -4,6 +4,7 @@
 <%@ page import="matching.service.MatchingServiceInterface" %>
 <%@ page import="java.util.List" %>
 <%@ page import="storage.entity.Persona" %>
+<%@ page import="storage.entity.Utente" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,15 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
+    <script>
+        <%session = request.getSession(false);
+        Persona p=(Persona) session.getAttribute("utente");
+        if (p==null){%>
+        window.location.href = "./index.jsp";
+        <%
+            }
+        %>
+    </script>
 </head>
 <body>
 <nav class="default-color" role="navigation">
@@ -31,7 +40,7 @@
         </li>
         <li>
             <div class="center-image">
-            <a href="#user" class="mod-a"><img height="100" width="100" class="circle" src="resource/img.png"></a>
+                <a href="#user" class="mod-a"><img height="100" width="100" class="circle" onerror="this.onerror=null; this.src='resource/img.png'" src="<%=p.getFoto()%>"></a>
             </div>
         </li>
         <li><a href="RedirectServlet?redirect=homepagePersona" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
@@ -41,18 +50,16 @@
         <li><a href="Logout" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
     </ul>
     <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons white-text">menu</i></a>
-    <a id="logo-container" href="index.html" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
+    <a id="logo-container" href="index.jsp" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
     </div>
 </nav>
 
 <%
-    session=request.getSession();
-    Persona p= (Persona) session.getAttribute("utente");
     List<Annuncio> list= (List<Annuncio>) session.getAttribute("myList");
 %>
 
 <div class="container">
-    <div class="section-main">
+    <div class="section-main min">
         <div class="row">
             <div class="row">
                 <div class="col s6 m6">
@@ -82,10 +89,10 @@
                     <span class="card-title grey-text text-darken-4"><%=acc.getAzienda().getNome()%><i class="material-icons right">close</i></span>
                     <p>Ruolo:<%=acc.getRuolo()%></p>
                     <p>Sede:<%=acc.getSede()%></p>
-                    <p>Preferenze:<%=acc.getPreferenze()%></p>
-                    <form >
-                        <input type="hidden" value="idpersona">
-                        <input type="hidden" value="idannnuncio">
+                    <p>Preferenze:<%=String.join(",", acc.getPreferenze())%></p>
+                    <form action="CreaCandidatura">
+                        <input type="hidden" name="id_persona" id="id_persona" value="<%=p.getId()%>">
+                        <input type="hidden" name="id_annuncio" id="id_annuncio" value="<%=acc.getId()%>">
                         <button class="btn waves-effect waves-light default-color" type="submit" name="action">Candidati
                             <i class="material-icons right">send</i>
                         </button>
@@ -133,9 +140,9 @@
             <div class="col l3 s12">
                 <h5 class="white-text">Link</h5>
                 <ul>
-                    <li><a class="white-text" href="register.html">Registrazione</a></li>
+                    <li><a class="white-text" href="register.jsp">Registrazione</a></li>
                     <li><a class="white-text" href="accesso.html">Login</a></li>
-                    <li><a class="white-text" href="index.html">Home</a></li>
+                    <li><a class="white-text" href="index.jsp">Home</a></li>
                 </ul>
             </div>
         </div>

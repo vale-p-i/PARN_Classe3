@@ -12,7 +12,15 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
+    <script>
+        <%session = request.getSession(false);
+        Persona p=(Persona) session.getAttribute("utente");
+        if (p==null){%>
+        window.location.href = "./index.jsp";
+        <%
+            }
+        %>
+    </script>
 </head>
 <body>
 <nav class="default-color" role="navigation">
@@ -27,7 +35,7 @@
             </li>
             <li>
                 <div class="center-image">
-                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" src="resource/img.png"></a>
+                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" onerror="this.onerror=null; this.src='resource/img.png'" src="<%=p.getFoto()%>"></a>
                 </div>
             </li>
             <li><a href="RedirectServlet?redirect=homepagePersona" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
@@ -37,7 +45,7 @@
             <li><a href="Logout" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
         </ul>
         <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons white-text">menu</i></a>
-        <a id="logo-container" href="index.html" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
+        <a id="logo-container" href="index.jsp" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
     </div>
 </nav>
 
@@ -48,14 +56,32 @@
             <div class="curriculum">
                 <h4>Curriculum</h4>
                 <%
-                session = request.getSession(false);
-                Persona p=(Persona) session.getAttribute("utente");
+
                 Curriculum c= null;
                 if (p!=null) {
                     c = p.getCurriculum();
                     System.out.println("persona non è null");
                 }
                 %>
+                <div class="soft">
+                    <%
+                        if (c!=null){
+                    %>
+                    <form action="ModificaCurriculum">
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <input placeholder="Soft Skills" type="text" id="soft_skills" name="soft_skills"  class="validate" value="<%=String.join(",",c.getSoftSkill())%>" required>
+                                <label for="soft_skills">Soft Skills</label>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Modifica<i class="material-icons right">send</i></button>
+                        </div>
+                    </form>
+                    <%
+                        }
+                    %>
+                </div>
                 <div class="esperienzeLavorative" id="esperienzeLavorative">
                     <div class="row">
                         <div class="input-field col s12 m12">
@@ -68,16 +94,22 @@
                     for (EsperienzaLavorativa e: c.getEsperienze()){
                 %>
                     <div class="row">
-                        <div class="input-field col s12 m12">
+                        <div class="left">
                             <h6>Esperienza:</h6>
                         </div>
-
-                    </div>
+                    <form action="EliminaEsperienza">
+                        <div class="right">
+                            <input type="hidden" name="nomeAziendaEsperienza" id="nomeAziendaEsperienza" value="<%=e.getNomeAzienda()%>">
+                            <input type="hidden" name="tipoImpiego" id="tipoImpiego" value="<%=e.getTipoImpiego()%>">
+                            <button class="btn waves-effect waves-light red" type="submit" name="action">Elimina</button>
+                        </div>
+                    </form>
+                </div>
                     <div class="esperienza">
                         <form action="modificaEsperienza">
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" value="<%=e.getNomeAzienda()%>" type="text" class="validate" disabled>
+                                    <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" value="<%=e.getNomeAzienda()%>" type="text" class="validate" readonly>
                                     <label for="nomeAziendaEsperienza">Inserisci il nome del azienda</label>
                                 </div>
                                 <div class="input-field col s12 m4">
@@ -85,7 +117,7 @@
                                     <label for="tipoAzienda">Inserisci il tipo di azienda</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Tipo impiego" id="tipoImpiego" value="<%=e.getTipoImpiego()%>" name="tipoImpiego" type="text" class="validate" disabled>
+                                    <input placeholder="Tipo impiego" id="tipoImpiego" value="<%=e.getTipoImpiego()%>" name="tipoImpiego" type="text" class="validate" readonly>
                                     <label for="tipoImpiego">Inserisci il tipo di impiego svolto</label>
                                 </div>
                             </div>
@@ -99,18 +131,18 @@
                                     <label for="contattoAzienda">Inserisci il contatto del referente</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Mansioni" id="mansioni" name="mansioni" type="text" value="<%=e.getMansioniPrincipali()%>" class="validate">
+                                    <input placeholder="Mansioni" id="mansioni" name="mansioni" type="text" value="<%=String.join(",",e.getMansioniPrincipali())%>" class="validate">
                                     <label for="mansioni">Inserisci le mansioni svolte</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder=" inizio" type="text" id="data_in_e" name="data_in_e" value="<%=e.getDataInizio()%>" class="datepicker">
+                                    <input placeholder="Data inizio" type="date" id="data_in_e" name="data_in_e" value="<%=e.getDataInizio()%>" class="validate">
                                     <label for="data_in_e">Data di inizio esperienza:</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Data fine" type="text" id="data_fin_e" name="data_fin_e" value="<%=e.getDataFine()%>" class="datepicker">
-                                    <label for="data_fin_e">Data di inizio esperienza:</label>
+                                    <input placeholder="Data fine" type="date" id="data_fin_e" name="data_fin_e" value="<%=e.getDataFine()%>" class="validate">
+                                    <label for="data_fin_e">Data di fine esperienza:</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -162,12 +194,12 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder=" inizio" type="text" id="data_in_e" name="data_in_e" class="datepicker" required>
+                                    <input placeholder="Data inizio" type="date" id="data_in_e" name="data_in_e" class="validate" required>
                                     <label for="data_in_e">Data di inizio esperienza:</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Data fine" type="text" id="data_fin_e" name="data_fin_e"  class="datepicker">
-                                    <label for="data_fin_e">Data di inizio esperienza:</label>
+                                    <input placeholder="Data fine" type="date" id="data_fin_e" name="data_fin_e"  class="validate">
+                                    <label for="data_fin_e">Data di fine esperienza:</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -192,19 +224,40 @@
                     %>
                     <div class="lingua">
                         <div class="row">
-                            <div class="input-field col s12 m12">
+                            <div class="left">
                                 <h6>Lingua:</h6>
                             </div>
-
+                            <div class="right">
+                                <form action="EliminaLingua">
+                                    <input type="hidden" name="nomeLingua" id="nomeLingua" value="<%=l.getNome()%>">
+                                    <button class="btn waves-effect waves-light red" type="submit" name="action">Elimina</button>
+                                </form>
+                            </div>
                         </div>
                         <form action="modificaLingua">
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Nome lingua" id="nomeLingua" name="nomeLingua" value="<%=l.getNome()%>" type="text" class="validate" disabled>
+                                    <input placeholder="Nome lingua" id="nomeLingua" name="nomeLingua" value="<%=l.getNome()%>" type="text" class="validate" readonly>
                                     <label for="nomeLingua">Inserisci il nome della lingua</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Livello Lingua" id="livelloLingua" name="livelloLingua" value="<%=l.getLivello()%>" type="text" class="validate">
+                                    <select name="livelloLingua" id="livelloLingua">
+                                        <option value="" disabled>Scegli il livello</option>
+                                        <%
+                                            for (String livello: Lingua.LIVELLI){
+                                                if(l.getLivello().equals(livello)){
+                                        %>
+                                        <option selected value="<%=livello%>"><%=livello%></option>
+                                        <%
+                                                }
+                                            else{
+                                        %>
+                                        <option value="<%=livello%>"><%=livello%></option>
+                                        <%
+                                            }
+                                            }
+                                        %>
+                                    </select>
                                     <label for="livelloLingua">Inserisci il livello della lingua</label>
                                 </div>
                             </div>
@@ -232,7 +285,17 @@
                                     <label for="nomeLingua">Inserisci il nome della lingua</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Livello Lingua" id="livelloLingua" name="livelloLingua"  type="text" class="validate" required>
+
+                                    <select name="livelloLingua" id="livelloLingua">
+                                        <option value="" disabled>Scegli il livello</option>
+                                        <%
+                                            for (String livello: Lingua.LIVELLI){
+                                        %>
+                                            <option value="<%=livello%>"><%=livello%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
                                     <label for="livelloLingua">Inserisci il livello della lingua</label>
                                 </div>
                             </div>
@@ -247,31 +310,37 @@
                 </div>
                 <div class="Istruzioni" id="istruzione">
                     <div class="row">
-                        <div class="input-field col s12 m12">
+                        <div class="left">
                             <h5>Istruzioni:</h5>
                         </div>
-
                     </div>
                     <%
                         if(c!=null)
                             for(Istruzione i: c.getIstruzioni()){
                                 System.out.println(c.getIstruzioni().size());
                     %>
+
                     <div class="istruzione">
                         <div class="row">
-                            <div class="input-field col s12 m12">
+                            <div class="left">
                                 <h6>Istruzione:</h6>
                             </div>
-
+                            <div class="right">
+                                <form action="EliminaIstruzione">
+                                    <input type="hidden" name="tipoIstruzione" id="tipoIstruzione" value="<%=i.getTipo()%>">
+                                    <input type="hidden" name="nomeIstituto" id="nomeIstituto" value="<%=i.getIstituto()%>">
+                                    <button class="btn waves-effect waves-light red" type="submit" name="action">Elimina</button>
+                                </form>
+                            </div>
                         </div>
                         <form action="modificaIstruzione" >
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Nome Istituto" id="nomeIstituto" value="<%=i.getIstituto()%>" name="nomeIstituto" type="text" class="validate" disabled>
+                                    <input placeholder="Nome Istituto" id="nomeIstituto" value="<%=i.getIstituto()%>" name="nomeIstituto" type="text" class="validate" readonly>
                                     <label for="nomeIstituto">Inserisci il nome del istituto</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Tipo Istruttore" id="tipoIstruzione" value="<%=i.getTipo()%>" name="tipoIstruzione" type="text" class="validate" disabled>
+                                    <input placeholder="Tipo Istruttore" id="tipoIstruzione" value="<%=i.getTipo()%>" name="tipoIstruzione" type="text" class="validate" readonly>
                                     <label for="tipoIstruzione">Inserisci il tipo di istruzione</label>
                                 </div>
                                 <div class="input-field col s12 m4">
@@ -281,12 +350,12 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder=" inizio" type="text" id="data_in_i" value="<%=i.getDataInizio()%>" name="data_in_i"  class="datepicker">
+                                    <input placeholder=" inizio" type="date" id="data_in_i" value="<%=i.getDataInizio()%>" name="data_in_i"  class="validate">
                                     <label for="data_in_i">Data di inizio Istruzione:</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Data fine" type="text" id="data_fin_i" value="<%=i.getDataFine()%>" name="data_fin_i"  class="datepicker">
-                                    <label for="data_fin_i">Data di inizio Istruzione:</label>
+                                    <input placeholder="Data fine" type="date" id="data_fin_i" value="<%=i.getDataFine()%>" name="data_fin_i"  class="validate">
+                                    <label for="data_fin_i">Data di fine Istruzione:</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -303,7 +372,7 @@
                 <div class="istruzione">
                     <div class="row">
                         <div class="col s12 m12">
-                            <h5>Inserisci nuova Istruzione<h4>
+                            <h5>Inserisci nuova Istruzione</h5>
                         </div>
                     </div>
                     <form action="creaIstruzione" >
@@ -313,7 +382,7 @@
                                 <label for="nomeIstituto">Inserisci il nome del istituto</label>
                             </div>
                             <div class="input-field col s12 m4">
-                                <input placeholder="Tipo Istruttore" id="tipoIstruzione" name="tipoIstruzione" type="text" class="validate" required>
+                                <input placeholder="Tipo Istruzione" id="tipoIstruzione" name="tipoIstruzione" type="text" class="validate" required>
                                 <label for="tipoIstruzione">Inserisci il tipo di istruzione</label>
                             </div>
                             <div class="input-field col s12 m4">
@@ -323,12 +392,12 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12 m6">
-                                <input placeholder=" inizio" type="text" id="data_in_i"  name="data_in_i"  class="datepicker" required>
+                                <input placeholder="Data inizio" type="date" id="data_in_i"  name="data_in_i"  class="validate" required>
                                 <label for="data_in_i">Data di inizio Istruzione:</label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <input placeholder="Data fine" type="text" id="data_fin_i"  name="data_fin_i"  class="datepicker">
-                                <label for="data_fin_i">Data di inizio Istruzione:</label>
+                                <input placeholder="Data fine" type="date" id="data_fin_i"  name="data_fin_i"  class="validate">
+                                <label for="data_fin_i">Data di fine Istruzione:</label>
                             </div>
                         </div>
                         <div class="row">
@@ -359,9 +428,9 @@
             <div class="col l3 s12">
                 <h5 class="white-text">Link</h5>
                 <ul>
-                    <li><a class="white-text" href="register.html">Registrazione</a></li>
-                    <li><a class="white-text" href="accesso.html">Login</a></li>
-                    <li><a class="white-text" href="index.html">Home</a></li>
+                    <li><a class="white-text" href="register.jsp">Registrazione</a></li>
+                    <li><a class="white-text" href="accesso.jsp">Login</a></li>
+                    <li><a class="white-text" href="index.jsp">Home</a></li>
                 </ul>
             </div>
         </div>

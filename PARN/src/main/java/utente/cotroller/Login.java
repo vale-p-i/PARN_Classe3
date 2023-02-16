@@ -36,6 +36,7 @@ public class Login extends HttpServlet {
                 request.getRequestDispatcher("./WEB-INF/homepageAzienda.jsp").forward(request, response);
             } else if(utente!=null && utente instanceof Persona) {
                 Persona persona = (Persona) utente;
+                System.out.println("foto"+ persona.getFoto());
                 MatchingServiceInterface serviceMat=new MatchingService();
                 List<Annuncio> list= serviceMat.personalizzaAnnunci(persona.getCurriculum());
                 session.setAttribute("myList",list);
@@ -43,7 +44,17 @@ public class Login extends HttpServlet {
                 request.getRequestDispatcher("./WEB-INF/homepagePersona.jsp").forward(request, response);
             }
             else response.sendRedirect(".");
-        }else response.sendRedirect(".");
+        }else {
+            Utente utente= (Utente) session.getAttribute("utente");
+            if (utente!=null) {
+                if (utente instanceof Azienda)
+                    request.getRequestDispatcher("./WEB-INF/homepageAzienda.jsp").forward(request, response);
+                else if (utente instanceof Persona)
+                    request.getRequestDispatcher("./WEB-INF/homepagePersona.jsp").forward(request, response);
+            }else {
+                response.sendRedirect(".");
+            }
+        }
     }
 
     @Override

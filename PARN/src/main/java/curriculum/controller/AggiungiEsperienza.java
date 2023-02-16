@@ -5,10 +5,9 @@ import curriculum.service.CurriculumServiceInterface;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import storage.entity.Curriculum;
-import storage.entity.EsperienzaLavorativa;
-import storage.entity.Persona;
-import storage.entity.Utente;
+import matching.service.MatchingService;
+import matching.service.MatchingServiceInterface;
+import storage.entity.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -44,7 +43,7 @@ public class AggiungiEsperienza extends HttpServlet {
                 }
 
                 LocalDate ddf = null;
-                if(request.getParameter("data_fin_e") != null){
+                if(request.getParameter("data_fin_e") != null && request.getParameter("data_fin_e").length()>1){
                     ddf = LocalDate.parse(request.getParameter("data_fin_e"));
                 }
 
@@ -58,8 +57,11 @@ public class AggiungiEsperienza extends HttpServlet {
                     if(!serviceInterface.aggiungiEsperienzaLavorativa(esperienzaLavorativa))
                         System.err.println("L'aggiunta dell'esperienza non è andata a buon fine");
 
+                    MatchingServiceInterface serviceMat = new MatchingService();
+                    List<Annuncio> list= serviceMat.personalizzaAnnunci(persona.getCurriculum());
+                    session.setAttribute("myList",list);
                     session.setAttribute("utente", persona);
-                    request.getRequestDispatcher("./WEB_INF/areaCurriculum.jsp").forward(request, response);
+                    request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
 
                 } else response.sendRedirect(".");
 
@@ -69,6 +71,6 @@ public class AggiungiEsperienza extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request,response);
     }
 }

@@ -1,4 +1,7 @@
-
+<%@ page import="storage.entity.Utente" %>
+<%@ page import="storage.entity.Lingua" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +15,16 @@
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 <script>
-    function add(){
+        <%
+            session=request.getSession();
+            Utente u= (Utente) session.getAttribute("utente");
+            if (u!=null){
+        %>
+        window.location.href = "./Login";
+        <%
+            }
+        %>
+        function add(){
         alert("ciao");
     }
     var userSelection = document.getElementById('.agg');
@@ -22,15 +34,15 @@
 <body>
     <nav class="default-color" role="navigation">
         <div class="nav-wrapper container">
-          <a id="logo-container" href="index.html" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
+          <a id="logo-container" href="index.jsp" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
           <ul class="right hide-on-med-and-down">
-            <li class="active"><a class ="white-text" href="register.html">Registrazione</a></li>
-            <li ><a class ="white-text" href="accesso.html">Accedi</a></li>
+            <li class="active"><a class ="white-text" href="register.jsp">Registrazione</a></li>
+            <li ><a class ="white-text" href="accesso.jsp">Accedi</a></li>
           </ul>
     
           <ul id="nav-mobile" class="sidenav">
-            <li class="active"><a class ="white-text" href="register.html">Registrazione</a></li>
-            <li ><a class ="white-text" href="accesso.html">Accedi</a></li>
+            <li class="active"><a class ="white-text" href="register.jsp">Registrazione</a></li>
+            <li ><a class ="white-text" href="accesso.jsp">Accedi</a></li>
           </ul>
           <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
         </div>
@@ -88,8 +100,8 @@
                                 <label for="provinciaAzienda">Inserici la provincia</label>
                             </div>
                             <div class="input-field col s12 m4">
-                                <input placeholder="Città" type="text" id="cittaAzienda" name="cittaAzienda"  class="validate" required>
-                                <label for="cittaAzienda">Inserici la città</label>
+                                <input placeholder="Citta" type="text" id="cittaAzienda" name="cittaAzienda"  class="validate" required>
+                                <label for="cittaAzienda">Inserici la citta</label>
                             </div>
                             <div class="input-field col s12 m2">
                                 <input placeholder="Civico" id="civicoAzienda" name="civicoAzienda" type="text" class="validate" required>
@@ -165,8 +177,8 @@
                                             <label for="provinciaSede">Inserici la provincia</label> 
                                         </div>
                                         <div class="input-field col s12 m3">
-                                            <input placeholder="Città Sede" type="text" id="cittaSede" name="cittaSede"  class="validate" >
-                                            <label for="cittaSede">Inserici la città</label> 
+                                            <input placeholder="Citta Sede" type="text" id="cittaSede" name="cittaSede"  class="validate" >
+                                            <label for="cittaSede">Inserici la citta</label> 
                                         </div>
                                         <div class="input-field col s12 m3">
                                             <input placeholder="CAP Sede" id="capSede" name="capSede" type="text" class="validate" >
@@ -221,7 +233,7 @@
                                 <label for="codiceFiscale">Codice fiscale</label>
                             </div>
                             <div class="input-field col s12 m3">
-                                <input placeholder="Data" type="text" id="data_n" name="data_n"  class="datepicker" required>
+                                <input placeholder="Data" type="date" id="data_n" name="data_n"  class="validate" max="<%=LocalDate.now()%>" required>
                                 <label for="data_n">Data di nascita:</label>
                             </div>
                             <div class="input-field col s12 m3">
@@ -239,8 +251,8 @@
                                 <label for="viaPersona">Inserici la via</label>
                             </div>
                             <div class="input-field col s12 m5">
-                                <input placeholder="Città" type="text" id="cittaPersona" name="cittaPersona"  class="validate" required>
-                                <label for="cittaPersona">Inserici la città</label>
+                                <input placeholder="Citta" type="text" id="cittaPersona" name="cittaPersona"  class="validate" required>
+                                <label for="cittaPersona">Inserici la citta</label>
                             </div>
                             <div class="input-field col s12 m2">
                                 <input placeholder="CAP" id="capPersona" name="capPersona" type="text" class="validate" required>
@@ -326,12 +338,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12 m6">
-                                        <input placeholder=" inizio" type="text" id="data_in_e1" name="data_in_e1"  class="datepicker">
+                                        <input placeholder=" inizio" type="date" id="data_in_e1" name="data_in_e1"  class="validate" max="<%=LocalDate.now()%>">
                                         <label for="data_in_e1">Data di inizio esperienza:</label>
                                     </div>
                                     <div class="input-field col s12 m6">
-                                        <input placeholder="Data fine" type="text" id="data_fin_e1" name="data_fin_e1"  class="datepicker">
-                                        <label for="data_fin_e1">Data di inizio esperienza:</label>
+                                        <input placeholder="Data fine" type="date" id="data_fin_e1" name="data_fin_e1"  class="validate" max="<%=LocalDate.now()%>">
+                                        <label for="data_fin_e1">Data di fine esperienza:</label>
                                     </div>
                                 </div>
                             </div>
@@ -348,7 +360,16 @@
                                         <label for="nomeLingua1">Inserisci il nome della lingua</label>
                                     </div>
                                     <div class="input-field col s12 m6">
-                                        <input placeholder="Livello Lingua" id="livelloLingua1" name="livelloLingua1" type="text" class="validate" required>
+                                        <select name="livelloLingua1" id="livelloLingua1">
+                                            <option value="" disabled>Scegli il livello</option>
+                                            <%
+                                                for (String livello: Lingua.LIVELLI){
+                                            %>
+                                                <option value="<%=livello%>"><%=livello%></option>
+                                            <%
+                                                }
+                                            %>
+                                        </select>
                                         <label for="livelloLingua1">Inserisci il livello della lingua</label>
                                     </div>
                                 </div>
@@ -382,13 +403,13 @@
                                 <div class="row">
 
                                     <div class="input-field col s12 m6">
-                                        <input placeholder=" inizio" type="text" id="data_in_i1" name="data_in_i1"  class="datepicker" required>
+                                        <input placeholder=" inizio" type="date" id="data_in_i1" name="data_in_i1"  class="validate" max="<%=LocalDate.now()%>" required>
                                         <label for="data_in_i1">Data di inizio Istruzione:</label>
                                     </div>
 
                                     <div class="input-field col s12 m6">
-                                        <input placeholder="Data fine" type="text" id="data_fin_i1" name="data_fin_i1"  class="datepicker">
-                                        <label for="data_fin_i1">Data di inizio Istruzione:</label>
+                                        <input placeholder="Data fine" type="date" id="data_fin_i1" name="data_fin_i1"  max="<%=LocalDate.now()%>" class="validate">
+                                        <label for="data_fin_i1">Data di fine Istruzione:</label>
                                     </div>
 
                                 </div>
@@ -430,9 +451,9 @@
         <div class="col l3 s12">
           <h5 class="white-text">Link</h5>
           <ul>
-            <li><a class="white-text" href="register.html">Registrazione</a></li>
-            <li><a class="white-text" href="accesso.html">Login</a></li>
-            <li><a class="white-text" href="index.html">Home</a></li>
+            <li><a class="white-text" href="register.jsp">Registrazione</a></li>
+            <li><a class="white-text" href="accesso.jsp">Login</a></li>
+            <li><a class="white-text" href="index.jsp">Home</a></li>
           </ul>
         </div>
       </div>

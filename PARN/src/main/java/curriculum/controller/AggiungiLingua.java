@@ -5,13 +5,13 @@ import curriculum.service.CurriculumServiceInterface;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import storage.entity.Curriculum;
-import storage.entity.Lingua;
-import storage.entity.Persona;
-import storage.entity.Utente;
+import matching.service.MatchingService;
+import matching.service.MatchingServiceInterface;
+import storage.entity.*;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @WebServlet(name = "AggiungiLingua", value = "/creaLingua")
 public class AggiungiLingua extends HttpServlet {
@@ -37,8 +37,11 @@ public class AggiungiLingua extends HttpServlet {
                         System.err.println("L'aggiunta della lingua non è andata a buon fine");
                     }
 
+                    MatchingServiceInterface serviceMat=new MatchingService();
+                    List<Annuncio> list= serviceMat.personalizzaAnnunci(persona.getCurriculum());
+                    session.setAttribute("myList",list);
                     session.setAttribute("utente", persona);
-                    request.getRequestDispatcher("./WEB_INF/areaCurriculum.jsp").forward(request, response);
+                    request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
 
                 } else response.sendRedirect(".");
 
@@ -48,6 +51,6 @@ public class AggiungiLingua extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request,response);
     }
 }

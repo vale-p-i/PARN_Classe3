@@ -5,9 +5,7 @@ import annuncio.service.AnnuncioService;
 import annuncio.service.AnnuncioServiceInterface;
 import curriculum.service.CurriculumService;
 import curriculum.service.CurriculumServiceInterface;
-import storage.entity.Annuncio;
-import storage.entity.Curriculum;
-import storage.entity.Istruzione;
+import storage.entity.*;
 
 
 import java.util.ArrayList;
@@ -21,11 +19,20 @@ public class MatchingService implements MatchingServiceInterface{
         List<Annuncio> returnment=new ArrayList<>();
         AnnuncioServiceInterface serviceAnnucio=new AnnuncioService();
         List<Annuncio> all=serviceAnnucio.getAnnunciByStato(Annuncio.IN_CORSO);
-        List<String> Qualifiche=new ArrayList<>();
+        List<String> QualificheIstruzione=new ArrayList<>();
         for (Istruzione i:curriculum.getIstruzioni())
-            Qualifiche.add(i.getQualifica());
+            QualificheIstruzione.add(i.getQualifica());
+        List<String> QualificheLavorative=new ArrayList<>();
+        for (EsperienzaLavorativa i:curriculum.getEsperienze())
+            QualificheLavorative.add(i.getTipoImpiego());
         for (Annuncio a: all) {
-            if (Qualifiche.containsAll(a.getRequisiti()))
+            boolean flag=false,flag1=true;
+            if (QualificheIstruzione.containsAll(a.getRequisiti())||QualificheLavorative.containsAll(a.getRequisiti()))
+                flag=true;
+            for (Candidatura c: a.getCandidature())
+                if(c.getPersona().getId()==curriculum.getPersona().getId())
+                    flag1=false;
+            if(flag&&flag1)
                 returnment.add(a);
         }
         return returnment;

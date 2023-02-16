@@ -13,6 +13,7 @@ import utente.service.UtenteServiceInterface;
 import utils.ConPool;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +45,8 @@ public class CandidaturaDAO {
                     new Candidatura(
                          persona,
                         (Annuncio) annuncioService.getAnnuncioById(rs.getInt(1)),
-                        (Curriculum) curriculumService.getCurriculumByPersona(persona),
-                        rs.getDate(3).toLocalDate().atStartOfDay()));
+                        persona.getCurriculum(),
+                        rs.getDate(3).toLocalDate()));
         }
         return result;
     }
@@ -72,7 +73,7 @@ public class CandidaturaDAO {
                             tmp,
                             annuncio,
                             tmp.getCurriculum(),
-                            rs.getDate(3).toLocalDate().atStartOfDay()
+                            rs.getDate(3).toLocalDate()
                     )
             );
         }
@@ -103,7 +104,7 @@ public class CandidaturaDAO {
                     persona,
                     annuncio,
                     curriculumServiceInterface.getCurriculumByPersona(persona),
-                    rs.getObject(3, LocalDateTime.class)
+                    rs.getObject(3, LocalDate.class)
             );
         }
         return candidatura;
@@ -121,7 +122,7 @@ public class CandidaturaDAO {
                 "INSERT INTO Candidatura(Annuncio, Persona, Data_Pub) VALUES (?, ?, ?)");
         pdstmt.setInt(1, candidatura.getAnnuncio().getId());
         pdstmt.setInt(2, candidatura.getPersona().getId());
-        pdstmt.setDate(3, java.sql.Date.valueOf(candidatura.getData().toLocalDate()));
+        pdstmt.setDate(3, java.sql.Date.valueOf(candidatura.getData()));
 
         pdstmt.executeUpdate();
     }

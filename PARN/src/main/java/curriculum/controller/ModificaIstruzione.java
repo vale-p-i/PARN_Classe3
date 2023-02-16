@@ -5,11 +5,14 @@ import curriculum.service.CurriculumServiceInterface;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import matching.service.MatchingService;
+import matching.service.MatchingServiceInterface;
 import storage.entity.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @WebServlet(name = "ModificaIstruzione", value = "/modificaIstruzione")
 public class ModificaIstruzione extends HttpServlet {
@@ -32,7 +35,7 @@ public class ModificaIstruzione extends HttpServlet {
                 }
 
                 LocalDate ddf = null;
-                if(request.getParameter("data_fin_i") != null){
+                if(request.getParameter("data_fin_i") != null && request.getParameter("data_fin_i").length() >1){
                     ddf = LocalDate.parse(request.getParameter("data_fin_i"));
                 }
 
@@ -40,14 +43,31 @@ public class ModificaIstruzione extends HttpServlet {
                 if(nomeIstituto != null && tipoIstruzione != null && nomeQualifica != null
                         && ddi != null) {
                     Curriculum curriculum = persona.getCurriculum();
-                    Istruzione istruzione = new Istruzione(curriculum, ddi, ddf, nomeQualifica, tipoIstruzione, nomeIstituto);
-                    CurriculumServiceInterface serviceInterface = new CurriculumService();
-                    if(!serviceInterface.aggiornaIstruzione(istruzione)){
-                        System.err.println("L'aggiornamento dell'istruzione non è andato a buon fine");
+                    Istruzione istruzione = null;
+
+                    for(Istruzione i: curriculum.getIstruzioni()){
+                        if(i.getIstituto().equals(nomeIstituto) && i.getTipo().equals(tipoIstruzione)){
+                            istruzione = i;
+                            continue;
+                        }
                     }
 
-                    session.setAttribute("utente", persona);
-                    request.getRequestDispatcher("./WEB_INF/areaCurriculum.jsp").forward(request, response);
+                    if(istruzione != null){
+                        istruzione.setQualifica(nomeQualifica);
+                        istruzione.setDataInizio(ddi);
+                        istruzione.setDataFine(ddf);
+
+                        CurriculumServiceInterface serviceInterface = new CurriculumService();
+                        if(!serviceInterface.aggiornaIstruzione(istruzione)){
+                            System.err.println("L'aggiornamento dell'istruzione non è andato a buon fine");
+                        }
+
+                        MatchingServiceInterface serviceMat=new MatchingService();
+                        List<Annuncio> list= serviceMat.personalizzaAnnunci(persona.getCurriculum());
+                        session.setAttribute("myList",list);
+                        session.setAttribute("utente", persona);
+                        request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
+                    } else response.sendRedirect(".");
 
                 } else response.sendRedirect(".");
 
@@ -57,6 +77,6 @@ public class ModificaIstruzione extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request,response);
     }
 }

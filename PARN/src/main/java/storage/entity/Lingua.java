@@ -1,9 +1,12 @@
 package storage.entity;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Lingua  {
 
+    public static final List<String> LIVELLI= Arrays.asList("Madrelingua","Avanzato","Medio","Sufficiente","Insufficiente");
     private String nome;
     private String livello;
     private Curriculum curriculum;
@@ -38,7 +41,10 @@ public class Lingua  {
     }
 
     public void setLivello(String livello) {
-        this.livello = livello;
+        if (LIVELLI.contains(livello))
+            this.livello = livello;
+        else
+            throw new IllegalArgumentException();
     }
 
     @Override

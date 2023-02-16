@@ -1,5 +1,6 @@
 <%@ page import="storage.entity.Annuncio" %>
 <%@ page import="storage.entity.Azienda" %>
+<%@ page import="storage.entity.Utente" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,15 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/progetto.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
+    <script>
+        <%session = request.getSession(false);
+    Azienda a=(Azienda) session.getAttribute("utente");
+    if (a==null){%>
+        window.location.href = "./index.jsp";
+        <%
+            }
+        %>
+    </script>
 </head>
 <body>
 <nav class="default-color" role="navigation">
@@ -27,7 +36,7 @@
             </li>
             <li>
                 <div class="center-image">
-                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" src="resource/img.png"></a>
+                    <a href="#user" class="mod-a"><img height="100" width="100" class="circle" onerror="this.onerror=null; this.src='resource/img.png'" src="<%=a.getFoto()%>"></a>
                 </div>
             </li>
             <li><a href="RedirectServlet?redirect=homepageAzienda" class="waves-effect waves-light btn-large white default-color-text">Homepage</a></li>
@@ -41,7 +50,7 @@
             <li><a href="Logout" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
         </ul>
         <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons white-text">menu</i></a>
-        <a id="logo-container" href="index.html" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
+        <a id="logo-container" href="index.jsp" class="brand-logo"><img src="resource/logo.png" width="250" height="80" class="responsive-img"></a>
     </div>
 </nav>
 
@@ -70,9 +79,9 @@
             <div class="col l3 s12">
                 <h5 class="white-text">Link</h5>
                 <ul>
-                    <li><a class="white-text" href="register.html">Registrazione</a></li>
+                    <li><a class="white-text" href="register.jsp">Registrazione</a></li>
                     <li><a class="white-text" href="accesso.html">Login</a></li>
-                    <li><a class="white-text" href="index.html">Home</a></li>
+                    <li><a class="white-text" href="index.jsp">Home</a></li>
                 </ul>
             </div>
         </div>
