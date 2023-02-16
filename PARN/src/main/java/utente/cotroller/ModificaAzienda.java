@@ -7,7 +7,6 @@ import storage.entity.Azienda;
 import storage.entity.Utente;
 import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
-import utils.PasswordEncrypter;
 
 import java.io.IOException;
 import java.util.ArrayList;
