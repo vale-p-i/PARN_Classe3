@@ -19,53 +19,138 @@ public class AnnuncioService implements AnnuncioServiceInterface {
 
     private static AnnuncioDAO annuncioDAO = new AnnuncioDAO();
 
-
     @Override
     public Annuncio getAnnuncioById(int id) {
-        try {
-            return annuncioDAO.getAnnuncioById(id);
-        } catch (SQLException e) {
-            return null;
-        }
+        if(id >= 0)
+            try {
+                return annuncioDAO.getAnnuncioById(id);
+            } catch (SQLException e) {
+                return null;
+            }
+        else return null;
+    }
+
+    @Override
+    public boolean creaAnnuncio(Annuncio annuncio) {
+        if(annuncio != null){
+            try {
+                annuncioDAO.creaAnnuncio(annuncio);
+            } catch (SQLException e) {
+                return false;
+            }
+
+            Azienda azienda = annuncio.getAzienda();
+            azienda.getAnnunci().add(annuncio);
+            return true;
+        }else return false;
+    }
+
+    @Override
+    public boolean modificaAnnuncio(Annuncio annuncio) {
+        if(annuncio != null){
+            try {
+                annuncioDAO.modificaAnnuncio(annuncio);
+            } catch (SQLException e) {
+                return false;
+            }
+            return true;
+        }else return false;
+    }
+
+    @Override
+    public boolean eliminaAnnuncio(Annuncio annuncio) {
+        if(annuncio != null){
+            try {
+                annuncioDAO.eliminaAnnuncio(annuncio);
+            } catch (SQLException e) {
+                return false;
+            }
+
+            Azienda azienda = annuncio.getAzienda();
+            for(Annuncio a : azienda.getAnnunci())
+                if(a.getId() == annuncio.getId()){
+                    azienda.getAnnunci().remove(a);
+                    continue;
+                }
+            return true;
+        }else return false;
+    }
+
+    @Override
+    public boolean chiusuraAnnuncio(Annuncio annuncio) {
+        if(annuncio != null){
+            try {
+                annuncio.setAttivo(false);
+                annuncioDAO.chiusuraAnnuncio(annuncio);
+                return true;
+            } catch (SQLException e) {
+                return false;
+            }
+        }else return false;
+    }
+
+    @Override
+    public boolean aggiungiCandidatura(Annuncio annuncio, Candidatura candidatura) {
+        if(annuncio != null && candidatura != null){
+            CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
+            candidatura.setAnnuncio(annuncio);
+            annuncio.getCandidature().add(candidatura);
+            return candidaturaServiceInterface.creaCandidatura(candidatura);
+        }else return false;
+    }
+
+    @Override
+    public List<Annuncio> getAnnuncioByAzienda(Azienda azienda) {
+        if(azienda != null){
+            try {
+                return annuncioDAO.getAnnunciByAzienda(azienda);
+            } catch (SQLException e) {
+                return null;
+            }
+        }else return null;
     }
 
     @Override
     public List<Annuncio> getAnnunciByStato(Azienda azienda,String in_corso) {
-        LocalDate today= LocalDate.now();
-        List<Annuncio> returnment=new ArrayList<>();
-        if (azienda.getAnnunci()!=null)
-            for(Annuncio a: azienda.getAnnunci()){
-                switch (in_corso){
-                    case Annuncio.IN_CORSO:
-                        if (a.isAttivo()&&a.getDataScadenza().isAfter(today))
-                            returnment.add(a);
-                        break;
-                    case Annuncio.SCADUTO:
-                        if (a.isAttivo()&&(a.getDataScadenza().isBefore(today)||a.getDataScadenza().equals(today)))
-                            returnment.add(a);
-                        break;
-                    case Annuncio.CHIUSO:
-                        if(!a.isAttivo())
-                            returnment.add(a);
-                        break;
+        if(azienda != null){
+            LocalDate today= LocalDate.now();
+            List<Annuncio> returnment=new ArrayList<>();
+            if (azienda.getAnnunci()!=null)
+                for(Annuncio a: azienda.getAnnunci()){
+                    switch (in_corso){
+                        case Annuncio.IN_CORSO:
+                            if (a.isAttivo()&&a.getDataScadenza().isAfter(today))
+                                returnment.add(a);
+                            break;
+                        case Annuncio.SCADUTO:
+                            if (a.isAttivo()&&(a.getDataScadenza().isBefore(today)||a.getDataScadenza().equals(today)))
+                                returnment.add(a);
+                            break;
+                        case Annuncio.CHIUSO:
+                            if(!a.isAttivo())
+                                returnment.add(a);
+                            break;
+                    }
                 }
-            }
-        if (returnment.isEmpty())
-            return null;
-        return returnment;
+            if (returnment.isEmpty())
+                return null;
+            return returnment;
+        }else return null;
     }
 
     public List<Annuncio> getAnnunciByStato(String in_corso) {
-        try {
-            return annuncioDAO.getAnnunciByStato(in_corso);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        if(in_corso.equals(Annuncio.IN_CORSO) || in_corso.equals(Annuncio.SCADUTO) || in_corso.equals(Annuncio.CHIUSO)){
+            try {
+                return annuncioDAO.getAnnunciByStato(in_corso);
+            } catch (SQLException e) {
+                return null;
+            }
+        }else return null;
     }
 
     @Override
     public Annuncio getAnnuncioById(Azienda azienda, int id) {
-        if (azienda.getAnnunci()!=null)
+        if (azienda.getAnnunci()!=null && id >= 0)
             for (Annuncio a:azienda.getAnnunci())
                 if (a.getId()==id)
                     return a;
@@ -74,98 +159,30 @@ public class AnnuncioService implements AnnuncioServiceInterface {
 
     @Override
     public String getStato(Annuncio a) {
-        LocalDate today=LocalDate.now();
-        if (a.isAttivo()&&a.getDataScadenza().isAfter(today))
-            return Annuncio.IN_CORSO;
-        else if (a.isAttivo()&&(a.getDataScadenza().isBefore(today)||a.getDataScadenza().equals(today)))
-            return Annuncio.SCADUTO;
-        else if(!a.isAttivo())
-            return Annuncio.CHIUSO;
-        return null;
+        if(a != null){
+            LocalDate today=LocalDate.now();
+            if (a.isAttivo()&&a.getDataScadenza().isAfter(today))
+                return Annuncio.IN_CORSO;
+            else if (a.isAttivo()&&(a.getDataScadenza().isBefore(today)||a.getDataScadenza().equals(today)))
+                return Annuncio.SCADUTO;
+            else if(!a.isAttivo())
+                return Annuncio.CHIUSO;
+            return null;
+        }else return null;
     }
 
     @Override
     public boolean canAnnuncioAccessToSearch(Annuncio a) {
-        if (getStato(a).equals(Annuncio.SCADUTO)){
-            double percentuale=(100*a.getCandidature().size())/a.getNumeroPersone();
-            percentuale/=100;
-            if (percentuale<=0.5)
-                return true;
-            else
-                return false;
-        }
-        return false;
-    }
-
-
-    @Override
-    public boolean creaAnnuncio(Annuncio annuncio) {
-        try {
-            annuncioDAO.creaAnnuncio(annuncio);
-        } catch (SQLException e) {
+        if(a != null){
+            if (getStato(a).equals(Annuncio.SCADUTO)){
+                double percentuale=(100*a.getCandidature().size())/a.getNumeroPersone();
+                percentuale/=100;
+                if (percentuale<=0.5)
+                    return true;
+                else
+                    return false;
+            }
             return false;
-        }
-
-        Azienda azienda = annuncio.getAzienda();
-        azienda.getAnnunci().add(annuncio);
-        return true;
-    }
-
-    @Override
-    public boolean modificaAnnuncio(Annuncio annuncio) {
-        try {
-            annuncioDAO.modificaAnnuncio(annuncio);
-        } catch (SQLException e) {
-            return false;
-        }
-
-        Azienda azienda = annuncio.getAzienda();
-        for(Annuncio a : azienda.getAnnunci())
-            if(a.getId() == annuncio.getId())
-                azienda.getAnnunci().remove(a);
-        return true;
-    }
-
-    @Override
-    public boolean eliminaAnnuncio(Annuncio annuncio) {
-        try {
-            annuncioDAO.eliminaAnnuncio(annuncio);
-        } catch (SQLException e) {
-            return false;
-        }
-
-        Azienda azienda = annuncio.getAzienda();
-        for(Annuncio a : azienda.getAnnunci())
-            if(a.getId() == annuncio.getId())
-                azienda.getAnnunci().remove(a);
-        return true;
-    }
-
-    @Override
-    public boolean chiusuraAnnuncio(Annuncio annuncio) {
-        try {
-            annuncio.setAttivo(false);
-            annuncioDAO.chiusuraAnnuncio(annuncio);
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
-        
-    }
-
-    @Override
-    public boolean aggiungiCandidatura(Annuncio annuncio, Candidatura candidatura) {
-        CandidaturaServiceInterface candidaturaServiceInterface = new CandidaturaService();
-        candidatura.setAnnuncio(annuncio);
-        return candidaturaServiceInterface.creaCandidatura(candidatura);
-    }
-
-    @Override
-    public List<Annuncio> getAnnuncioByAzienda(Azienda azienda) {
-       try {
-           return annuncioDAO.getAnnunciByAzienda(azienda);
-       } catch (SQLException e) {
-           return null;
-       }
+        }else return false;
     }
 }

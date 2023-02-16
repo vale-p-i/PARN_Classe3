@@ -55,10 +55,7 @@
 
 <div class="container">
     <div class="section-main">
-        <%
-            session = request.getSession(false);
-            Azienda a=(Azienda) session.getAttribute("utente");
-        %>
+
         <div class="row">
             <div class="input-field col s12 m12">
                 <h5>Modifica dati:</h5>
