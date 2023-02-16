@@ -303,17 +303,24 @@ public class CurriculumDAO {
 
         statement.executeUpdate();
     }
-    public void updateLingua(Lingua lingua) throws SQLException {
-        Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("UPDATE Lingua SET Livello = ? WHERE Curriculum = ? AND Nome = ?");
+    public boolean updateLingua(Lingua lingua) {
 
-        //parametri set
-        statement.setString(1, lingua.getLivello());
+        Connection connection = null;
+        try {
+            connection = ConPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement("UPDATE Lingua SET Livello = ? WHERE Curriculum = ? AND Nome = ?");
 
-        //parametri where
-        statement.setInt(2, lingua.getCurriculum().getPersona().getId());
-        statement.setString(3, lingua.getNome());
+            //parametri set
+            statement.setString(1, lingua.getLivello());
 
-        statement.executeUpdate();
+            //parametri where
+            statement.setInt(2, lingua.getCurriculum().getPersona().getId());
+            statement.setString(3, lingua.getNome());
+
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 }
