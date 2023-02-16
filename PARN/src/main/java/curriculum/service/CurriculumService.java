@@ -187,7 +187,7 @@ public class CurriculumService implements  CurriculumServiceInterface{
         if(esperienzaLavorativa.getDataInizio()!=null) {
             if(!esperienzaLavorativa.getDataInizio().isAfter(LocalDate.now())) {
                 int lunghezzaTipoAzienda=esperienzaLavorativa.getTipoAzienda().length();
-                if(lunghezzaTipoAzienda>0&&lunghezzaTipoAzienda<=15) {
+                if(lunghezzaTipoAzienda > 0 && lunghezzaTipoAzienda<=40) {
                     int lunghezzaContatto=esperienzaLavorativa.getContatto().length();
                     if (lunghezzaContatto>0&&lunghezzaContatto<=70) {
                         if(esperienzaLavorativa.getContatto().matches("^[A-z0-9._%+-]+@\\[A-z0-9.-]+\\.[A-z]{2,10}$")) {
