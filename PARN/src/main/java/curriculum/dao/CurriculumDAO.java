@@ -152,18 +152,24 @@ public class CurriculumDAO {
 
         statement.executeUpdate();
     }
-    public void updateCurriculum(Curriculum curriculum) throws SQLException {
-        Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("UPDATE Curriculum SET Soft_Skills = ? WHERE Persona = ?");
+    public boolean updateCurriculum(Curriculum curriculum)  {
+        Connection connection = null;
+        try {
+            connection = ConPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement("UPDATE Curriculum SET Soft_Skills = ? WHERE Persona = ?");
+            //parametri set
+            String skills = StringListUtils.getStringFromList(curriculum.getSoftSkill());
+            statement.setString(1, skills);
 
-        //parametri set
-        String skills = StringListUtils.getStringFromList(curriculum.getSoftSkill());
-        statement.setString(1, skills);
+            //parametri where
+            statement.setInt(2, curriculum.getPersona().getId());
 
-        //parametri where
-        statement.setInt(2, curriculum.getPersona().getId());
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
 
-        statement.executeUpdate();
     }
     public void addEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa) throws SQLException {
         Connection connection = ConPool.getConnection();

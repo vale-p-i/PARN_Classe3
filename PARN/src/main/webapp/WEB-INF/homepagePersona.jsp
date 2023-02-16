@@ -79,7 +79,7 @@
             <div class="col s12 m12">
             <div class="card horizontal min-annuncio">
                 <div class="card-image mrgin">
-                    <img width="100" class="activator" height="100" src="resource/ibm.jpeg">
+                    <img width="100" class="activator" height="100" src="<%=acc.getAzienda().getFoto()%>">
                 </div>
                 <div class="card-content prova">
                     <span class="card-title activator grey-text text-darken-4">   <%=acc.getAzienda().getNome()%> <i class="material-icons right">more_vert</i></span>

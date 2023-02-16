@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ *
+ */
 public class Candidatura {
     private Persona persona;
     private Annuncio annuncio;

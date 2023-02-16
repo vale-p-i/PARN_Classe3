@@ -10,6 +10,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="storage.entity.Sede" %>
 <%@ page import="storage.entity.Utente" %>
+<%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,7 +115,7 @@
             </div>
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <input placeholder="Data fine" type="text" id="data_scad" name="data_scad"  class="datepicker">
+                    <input placeholder="Data fine" type="text" id="data_scad" name="data_scad" min="<%=LocalDate.now()%>" class="datepicker">
                     <label for="data_scad">Data di scadenza:</label>
                 </div>
                 <div class="input-field col s12 m6">

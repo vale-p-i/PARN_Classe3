@@ -44,7 +44,7 @@ public class Lingua  {
         if (LIVELLI.contains(livello))
             this.livello = livello;
         else
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Livello lingua non valido");
     }
 
     @Override
