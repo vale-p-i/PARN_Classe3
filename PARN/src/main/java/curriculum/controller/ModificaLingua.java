@@ -5,6 +5,8 @@ import curriculum.service.CurriculumServiceInterface;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import matching.service.MatchingService;
+import matching.service.MatchingServiceInterface;
 import storage.entity.*;
 
 import java.io.IOException;
@@ -46,6 +48,9 @@ public class ModificaLingua extends HttpServlet {
                             System.err.println("L'aggiornamento della lingua non è andato a buon fine");
                         }
 
+                        MatchingServiceInterface serviceMat=new MatchingService();
+                        List<Annuncio> list= serviceMat.personalizzaAnnunci(persona.getCurriculum());
+                        session.setAttribute("myList",list);
                         session.setAttribute("utente", persona);
                         request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
                     } else response.sendRedirect(".");
@@ -58,6 +63,6 @@ public class ModificaLingua extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request,response);
     }
 }

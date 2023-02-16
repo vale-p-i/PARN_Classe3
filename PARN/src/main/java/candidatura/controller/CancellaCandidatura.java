@@ -7,6 +7,7 @@ import candidatura.service.CandidaturaServiceInterface;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import matching.service.MatchingService;
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;
 import storage.entity.Persona;
@@ -37,12 +38,16 @@ public class CancellaCandidatura extends HttpServlet {
                 }catch (NumberFormatException n){
                     System.out.println("Conversion error " + n);
                 }
-                Annuncio annuncio = serviceAnnuncio.getAnnuncioById(idAnnuncio);
-                Candidatura candidatura = serviceCandidatura.getCandidaturaByPersonaAndAnnuncio(persona, annuncio);
-                serviceCandidatura.eliminaCandidatura(candidatura);
+                Candidatura res=null;
+                for(Candidatura c:persona.getCandidature())
+                    if(idAnnuncio==c.getAnnuncio().getId())
+                        res=c;
+                serviceCandidatura.eliminaCandidatura(res);
                 serviceUtente.aggiornaPersona(persona);
                 session.setAttribute("utente", persona);
-                request.getRequestDispatcher("./WEB-INF/visualizzaCandidature.jsp").forward(request, response);
+                MatchingService serviceMat=new MatchingService();
+                session.setAttribute("myList",serviceMat.personalizzaAnnunci(persona.getCurriculum()));
+                request.getRequestDispatcher("./WEB-INF/areaCandidatureInviate.jsp").forward(request, response);
             }else response.sendRedirect(".");
         }else response.sendRedirect(".");
     }

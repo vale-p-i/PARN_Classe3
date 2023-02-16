@@ -53,7 +53,7 @@
 </nav>
 
 <div class="container">
-    <div class="section-main">
+    <div class="section-main ">
 
         <div class="row">
             <div class="input-field col s12 m12">

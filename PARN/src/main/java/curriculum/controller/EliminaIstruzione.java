@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-@WebServlet(name = "AggiungiIstruzione", value = "/creaIstruzione")
-public class AggiungiIstruzione extends HttpServlet {
+@WebServlet(name = "EliminaIstruzione", value = "/EliminaIstruzione")
+public class EliminaIstruzione extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -26,34 +26,32 @@ public class AggiungiIstruzione extends HttpServlet {
 
                 String nomeIstituto = request.getParameter("nomeIstituto");
                 String tipoIstruzione = request.getParameter("tipoIstruzione");
-                String nomeQualifica = request.getParameter("nomeQualifica");
 
-                LocalDate ddi = null;
-                if(request.getParameter("data_in_i") != null){
-                    ddi = LocalDate.parse(request.getParameter("data_in_i"));
+                Curriculum curriculum = persona.getCurriculum();
+                Istruzione istruzione = null;
+
+                for(Istruzione i: curriculum.getIstruzioni()){
+                    if(i.getIstituto().equals(nomeIstituto) && i.getTipo().equals(tipoIstruzione)){
+                        istruzione = i;
+                        continue;
+                    }
                 }
 
-                LocalDate ddf = null;
-                if(request.getParameter("data_fin_i") != null && request.getParameter("data_fin_i").length()>1){
-                    ddf = LocalDate.parse(request.getParameter("data_fin_i"));
-                }
+                if(istruzione != null){
 
-
-                if(nomeIstituto != null && tipoIstruzione != null && nomeQualifica != null
-                        && ddi != null) {
-                    Curriculum curriculum = persona.getCurriculum();
-                    Istruzione istruzione = new Istruzione(curriculum, ddi, ddf, nomeQualifica, tipoIstruzione, nomeIstituto);
                     CurriculumServiceInterface serviceInterface = new CurriculumService();
-                    if(!serviceInterface.aggiungiIstruzione(istruzione)){
-                        System.err.println("L'aggiunta dell'istruzione non è andata a buon fine");
+                    int returnValue = serviceInterface.eliminaIstruzione(istruzione);
+                    if(returnValue == 0){
+                        System.err.println("Non puoi eliminare l'istruzione se è l'unica.");
+                    } else if (returnValue == 1) {
+                        System.err.println("Eliminazione non riuscita");
                     }
 
-                    MatchingServiceInterface serviceMat = new MatchingService();
+                    MatchingServiceInterface serviceMat=new MatchingService();
                     List<Annuncio> list= serviceMat.personalizzaAnnunci(persona.getCurriculum());
                     session.setAttribute("myList",list);
                     session.setAttribute("utente", persona);
                     request.getRequestDispatcher("./WEB-INF/areaCurriculum.jsp").forward(request, response);
-
                 } else response.sendRedirect(".");
 
             } else response.sendRedirect(".");
