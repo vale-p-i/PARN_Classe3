@@ -4,7 +4,6 @@ import candidatura.dao.CandidaturaDAO;
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;
 import storage.entity.Persona;
-
 import java.sql.SQLException;
 import java.util.List;
 

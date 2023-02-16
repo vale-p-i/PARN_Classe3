@@ -12,7 +12,6 @@ import utente.service.UtenteServiceInterface;
 import utils.ConPool;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
