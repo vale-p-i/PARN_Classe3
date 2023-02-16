@@ -42,7 +42,7 @@
   </nav>
 
   <div class="container">
-    <div class="section">
+    <div class="section-main min">
 
       <div class="row">
         <div class="col s12 m12 center">
