@@ -117,24 +117,30 @@ public class AnnuncioDAO {
      * @param annuncio oggetto Annuncio
      * @throws SQLException se si verifica un errore di accesso al database
      */
-    public void creaAnnuncio(Annuncio annuncio) throws SQLException {
-        connection=ConPool.getConnection();
+    public boolean creaAnnuncio(Annuncio annuncio){
+        try {
+            connection=ConPool.getConnection();
 
-        PreparedStatement pdstmt = connection.prepareStatement(
-                "INSERT INTO Annuncio(ID, Azienda, Attivo, Sede, N_Persone, Descrizione, Scadenza, Requisiti, Keyword, Preferenze, Ruolo)"+
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        pdstmt.setInt(1, annuncio.getId());
-        pdstmt.setInt(2, annuncio.getAzienda().getId());
-        pdstmt.setBoolean(3, annuncio.isAttivo());
-        pdstmt.setInt(4, annuncio.getSede().getId());
-        pdstmt.setInt(5, annuncio.getNumeroPersone());
-        pdstmt.setString(6, annuncio.getDescrizione());
-        pdstmt.setDate(7, java.sql.Date.valueOf(annuncio.getDataScadenza()));
-        pdstmt.setString(8, StringListUtils.getStringFromList(annuncio.getRequisiti()));
-        pdstmt.setString(9, StringListUtils.getStringFromList(annuncio.getKeyword()));
-        pdstmt.setString(10, StringListUtils.getStringFromList(annuncio.getPreferenze()));
-        pdstmt.setString(11, annuncio.getRuolo());
-        pdstmt.executeQuery();
+            PreparedStatement pdstmt = connection.prepareStatement(
+                    "INSERT INTO Annuncio(ID, Azienda, Attivo, Sede, N_Persone, Descrizione, Scadenza, Requisiti, Keyword, Preferenze, Ruolo)"+
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            pdstmt.setInt(1, annuncio.getId());
+            pdstmt.setInt(2, annuncio.getAzienda().getId());
+            pdstmt.setBoolean(3, annuncio.isAttivo());
+            pdstmt.setInt(4, annuncio.getSede().getId());
+            pdstmt.setInt(5, annuncio.getNumeroPersone());
+            pdstmt.setString(6, annuncio.getDescrizione());
+            pdstmt.setDate(7, java.sql.Date.valueOf(annuncio.getDataScadenza()));
+            pdstmt.setString(8, StringListUtils.getStringFromList(annuncio.getRequisiti()));
+            pdstmt.setString(9, StringListUtils.getStringFromList(annuncio.getKeyword()));
+            pdstmt.setString(10, StringListUtils.getStringFromList(annuncio.getPreferenze()));
+            pdstmt.setString(11, annuncio.getRuolo());
+            pdstmt.executeQuery();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+
     }
 
     /**
