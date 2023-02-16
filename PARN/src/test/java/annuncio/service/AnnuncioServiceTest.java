@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 import storage.entity.Annuncio;
 import storage.entity.Azienda;
 import storage.entity.Sede;
-import utils.StringListUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class AnnuncioServiceTestProva {
+class AnnuncioServiceTest {
     @Mock
     private AnnuncioDAO mockAnnuncioDAO;
 
