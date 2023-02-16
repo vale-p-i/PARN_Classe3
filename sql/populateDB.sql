@@ -25,17 +25,17 @@ VALUES (6, 5, 'Genova', 'GE', '20100', 'Via della Lanterna', 'Liguria', '+39 123
 INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Citta, Via)
 VALUES (2, 'Ugo', 'l.bianchi@gmail.com', 'b133a0c0e9bee3be20163d2ad31d6248db292aa6dcb1ee087a2aa50e0fc75ae2', 'Lombardia', 'MI', 'foto_bianchi.jpeg', '20100', '+39 02 9876543', 'Milano', 'Via dei Missaglia');
 INSERT INTO Persona (Utente, Cognome, CF, DDN, F_Macroarea, Pos_Des)
-VALUES (2, 'Fantocci', 'BNCMLS98A12L219E', '1998-12-21', 'Sud Italia', 'Sviluppatore');
+VALUES (2, 'Fantocci', 'BNCMLS98A12L219E', '1998-12-21', 'Tutti', 'Sviluppatore');
 
 INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Citta, Via)
 VALUES (3, 'Mauro', 'l.mariomaild@gmail.com', 'b133a0c0e9bee3be20163d2ad31d6248db292aa6dcb1ee087a2aa50e0fc75ae2', 'Lombardia', 'MI', 'rossi.jpeg', '20100', '+39 02 9876543', 'Milano', 'Via dei Missaglia');
 INSERT INTO Persona (Utente, Cognome, CF, DDN, F_Macroarea, Pos_Des)
-VALUES (3, 'Rorsri', 'BNCMLS98B12L219E', '1998-12-21', 'Sud Italia', 'Ingegnere del Software');
+VALUES (3, 'Rorsri', 'BNCMLS98B12L219E', '1998-12-21', 'Tutti', 'Ingegnere del Software');
 
 INSERT INTO Utente (N_Reg, Nome, Mail, Pass, Regione, Provincia, Foto, CAP, Telefono, Citta, Via)
 VALUES (4, 'Laura', 'l.blu@gmail.com', 'b133a0c0e9bee3be20163d2ad31d6248db292aa6dcb1ee087a2aa50e0fc75ae2', 'Veneto', 'VE', 'foto_blu.jpeg', '30100', '+39 0491234567', 'Venezia', 'Riva degli Schiavoni');
 INSERT INTO Persona (Utente, Cognome, CF, DDN, F_Macroarea, Pos_Des)
-VALUES (4, 'Verdi', 'VRDMRK98L11T196Z', '1998-01-19', 'Nord Italia', 'Responsabile Marketing');
+VALUES (4, 'Verdi', 'VRDMRK98L11T196Z', '1998-01-19', 'Tutti', 'Responsabile Marketing');
 
 #########################CURRICULUM#########################
 INSERT INTO Curriculum (Persona, Soft_Skills)
