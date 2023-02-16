@@ -91,7 +91,7 @@
                             </div>
                             <div class="input-field col s12 m3">
                                 <input placeholder="Via" id="viaAzienda" name="viaAzienda" type="text" class="validate" required>
-                                <label for="viaAzienda">Inserisci la regione</label>
+                                <label for="viaAzienda">Inserisci la via</label>
                             </div>
                         </div>
                         <div class="row"> 
@@ -103,11 +103,7 @@
                                 <input placeholder="Citta" type="text" id="cittaAzienda" name="cittaAzienda"  class="validate" required>
                                 <label for="cittaAzienda">Inserici la citta</label>
                             </div>
-                            <div class="input-field col s12 m2">
-                                <input placeholder="Civico" id="civicoAzienda" name="civicoAzienda" type="text" class="validate" required>
-                                <label for="civicoAzienda">Inserisci il civico</label>
-                            </div>
-                            <div class="input-field col s12 m2">
+                            <div class="input-field col s12 m4">
                                 <input placeholder="CAP" id="capAzienda" name="capAzienda" type="text" class="validate" required>
                                 <label for="capAzienda">Inserisci il CAP</label>
                               </div>
