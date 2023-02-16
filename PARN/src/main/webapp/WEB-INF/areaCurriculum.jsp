@@ -109,7 +109,7 @@
                         <form action="modificaEsperienza">
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" value="<%=e.getNomeAzienda()%>" type="text" class="validate" disabled>
+                                    <input placeholder="Nome azienda" id="nomeAziendaEsperienza" name="nomeAziendaEsperienza" value="<%=e.getNomeAzienda()%>" type="text" class="validate" readonly>
                                     <label for="nomeAziendaEsperienza">Inserisci il nome del azienda</label>
                                 </div>
                                 <div class="input-field col s12 m4">
@@ -117,7 +117,7 @@
                                     <label for="tipoAzienda">Inserisci il tipo di azienda</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Tipo impiego" id="tipoImpiego" value="<%=e.getTipoImpiego()%>" name="tipoImpiego" type="text" class="validate" disabled>
+                                    <input placeholder="Tipo impiego" id="tipoImpiego" value="<%=e.getTipoImpiego()%>" name="tipoImpiego" type="text" class="validate" readonly>
                                     <label for="tipoImpiego">Inserisci il tipo di impiego svolto</label>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                                     <label for="contattoAzienda">Inserisci il contatto del referente</label>
                                 </div>
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Mansioni" id="mansioni" name="mansioni" type="text" value="<%=e.getMansioniPrincipali()%>" class="validate">
+                                    <input placeholder="Mansioni" id="mansioni" name="mansioni" type="text" value="<%=String.join(",",e.getMansioniPrincipali())%>" class="validate">
                                     <label for="mansioni">Inserisci le mansioni svolte</label>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                         <form action="modificaLingua">
                             <div class="row">
                                 <div class="input-field col s12 m6">
-                                    <input placeholder="Nome lingua" id="nomeLingua" name="nomeLingua" value="<%=l.getNome()%>" type="text" class="validate" disabled>
+                                    <input placeholder="Nome lingua" id="nomeLingua" name="nomeLingua" value="<%=l.getNome()%>" type="text" class="validate" readonly>
                                     <label for="nomeLingua">Inserisci il nome della lingua</label>
                                 </div>
                                 <div class="input-field col s12 m6">
@@ -328,7 +328,7 @@
                             <div class="right">
                                 <form action="EliminaIstruzione">
                                     <input type="hidden" name="tipoIstruzione" id="tipoIstruzione" value="<%=i.getTipo()%>">
-                                    <input type="hidden" name="tipoIstituto" id="tipoIstituto" value="<%=i.getIstituto()%>">
+                                    <input type="hidden" name="nomeIstituto" id="nomeIstituto" value="<%=i.getIstituto()%>">
                                     <button class="btn waves-effect waves-light red" type="submit" name="action">Elimina</button>
                                 </form>
                             </div>
@@ -336,11 +336,11 @@
                         <form action="modificaIstruzione" >
                             <div class="row">
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Nome Istituto" id="nomeIstituto" value="<%=i.getIstituto()%>" name="nomeIstituto" type="text" class="validate" disabled>
+                                    <input placeholder="Nome Istituto" id="nomeIstituto" value="<%=i.getIstituto()%>" name="nomeIstituto" type="text" class="validate" readonly>
                                     <label for="nomeIstituto">Inserisci il nome del istituto</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                    <input placeholder="Tipo Istruttore" id="tipoIstruzione" value="<%=i.getTipo()%>" name="tipoIstruzione" type="text" class="validate" disabled>
+                                    <input placeholder="Tipo Istruttore" id="tipoIstruzione" value="<%=i.getTipo()%>" name="tipoIstruzione" type="text" class="validate" readonly>
                                     <label for="tipoIstruzione">Inserisci il tipo di istruzione</label>
                                 </div>
                                 <div class="input-field col s12 m4">
@@ -382,7 +382,7 @@
                                 <label for="nomeIstituto">Inserisci il nome del istituto</label>
                             </div>
                             <div class="input-field col s12 m4">
-                                <input placeholder="Tipo Istruttore" id="tipoIstruzione" name="tipoIstruzione" type="text" class="validate" required>
+                                <input placeholder="Tipo Istruzione" id="tipoIstruzione" name="tipoIstruzione" type="text" class="validate" required>
                                 <label for="tipoIstruzione">Inserisci il tipo di istruzione</label>
                             </div>
                             <div class="input-field col s12 m4">
