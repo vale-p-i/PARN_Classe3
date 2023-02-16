@@ -7,11 +7,23 @@ import storage.entity.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class CurriculumService implements  CurriculumServiceInterface{
     private CurriculumDAO curriculumDAO = new CurriculumDAO();
 
+    public CurriculumService(){
+    }
+
+    public CurriculumService(CurriculumDAO dao){
+        curriculumDAO=dao;
+    }
+
+    /**
+     * Questo metodo permette di ottenere tutti i curriculum nel database
+     * @return una lista di Curriculum
+     */
     @Override
     public List<Curriculum> getAllCurriculum() {
         try {
@@ -21,7 +33,11 @@ public class CurriculumService implements  CurriculumServiceInterface{
         }
     }
 
-
+    /**
+     * Questo metodo permette di ottenere il curriculum di una persona
+     * @param persona è la persona
+     * @return l'oggetto Curriculum, null ne si è verificato qualche problema
+     */
     @Override
     public Curriculum getCurriculumByPersona(Persona persona) {
         try {
@@ -31,7 +47,12 @@ public class CurriculumService implements  CurriculumServiceInterface{
         }
     }
 
-
+    /**
+     * Questo metodo crea un curriculum all'interno del database
+     * @param curriculum è il curriculum da craere
+     * @return true se la creazione è andata a buon fine false
+     * altrimenti
+     */
     @Override
     public boolean creaCurriculum(Curriculum curriculum) {
         try {
@@ -56,19 +77,26 @@ public class CurriculumService implements  CurriculumServiceInterface{
         return flag;
     }
 
-
+    /**
+     * Questo metodo permette di aggiornare un curriculum
+     * @param curriculum è il curriculum aggiornato
+     * @return true se l'aggiornamento è andato a buon fine, altrimenti false
+     */
     @Override
     public boolean aggiornaCurriculum(Curriculum curriculum) {
-        try {
-            curriculumDAO.updateCurriculum(curriculum);
-        } catch (SQLException e) {
-            return false;
+        int lunghezza=String.join(",",curriculum.getSoftSkill()).length();
+        if(lunghezza>0&&lunghezza<=75){
+            return  curriculumDAO.updateCurriculum(curriculum);
         }
-
-        return true;
+        else throw new IllegalArgumentException("Lunghezza soft skill non adatta");
     }
 
-
+    /**
+     * Questo metodo permette di scaricare un curriculum, creando il file pdf a partire da un oggetto curriculum.
+     * @param curriculum è il curriculm da creare
+     * @return la path sottoforma di stringa nel caso in cui la creazione del docuemnto pdf sia andata a buon fine,
+     * altirmenti null
+     */
     @Override
     public String downloadCurriculum(Curriculum curriculum){
         PDFCurriculumInterface pdf = (PDFCurriculumInterface) new PDFCurriculum();
@@ -79,7 +107,11 @@ public class CurriculumService implements  CurriculumServiceInterface{
         }
     }
 
-
+    /**
+     * Questo metodo permette di aggiungere un campo esperienza al curriculum
+     * @param esperienzaLavorativa è il campo da aggiungere
+     * @return true se l'inserimento è andato a buon fine, altrimenti false
+     */
     @Override
     public boolean aggiungiEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa) {
 
@@ -98,7 +130,11 @@ public class CurriculumService implements  CurriculumServiceInterface{
         return  true;
     }
 
-
+    /**
+     * Questo metodo permette di aggiungere un campo lingua al curriculum
+     * @param lingua è il campo da inserire
+     * @return true se l'inserimento è andato a buon fine, altrimenti false
+     */
     @Override
     public boolean aggiungiLingua(Lingua lingua) {
         //viene aggiunta la lingua al database
@@ -117,7 +153,11 @@ public class CurriculumService implements  CurriculumServiceInterface{
         return true;
     }
 
-
+    /**
+     * Questo metodo permette di inserire un campo istruzione nel curriculum
+     * @param istruzione è il campo istruzione da inserire
+     * @return true se l'inserimento è andato a buon fine, altrimenti false
+     */
     @Override
     public boolean aggiungiIstruzione(Istruzione istruzione) {
         //viene aggiunta l'istruzione al databse
@@ -136,36 +176,73 @@ public class CurriculumService implements  CurriculumServiceInterface{
         return true;
     }
 
-
+    /**
+     * Questo metodo permette di aggiornare un campo esperienza lavorativa del curriculum
+     * @param esperienzaLavorativa è il campo aggiornato
+     * @return true se l'aggiornamento è andato a buon fine, altrimenti false
+     */
     @Override
     public boolean aggiornaEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa) {
         //aggiorna l'esperienza lavorativa nel database
-        try {
-            curriculumDAO.updateEsperienzaLavorativa(esperienzaLavorativa);
-        } catch (SQLException e) {
-            return false;
-        }
-
-        return true;
+        if(esperienzaLavorativa.getDataInizio()!=null) {
+            if(!esperienzaLavorativa.getDataInizio().isAfter(LocalDate.now())) {
+                int lunghezzaTipoAzienda=esperienzaLavorativa.getTipoAzienda().length();
+                if(lunghezzaTipoAzienda>0&&lunghezzaTipoAzienda<=15) {
+                    int lunghezzaContatto=esperienzaLavorativa.getContatto().length();
+                    if (lunghezzaContatto>0&&lunghezzaContatto<=70) {
+                        if(esperienzaLavorativa.getContatto().matches("^[A-z0-9._%+-]+@\\[A-z0-9.-]+\\.[A-z]{2,10}$")) {
+                            int lunghezzaImpiego=esperienzaLavorativa.getTipoImpiego().length();
+                            if(lunghezzaImpiego>0&&lunghezzaImpiego<=15){
+                                int lunghezzaMansioni=String.join(",",esperienzaLavorativa.getMansioniPrincipali()).length();
+                                if(lunghezzaMansioni>0&&lunghezzaMansioni<=40) {
+                                    try {
+                                        curriculumDAO.updateEsperienzaLavorativa(esperienzaLavorativa);
+                                    } catch (SQLException e) {
+                                        return false;
+                                    }
+                                    return true;
+                                }else throw new IllegalArgumentException("Lunghezza mansioni non valida");
+                            }else throw new IllegalArgumentException("Lunghezza tipo di impiego non valida");
+                        }else throw new IllegalArgumentException("Formato contatto non valido");
+                    }else throw new IllegalArgumentException("Lunghezza datore di lavoro non valida");
+                }else throw new IllegalArgumentException("Lunghezza tipo di azienda non valida.");
+            }else throw new IllegalArgumentException("Data di inizio esperienza lavorativa è maggiore di oggi, non valida.");
+        } else throw new IllegalArgumentException("Data inizio non valida.");
     }
 
-
+    /**
+     * Questo metodo permette di aggiornare un campo lingua del curriculum
+     * @param lingua è il campo aggiornato
+     * @return true se l'aggiornamento è andato a buon fine, altriemnti false
+     */
     @Override
     public boolean aggiornaLingua(Lingua lingua) {
         //aggiorna la lingua lavorativa nel database
-        try {
-            curriculumDAO.updateLingua(lingua);
-        } catch (SQLException e) {
-            return false;
-        }
-
-        return true;
+        if (Lingua.LIVELLI.contains(lingua.getLivello())) {
+            if (lingua.getNome().length()>0&&lingua.getNome().length()<=15) {
+                try {
+                    curriculumDAO.updateLingua(lingua);
+                } catch (SQLException e) {
+                    return false;
+                }
+                return true;
+            }else  throw new IllegalArgumentException("Lunghezza nome lingua non adatto");
+        }else throw new IllegalArgumentException("Livello lingua non corretto");
     }
 
-
+    /**
+     * Questo metodo permette di aggiornare un campo istruzione nel curriculum
+     * @param istruzione è il campo aggiornato
+     * @return true se l'aggiornamento è andato a buon fine, altriemnti false
+     */
     @Override
     public boolean aggiornaIstruzione(Istruzione istruzione) {
         //aggiorna l'istruzione nel database
+        if(istruzione.getDataInizio()==null) throw new IllegalArgumentException();
+        if(istruzione.getDataInizio().isAfter(LocalDate.now())) throw new IllegalArgumentException();
+        if(istruzione.getQualifica().length()<=0||istruzione.getQualifica().length()>70) throw new IllegalArgumentException();
+        if(istruzione.getTipo().length()<=0||istruzione.getTipo().length()>50) throw new IllegalArgumentException();
+        if(istruzione.getIstituto().length()<=0||istruzione.getIstituto().length()>35) throw new IllegalArgumentException();
         try {
             curriculumDAO.updateIstruzione(istruzione);
         } catch (SQLException e) {
@@ -175,7 +252,11 @@ public class CurriculumService implements  CurriculumServiceInterface{
         return true;
     }
 
-
+    /**
+     * Questo metodo permette di eliminare il campo esperienza all'intenro del curriculum.
+     * @param esperienzaLavorativa è il campo da eliminare
+     * @return true se la cancellazione è andata a buon fine, altirmenti false
+     */
     @Override
     public boolean eliminaEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa) {
         //elimina l'esperienza lavorativa dal database
@@ -196,7 +277,16 @@ public class CurriculumService implements  CurriculumServiceInterface{
         return true;
     }
 
-
+    /**
+     * Questo metodo permette di eliminare un campo lingua nel curriculum. Se il campo che si vuole eliminare è l'ultimo,
+     * viene vietata la cancellazione e viene restituito 0. Altrimenti viene restituito 2 se la cancellazione è andata a buon fine,
+     * in caso contrario restituisce 1.
+     * @param lingua è il campo lingua che si vuole eliminare.
+     * @return
+     * 0 se è l'ultimo campo lingua nel curriculum,
+     * 1 se non è riuscito a effettuare la cancellazione,
+     * 2 se la cancellazione è andata a buon fine.
+     */
     @Override
     public int eliminaLingua(Lingua lingua) {
         //controlla che ci sia almeno un campo lingua nel database
@@ -224,7 +314,16 @@ public class CurriculumService implements  CurriculumServiceInterface{
         return 2;
     }
 
-
+    /**
+     * Questo metodo permette di eliminare un campo istruzione nel curriculum. Se il campo che si vuole eliminare è l'ultimo,
+     * viene vietata la cancellazione e viene restituito 0. Altrimenti viene restituito 2 se la cancellazione è andata a buon fine,
+     *in caso contrario restituisce 1.
+     * @param istruzione è il campo istruzione che si vuole eliminare.
+     * @return
+     * 0 se è l'ultimo campo istruzione nel curriculum,
+     * 1 se non è riuscito a effettuare la cancellazione,
+     * 2 se la cancellazione è andata a buon fine.
+     */
     @Override
     public int eliminaIstruzione(Istruzione istruzione) {
         //controlla che ci sia almeno un campo istruzione nel database

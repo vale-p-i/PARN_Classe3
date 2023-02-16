@@ -2,9 +2,12 @@ package storage.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 public class Persona extends Utente {
+
+    public static final List<String> FILTRO_MACROAREA= Arrays.asList("Tutti","Area di competenza","Settore specifico");
 
     private String cognome;
     private String codiceFiscale;
@@ -66,7 +69,9 @@ public class Persona extends Utente {
     }
 
     public void setFiltroMacroarea(String filtroMacroarea) {
-        this.filtroMacroarea = filtroMacroarea;
+        if (FILTRO_MACROAREA.contains(filtroMacroarea))
+            this.filtroMacroarea = filtroMacroarea;
+        else throw new IllegalArgumentException("Filtro macroarea non valido");
     }
 
     public String getPosizioneDesiderata() {

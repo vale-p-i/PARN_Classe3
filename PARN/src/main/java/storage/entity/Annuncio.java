@@ -4,10 +4,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Un oggetto <code>Annuncio</code> rappresenta un annuncio lavorativo, che
+ * lato azienda può essere creato, e lato utente puo iscriversi ad esso
+ */
 public class Annuncio {
 
+    /**
+     * Lo stato IN_CORSO è tale quando il campo del'annuncio attivo è true e la data di scadenza è <=oggi
+     */
     public static final String  IN_CORSO="In Corso";
+    /**
+     * Lo stato SCADUTO è tale quando il campo del'annuncio attivo è true e la data di scadenza è >oggi
+     */
     public static final String  SCADUTO="Scaduto";
+    /**
+     * Lo stato IN_CORSO è tale quando il campo del'annuncio attivo è false
+     */
     public static final String  CHIUSO="Chiuso";
 
 
@@ -23,6 +36,7 @@ public class Annuncio {
     private List<String> preferenze;
     private String ruolo;
     private List<Candidatura> candidature;
+
 
     public Annuncio(int id, Azienda azienda, boolean attivo, Sede sede, int numeroPersone, String descrizione,
                     LocalDate dataScadenza, List<String> requisiti, List<String> keyword, List<String> preferenze,

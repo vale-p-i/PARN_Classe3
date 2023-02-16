@@ -2,6 +2,10 @@ package storage.entity;
 
 import java.util.List;
 
+/**
+ * Un oggetto <code>Azienda</code> è una sottoclasse di <Code>Utente</Code> che rappresenta
+ * l'azienda che crea le candidature alle quali le persone posso sottoscriversi
+ */
 public class Azienda extends Utente{
     private String partitaIVA;
     private String ragioneSociale;
