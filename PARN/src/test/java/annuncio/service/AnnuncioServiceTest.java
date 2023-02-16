@@ -122,23 +122,27 @@ class AnnuncioServiceTest {
     @Test
     void creaAnnuncioTC_2_4() {
         Annuncio annuncio = getAnnuncio();
-        annuncio.setDescrizione("Responsabile dell'Organizzazione degli Spazi Lavorativi e degli Uffici Direzionali." +
-                " In questa posizione, il candidato avrà la responsabilità di gestire l'utilizzo efficiente degli" +
-                " spazi lavorativi e degli uffici direzionali all'interno dell'azienda. Sarà incaricato di pianificare" +
-                " e coordinare la disposizione delle scrivanie del personale e degli ambienti di lavoro per garantire" +
-                " che siano ergonomici, sicuri e funzionali. Il responsabile dovrà essere in grado di lavorare a" +
-                " stretto contatto con i dipartimenti HR e IT per garantire che tutte le esigenze del personale siano" +
-                " soddisfatte e che l'ambiente di lavoro sia adeguato alle attuali esigenze tecnologiche." +
-                " Inoltre, dovrà essere in grado di gestire progetti di riorganizzazione degli spazi lavorativi," +
-                " coordinando le attività con i fornitori di servizi e assicurando che i progetti vengano consegnati" +
-                " in tempo e dentro il budget. Il candidato ideale avrà una formazione accademica in amministrazione," +
-                " ingegneria o un campo simile e avrà maturato esperienza nella gestione di progetti di riorganizzazione" +
-                " degli spazi lavorativi. Avrà eccellenti capacità di comunicazione, leadership e problem solving," +
-                " e sarà in grado di lavorare in modo indipendente e in team. In questa posizione, il candidato avrà" +
-                " l'opportunità di lavorare in un ambiente dinamico e in continua evoluzione, contribuendo a creare" +
-                " un ambiente di lavoro sicuro, efficiente e produttivo per tutto il personale. Se sei una persona" +
-                " motivata e hai una forte passione per la gestione degli spazi lavorativi, questa potrebbe essere" +
-                " la posizione perfetta per te.\n");
+        annuncio.setDescrizione("Stiamo cercando un interior designer altamente creativo e motivato per unirsi al nostro team di esperti in design degli interni. Il candidato ideale avrà una laurea in interior design o in un campo correlato, oltre a esperienza comprovata nella progettazione e nella realizzazione di spazi interni. Il candidato deve essere in grado di guidare il processo di design dall'inizio alla fine, lavorando in stretta collaborazione con i clienti, gli architetti e gli altri professionisti coinvolti nella realizzazione del progetto.\n" +
+                "Responsabilità principali:\n" +
+                "Collaborare con i clienti per capire le loro esigenze e le loro aspettative.\n" +
+                "Creare concept di design unici e personalizzati per ogni progetto.\n" +
+                "Sviluppare disegni dettagliati e piani di progetto utilizzando software di design 3D.\n" +
+                "Coordinare con gli architetti, i costruttori e altri professionisti per assicurare la corretta realizzazione del progetto.\n" +
+                "Selezione di materiali, arredi, luci e accessori per creare un ambiente accogliente e funzionale.\n" +
+                "Gestione del budget e dei costi del progetto.\n" +
+                "Rispettare le scadenze del progetto e tenere sotto controllo i tempi di consegna.\n" +
+                "Requisiti:\n" +
+                "Laurea in interior design o in un campo correlato.\n" +
+                "Esperienza comprovata nella progettazione e nella realizzazione di spazi interni.\n" +
+                "Eccellenti abilità di design e di presentazione.\n" +
+                "Conoscenza dei software di design 3D (es. SketchUp, AutoCAD, Revit).\n" +
+                "Forte attenzione ai dettagli e alle finiture.\n" +
+                "Ottima comunicazione e abilità di collaborazione con i clienti, gli architetti e i costruttori.\n" +
+                "Capacità di lavorare in modo autonomo e di gestire progetti complessi.\n" +
+                "Conoscenza delle tendenze del design d'interni e della tecnologia attuale nel campo.\n" +
+                "Disponibilità a lavorare su progetti in diversi luoghi e con diverse tempistiche.\n" +
+                "Offriamo un ambiente di lavoro stimolante, dinamico e collaborativo, con l'opportunità di lavorare su progetti di prestigio e di crescere professionalmente. Se sei un interior designer appassionato e motivato, inviaci il tuo curriculum vitae e un portfolio che dimostri le tue abilità di progettazione e realizzazione di spazi interni. Saremo lieti di valutare la tua candidatura.\n" +
+                "\n");
         System.out.println(assertThrows(IllegalArgumentException.class, () -> {
             service.creaAnnuncio(annuncio);
         }));
@@ -165,7 +169,7 @@ class AnnuncioServiceTest {
     @Test
     void creaAnnuncioTC_2_7() {
         Annuncio annuncio = getAnnuncio();
-        annuncio.setRequisiti(getSplittedString("Master in design di interni, Laurea in architettura #####"));
+        annuncio.setRequisiti(getSplittedString("Master in design di interni, Laurea in architetturaŁŁ"));
         System.out.println(assertThrows(IllegalArgumentException.class, () -> {
             service.creaAnnuncio(annuncio);
         }));
@@ -216,8 +220,7 @@ class AnnuncioServiceTest {
     @Test
     void creaAnnuncioTC_2_11() {
         Annuncio annuncio = getAnnuncio();
-        System.out.println(annuncio.getPreferenze());
-        annuncio.setKeyword(getSplittedString("#design#moda#arredamento#storiadellarte#lavoro#ufficio#IT#HR#mancatoartista#Artistaincompreso#PicassoWay#Lavoroconnoi"));
+        annuncio.setKeyword(getSplittedString("łdesignłmodałarredamentołstoriadellartełlavorołufficiołITłHRłmancatoartistałArtistaincompresołPicassoWayłLavoroconnoi"));
         System.out.println(assertThrows(IllegalArgumentException.class, () -> {
             service.creaAnnuncio(annuncio);
         }));

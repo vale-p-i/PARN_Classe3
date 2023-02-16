@@ -67,19 +67,19 @@ public class AnnuncioService implements AnnuncioServiceInterface {
         } else throw new IllegalArgumentException("La data di scadenza è null");
         if(sizeOfRequisiti > 500)
             throw new IllegalArgumentException("Requisiti troppo lunghi");
-        if(!requisiti.matches("^[\\w\\d\\s.,;:!?()'\"-]*$"))
+        if(!requisiti.matches("^[\\w\\d\\s.,;:!?()'\"-àáèéíìóòúù]*$"))
             throw new IllegalArgumentException("I requisiti non rispettano il formato");
         if(sizeOfRequisiti <= 0)
             throw new IllegalArgumentException("Requisiti troppo corti");
         if(sizeOfPreferenze > 1000)
             throw new IllegalArgumentException("Preferenze troppo lunghe");
-        if(!preferenze.matches("^[\\w\\d\\s.,;:!?()'\"-]*$"))
+        if(!preferenze.matches("^[\\w\\d\\s.,;:!?()'\"-àáèéíìóòúù]*$"))
                 throw new IllegalArgumentException("Le preferenze non rispettano il formato");
         if(sizeOfPreferenze <= 0)
             throw new IllegalArgumentException("Preferenze troppo corte");
         if(sizeOfKeywords > 150)
             throw new IllegalArgumentException("Keywords troppo lunghe");
-        if(!keywords.matches("^[\\w\\d\\s.,;:!?()'\"-]*$"))
+        if(!keywords.matches("^[\\w\\d\\s.,;:!?()'\"-àáèéíìóòúù]*$"))
             throw new IllegalArgumentException("Le keywords non rispettano il formato");
         if(sizeOfKeywords <= 0)
             throw new IllegalArgumentException("Le keywords sono troppo corte");
