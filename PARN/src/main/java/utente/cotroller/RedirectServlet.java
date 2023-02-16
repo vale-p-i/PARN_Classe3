@@ -25,7 +25,7 @@ public class RedirectServlet extends HttpServlet {
                 if (p.getCandidature()==null){
                     System.out.println("3");
                     CandidaturaServiceInterface service=new CandidaturaService();
-                    p.setCandidature(service.getCandidatueByPersona(p));
+                    p.setCandidature(service.getCandidatureByPersona(p));
                 }
             }
             request.getRequestDispatcher("./WEB-INF/" + redirect + ".jsp").forward(request, response);
