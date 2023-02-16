@@ -18,7 +18,7 @@ public interface CandidaturaServiceInterface {
      * Ritorna una Candidatura identificata univocamente da una persona e un annuncio, altrimenti null se inesistente
      * @param persona Oggetto Persona
      * @param annuncio Annuncio
-     * @return Candidatura
+     * @return Candidatura oggetto
      */
     public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio);
     /**
@@ -26,7 +26,7 @@ public interface CandidaturaServiceInterface {
      * @param persona Oggetto Persona
      * @return List\<Candidatura\>
      */
-    public List<Candidatura> getCandidatueByPersona(Persona persona);
+    public List<Candidatura> getCandidatureByPersona(Persona persona);
     /**
      * Persiste una candidatura nel database. In caso di successo ritorna true, altrimenti false
      * @param candidatura Oggetto Candidatura
@@ -34,7 +34,7 @@ public interface CandidaturaServiceInterface {
      */
     public boolean creaCandidatura(Candidatura candidatura);
     /**
-     * Elimina una candidatura dal database. In caso di successo rutorna true, false altrimenti
+     * Elimina una candidatura dal database. In caso di successo ritorna true, false altrimenti
      * @param candidatura Oggetto Candidatura
      * @return boolean
      */
