@@ -131,21 +131,27 @@ public class UtenteDAO {
 
     }
 
-    public void aggiornaPersona(Persona persona) throws SQLException{
-        connection=ConPool.getConnection();
-        aggiornaUtente(persona);
-        PreparedStatement pdstmt = connection.prepareStatement("UPDATE Persona SET Utente = ?, Cognome = ?, CF" +
-                " = ?, DDN = ?, F_Macroarea = ?, Pos_Des = ? WHERE Utente = ?");
-        pdstmt.setInt(1, persona.getId());
-        pdstmt.setString(2, persona.getCognome());
-        pdstmt.setString(3, persona.getCodiceFiscale());
-        java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita());
-        pdstmt.setDate(4, sqlDate);
-        pdstmt.setString(5, persona.getFiltroMacroarea());
-        pdstmt.setString(6, persona.getPosizioneDesiderata());
-        pdstmt.setInt(7, persona.getId());
+    public boolean aggiornaPersona(Persona persona) {
+        try {
+            connection=ConPool.getConnection();
+            aggiornaUtente(persona);
+            PreparedStatement pdstmt = connection.prepareStatement("UPDATE Persona SET Utente = ?, Cognome = ?, CF" +
+                    " = ?, DDN = ?, F_Macroarea = ?, Pos_Des = ? WHERE Utente = ?");
+            pdstmt.setInt(1, persona.getId());
+            pdstmt.setString(2, persona.getCognome());
+            pdstmt.setString(3, persona.getCodiceFiscale());
+            java.sql.Date sqlDate = java.sql.Date.valueOf(persona.getDataDiNascita());
+            pdstmt.setDate(4, sqlDate);
+            pdstmt.setString(5, persona.getFiltroMacroarea());
+            pdstmt.setString(6, persona.getPosizioneDesiderata());
+            pdstmt.setInt(7, persona.getId());
 
-        pdstmt.executeUpdate();
+            pdstmt.executeUpdate();
+        } catch (SQLException e) {
+            return false;
+        }
+
+        return true;
     }
 
     public void aggiornaSede(Sede sede) throws SQLException{
