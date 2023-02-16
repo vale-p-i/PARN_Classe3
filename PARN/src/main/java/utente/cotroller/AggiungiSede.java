@@ -10,7 +10,6 @@ import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "AggiungiSede", value = "/AggiungiSede")
 public class AggiungiSede extends HttpServlet {

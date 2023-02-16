@@ -11,11 +11,8 @@ import utente.service.UtenteServiceInterface;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static net.sf.saxon.om.EnumSetTool.except;
 
 public class AnnuncioService implements AnnuncioServiceInterface {
 
