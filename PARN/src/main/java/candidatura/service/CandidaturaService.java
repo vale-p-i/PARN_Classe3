@@ -1,7 +1,5 @@
 package candidatura.service;
 
-import annuncio.service.AnnuncioService;
-import annuncio.service.AnnuncioServiceInterface;
 import candidatura.dao.CandidaturaDAO;
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;
@@ -9,8 +7,6 @@ import storage.entity.Persona;
 
 import java.sql.SQLException;
 import java.util.List;
-
-import static net.sf.saxon.om.EnumSetTool.except;
 
 public class CandidaturaService implements CandidaturaServiceInterface{
 
@@ -35,9 +31,9 @@ public class CandidaturaService implements CandidaturaServiceInterface{
     }
 
     @Override
-    public List<Candidatura> getCandidatueByPersona(Persona persona) {
+    public List<Candidatura> getCandidatureByPersona(Persona persona) {
         try {
-            return candidaturaDAO.getCandidatueByPersona(persona);
+            return candidaturaDAO.getCandidatureByPersona(persona);
         } catch (SQLException e) {
             return null;
         }

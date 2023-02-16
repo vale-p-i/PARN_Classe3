@@ -31,7 +31,7 @@ public class CreaCandidatura extends HttpServlet {
             System.out.println("2");
             if (persona.getCandidature()==null){
                 CandidaturaServiceInterface service=new CandidaturaService();
-                persona.setCandidature(service.getCandidatueByPersona(persona));
+                persona.setCandidature(service.getCandidatureByPersona(persona));
             }
             String idAnnuncioString = request.getParameter("id_annuncio");
             if(idAnnuncioString != null){

@@ -6,7 +6,6 @@ import curriculum.service.CurriculumService;
 import curriculum.service.CurriculumServiceInterface;
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;
-import storage.entity.Curriculum;
 import storage.entity.Persona;
 import utente.service.UtenteService;
 import utente.service.UtenteServiceInterface;
@@ -14,7 +13,6 @@ import utils.ConPool;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class CandidaturaDAO {
      * @return List\<Candidatura\>
      * @throws SQLException in caso ci sia un eccezione nell'esecuzione della query
      */
-    public List<Candidatura> getCandidatueByPersona(Persona persona) throws SQLException {
+    public List<Candidatura> getCandidatureByPersona(Persona persona) throws SQLException {
         List<Candidatura> result = new ArrayList<>();
         AnnuncioServiceInterface annuncioService = new AnnuncioService();
         CurriculumServiceInterface curriculumService = new CurriculumService();
