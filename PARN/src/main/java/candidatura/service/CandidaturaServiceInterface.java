@@ -15,13 +15,6 @@ public interface CandidaturaServiceInterface {
      */
     public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio);
     /**
-     * Ritorna una Candidatura identificata univocamente da una persona e un annuncio, altrimenti null se inesistente
-     * @param persona Oggetto Persona
-     * @param annuncio Annuncio
-     * @return Candidatura oggetto
-     */
-    public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio);
-    /**
      * Ritorna una lista di Candidature alle quali la persona ha sottoscritto.
      * @param persona Oggetto Persona
      * @return List\<Candidatura\>

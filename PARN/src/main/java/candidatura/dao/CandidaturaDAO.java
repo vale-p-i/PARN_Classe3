@@ -79,36 +79,6 @@ public class CandidaturaDAO {
     }
 
     /**
-     * Ritorna una Candidatura identificata univocamente da una persona e un annuncio. Altrimenti null
-     * @param persona oggetto Persona
-     * @param annuncio oggetto Annuncio
-     * @return oggetto Candidatura
-     * @throws SQLException in caso ci sia un eccezione nell'esecuzione della query
-     */
-    public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio) throws SQLException {
-
-        CurriculumServiceInterface curriculumServiceInterface = new CurriculumService();
-        connection=ConPool.getConnection();
-
-        PreparedStatement pdstmt = connection.prepareStatement("SELECT Annuncio, Persona, Data_Pub FROM Candidatura " +
-                " WHERE Persona = ? AND Annuncio = ?");
-        pdstmt.setInt(1, persona.getId());
-        pdstmt.setInt(2, annuncio.getId());
-        ResultSet rs = pdstmt.executeQuery();
-        Candidatura candidatura = null;
-
-        while (rs.next()) {
-            candidatura = new Candidatura(
-                    persona,
-                    annuncio,
-                    curriculumServiceInterface.getCurriculumByPersona(persona),
-                    rs.getObject(3, LocalDate.class)
-            );
-        }
-        return candidatura;
-    }
-
-    /**
      * Persiste una candidatura all'interno del database
      * @param candidatura oggetto Candidatura
      * @throws SQLException in caso ci sia un eccezione nell'esecuzione della query

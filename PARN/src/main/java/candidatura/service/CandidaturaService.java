@@ -22,15 +22,6 @@ public class CandidaturaService implements CandidaturaServiceInterface{
     }
 
     @Override
-    public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio) {
-        try {
-            return candidaturaDAO.getCandidaturaByPersonaAndAnnuncio(persona, annuncio);
-        } catch (SQLException e){
-            return null;
-        }
-    }
-
-    @Override
     public List<Candidatura> getCandidatureByPersona(Persona persona) {
         try {
             return candidaturaDAO.getCandidatureByPersona(persona);
@@ -61,14 +52,13 @@ public class CandidaturaService implements CandidaturaServiceInterface{
     public boolean eliminaCandidatura(Candidatura candidatura) {
         try {
             candidaturaDAO.eliminaCandidatura(candidatura);
+            Persona persona = candidatura.getPersona();
+            persona.getCandidature().remove(candidatura);
+            return true;
         }
         catch (SQLException e){
             return false;
         }
-
-        Persona persona = candidatura.getPersona();
-        persona.getCandidature().remove(candidatura);
-        return true;
     }
 
 
