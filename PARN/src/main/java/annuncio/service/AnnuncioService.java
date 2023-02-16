@@ -6,6 +6,8 @@ import candidatura.service.CandidaturaServiceInterface;
 import storage.entity.Annuncio;
 import storage.entity.Azienda;
 import storage.entity.Candidatura;
+import utente.service.UtenteService;
+import utente.service.UtenteServiceInterface;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -21,7 +23,7 @@ public class AnnuncioService implements AnnuncioServiceInterface {
 
     @Override
     public Annuncio getAnnuncioById(int id) {
-        if(id >= 0)
+        if(id > 0)
             try {
                 return annuncioDAO.getAnnuncioById(id);
             } catch (SQLException e) {
@@ -32,17 +34,44 @@ public class AnnuncioService implements AnnuncioServiceInterface {
 
     @Override
     public boolean creaAnnuncio(Annuncio annuncio) {
-        if(annuncio != null){
-            try {
-                annuncioDAO.creaAnnuncio(annuncio);
-            } catch (SQLException e) {
-                return false;
-            }
+        UtenteServiceInterface seviceUtente = new UtenteService();
+        String requisiti = String.join(",", annuncio.getRequisiti());
+        int sizeOfRequisiti = requisiti.length();
+        String preferenze = String.join(",", annuncio.getPreferenze());
+        int sizeOfPreferenze = preferenze.length();
+        String keywords = String.join(",", annuncio.getKeyword());
+        int sizeOfKeywords = keywords.length();
 
-            Azienda azienda = annuncio.getAzienda();
-            azienda.getAnnunci().add(annuncio);
-            return true;
-        }else return false;
+        if(annuncio == null) throw new IllegalArgumentException("L'oggetto annuncio è null");
+        if(annuncio.getRuolo().length() > 100 || annuncio.getRuolo().length() <= 0)
+            throw new IllegalArgumentException("Il campo ruolo è troppo lungo o troppo corto");
+        if(seviceUtente.getSedeById(annuncio.getAzienda(), annuncio.getSede().getId()) == null)
+            throw new IllegalArgumentException("La sede è null");
+        if(annuncio.getNumeroPersone() < 0 || annuncio.getNumeroPersone() > 999999)
+            throw new IllegalArgumentException("Il campo numero persone è troppo grande o troppo piccolo");
+        if(annuncio.getDescrizione().length() > 2000 || annuncio.getDescrizione().length() <= 0)
+            throw new IllegalArgumentException("Il campo descrizione è troppo lungo o troppo corto");
+        if(annuncio.getDataScadenza() != null){
+            if(annuncio.getDataScadenza().getYear() > 2030 ||
+                    (!annuncio.getDataScadenza().isAfter(LocalDate.now()) && !annuncio.getDataScadenza().equals(LocalDate.now())))
+                throw new IllegalArgumentException("La scadenza è antecedente alla data odierna");
+        } else throw new IllegalArgumentException("La data di scadenza è null");
+        if(sizeOfRequisiti > 500 || !requisiti.matches(".")) //To-do, rifare la regex per i requisiti
+            throw new IllegalArgumentException("Il campo requisiti è sbagliato");
+        if(sizeOfPreferenze > 1000 || !preferenze.matches(".")) //To-do, rifare la regex per le preferenze
+            throw new IllegalArgumentException("Il campo preferenze è sbagliato");
+        if(sizeOfKeywords > 150 || !keywords.matches(".")) //To-do, rifare la regex per le keywords
+            throw new IllegalArgumentException("Il campo keywords è sbagliato");
+
+        try {
+            annuncioDAO.creaAnnuncio(annuncio);
+        } catch (SQLException e) {
+            return false;
+        }
+
+        Azienda azienda = annuncio.getAzienda();
+        azienda.getAnnunci().add(annuncio);
+        return true;
     }
 
     @Override
@@ -150,7 +179,7 @@ public class AnnuncioService implements AnnuncioServiceInterface {
 
     @Override
     public Annuncio getAnnuncioById(Azienda azienda, int id) {
-        if (azienda.getAnnunci()!=null && id >= 0)
+        if (azienda.getAnnunci()!=null && id > 0)
             for (Annuncio a:azienda.getAnnunci())
                 if (a.getId()==id)
                     return a;
