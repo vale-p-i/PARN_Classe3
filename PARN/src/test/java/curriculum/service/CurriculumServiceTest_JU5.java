@@ -41,4 +41,10 @@ class CurriculumServiceTest_JU5 {
         System.out.println("TC_1_2:pass");
     }
 
+    @Test
+    public void aggiornaLingua_TC_3_3() {
+        assertThrows(IllegalArgumentException.class,()->{service.aggiornaLingua(new Lingua("","Buono",null));});
+        System.out.println("TC_1_2:pass");
+    }
+
 }
