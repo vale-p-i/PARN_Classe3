@@ -104,7 +104,7 @@ class AnnuncioServiceTest {
     @Test
     void creaAnnuncioTC_2_2() {
         Annuncio annuncio = getAnnuncio();
-        annuncio.setSede(getWrongSede());
+        annuncio.setRuolo("");
         System.out.println(assertThrows(IllegalArgumentException.class, () -> {
             service.creaAnnuncio(annuncio);
         }));
@@ -113,7 +113,7 @@ class AnnuncioServiceTest {
     @Test
     void creaAnnuncioTC_2_3() {
         Annuncio annuncio = getAnnuncio();
-        annuncio.setNumeroPersone(10000000);
+        annuncio.setSede(getWrongSede());
         System.out.println(assertThrows(IllegalArgumentException.class, () -> {
             service.creaAnnuncio(annuncio);
         }));
@@ -121,6 +121,15 @@ class AnnuncioServiceTest {
 
     @Test
     void creaAnnuncioTC_2_4() {
+        Annuncio annuncio = getAnnuncio();
+        annuncio.setNumeroPersone(10000000);
+        System.out.println(assertThrows(IllegalArgumentException.class, () -> {
+            service.creaAnnuncio(annuncio);
+        }));
+    }
+
+    @Test
+    void creaAnnuncioTC_2_5() {
         Annuncio annuncio = getAnnuncio();
         annuncio.setDescrizione("Stiamo cercando un interior designer altamente creativo e motivato per unirsi al nostro team di esperti in design degli interni. Il candidato ideale avrà una laurea in interior design o in un campo correlato, oltre a esperienza comprovata nella progettazione e nella realizzazione di spazi interni. Il candidato deve essere in grado di guidare il processo di design dall'inizio alla fine, lavorando in stretta collaborazione con i clienti, gli architetti e gli altri professionisti coinvolti nella realizzazione del progetto.\n" +
                 "Responsabilità principali:\n" +
@@ -149,7 +158,7 @@ class AnnuncioServiceTest {
     }
 
     @Test
-    void creaAnnuncioTC_2_5() {
+    void creaAnnuncioTC_2_6() {
         Annuncio annuncio = getAnnuncio();
         annuncio.setDataScadenza(LocalDate.of(2023, 02, 10));
         System.out.println(assertThrows(IllegalArgumentException.class, () -> {
@@ -158,7 +167,7 @@ class AnnuncioServiceTest {
     }
 
     @Test
-    void creaAnnuncioTC_2_6() {
+    void creaAnnuncioTC_2_7() {
         Annuncio annuncio = getAnnuncio();
         annuncio.setDataScadenza(null);
         System.out.println(assertThrows(IllegalArgumentException.class, () -> {
@@ -167,7 +176,7 @@ class AnnuncioServiceTest {
     }
 
     @Test
-    void creaAnnuncioTC_2_7() {
+    void creaAnnuncioTC_2_8() {
         Annuncio annuncio = getAnnuncio();
         annuncio.setRequisiti(getSplittedString("Master in design di interni, Laurea in architetturaŁŁ"));
         System.out.println(assertThrows(IllegalArgumentException.class, () -> {
@@ -176,7 +185,7 @@ class AnnuncioServiceTest {
     }
 
     @Test
-    void creaAnnuncioTC_2_8() {
+    void creaAnnuncioTC_2_9() {
         Annuncio annuncio = getAnnuncio();
         annuncio.setRequisiti(getSplittedString("Formazione accademica in amministrazione ingegneria o campo simile, \n" +
                 "Esperienza pregressa nella gestione di progetti di riorganizzazione degli spazi lavorativi,\n" +
@@ -192,7 +201,16 @@ class AnnuncioServiceTest {
     }
 
     @Test
-    void creaAnnuncioTC_2_9() {
+    void creaAnnuncioTC_2_10() {
+        Annuncio annuncio = getAnnuncio();
+        annuncio.setRequisiti(getSplittedString(""));
+        System.out.println(assertThrows(IllegalArgumentException.class, () -> {
+            service.creaAnnuncio(annuncio);
+        }));
+    }
+
+    @Test
+    void creaAnnuncioTC_2_11() {
         Annuncio annuncio = getAnnuncio();
         annuncio.setPreferenze(getSplittedString("Conoscenza della storia dell’arte moderna " +
                 "@@@@@@@@"));
@@ -202,7 +220,7 @@ class AnnuncioServiceTest {
     }
 
     @Test
-    void creaAnnuncioTC_2_10() {
+    void creaAnnuncioTC_2_12() {
         Annuncio annuncio = getAnnuncio();
         annuncio.setPreferenze(getSplittedString("Comunicazione efficace: Il candidato dovrà essere in grado di comunicare in modo chiaro e conciso con i dipartimenti HR e IT i colleghi e i dipendenti,\n" +
                 "Leadership: Il responsabile dovrà essere un leader motivato e di successo in grado di motivare e ispirare il team a raggiungere obiettivi comuni, \n" +
@@ -218,7 +236,16 @@ class AnnuncioServiceTest {
     }
 
     @Test
-    void creaAnnuncioTC_2_11() {
+    void creaAnnuncioTC_2_13() {
+        Annuncio annuncio = getAnnuncio();
+        annuncio.setPreferenze(getSplittedString(""));
+        System.out.println(assertThrows(IllegalArgumentException.class, () -> {
+            service.creaAnnuncio(annuncio);
+        }));
+    }
+
+    @Test
+    void creaAnnuncioTC_2_14() {
         Annuncio annuncio = getAnnuncio();
         annuncio.setKeyword(getSplittedString("łdesignłmodałarredamentołstoriadellartełlavorołufficiołITłHRłmancatoartistałArtistaincompresołPicassoWayłLavoroconnoi"));
         System.out.println(assertThrows(IllegalArgumentException.class, () -> {
@@ -227,7 +254,7 @@ class AnnuncioServiceTest {
     }
 
     @Test
-    void creaAnnuncioTC_2_12() {
+    void creaAnnuncioTC_2_15() {
         Annuncio annuncio = getAnnuncio();
         System.out.println(annuncio.getPreferenze());
         annuncio.setKeyword(getSplittedString("design, moda, arredamento, storiadellarte, lavoro, ufficio, IT, HR, mancatoartista, Artistaincompreso, PicassoWay, Lavoroconnoi, Assumiamo, InteriorDesign, InteriorDesigner, Bellezza"));
@@ -237,7 +264,17 @@ class AnnuncioServiceTest {
     }
 
     @Test
-    void creaAnnuncioTC_2_13() {
+    void creaAnnuncioTC_2_16() {
+        Annuncio annuncio = getAnnuncio();
+        System.out.println(annuncio.getPreferenze());
+        annuncio.setKeyword(getSplittedString(""));
+        System.out.println(assertThrows(IllegalArgumentException.class, () -> {
+            service.creaAnnuncio(annuncio);
+        }));
+    }
+
+    @Test
+    void creaAnnuncioTC_2_17() {
         Annuncio annuncio = getAnnuncio();
         System.out.println(annuncio.getPreferenze());
         System.out.println(assertThrows(IllegalArgumentException.class, () -> {

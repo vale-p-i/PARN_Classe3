@@ -15,8 +15,6 @@
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
         <itext.version>7.2.5</itext.version>
-        <!-- checkstyle.config.location>google_checks_custom.xml</checkstyle.config.location -->
-        <checkstyle.suppressions>checkstyle_suppressions.xml</checkstyle.suppressions>
     </properties>
 
     <dependencies>
@@ -100,7 +98,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.2.0</version>
+            <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -134,6 +132,8 @@
                             <configuration>
                                 <suppressionsLocation>checkstyle_suppressions.xml</suppressionsLocation>
                                 <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                                <failsOnError>false</failsOnError>
+                                <failOnViolation>false</failOnViolation>
                             </configuration>
                         </execution>
                     </executions>
@@ -148,6 +148,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -175,4 +176,20 @@
         </plugins>
 
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.2.1</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>checkstyle</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

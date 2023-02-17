@@ -59,25 +59,46 @@ public class RegisterAzienda extends HttpServlet {
         String telefonoSede = request.getParameter("telefonoSede");
         String viaSede = request.getParameter("viaSede");
         String emailSede = request.getParameter("emailSede");
+        System.out.println(regioneSede);
+        System.out.println(provinciaSede);
+        System.out.println(cittaSede);
+        System.out.println(capSede);
+        System.out.println(telefonoSede);
+        System.out.println(viaSede);
+        System.out.println(emailSede);
 
-            //Upload immagine sul server
-            String rootPath = String.valueOf(request.getServletContext().getResource("/").getPath());
-            String fileExtention = logo.getSubmittedFileName().substring(logo.getSubmittedFileName().indexOf('.'));
-            ImageManager imageManager = new ImageManager(rootPath, email, logo, fileExtention);
-            String imagePath = imageManager.saveImage();
-
-            Azienda azienda = new Azienda(nome, email, password, regione, provincia, imagePath, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriCompetenza, null, new ArrayList<Annuncio>());
+        String imagePath = "";
+        if (logo != null) {
+            try {
+                //Upload immagine sul server
+                String rootPath = String.valueOf(request.getServletContext().getResource("/").getPath());
+                String fileExtention = logo.getSubmittedFileName().substring(logo.getSubmittedFileName().indexOf('.'));
+                ImageManager imageManager = new ImageManager(rootPath, email, logo, fileExtention);
+                imagePath = imageManager.saveImage();
+            } catch (StringIndexOutOfBoundsException e){
+                System.getLogger("WARN").log(System.Logger.Level.INFO ,"Error saving image");
+            }
+        }
             List<Sede> sedi = new ArrayList<>();
+            Azienda azienda = new Azienda(nome, email, password, regione, provincia, imagePath, cap, telefono, citta, via, partitaIva, ragioneSociale, sitoWeb, areaInteresse, numeroDipendenti, settoriCompetenza, sedi, new ArrayList<Annuncio>());
             Sede sede;
-            if(regioneSede != null && provinciaSede != null && cittaSede != null && capSede != null &&
-                    telefonoSede != null && viaSede != null && emailSede != null){
+            if(!regioneSede.isEmpty() && !provinciaSede.isEmpty() && !cittaSede.isEmpty() && !capSede.isEmpty() &&
+                    !telefonoSede.isEmpty() && !viaSede.isEmpty() && !emailSede.isEmpty()){
+                System.out.println("if");
                 sede = new Sede(regioneSede, provinciaSede, cittaSede, capSede, viaSede, telefonoSede, azienda, emailSede);
             }
             else {
+                System.out.println("else");
                 sede = new Sede(regione, provincia, citta, cap, via, telefono, azienda, email);
             }
+
             sedi.add(sede);
             azienda.setSedi(sedi);
+
+            for (Sede s : azienda.getSedi()){
+                System.out.println("REGSEDE: "+s.getMail());
+            }
+
             boolean success = service.registraAzienda(azienda);
 
             if(service.autenticazione(email, password) != null){
