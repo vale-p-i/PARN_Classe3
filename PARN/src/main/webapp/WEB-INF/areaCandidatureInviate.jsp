@@ -57,6 +57,11 @@
 
 <div class="container">
   <div class="section-main min">
+    <div class="row">
+      <div class="input-field col s12 m12">
+        <h5>Candidature inviate:</h5>
+      </div>
+    </div>
       <table>
         <thead>
         <tr>

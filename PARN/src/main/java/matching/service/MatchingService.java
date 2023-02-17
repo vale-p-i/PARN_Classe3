@@ -23,13 +23,22 @@ public class MatchingService implements MatchingServiceInterface{
             List<String> QualificheLavorative=new ArrayList<>();
             for (EsperienzaLavorativa i:curriculum.getEsperienze())
                 QualificheLavorative.add(i.getTipoImpiego());
+            System.out.println("M1");
             for (Annuncio a: all) {
+                System.out.println("M2");
                 boolean flag=false,flag1=true;
                 if (QualificheIstruzione.containsAll(a.getRequisiti())||QualificheLavorative.containsAll(a.getRequisiti()))
                     flag=true;
-                for (Candidatura c: a.getCandidature())
-                    if(c.getPersona().getId()==curriculum.getPersona().getId())
-                        flag1=false;
+                if (flag)
+                    System.out.println("M3");
+                for (Candidatura c: a.getCandidature()) {
+                    System.out.println("M3.1 "+c.getAnnuncio().getId());
+                    System.out.println(c.getPersona().getId()+" "+curriculum.getPersona().getId());
+                    if (c.getPersona().getId() == curriculum.getPersona().getId())
+                        flag1 = false;
+                }
+                if (flag1)
+                    System.out.println("M4");
                 if(flag&&flag1)
                     returnment.add(a);
             }

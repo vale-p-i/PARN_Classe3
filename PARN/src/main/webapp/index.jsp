@@ -79,7 +79,7 @@
             <h2 class="center brown-text"><i class="material-icons black-text">person</i></h2>
             <h5 class="center">Persona</h5>
 
-            <p class="light">Il PARN offre alle persone la possibilità di registrarsi e esprimere le proprie preferenze di lavoro e su questa base il sistema offrira una serie di annunci pertitenti alla persona.</p>
+            <p class="light">Il PARN offre alle persone la possibilita di registrarsi e esprimere le proprie preferenze di lavoro e su questa base il sistema offrira una serie di annunci pertitenti alla persona.</p>
           </div>
         </div>
 
