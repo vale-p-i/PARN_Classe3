@@ -19,8 +19,8 @@ import java.util.List;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5,
         maxRequestSize = 1024 * 1024 * 5 * 5)
-@WebServlet(name = "registerAzienda", value = "/registerAzienda")
-public class registerAzienda extends HttpServlet {
+@WebServlet(name = "RegisterAzienda", value = "/registerAzienda")
+public class RegisterAzienda extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
