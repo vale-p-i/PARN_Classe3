@@ -7,4 +7,4 @@ before_install:
   - chmod +x mvnw
 
 script:
-  - ./mvnw clean install
+  - PARN/mvnw clean install
