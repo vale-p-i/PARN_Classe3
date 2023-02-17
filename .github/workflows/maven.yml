@@ -30,4 +30,4 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file PARN/pom.xml
     - name: Generate Checkstyle report
-      run: mvn site
+      run: cd PARN; mvn site
