@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CurriculumServiceInterface</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">curriculum.service</a>
+</div>
+
+<h1>Coverage Summary for Class: CurriculumServiceInterface (curriculum.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">CurriculumServiceInterface</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package curriculum.service;
+&nbsp;
+&nbsp;import storage.entity.*;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface CurriculumServiceInterface {
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di ottenere tutti i curriculum nel database
+&nbsp;     * @return una lista di Curriculum
+&nbsp;     */
+&nbsp;    List&lt;Curriculum&gt; getAllCurriculum();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di ottenere il curriculum di una persona
+&nbsp;     * @param persona è la persona
+&nbsp;     * @return l&#39;oggetto Curriculum, null ne si è verificato qualche problema
+&nbsp;     */
+&nbsp;    Curriculum getCurriculumByPersona(Persona persona);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo crea un curriculum all&#39;interno del database
+&nbsp;     * @param curriculum è il curriculum da craere
+&nbsp;     * @return true se la creazione è andata a buon fine false
+&nbsp;     * altrimenti
+&nbsp;     */
+&nbsp;    boolean creaCurriculum(Curriculum curriculum);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di aggiornare un curriculum
+&nbsp;     * @param curriculum è il curriculum aggiornato
+&nbsp;     * @return true se l&#39;aggiornamento è andato a buon fine, altrimenti false
+&nbsp;     */
+&nbsp;    boolean aggiornaCurriculum(Curriculum curriculum);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di scaricare un curriculum, creando il file pdf a partire da un oggetto curriculum.
+&nbsp;     * @param curriculum è il curriculm da creare
+&nbsp;     * @return la path sottoforma di stringa nel caso in cui la creazione del docuemnto pdf sia andata a buon fine,
+&nbsp;     * altirmenti null
+&nbsp;     */
+&nbsp;    String downloadCurriculum(Curriculum curriculum) throws IOException;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di aggiungere un campo esperienza al curriculum
+&nbsp;     * @param esperienzaLavorativa è il campo da aggiungere
+&nbsp;     * @return true se l&#39;inserimento è andato a buon fine, altrimenti false
+&nbsp;     */
+&nbsp;    boolean aggiungiEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di aggiungere un campo lingua al curriculum
+&nbsp;     * @param lingua è il campo da inserire
+&nbsp;     * @return true se l&#39;inserimento è andato a buon fine, altrimenti false
+&nbsp;     */
+&nbsp;    boolean aggiungiLingua(Lingua lingua);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di inserire un campo istruzione nel curriculum
+&nbsp;     * @param istruzione è il campo istruzione da inserire
+&nbsp;     * @return true se l&#39;inserimento è andato a buon fine, altrimenti false
+&nbsp;     */
+&nbsp;    boolean aggiungiIstruzione(Istruzione istruzione);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di aggiornare un campo esperienza lavorativa del curriculum
+&nbsp;     * @param esperienzaLavorativa è il campo aggiornato
+&nbsp;     * @return true se l&#39;aggiornamento è andato a buon fine, altrimenti false
+&nbsp;     */
+&nbsp;    boolean aggiornaEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di aggiornare un campo lingua del curriculum
+&nbsp;     * @param lingua è il campo aggiornato
+&nbsp;     * @return true se l&#39;aggiornamento è andato a buon fine, altriemnti false
+&nbsp;     */
+&nbsp;    boolean aggiornaLingua(Lingua lingua);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di aggiornare un campo istruzione nel curriculum
+&nbsp;     * @param istruzione è il campo aggiornato
+&nbsp;     * @return true se l&#39;aggiornamento è andato a buon fine, altriemnti false
+&nbsp;     */
+&nbsp;    boolean aggiornaIstruzione(Istruzione istruzione);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di eliminare il campo esperienza all&#39;intenro del curriculum.
+&nbsp;     * @param esperienzaLavorativa è il campo da eliminare
+&nbsp;     * @return true se la cancellazione è andata a buon fine, altirmenti false
+&nbsp;     */
+&nbsp;    boolean eliminaEsperienzaLavorativa(EsperienzaLavorativa esperienzaLavorativa);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di eliminare un campo lingua nel curriculum. Se il campo che si vuole eliminare è l&#39;ultimo,
+&nbsp;     * viene vietata la cancellazione e viene restituito 0. Altrimenti viene restituito 2 se la cancellazione è andata a buon fine,
+&nbsp;     * in caso contrario restituisce 1.
+&nbsp;     * @param lingua è il campo lingua che si vuole eliminare.
+&nbsp;     * @return
+&nbsp;     * 0 se è l&#39;ultimo campo lingua nel curriculum,
+&nbsp;     * 1 se non è riuscito a effettuare la cancellazione,
+&nbsp;     * 2 se la cancellazione è andata a buon fine.
+&nbsp;     */
+&nbsp;    int eliminaLingua(Lingua lingua);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Questo metodo permette di eliminare un campo istruzione nel curriculum. Se il campo che si vuole eliminare è l&#39;ultimo,
+&nbsp;     * viene vietata la cancellazione e viene restituito 0. Altrimenti viene restituito 2 se la cancellazione è andata a buon fine,
+&nbsp;     *in caso contrario restituisce 1.
+&nbsp;     * @param istruzione è il campo istruzione che si vuole eliminare.
+&nbsp;     * @return
+&nbsp;     * 0 se è l&#39;ultimo campo istruzione nel curriculum,
+&nbsp;     * 1 se non è riuscito a effettuare la cancellazione,
+&nbsp;     * 2 se la cancellazione è andata a buon fine.
+&nbsp;     */
+&nbsp;    int eliminaIstruzione(Istruzione istruzione);
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-17 15:38</div>
+</div>
+</body>
+</html>
