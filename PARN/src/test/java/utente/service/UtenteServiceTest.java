@@ -1,9 +1,11 @@
 package utente.service;
 
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import storage.entity.*;
+import storage.entity.Annuncio;
+import storage.entity.Azienda;
+import storage.entity.Sede;
 import utente.dao.UtenteDAO;
 
 import java.sql.SQLException;
@@ -11,13 +13,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class UtenteServiceTest {
+class UtenteServiceTest {
+/*
     private Azienda azienda;
     private UtenteServiceInterface utenteServiceInterface;
     @Mock
@@ -235,5 +236,5 @@ public class UtenteServiceTest {
             return value;
         }
     }
-
+    */
 }

@@ -68,8 +68,8 @@ class TestModificaIstruzione {
         assertThrows(IllegalArgumentException.class, () -> {curriculumService.aggiornaIstruzione(new Istruzione(null,
                 LocalDate.of(2010, Month.JANUARY, 1),
                 LocalDate.of(2015, Month.JUNE, 21),
-                "Diploma di maturità",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+                "",
+                "Scuola secondaria di primo grado",
                 "Liceo Classico Alessandro Lombardi"));});
         System.out.println("TC_4_4:pass");
     }
@@ -80,9 +80,42 @@ class TestModificaIstruzione {
                 LocalDate.of(2010, Month.JANUARY, 1),
                 LocalDate.of(2015, Month.JUNE, 21),
                 "Diploma di maturità",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+                "Liceo Classico Alessandro Lombardi"));});
+        System.out.println("TC_4_5:pass");
+    }
+
+    @Test
+    public void aggiornaIstruzione_TC_4_6() {
+        assertThrows(IllegalArgumentException.class, () -> {curriculumService.aggiornaIstruzione(new Istruzione(null,
+                LocalDate.of(2010, Month.JANUARY, 1),
+                LocalDate.of(2015, Month.JUNE, 21),
+                "Diploma di maturità",
+                "",
+                "Liceo Classico Alessandro Lombardi"));});
+        System.out.println("TC_4_6:pass");
+    }
+
+    @Test
+    public void aggiornaIstruzione_TC_4_7() {
+        assertThrows(IllegalArgumentException.class, () -> {curriculumService.aggiornaIstruzione(new Istruzione(null,
+                LocalDate.of(2010, Month.JANUARY, 1),
+                LocalDate.of(2015, Month.JUNE, 21),
+                "Diploma di maturità",
                 "Scuola secondaria di primo grado",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"));});
-        System.out.println("TC_4_5:pass");
+        System.out.println("TC_4_7:pass");
+    }
+
+    @Test
+    public void aggiornaIstruzione_TC_4_8() {
+        assertThrows(IllegalArgumentException.class, () -> {curriculumService.aggiornaIstruzione(new Istruzione(null,
+                LocalDate.of(2010, Month.JANUARY, 1),
+                LocalDate.of(2015, Month.JUNE, 21),
+                "Diploma di maturità",
+                "Scuola secondaria di primo grado",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"));});
+        System.out.println("TC_4_8:pass");
     }
 
 }
