@@ -3,7 +3,6 @@ package candidatura.service;
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;
 import storage.entity.Persona;
-
 import java.util.List;
 
 public interface CandidaturaServiceInterface {
@@ -14,13 +13,6 @@ public interface CandidaturaServiceInterface {
      * @return Ritorna una lista di Candidature appartenenti a un annuncio.
      */
     public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio);
-    /**
-     * Ritorna una Candidatura identificata univocamente da una persona e un annuncio, altrimenti null se inesistente
-     * @param persona Oggetto Persona
-     * @param annuncio Annuncio
-     * @return Candidatura oggetto
-     */
-    public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio);
     /**
      * Ritorna una lista di Candidature alle quali la persona ha sottoscritto.
      * @param persona Oggetto Persona
