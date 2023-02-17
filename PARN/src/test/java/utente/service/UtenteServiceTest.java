@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class UtenteServiceTest {
-/*
+
     private Azienda azienda;
     private UtenteServiceInterface utenteServiceInterface;
     @Mock
@@ -236,5 +236,4 @@ class UtenteServiceTest {
             return value;
         }
     }
-    */
 }
