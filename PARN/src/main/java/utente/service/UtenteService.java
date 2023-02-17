@@ -82,14 +82,14 @@ public class UtenteService implements UtenteServiceInterface{
                 throw new IllegalArgumentException("Settori di competenza non validi");
             }});
         azienda.getSedi().forEach( sede -> {
-            if (!sede.getCitta().matches(".{0,50}")) {throw new IllegalArgumentException("Citta  non valida");}
-            if (!sede.getProvincia().matches("^[A-Z]{2}$")) {throw new IllegalArgumentException("Provincia non valida");}
-            if (!sede.getCap().matches("[0-9]{5}")) {throw new IllegalArgumentException("CAP  non valido");}
-            if (!sede.getTelefono().matches("(\\+)([0-9]){2}\\ [0-9]{10}")) {throw new IllegalArgumentException("Telefono non valido");}
-            if (sede.getVia().length() > 30 || sede.getVia().length() == 0) {throw new IllegalArgumentException("Via  non valida");}
-            if (!sede.getMail().matches("^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,10}$")) {throw new IllegalArgumentException("Sede  non valida");}
-            if (sede.getMail().length() > 30) {throw new IllegalArgumentException("Mail  non valida");}
-            if (!sede.getRegione().matches("^([a-zA-Z]( [a-zA-Z]){0,1}){2,20}$")) {throw new IllegalArgumentException("Regione non valida");}
+            if (!sede.getCitta().matches(".{0,50}")) {throw new IllegalArgumentException("Citta della Sede  non valida");}
+            if (!sede.getProvincia().matches("^[A-Z]{2}$")) {throw new IllegalArgumentException("Provincia della Sede non valida");}
+            if (!sede.getCap().matches("[0-9]{5}")) {throw new IllegalArgumentException("CAP della Sede non valido");}
+            if (!sede.getTelefono().matches("(\\+)([0-9]){2}\\ [0-9]{10}")) {throw new IllegalArgumentException("Telefono della Sede non valido");}
+            if (sede.getVia().length() > 30 || sede.getVia().length() == 0) {throw new IllegalArgumentException("Via della Sede non valida");}
+            if (!sede.getMail().matches("^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,10}$")) {throw new IllegalArgumentException("Mail della Sede non valida");}
+            if (sede.getMail().length() > 30) {throw new IllegalArgumentException("Mail della Sede non valida");}
+            if (!sede.getRegione().matches("^([a-zA-Z]( [a-zA-Z]){0,1}){2,20}$")) {throw new IllegalArgumentException("Regione della Sede non valida");}
         });
 
         try{
@@ -155,34 +155,6 @@ public class UtenteService implements UtenteServiceInterface{
             throw new RuntimeException(e);
         }
         return utente;
-    }
-
-    /**
-     * @param azienda 
-     * @return
-     */
-    @Override
-    public boolean eliminaAzienda(Azienda azienda) {
-        try {
-            utenteDAO.eliminaUtenteById(azienda.getId());
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-
-    /**
-     * @param persona 
-     * @return
-     */
-    @Override
-    public boolean eliminaPersona(Persona persona) {
-        try {
-            utenteDAO.eliminaUtenteById(persona.getId());
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
     }
 
 
