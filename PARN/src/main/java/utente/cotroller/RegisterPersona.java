@@ -42,11 +42,14 @@ public class RegisterPersona extends HttpServlet {
         String emailPersona = request.getParameter("mailPersona");
         String passwordPersona = PasswordEncrypter.encryptThisString(request.getParameter("password_Persona"));
 
-        //Upload immagine sul server
-        String rootPath = String.valueOf(request.getServletContext().getResource("/").getPath());
-        String fileExtention = fotoPersona.getSubmittedFileName().substring(fotoPersona.getSubmittedFileName().indexOf('.'));
-        ImageManager imageManager = new ImageManager(rootPath, emailPersona, fotoPersona, fileExtention);
-        String imagePath = imageManager.saveImage();
+        String imagePath = "";
+        if (fotoPersona != null) {
+            //Upload immagine sul server
+            String rootPath = String.valueOf(request.getServletContext().getResource("/").getPath());
+            String fileExtention = fotoPersona.getSubmittedFileName().substring(fotoPersona.getSubmittedFileName().indexOf('.'));
+            ImageManager imageManager = new ImageManager(rootPath, emailPersona, fotoPersona, fileExtention);
+            imagePath = imageManager.saveImage();
+        }
 
         //Crea la persona
         Persona persona = new Persona(nome, emailPersona, passwordPersona, regionePersona, provinciaPersona,
