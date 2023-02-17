@@ -1,0 +1,17 @@
+annuncio.controller
+annuncio.dao
+annuncio.service
+candidatura.controller
+candidatura.dao
+candidatura.service
+curriculum.controller
+curriculum.dao
+curriculum.facade
+curriculum.service
+matching.service
+storage.entity
+utente.cotroller
+utente.dao
+utente.service
+utils
+utils.ImageManager
