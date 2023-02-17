@@ -82,7 +82,7 @@ class TestModificaIstruzione {
                 "Diploma di maturità",
                 "Scuola secondaria di primo grado",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"));});
-        System.out.println("TC_4_4:pass");
+        System.out.println("TC_4_5:pass");
     }
 
 }
