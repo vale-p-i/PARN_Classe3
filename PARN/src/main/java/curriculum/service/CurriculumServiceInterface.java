@@ -114,4 +114,5 @@ public interface CurriculumServiceInterface {
      * 2 se la cancellazione è andata a buon fine.
      */
     int eliminaIstruzione(Istruzione istruzione);
+
 }

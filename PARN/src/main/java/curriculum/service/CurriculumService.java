@@ -220,12 +220,7 @@ public class CurriculumService implements  CurriculumServiceInterface{
         //aggiorna la lingua lavorativa nel database
         if (Lingua.LIVELLI.contains(lingua.getLivello())) {
             if (lingua.getNome().length()>0&&lingua.getNome().length()<=15) {
-                try {
-                    curriculumDAO.updateLingua(lingua);
-                } catch (SQLException e) {
-                    return false;
-                }
-                return true;
+                return curriculumDAO.updateLingua(lingua);
             }else  throw new IllegalArgumentException("Lunghezza nome lingua non adatto");
         }else throw new IllegalArgumentException("Livello lingua non corretto");
     }
@@ -349,4 +344,6 @@ public class CurriculumService implements  CurriculumServiceInterface{
         }
         return 2;
     }
+
+
 }
