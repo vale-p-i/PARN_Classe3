@@ -4,7 +4,6 @@ import candidatura.dao.CandidaturaDAO;
 import storage.entity.Annuncio;
 import storage.entity.Candidatura;
 import storage.entity.Persona;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,15 +15,6 @@ public class CandidaturaService implements CandidaturaServiceInterface{
     public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio) {
         try {
             return candidaturaDAO.getCandidatureByAnnuncio(annuncio);
-        } catch (SQLException e){
-            return null;
-        }
-    }
-
-    @Override
-    public Candidatura getCandidaturaByPersonaAndAnnuncio(Persona persona, Annuncio annuncio) {
-        try {
-            return candidaturaDAO.getCandidaturaByPersonaAndAnnuncio(persona, annuncio);
         } catch (SQLException e){
             return null;
         }
@@ -61,14 +51,13 @@ public class CandidaturaService implements CandidaturaServiceInterface{
     public boolean eliminaCandidatura(Candidatura candidatura) {
         try {
             candidaturaDAO.eliminaCandidatura(candidatura);
+            Persona persona = candidatura.getPersona();
+            persona.getCandidature().remove(candidatura);
+            return true;
         }
         catch (SQLException e){
             return false;
         }
-
-        Persona persona = candidatura.getPersona();
-        persona.getCandidature().remove(candidatura);
-        return true;
     }
 
 
