@@ -1,17 +1,10 @@
 package curriculum.service;
 
 import curriculum.dao.CurriculumDAO;
-import org.checkerframework.checker.units.qual.N;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.mockito.Mockito;
 import storage.entity.Lingua;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;

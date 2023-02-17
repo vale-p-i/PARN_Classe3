@@ -43,10 +43,6 @@ public class CandidaturaService implements CandidaturaServiceInterface{
         return true;
     }
 
-    /**
-     * @param candidatura 
-     * @return
-     */
     @Override
     public boolean eliminaCandidatura(Candidatura candidatura) {
         try {

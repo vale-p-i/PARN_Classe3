@@ -13,7 +13,6 @@ import utente.service.UtenteServiceInterface;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @WebServlet(name = "CreaCandidatura", value = "/CreaCandidatura")
@@ -23,7 +22,6 @@ public class CreaCandidatura extends HttpServlet {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
         AnnuncioServiceInterface serviceAnnuncio = new AnnuncioService();
-        CandidaturaService serviceCandidatura = new CandidaturaService();
         UtenteServiceInterface serviceUtente = new UtenteService();
         System.out.println("1");
         if(utente != null && utente instanceof Persona){
