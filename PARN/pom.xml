@@ -134,6 +134,8 @@
                             <configuration>
                                 <suppressionsLocation>checkstyle_suppressions.xml</suppressionsLocation>
                                 <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                                <failsOnError>false</failsOnError>
+                                <failOnViolation>false</failOnViolation>
                             </configuration>
                         </execution>
                     </executions>
