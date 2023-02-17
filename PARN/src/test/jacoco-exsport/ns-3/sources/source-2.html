@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UtenteServiceInterface</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">utente.service</a>
+</div>
+
+<h1>Coverage Summary for Class: UtenteServiceInterface (utente.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">UtenteServiceInterface</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package utente.service;
+&nbsp;
+&nbsp;import storage.entity.Azienda;
+&nbsp;import storage.entity.Persona;
+&nbsp;import storage.entity.Sede;
+&nbsp;import storage.entity.Utente;
+&nbsp;
+&nbsp;public interface UtenteServiceInterface {
+&nbsp;    /**
+&nbsp;     * Il metodo permette di ottenere un oggetto di tipo Persona fornendo l&#39;ID.
+&nbsp;     * In caso di successo restituisce l&#39;oggetto Persona, altrimenti null
+&nbsp;     * @param id int
+&nbsp;     * @return oggetto Persona
+&nbsp;     * */
+&nbsp;    Persona getPersonaById(int id);
+&nbsp;    /**
+&nbsp;     * Il metodo permette di ottenere un oggetto di tipo Azienda fornendo l&#39;ID.
+&nbsp;     * In caso di successo restituisce l&#39;oggetto Azienda, altrimenti null
+&nbsp;     * @param id int
+&nbsp;     * @return oggetto Azienda
+&nbsp;     * */
+&nbsp;    Azienda getAziendaById(int id);
+&nbsp;    /**
+&nbsp;     * Il metodo permette di ottenere un oggetto di tipo Sede fornendo l&#39;ID e l&#39;azienda di appartenenza.
+&nbsp;     * In caso di successo restituisce l&#39;oggetto Sede, altrimenti null
+&nbsp;     * @param azienda Oggetto Azienda
+&nbsp;     * @param id int
+&nbsp;     * @return oggetto Sede
+&nbsp;     * */
+&nbsp;    Sede getSedeById(Azienda azienda,int id);
+&nbsp;    /**
+&nbsp;     * Il metodo permette di registrare una persona nel database fornendo l&#39;oggetto Persona.
+&nbsp;     * In caso di successo restituisce true altrimenti false
+&nbsp;     * @param persona oggetto Persona
+&nbsp;     * @return boolean
+&nbsp;     * */
+&nbsp;    boolean registraPersona(Persona persona);
+&nbsp;    /**
+&nbsp;     * Il metodo permette di registrare una Azienda nel database fornendo l&#39;oggetto Azienda.
+&nbsp;     * In caso di successo restituisce true altrimenti false
+&nbsp;     * @param azienda oggetto Azienda
+&nbsp;     * @return boolean
+&nbsp;     * */
+&nbsp;    boolean registraAzienda(Azienda azienda);
+&nbsp;    /**
+&nbsp;     * Il metodo permette di registrare una Sede nel database fornendo l&#39;oggetto Sede.
+&nbsp;     * In caso di successo restituisce true altrimenti false
+&nbsp;     * @param sede oggetto Sede
+&nbsp;     * @return boolean
+&nbsp;     * */
+&nbsp;    boolean registraSede(Sede sede);
+&nbsp;    /**
+&nbsp;     * Il metodo permette di aggiornare una persona nel database fornendo l&#39;oggetto Persona.
+&nbsp;     * In caso di successo restituisce true altrimenti false
+&nbsp;     * @param persona oggetto Persona
+&nbsp;     * @return boolean
+&nbsp;     * */
+&nbsp;    boolean aggiornaPersona(Persona persona);
+&nbsp;    /**
+&nbsp;     * Il metodo permette di aggiornare una azienda nel database fornendo l&#39;oggetto Azienda.
+&nbsp;     * In caso di successo restituisce true altrimenti false
+&nbsp;     * @param azienda oggetto Azienda
+&nbsp;     * @return boolean
+&nbsp;     * */
+&nbsp;    boolean aggiornaAzienda(Azienda azienda);
+&nbsp;    /**
+&nbsp;     * Il metodo permette di aggiornare una sede nel database fornendo l&#39;oggetto Sede.
+&nbsp;     * In caso di successo restituisce true altrimenti false
+&nbsp;     * @param sede oggetto Sede
+&nbsp;     * @return boolean
+&nbsp;     * */
+&nbsp;    boolean aggiornaSede(Sede sede);
+&nbsp;    /**
+&nbsp;     * Il metodo permette di aggiornare un Utente nel database fornendo l&#39;oggetto Utente.
+&nbsp;     * In caso di successo restituisce true altrimenti false
+&nbsp;     * @param utente oggetto Utente
+&nbsp;     * @return boolean
+&nbsp;     * */
+&nbsp;    boolean aggiornaUtente(Utente utente);
+&nbsp;    /**
+&nbsp;     * Il metodo permette di autenticare un utente.
+&nbsp;     * In caso di successo restituisce un oggetto di tipo Utente, altrimenti null
+&nbsp;     * @param mail String
+&nbsp;     * @param password String
+&nbsp;     * @return oggetto Utente
+&nbsp;     * */
+&nbsp;    Utente autenticazione(String mail, String password);
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-17 13:21</div>
+</div>
+</body>
+</html>
