@@ -1,10 +1,15 @@
 package storage.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Un oggetto <code>EsperienzaLavorative</code> rappresenta l'esperienza lavorativa di una persona ed è caratterizzata da
+ * la data d'inzio dell'esperienza, la data di fine, il tipo dell'Azienda, informazioni relative al datore di lavoro,
+ * il contatto dell'azienda, il tipo di impiego, le mansioni principali effettuate, il nome dell'Azienda e il
+ * <code>Curriculum</code> di riferimento.
+ */
 public class EsperienzaLavorativa {
 
     private LocalDate dataInizio;

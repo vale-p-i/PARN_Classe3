@@ -1,5 +1,9 @@
 package storage.entity;
 
+/**
+ * L'oggetto <code>Utente</code> rappresenta un utente del sistema ed è caratterizzato da un id, un nome, una mail, una
+ * password, una regione, una provincia, una foto, il CAP, il telefono, la città e la via
+ */
 public abstract class Utente {
     private int id;
     private String nome;

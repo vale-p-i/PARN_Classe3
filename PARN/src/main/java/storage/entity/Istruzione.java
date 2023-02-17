@@ -1,9 +1,13 @@
 package storage.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Un oggetto <code>Istruzione</code> rappresenta l'istruzione di una persona ed è caratterizzato dalla data di
+ * inizio del periodo di istruzione, la data di fine del periodo di istruzione, la qualifica conseguita, il tipo di
+ * istruzione, l'istituto e il <code>Curriculum</code> di riferimento.
+ */
 public class Istruzione {
 
     private Curriculum curriculum;//?

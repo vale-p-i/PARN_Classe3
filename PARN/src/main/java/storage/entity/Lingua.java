@@ -4,6 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * un oggetto <code>Lingua</code> rappresneta la lingua conosciuta da una persona ed è caratterizzato dal nome della
+ * lingua e il livello conosciuto dalla persona che può essere solo uno di quelli specificati, ossia "Madrelingua",
+ * "Avanzato", "Medio", "Sufficiente", "Insufficiente", e infine il <code>Curriculum</code> di riferimento
+ */
 public class Lingua  {
 
     public static final List<String> LIVELLI= Arrays.asList("Madrelingua","Avanzato","Medio","Sufficiente","Insufficiente");

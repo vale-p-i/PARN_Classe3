@@ -1,5 +1,9 @@
 package storage.entity;
 
+/**
+ * L'oggetto <code>Sede</code> rappresenta una sede di un'<code>Azienda</code> che è caratterizzata da un'id, una regione,
+ * una provincia, la città, il CAO, la via, il telefono, l'azienda della sede e la mail
+ */
 public class Sede {
 
     private int id;

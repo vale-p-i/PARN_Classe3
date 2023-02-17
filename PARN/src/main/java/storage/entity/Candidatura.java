@@ -1,11 +1,10 @@
 package storage.entity;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
- *
+ *L'oggetto <code>Candidatura</code> rappresenta la candidatura di una <code>Persona</code>, ed è caratterizzato da una
+ * <code>Persona</code>, un'<code>Annuncio</code>, un <code>Curriculum</code> e la data della candidatura
  */
 public class Candidatura {
     private Persona persona;
