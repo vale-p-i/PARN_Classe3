@@ -1,10 +1,14 @@
 package storage.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Un oggetto <code>Persona</code> è una specifica dell'oggetto <code>Utente</code> ed è caratterizzata, oltre dagli
+ * attributi dell'utente, anche dal cognome, codice fiscale, data di nascita, filtro della macroarea, la posizone
+ * desiderata, il curriculum e le candidature.
+ */
 public class Persona extends Utente {
 
     public static final List<String> FILTRO_MACROAREA= Arrays.asList("Tutti","Area di competenza","Settore specifico");

@@ -285,7 +285,7 @@ public class UtenteDAO {
             List<Sede> sedi = getSediByAzienda(azienda);
             azienda.setSedi(sedi);
             AnnuncioServiceInterface service = new AnnuncioService();
-            azienda.setAnnunci(service.getAnnuncioByAzienda(azienda));
+            azienda.setAnnunci(service.getAnnunciByAzienda(azienda));
             return azienda;
         }
         return null;

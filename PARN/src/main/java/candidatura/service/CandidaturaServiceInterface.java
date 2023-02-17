@@ -8,27 +8,36 @@ import java.util.List;
 public interface CandidaturaServiceInterface {
 
     /**
-     * Ritorna una lista di Candidature appartenenti a un annuncio.
-     * @param annuncio Oggetto Annuncio
-     * @return Ritorna una lista di Candidature appartenenti a un annuncio.
+     * Questo metodo fornisce una lista di Candidature appartenenti a un annuncio.
+     * @param annuncio l'annuncio di cui si vogliono le candidature
+     * @return la lista di candidatura dell'annuncio
      */
-    public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio);
+    List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio);
+
     /**
-     * Ritorna una lista di Candidature alle quali la persona ha sottoscritto.
-     * @param persona Oggetto Persona
-     * @return List\<Candidatura\>
+     * Questo metodo fornisce tutte candidature di una persona
+     * @param persona la persona di cui si vogliono le candidature
+     * @return la lista di candidature della persona
      */
-    public List<Candidatura> getCandidatureByPersona(Persona persona);
+    List<Candidatura> getCandidatureByPersona(Persona persona);
+
     /**
-     * Persiste una candidatura nel database. In caso di successo ritorna true, altrimenti false
-     * @param candidatura Oggetto Candidatura
-     * @return boolean
+     * Questo metodo permette di creare una nuova candidatura
+     * @pre not getAllCandidature(candidatura.persona).contains(candidatura)
+     * @param candidatura è l'oggetto Candidatura da inserire
+     * @return true se la creazione della candidatura è andata a buon fine, altriemnti false
+     * @post getAllCandidature(candidatura.persona).contains(candidatura) &&
+     * getAllCandidature(candidatura.persona).size() = @pre.getAllCandidature(candidatura.persona).size() + 1
      */
-    public boolean creaCandidatura(Candidatura candidatura);
+    boolean creaCandidatura(Candidatura candidatura);
+
     /**
-     * Elimina una candidatura dal database. In caso di successo ritorna true, false altrimenti
-     * @param candidatura Oggetto Candidatura
-     * @return boolean
+     * Questo metodo elimina una candidatura di una persona.
+     * @pre getAllCandidature(candidatura.persona).contains(candidatura)
+     * @param candidatura è la candidatura da eliminare
+     * @return true se la cancellazione è andata a buon fine, altrimenti false
+     * @post not getAllCandidature(candidatura.persona).contains(candidatura) &&
+     * getAllCandidature(candidatura.persona).size() = @pre.getAllCandidature(candidatura.persona).size() - 1
      */
-    public boolean eliminaCandidatura(Candidatura candidatura);
+    boolean eliminaCandidatura(Candidatura candidatura);
 }

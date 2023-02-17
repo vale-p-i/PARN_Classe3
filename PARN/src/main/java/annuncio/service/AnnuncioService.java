@@ -144,7 +144,7 @@ public class AnnuncioService implements AnnuncioServiceInterface {
     }
 
     @Override
-    public List<Annuncio> getAnnuncioByAzienda(Azienda azienda) {
+    public List<Annuncio> getAnnunciByAzienda(Azienda azienda) {
         if(azienda != null){
             try {
                 return annuncioDAO.getAnnunciByAzienda(azienda);

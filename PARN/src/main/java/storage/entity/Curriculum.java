@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Un oggetto <code>Curriculum</code> rappresenta il curriculum di una persona, ed è caratterizzato da una lista delle
+ * lingue conosciute, una lista dei tipi d'istruzione della persona, una lista delle esperienze lavorative, la
+ * <code>Persona</code> a cui appertiene il curriculum e una lista di soft skills
+
+ */
 public class Curriculum {
     private List<String> softSkill;
     private Persona persona;
