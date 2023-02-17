@@ -233,18 +233,13 @@ public class CurriculumService implements  CurriculumServiceInterface{
     @Override
     public boolean aggiornaIstruzione(Istruzione istruzione) {
         //aggiorna l'istruzione nel database
-        if(istruzione.getDataInizio()==null) throw new IllegalArgumentException();
         if(istruzione.getDataInizio().isAfter(LocalDate.now())) throw new IllegalArgumentException();
-        if(istruzione.getQualifica().length()<=0||istruzione.getQualifica().length()>70) throw new IllegalArgumentException();
-        if(istruzione.getTipo().length()<=0||istruzione.getTipo().length()>50) throw new IllegalArgumentException();
-        if(istruzione.getIstituto().length()<=0||istruzione.getIstituto().length()>35) throw new IllegalArgumentException();
-        try {
-            curriculumDAO.updateIstruzione(istruzione);
-        } catch (SQLException e) {
-            return false;
-        }
+        if(istruzione.getDataFine().isAfter((LocalDate.now()))) throw new IllegalArgumentException();
+        if(istruzione.getQualifica().length() == 0 || istruzione.getQualifica().length() > 70) throw new IllegalArgumentException();
+        if(istruzione.getTipo().length() == 0 || istruzione.getTipo().length() > 50) throw new IllegalArgumentException();
+        if(istruzione.getIstituto().length() ==0 || istruzione.getIstituto().length() > 35) throw new IllegalArgumentException();
 
-        return true;
+        return  curriculumDAO.updateIstruzione(istruzione);
     }
 
     /**

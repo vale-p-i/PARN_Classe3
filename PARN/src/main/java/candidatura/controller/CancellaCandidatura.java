@@ -8,7 +8,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import matching.service.MatchingService;
-import storage.entity.Annuncio;
+import matching.service.MatchingServiceInterface;
 import storage.entity.Candidatura;
 import storage.entity.Persona;
 import storage.entity.Utente;
@@ -45,7 +45,7 @@ public class CancellaCandidatura extends HttpServlet {
                 serviceCandidatura.eliminaCandidatura(res);
                 serviceUtente.aggiornaPersona(persona);
                 session.setAttribute("utente", persona);
-                MatchingService serviceMat=new MatchingService();
+                MatchingServiceInterface serviceMat=new MatchingService();
                 session.setAttribute("myList",serviceMat.personalizzaAnnunci(persona.getCurriculum()));
                 request.getRequestDispatcher("./WEB-INF/areaCandidatureInviate.jsp").forward(request, response);
             }else response.sendRedirect(".");

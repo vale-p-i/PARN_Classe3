@@ -262,28 +262,34 @@ public class CurriculumDAO {
 
         statement.executeUpdate();
     }
-    public void updateIstruzione(Istruzione istruzione) throws SQLException {
-        Connection connection = ConPool.getConnection();
-        PreparedStatement statement = connection.prepareStatement("UPDATE Istruzione SET " +
-                "DDI = ?, DDF = ?, Qualifica = ? WHERE Curriculum = ? AND Tipo = ? AND Istituto = ?");
+    public boolean updateIstruzione(Istruzione istruzione) {
 
-        //parametri set
-        java.sql.Date ddi = java.sql.Date.valueOf(istruzione.getDataInizio());
-        statement.setDate(1, ddi);
-        if(istruzione.getDataFine() == null){
-            statement.setNull(2,Types.DATE);
-        } else{
-            java.sql.Date ddf = java.sql.Date.valueOf(istruzione.getDataFine());
-            statement.setDate(2, ddf);
+        try {
+            Connection connection = ConPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement("UPDATE Istruzione SET " +
+                    "DDI = ?, DDF = ?, Qualifica = ? WHERE Curriculum = ? AND Tipo = ? AND Istituto = ?");
+            //parametri set
+            java.sql.Date ddi = java.sql.Date.valueOf(istruzione.getDataInizio());
+            statement.setDate(1, ddi);
+            if(istruzione.getDataFine() == null){
+                statement.setNull(2,Types.DATE);
+            } else{
+                java.sql.Date ddf = java.sql.Date.valueOf(istruzione.getDataFine());
+                statement.setDate(2, ddf);
+            }
+            statement.setString(3, istruzione.getQualifica());
+
+            //parametri where
+            statement.setInt(4, istruzione.getCurriculum().getPersona().getId());
+            statement.setString(5, istruzione.getTipo());
+            statement.setString(6, istruzione.getIstituto());
+
+            statement.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            return false;
         }
-        statement.setString(3, istruzione.getQualifica());
-
-        //parametri where
-        statement.setInt(4, istruzione.getCurriculum().getPersona().getId());
-        statement.setString(5, istruzione.getTipo());
-        statement.setString(6, istruzione.getIstituto());
-
-        statement.executeUpdate();
     }
     public void addLingua(Lingua lingua) throws SQLException {
         Connection connection = ConPool.getConnection();
