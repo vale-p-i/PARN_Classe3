@@ -11,7 +11,7 @@ import java.util.List;
 public class Annuncio {
 
     /**
-     * Lo stato IN_CORSO è tale quando il campo del'annuncio attivo è true e la data di scadenza è <=oggi
+     * Lo stato IN_CORSO è tale quando il campo del'annuncio attivo è true e la data di scadenza è minore uguale di oggi
      */
     public static final String  IN_CORSO="In Corso";
     /**

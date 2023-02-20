@@ -24,7 +24,7 @@ public class CandidaturaDAO {
     /**
      * Ritorna una lista di Candidature alle quali la persona ha sottoscritto. Altrimenti null
      * @param persona oggetto Persona
-     * @return List\<Candidatura\>
+     * @return lista candidature
      * @throws SQLException in caso ci sia un eccezione nell'esecuzione della query
      */
     public List<Candidatura> getCandidatureByPersona(Persona persona) throws SQLException {
@@ -51,7 +51,7 @@ public class CandidaturaDAO {
     /**
      * Ritorna una lista di Candidature appartenenti a un annuncio. Altrimenti null
      * @param annuncio oggetto Annuncio
-     * @return List\<Candidatura\>
+     * @return lista candidature
      * @throws SQLException in caso ci sia un eccezione nell'esecuzione della query
      */
     public List<Candidatura> getCandidatureByAnnuncio(Annuncio annuncio) throws SQLException {

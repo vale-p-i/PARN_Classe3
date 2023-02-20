@@ -115,7 +115,7 @@
             </div>
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <input placeholder="Data fine" type="text" id="data_scad" name="data_scad" min="<%=LocalDate.now()%>" class="datepicker">
+                    <input placeholder="Data fine" type="date" id="data_scad" name="data_scad" min="<%=LocalDate.now()%>" class="validate">
                     <label for="data_scad">Data di scadenza:</label>
                 </div>
                 <div class="input-field col s12 m6">

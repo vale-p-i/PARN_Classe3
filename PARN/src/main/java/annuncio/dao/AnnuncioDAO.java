@@ -66,7 +66,7 @@ public class AnnuncioDAO {
     /**
      * Metodo per ottenere una lista di Annunci dal database in base allo stato richiesto.
      * @param stato String: Lo stato degli Annunci richiesti. Accetta solo i valori "In corso", "Scaduto" e "Chiuso".
-     * @return List\<Annuncio\>
+     * @return lista di annunci
      * @throws SQLException Errore nella comunicazione con il database.
      * @throws IllegalArgumentException Se lo stato richiesto non è valido.
      */
@@ -115,7 +115,6 @@ public class AnnuncioDAO {
     /**
      * Persiste un nuovo annuncio nel database.
      * @param annuncio oggetto Annuncio
-     * @throws SQLException se si verifica un errore di accesso al database
      */
     public boolean creaAnnuncio(Annuncio annuncio){
         try {
@@ -202,7 +201,7 @@ public class AnnuncioDAO {
     /**
      * Restituisce tutti gli annunci pubblicati da un'azienda.
      * @param azienda oggetto Azienda
-     * @return List<\Annuncio\>
+     * @return lista di annunci
      */
     public List<Annuncio> getAnnunciByAzienda(Azienda azienda) throws SQLException {
         connection=ConPool.getConnection();

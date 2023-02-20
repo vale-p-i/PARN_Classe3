@@ -26,8 +26,8 @@ public interface AnnuncioServiceInterface {
      * In caso di successo ritorna true, altrimenti false
      * @param annuncio è l'annuncio che si vuole creare
      * @return true se la creazione ha avuto successo, false altrimenti
-     * @pre not getAnnunciByAzienda(annuncio.azienda).contains(annuncio)
-     * @post getAnnunciByAzienda(annuncio.azienda).contains(annuncio) &&
+     * Pre not getAnnunciByAzienda(annuncio.azienda).contains(annuncio)
+     * Post getAnnunciByAzienda(annuncio.azienda).contains(annuncio) and
      * getAnnunciByAzienda(annuncio.azienda).size() == @pre getAnnunciByAzienda(annuncio.azienda).size() + 1
      */
     boolean creaAnnuncio(Annuncio annuncio);
@@ -36,8 +36,8 @@ public interface AnnuncioServiceInterface {
      * Permette di modificare un annuncio presente nel DB.
      * @param annuncio è l'annuncio che si vuole modificare
      * @return true se la modifica ha avuto successo, false altrimenti
-     * @pre getAnnunciByAzienda(annuncio.azienda).contains(annuncio)
-     * @post getAnnunciByAzienda(annuncio.azienda).contains(annuncio) &&
+     * Pre getAnnunciByAzienda(annuncio.azienda).contains(annuncio)
+     * Post getAnnunciByAzienda(annuncio.azienda).contains(annuncio) and
      * getAnnunciByAzienda(annuncio.azienda).size() == @pre getAnnunciByAzienda(annuncio.azienda).size()
      */
     boolean modificaAnnuncio(Annuncio annuncio);
@@ -46,8 +46,8 @@ public interface AnnuncioServiceInterface {
      * Permette di eliminare un annuncio
      * @param annuncio è l'annuncio che si vuole eliminare
      * @return true se l'eliminazione ha avuto successo, false altrimenti
-     * @pre getAnnunciByAzienda(annuncio.azienda).contains(annuncio)
-     * @post not getAnnunciByAzienda(annuncio.azienda).contains(annuncio) &&
+     * Pre getAnnunciByAzienda(annuncio.azienda).contains(annuncio)
+     * Post not getAnnunciByAzienda(annuncio.azienda).contains(annuncio) and
      * getAnnunciByAzienda(annuncio.azienda).size() == @pre getAnnunciByAzienda(annuncio.azienda).size() - 1
      */
     boolean eliminaAnnuncio(Annuncio annuncio);
@@ -56,8 +56,8 @@ public interface AnnuncioServiceInterface {
      * Permette di chiudere un annuncio
      * @param annuncio è l'annuncio che si vuole chiudere
      * @return true se l'annuncio è stato chiuso correttamente, altrimenti false
-     * @pre getAnnuncioByStato(annuncio.azienda, attivo).contains(annuncio)
-     * @post not getAnnuncioByStato(annuncio.azienda, attivo).contains(annuncio)
+     * Pre getAnnuncioByStato(annuncio.azienda, attivo).contains(annuncio)
+     * Post not getAnnuncioByStato(annuncio.azienda, attivo).contains(annuncio)
      */
     boolean chiusuraAnnuncio(Annuncio annuncio);
 
@@ -68,8 +68,8 @@ public interface AnnuncioServiceInterface {
      * @param candidatura è la candidatura che si vuole aggiungere all'annuncio
      * @return Ritorna il valore ritornato dal metodo creaCandidatura del service CandidaturaService, il quale può essere
      * true se è andato a buon fine, false altrimenti
-     * @pre not getCandidatureByAnnuncio(annuncio).contains(candidatura)
-     * @post getCandidatureByAnnuncio(annuncio).contains(candidatura) &&
+     * Pre not getCandidatureByAnnuncio(annuncio).contains(candidatura)
+     * Post getCandidatureByAnnuncio(annuncio).contains(candidatura) and
      * getCandidatureByAnnuncio(annuncio).size() = @pre getCandidatureByAnnuncio(annuncio).size() + 1
      */
     boolean aggiungiCandidatura(Annuncio annuncio, Candidatura candidatura);
