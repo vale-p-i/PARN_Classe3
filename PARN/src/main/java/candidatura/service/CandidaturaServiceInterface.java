@@ -23,20 +23,20 @@ public interface CandidaturaServiceInterface {
 
     /**
      * Questo metodo permette di creare una nuova candidatura
-     * @pre not getAllCandidature(candidatura.persona).contains(candidatura)
+     * Pre not getAllCandidature(candidatura.persona).contains(candidatura)
      * @param candidatura è l'oggetto Candidatura da inserire
      * @return true se la creazione della candidatura è andata a buon fine, altriemnti false
-     * @post getAllCandidature(candidatura.persona).contains(candidatura) &&
+     * Post getAllCandidature(candidatura.persona).contains(candidatura) and
      * getAllCandidature(candidatura.persona).size() = @pre.getAllCandidature(candidatura.persona).size() + 1
      */
     boolean creaCandidatura(Candidatura candidatura);
 
     /**
      * Questo metodo elimina una candidatura di una persona.
-     * @pre getAllCandidature(candidatura.persona).contains(candidatura)
+     * Pre getAllCandidature(candidatura.persona).contains(candidatura)
      * @param candidatura è la candidatura da eliminare
      * @return true se la cancellazione è andata a buon fine, altrimenti false
-     * @post not getAllCandidature(candidatura.persona).contains(candidatura) &&
+     * Post not getAllCandidature(candidatura.persona).contains(candidatura) and
      * getAllCandidature(candidatura.persona).size() = @pre.getAllCandidature(candidatura.persona).size() - 1
      */
     boolean eliminaCandidatura(Candidatura candidatura);

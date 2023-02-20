@@ -19,7 +19,7 @@ public interface MatchingServiceInterface {
 
     /**
      * Prendendo come input la lista di annunci personalizzata, ricerca all'interno di esse la/e keyword inserite
-     * @pre personalizzaAnnunci(persona.curriculum).contains(annunci)
+     * pre personalizzaAnnunci(persona.curriculum).contains(annunci)
      * @param annunci gli annunci personalizzati di un utente
      * @param keyword è la keyword inserita dalla persona
      * @return gli annunci che contengono la keyword inserita
@@ -29,9 +29,9 @@ public interface MatchingServiceInterface {
     /**
      * Prendendo come input l'annuncio e mostro una serie di persone adatte a
      * ricoprire quel ruolo, basandosi sulle competenze espresse da loro nei curriculum
-     * @pre canAnnuncioAccessToSearch(annuncio) == true
+     * pre canAnnuncioAccessToSearch(annuncio) == true
      * @param annuncio oggetto di tipo annuncio
-     * @return List<Curriculum> lista di Curriculum
+     * @return lista di Curriculum
      */
     List<Curriculum> selezioneFigureSpecializzate(Annuncio annuncio);
 

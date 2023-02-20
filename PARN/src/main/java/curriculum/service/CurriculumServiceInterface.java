@@ -21,8 +21,8 @@ public interface CurriculumServiceInterface {
 
     /**
      * Questo metodo crea un curriculum all'interno del database
-     * @pre not getCurriculumByPersona(curriculum.persona)
-     * @post getCurriculumByPersona(curriculum.persona)
+     * Pre not getCurriculumByPersona(curriculum.persona)
+     * Post getCurriculumByPersona(curriculum.persona)
      * @param curriculum è il curriculum da craere
      * @return true se la creazione è andata a buon fine false
      * altrimenti
@@ -46,8 +46,8 @@ public interface CurriculumServiceInterface {
 
     /**
      * Questo metodo permette di aggiungere un campo esperienza al curriculum
-     * @pre not getEsperienzeLavorative(esperienza.curriculum).includes(esperienza)
-     * @post getEsperienzeLavorative(esperienza.curriculum).includes(esperienza) &&
+     * Pre not getEsperienzeLavorative(esperienza.curriculum).includes(esperienza)
+     * Post getEsperienzeLavorative(esperienza.curriculum).includes(esperienza) and
      * getEsperienzeLavorative(esperienza.curriculum).size == @pre.getEsperienzeLavorative(esperienza.curriculum).size + 1
      * @param esperienzaLavorativa è il campo da aggiungere
      * @return true se l'inserimento è andato a buon fine, altrimenti false
@@ -56,8 +56,8 @@ public interface CurriculumServiceInterface {
 
     /**
      * Questo metodo permette di aggiungere un campo lingua al curriculum
-     * @pre not getLingue(lingua.curriculum).includes(lingua)
-     * @post getLingue(lingua.curriculum).includes(lingua) &&
+     * Pre not getLingue(lingua.curriculum).includes(lingua)
+     * Post getLingue(lingua.curriculum).includes(lingua) and
      * getLingue(lingua.curriculum).size == @pre.getLingue(lingua.curriculum).size + 1
      * @param lingua è il campo da inserire
      * @return true se l'inserimento è andato a buon fine, altrimenti false
@@ -66,8 +66,8 @@ public interface CurriculumServiceInterface {
 
     /**
      * Questo metodo permette di inserire un campo istruzione nel curriculum
-     * @pre not getIstruzioni(istruzione.curriculum).includes(istruzione)
-     * @post getIstruzioni(istruzione.curriculum).includes(istruzione) &&
+     * Pre not getIstruzioni(istruzione.curriculum).includes(istruzione)
+     * Post getIstruzioni(istruzione.curriculum).includes(istruzione) and
      * getIstruzioni(istruzione.curriculum).size == @pre.getIstruzioni(istruzione.curriculum).size + 1
      * @param istruzione è il campo istruzione da inserire
      * @return true se l'inserimento è andato a buon fine, altrimenti false
@@ -76,8 +76,8 @@ public interface CurriculumServiceInterface {
 
     /**
      * Questo metodo permette di aggiornare un campo esperienza lavorativa del curriculum
-     * @pre getEsperienzeLavorative(esperienza.curriculum).includes(esperienza)
-     * @post getEsperienzeLavorative(esperienza.curriculum).includes(esperienza) &&
+     * Pre getEsperienzeLavorative(esperienza.curriculum).includes(esperienza)
+     * Post getEsperienzeLavorative(esperienza.curriculum).includes(esperienza) and
      * getEsperienzeLavorative(esperienza.curriculum).size == @pre.getEsperienzeLavorative(esperienza.curriculum).size
      * @param esperienzaLavorativa è il campo aggiornato
      * @return true se l'aggiornamento è andato a buon fine, altrimenti false
@@ -86,8 +86,8 @@ public interface CurriculumServiceInterface {
 
     /**
      * Questo metodo permette di aggiornare un campo lingua del curriculum
-     * @pre getLingue(lingua.curriculum).includes(lingua)
-     * @post getLingue(lingua.curriculum).includes(lingua) &&
+     * Pre getLingue(lingua.curriculum).includes(lingua)
+     * Post getLingue(lingua.curriculum).includes(lingua) and
      * getLingue(lingua.curriculum).size == @pre.getLingue(lingua.curriculum).size
      * @param lingua è il campo aggiornato
      * @return true se l'aggiornamento è andato a buon fine, altriemnti false
@@ -96,8 +96,8 @@ public interface CurriculumServiceInterface {
 
     /**
      * Questo metodo permette di aggiornare un campo istruzione nel curriculum
-     * @pre getIstruzioni(istruzione.curriculum).includes(istruzione)
-     * @post getIstruzioni(istruzione.curriculum).includes(istruzione) &&
+     * Pre getIstruzioni(istruzione.curriculum).includes(istruzione)
+     * Post getIstruzioni(istruzione.curriculum).includes(istruzione) and
      * getIstruzioni(istruzione.curriculum).size == @pre.getIstruzioni(istruzione.curriculum).size
      * @param istruzione è il campo aggiornato
      * @return true se l'aggiornamento è andato a buon fine, altriemnti false
@@ -106,8 +106,8 @@ public interface CurriculumServiceInterface {
 
     /**
      * Questo metodo permette di eliminare il campo esperienza all'intenro del curriculum.
-     * @pre getEsperienzeLavorative(esperienza.curriculum).includes(esperienza
-     * @post not getEsperienzeLavorative(esperienza.curriculum).includes(esperienza) &&
+     * pre getEsperienzeLavorative(esperienza.curriculum).includes(esperienza
+     * post not getEsperienzeLavorative(esperienza.curriculum).includes(esperienza) and
      * getEsperienzeLavorative(esperienza.curriculum).size == @pre.getEsperienzeLavorative(esperienza.curriculum).size - 1
      * @param esperienzaLavorativa è il campo da eliminare
      * @return true se la cancellazione è andata a buon fine, altirmenti false
@@ -118,11 +118,11 @@ public interface CurriculumServiceInterface {
      * Questo metodo permette di eliminare un campo lingua nel curriculum. Se il campo che si vuole eliminare è l'ultimo,
      * viene vietata la cancellazione e viene restituito 0. Altrimenti viene restituito 2 se la cancellazione è andata a buon fine,
      * in caso contrario restituisce 1.
-     * @pre getLingue(lingua.curriculum).includes(lingua)
+     * pre getLingue(lingua.curriculum).includes(lingua)
      * @param lingua è il campo lingua che si vuole eliminare.
      * @return 0 se è l'ultimo campo lingua nel curriculum, 1 se non è riuscito a effettuare la cancellazione,
      * 2 se la cancellazione è andata a buon fine.
-     * @post not getLingue(lingua.curriculum).includes(lingua) &&
+     * post not getLingue(lingua.curriculum).includes(lingua) and
      *      * getLingue(lingua.curriculum).size == @pre.getLingue(lingua.curriculum).size - 1
      */
     int eliminaLingua(Lingua lingua);
@@ -131,11 +131,11 @@ public interface CurriculumServiceInterface {
      * Questo metodo permette di eliminare un campo istruzione nel curriculum. Se il campo che si vuole eliminare è l'ultimo,
      * viene vietata la cancellazione e viene restituito 0. Altrimenti viene restituito 2 se la cancellazione è andata a buon fine,
      *in caso contrario restituisce 1.
-     * @pre getIstruzioni(istruzione.curriculum).includes(istruzione)
+     * Pre getIstruzioni(istruzione.curriculum).includes(istruzione)
      * @param istruzione è il campo istruzione che si vuole eliminare.
      * @return 0 se è l'ultimo campo istruzione nel curriculum, 1 se non è riuscito a effettuare la cancellazione, 2 se
      * la cancellazione è andata a buon fine.
-     * @post not getIstruzioni(istruzione.curriculum).includes(istruzione) &&
+     * Post not getIstruzioni(istruzione.curriculum).includes(istruzione) and
      * getIstruzioni(istruzione.curriculum).size == @pre.getIstruzioni(istruzione.curriculum).size - 1
      */
     int eliminaIstruzione(Istruzione istruzione);

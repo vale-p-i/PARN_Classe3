@@ -44,8 +44,8 @@ public interface UtenteServiceInterface {
 
     /**
      * Il metodo permette di registrare una Sede nel database fornendo l'oggetto Sede.
-     * @pre not getSediByAzienda(sede.azienda).contains(sede)
-     * @post getSediByAzienda(sede.azienda).contains(sede) &&
+     * pre not getSediByAzienda(sede.azienda).contains(sede)
+     * post getSediByAzienda(sede.azienda).contains(sede) and
      * getSediByAzienda(sede.azienda).size() == @pre.getSediByAzienda(sede.azienda).size() + 1
      * @param sede è la sede che si vuole registrare
      * @return true se la registrazione ha avuto successo, altrimenti false
@@ -68,8 +68,8 @@ public interface UtenteServiceInterface {
 
     /**
      * Il metodo permette di aggiornare una sede nel database fornendo l'oggetto Sede.
-     * @pre getSediByAzienda(sede.azienda).contains(sede)
-     * @post getSediByAzienda(sede.azienda).contains(sede) &&
+     * pre getSediByAzienda(sede.azienda).contains(sede)
+     * post getSediByAzienda(sede.azienda).contains(sede) and
      * getSediByAzienda(sede.azienda).size() == @pre.getSediByAzienda(sede.azienda).size()
      * @param sede è la sede da aggiornare
      * @return true se l'aggiornamento ha avuto successo, altrimenti false
