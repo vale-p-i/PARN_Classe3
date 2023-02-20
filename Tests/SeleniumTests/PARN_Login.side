@@ -125,7 +125,7 @@
       "id": "8d20c925-5e63-4b99-a0b9-2494be729887",
       "comment": "",
       "command": "setWindowSize",
-      "target": "1920x1036",
+      "target": "1920x1080",
       "targets": [],
       "value": ""
     }, {
@@ -658,7 +658,7 @@
       "id": "64d7e5ea-4a58-4749-aaef-73f1fbf5448e",
       "comment": "",
       "command": "setWindowSize",
-      "target": "1920x1036",
+      "target": "1920x1080",
       "targets": [],
       "value": ""
     }, {
@@ -920,7 +920,7 @@
       "id": "8b456504-547a-405c-a62f-b666d3efd9f9",
       "comment": "",
       "command": "setWindowSize",
-      "target": "1920x1036",
+      "target": "1920x1080",
       "targets": [],
       "value": ""
     }, {
@@ -1990,6 +1990,397 @@
         ["xpath=//form[@id='invioAzienda']/div[8]/div/button/i", "xpath:idRelative"],
         ["xpath=//button/i", "xpath:position"],
         ["xpath=//i[contains(.,'send')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "3f3a952a-02cc-4e12-8714-89ad0ed1dd3e",
+    "name": "Creazione_Annuncio",
+    "commands": [{
+      "id": "7b63b3a9-f25e-4381-b531-4459f4287178",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/PARN_war_exploded/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1af0482e-9610-4b79-b435-9bc5b87de06f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x900",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f3c181b1-2e9b-44a9-a4ec-8115cb0f2d63",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=.right > li:nth-child(2) > .white-text", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'accesso.jsp')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "af7522b3-43f7-4abf-82da-966ff418346c",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "m.rossi@gmail.com"
+    }, {
+      "id": "8346969e-4e62-4a92-b8e7-87f0c15a6ebb",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "ciao"
+    }, {
+      "id": "4d76b33d-04d4-4e2c-8808-7949f61a9852",
+      "comment": "",
+      "command": "click",
+      "target": "name=action",
+      "targets": [
+        ["name=action", "name"],
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@name='action']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "85c1ba4c-29b7-40d3-84f5-f7f95f97d755",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sidenav-trigger > .material-icons",
+      "targets": [
+        ["css=.sidenav-trigger > .material-icons", "css:finder"],
+        ["xpath=//nav/div/a/i", "xpath:position"],
+        ["xpath=//i[contains(.,'menu')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9d336bcd-5ea3-4843-9c61-1e1229ebf554",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(10) > .waves-effect",
+      "targets": [
+        ["css=li:nth-child(10) > .waves-effect", "css:finder"],
+        ["xpath=//a[contains(text(),'Crea Annuncio')]", "xpath:link"],
+        ["xpath=//ul[@id='slide-out']/li[10]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'RedirectServlet?redirect=creaAnnuncio')]", "xpath:href"],
+        ["xpath=//li[10]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "304e8501-e1fe-4dc8-8641-35473d10493b",
+      "comment": "",
+      "command": "click",
+      "target": "id=ruolo",
+      "targets": [
+        ["id=ruolo", "id"],
+        ["name=ruolo", "name"],
+        ["css=#ruolo", "css:finder"],
+        ["xpath=//input[@id='ruolo']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b84c8696-4ba8-48fe-9b36-943d1d8d43c4",
+      "comment": "",
+      "command": "type",
+      "target": "id=ruolo",
+      "targets": [
+        ["id=ruolo", "id"],
+        ["name=ruolo", "name"],
+        ["css=#ruolo", "css:finder"],
+        ["xpath=//input[@id='ruolo']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Sviluppatore front-end"
+    }, {
+      "id": "d793d6f9-1927-42fc-a478-2083b56e216c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.dropdown-trigger",
+      "targets": [
+        ["css=.dropdown-trigger", "css:finder"],
+        ["xpath=(//input[@type='text'])[2]", "xpath:attributes"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a8dc9af-7b72-4181-9dd7-88553ea9b7b3",
+      "comment": "",
+      "command": "click",
+      "target": "css=#select-options-17dc9628-1a99-663a-e3e9-477c47ccfa963 > span",
+      "targets": [
+        ["css=#select-options-17dc9628-1a99-663a-e3e9-477c47ccfa963 > span", "css:finder"],
+        ["xpath=//li[@id='select-options-17dc9628-1a99-663a-e3e9-477c47ccfa963']/span", "xpath:idRelative"],
+        ["xpath=//li[4]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Bologna')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "93b72987-fb0b-42ac-9c66-d239b32b0045",
+      "comment": "",
+      "command": "select",
+      "target": "id=sedelist",
+      "targets": [],
+      "value": "label=Bologna"
+    }, {
+      "id": "975cc9d4-d0c2-47a7-9237-6148a5b00e13",
+      "comment": "",
+      "command": "click",
+      "target": "id=descrizione",
+      "targets": [
+        ["id=descrizione", "id"],
+        ["name=descrizione", "name"],
+        ["css=#descrizione", "css:finder"],
+        ["xpath=//textarea[@id='descrizione']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f957f446-28f1-4a64-83f3-05afc1ebca0e",
+      "comment": "",
+      "command": "click",
+      "target": "id=descrizione",
+      "targets": [
+        ["id=descrizione", "id"],
+        ["name=descrizione", "name"],
+        ["css=#descrizione", "css:finder"],
+        ["xpath=//textarea[@id='descrizione']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c17efc3e-3365-46ec-8934-75ef513c9ff7",
+      "comment": "",
+      "command": "type",
+      "target": "id=descrizione",
+      "targets": [
+        ["id=descrizione", "id"],
+        ["name=descrizione", "name"],
+        ["css=#descrizione", "css:finder"],
+        ["xpath=//textarea[@id='descrizione']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Ricerchiamo uno sviluppatore front-end con almeno un anno di esperienza"
+    }, {
+      "id": "e62ca87a-c65f-4e6b-a8dd-6d65fb53ab45",
+      "comment": "",
+      "command": "click",
+      "target": "id=data_scad",
+      "targets": [
+        ["id=data_scad", "id"],
+        ["name=data_scad", "name"],
+        ["css=#data_scad", "css:finder"],
+        ["xpath=//input[@id='data_scad']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6f0e0cf7-de97-4426-ab41-8c99dc2d6ae7",
+      "comment": "",
+      "command": "click",
+      "target": "id=data_scad",
+      "targets": [
+        ["id=data_scad", "id"],
+        ["name=data_scad", "name"],
+        ["css=#data_scad", "css:finder"],
+        ["xpath=//input[@id='data_scad']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c698e04-8f6c-4935-8caf-4f841926070b",
+      "comment": "",
+      "command": "type",
+      "target": "id=data_scad",
+      "targets": [
+        ["id=data_scad", "id"],
+        ["name=data_scad", "name"],
+        ["css=#data_scad", "css:finder"],
+        ["xpath=//input[@id='data_scad']", "xpath:attributes"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": "2023-03-31"
+    }, {
+      "id": "64a42078-b8d7-412b-b18c-777bbdaecc40",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=keywords",
+      "targets": [
+        ["id=keywords", "id"],
+        ["name=keywords", "name"],
+        ["css=#keywords", "css:finder"],
+        ["xpath=//textarea[@id='keywords']", "xpath:attributes"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c41213da-becd-4483-8bc9-0d217f19240d",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.input-field:nth-child(2) > .active",
+      "targets": [
+        ["css=.input-field:nth-child(2) > .active", "css:finder"],
+        ["xpath=//div[3]/div[2]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Keyword')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2b36e7b0-5042-4594-8282-39cab72a3efc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(3) > .input-field:nth-child(2)",
+      "targets": [
+        ["css=.row:nth-child(3) > .input-field:nth-child(2)", "css:finder"],
+        ["xpath=//div[3]/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "53dbc3ed-7511-4606-9a5b-68fd39988231",
+      "comment": "",
+      "command": "type",
+      "target": "id=keywords",
+      "targets": [
+        ["id=keywords", "id"],
+        ["name=keywords", "name"],
+        ["css=#keywords", "css:finder"],
+        ["xpath=//textarea[@id='keywords']", "xpath:attributes"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": "sviluppatore, php, css, html, front-end, js"
+    }, {
+      "id": "39558e86-31b9-4f5c-ab7e-47e25ac746ed",
+      "comment": "",
+      "command": "click",
+      "target": "id=numeroDipendenti",
+      "targets": [
+        ["id=numeroDipendenti", "id"],
+        ["name=numeroDipendenti", "name"],
+        ["css=#numeroDipendenti", "css:finder"],
+        ["xpath=//input[@id='numeroDipendenti']", "xpath:attributes"],
+        ["xpath=//div[4]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fc1e3857-d89d-4807-ae7c-cd1eaa799cd3",
+      "comment": "",
+      "command": "type",
+      "target": "id=numeroDipendenti",
+      "targets": [
+        ["id=numeroDipendenti", "id"],
+        ["name=numeroDipendenti", "name"],
+        ["css=#numeroDipendenti", "css:finder"],
+        ["xpath=//input[@id='numeroDipendenti']", "xpath:attributes"],
+        ["xpath=//div[4]/div/input", "xpath:position"]
+      ],
+      "value": "2"
+    }, {
+      "id": "bcbe6f76-988d-4423-9906-050d74df8433",
+      "comment": "",
+      "command": "click",
+      "target": "id=preferenze",
+      "targets": [
+        ["id=preferenze", "id"],
+        ["name=preferenze", "name"],
+        ["css=#preferenze", "css:finder"],
+        ["xpath=//textarea[@id='preferenze']", "xpath:attributes"],
+        ["xpath=//div[4]/div[2]/textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "17644473-fde1-4ee6-ba2d-9443746a4e46",
+      "comment": "",
+      "command": "type",
+      "target": "id=preferenze",
+      "targets": [
+        ["id=preferenze", "id"],
+        ["name=preferenze", "name"],
+        ["css=#preferenze", "css:finder"],
+        ["xpath=//textarea[@id='preferenze']", "xpath:attributes"],
+        ["xpath=//div[4]/div[2]/textarea", "xpath:position"]
+      ],
+      "value": "conoscenza della lingua inglese"
+    }, {
+      "id": "b0c28d19-3fa3-4745-9617-2498d0669971",
+      "comment": "",
+      "command": "click",
+      "target": "id=requisiti",
+      "targets": [
+        ["id=requisiti", "id"],
+        ["name=requisiti", "name"],
+        ["css=#requisiti", "css:finder"],
+        ["xpath=//textarea[@id='requisiti']", "xpath:attributes"],
+        ["xpath=//div[5]/div/textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "11ce48b8-4b4e-436f-a974-bae9a4451274",
+      "comment": "",
+      "command": "click",
+      "target": "id=keywords",
+      "targets": [
+        ["id=keywords", "id"],
+        ["name=keywords", "name"],
+        ["css=#keywords", "css:finder"],
+        ["xpath=//textarea[@id='keywords']", "xpath:attributes"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2bd77e66-68c1-4c0b-8183-8bb3373d9410",
+      "comment": "",
+      "command": "click",
+      "target": "id=requisiti",
+      "targets": [
+        ["id=requisiti", "id"],
+        ["name=requisiti", "name"],
+        ["css=#requisiti", "css:finder"],
+        ["xpath=//textarea[@id='requisiti']", "xpath:attributes"],
+        ["xpath=//div[5]/div/textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c7f7dec9-33f6-4e13-aa80-54f3be2548e8",
+      "comment": "",
+      "command": "type",
+      "target": "id=requisiti",
+      "targets": [
+        ["id=requisiti", "id"],
+        ["name=requisiti", "name"],
+        ["css=#requisiti", "css:finder"],
+        ["xpath=//textarea[@id='requisiti']", "xpath:attributes"],
+        ["xpath=//div[5]/div/textarea", "xpath:position"]
+      ],
+      "value": "sviluppatore, php, css, html, front-end, js"
+    }, {
+      "id": "f5d894cb-6f74-4b22-b4b0-f44e94a7494d",
+      "comment": "",
+      "command": "click",
+      "target": "name=action",
+      "targets": [
+        ["name=action", "name"],
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@name='action']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"]
       ],
       "value": ""
     }]
