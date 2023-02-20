@@ -49,7 +49,7 @@
             <li><hr style="margin: 0 10% 0 10%"></li>
             <li><div class="center"><h6>Annunci</h6></div></li>
             <li><a href="RedirectServlet?redirect=annunciAttivi" class="waves-effect waves-light btn-large white default-color-text">In Corso</a></li>
-            <li><a href="RedirectServlet?redirect=annunciScaduti" class="waves-effect waves-light btn-large white default-color-text">Scadute</a></li>
+            <li><a href="RedirectServlet?redirect=annunciScaduti" class="waves-effect waves-light btn-large white default-color-text">Scaduti</a></li>
             <li><a href="RedirectServlet?redirect=annunciChiusi" class="waves-effect waves-light btn-large white default-color-text">Chiusi</a></li>
             <li><a href="RedirectServlet?redirect=creaAnnuncio" class="waves-effect waves-light btn-large white default-color-text">Crea Annuncio</a></li>
             <li><a href="Logout" class="waves-effect waves-light btn-large red white-text">Logout</a></li>
@@ -91,7 +91,7 @@
                 if(list!=null){
                     if(list.isEmpty()){
             %>
-            <tr><td colspan="6">Nessun anncuncio scaduto</td> </tr>
+            <tr><td colspan="6">Nessun anncuncio attivo</td> </tr>
             <%
                 }
                 for(Annuncio ann: list){
@@ -111,7 +111,7 @@
             }
                 else{
         %>
-            <tr><td colspan="6">Nessun anncuncio scaduto</td> </tr>
+            <tr><td colspan="6">Nessun anncuncio attivo</td> </tr>
             <%
                 }
             %>
@@ -135,7 +135,7 @@
                 <h5 class="white-text">Link</h5>
                 <ul>
                     <li><a class="white-text" href="register.jsp">Registrazione</a></li>
-                    <li><a class="white-text" href="accesso.html">Login</a></li>
+                    <li><a class="white-text" href="accesso.jsp">Login</a></li>
                     <li><a class="white-text" href="index.jsp">Home</a></li>
                 </ul>
             </div>

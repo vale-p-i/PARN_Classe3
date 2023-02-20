@@ -19,7 +19,6 @@ import java.io.IOException;
 
 public class PDFCurriculum implements PDFCurriculumInterface {
 
-    private String rootPath;
     private static final String REGULAR = "../font/arialn.ttf";
 
     /**
