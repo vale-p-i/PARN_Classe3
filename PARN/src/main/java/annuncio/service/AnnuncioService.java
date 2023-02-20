@@ -111,12 +111,17 @@ public class AnnuncioService implements AnnuncioServiceInterface {
             }
 
             Azienda azienda = annuncio.getAzienda();
+            Annuncio del=null;
             for(Annuncio a : azienda.getAnnunci())
                 if(a.getId() == annuncio.getId()){
-                    azienda.getAnnunci().remove(a);
-                    continue;
+                    del=a;
                 }
-            return true;
+            if (del!=null) {
+                azienda.getAnnunci().remove(del);
+                return true;
+            }else{
+                return false;
+            }
         }else return false;
     }
 

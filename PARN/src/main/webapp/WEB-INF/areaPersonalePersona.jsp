@@ -198,7 +198,7 @@
                 <h5 class="white-text">Link</h5>
                 <ul>
                     <li><a class="white-text" href="register.jsp">Registrazione</a></li>
-                    <li><a class="white-text" href="accesso.html">Login</a></li>
+                    <li><a class="white-text" href="accesso.jsp">Login</a></li>
                     <li><a class="white-text" href="index.jsp">Home</a></li>
                 </ul>
             </div>
