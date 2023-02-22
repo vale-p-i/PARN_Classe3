@@ -11,12 +11,14 @@ import utente.dao.UtenteDAO;
 import java.sql.SQLException;
 
 public class UtenteService implements UtenteServiceInterface{
-    private UtenteDAO utenteDAO;
+    private UtenteDAO utenteDAO = new UtenteDAO();
 
     public UtenteService(UtenteDAO utenteDAO) {
-        this.utenteDAO = utenteDAO;}
+        this.utenteDAO = utenteDAO;
+    }
     public UtenteService(){
-        this.utenteDAO = new UtenteDAO();
+
+
     }
 
     @Override

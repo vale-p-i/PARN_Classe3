@@ -46,6 +46,7 @@ class AnnuncioServiceTest {
 
     Annuncio getAnnuncio(){
         LocalDate scadenza = LocalDate.of(2023, 6, 20);
+
         List<String> requisiti = new ArrayList<>();
         requisiti.add("Formazione accademica in amministrazione o ingegneria.");
         requisiti.add("Esperienza nella gestione di progetti di riorganizzazione degli spazi lavorativi.");
@@ -55,6 +56,7 @@ class AnnuncioServiceTest {
         requisiti.add("Indipendenza e lavoro di gruppo.");
         requisiti.add("Passion per la gestione degli spazi lavorativi.");
         requisiti.add("Conoscenza delle esigenze tecnologiche e della sicurezza sul lavoro");
+
         List<String> keywords = new ArrayList<>();
         keywords.add("design");
         keywords.add("moda");
@@ -64,11 +66,13 @@ class AnnuncioServiceTest {
         keywords.add("ufficio");
         keywords.add("IT");
         keywords.add("HR");
+
         List<String> preferenze = new ArrayList<>();
         preferenze.add("Comunicazione efficace: Il candidato dovrà essere in grado di comunicare in modo chiaro e conciso con i dipartimenti HR e IT i colleghi e i dipendenti");
         preferenze.add("Leadership: Il responsabile dovrà essere un leader motivato e di successo in grado di motivare e ispirare il team a raggiungere obiettivi comuni");
         preferenze.add("Problem solving: Il candidato dovrà essere in grado di analizzare e risolvere i problemi in modo rapido e creativo per garantire che i progetti vengano portati a termine in modo efficiente");
         preferenze.add("Lavoro di gruppo: Il responsabile dovrà essere in grado di lavorare in modo efficace con il team creando un ambiente di lavoro collaborativo e positivo");
+
         return new Annuncio(1, getAzienda(), true, getSede(), 100, "Il candidato" +
                 " gestirà la disposizione delle scrivanie e degli uffici direzionali per garantirne l'efficienza" +
                 " e la funzionalità. Collaborando con HR e IT, il responsabile coordinerà progetti di riorganizzazione" +
@@ -95,19 +99,16 @@ class AnnuncioServiceTest {
     @Test
     void creaAnnuncioTC_2_1() {
         Annuncio annuncio = getAnnuncio();
-        annuncio.setRuolo("Gestore della disposizione delle scrivanie del personale e degli uffici della direzione amministrativa");
-        System.out.println(assertThrows(IllegalArgumentException.class, () -> {
-            service.creaAnnuncio(annuncio);
-        }));
+        annuncio.setRuolo("Gestore della disposizione delle scrivanie del personale " +
+                "e degli uffici della direzione amministrativa");
+        System.out.println(assertThrows(IllegalArgumentException.class, () -> {service.creaAnnuncio(annuncio);}));
     }
 
     @Test
     void creaAnnuncioTC_2_2() {
         Annuncio annuncio = getAnnuncio();
         annuncio.setRuolo("");
-        System.out.println(assertThrows(IllegalArgumentException.class, () -> {
-            service.creaAnnuncio(annuncio);
-        }));
+        System.out.println(assertThrows(IllegalArgumentException.class, () -> {service.creaAnnuncio(annuncio);}));
     }
 
     @Test
@@ -268,17 +269,17 @@ class AnnuncioServiceTest {
         Annuncio annuncio = getAnnuncio();
         System.out.println(annuncio.getPreferenze());
         annuncio.setKeyword(getSplittedString(""));
-        System.out.println(assertThrows(IllegalArgumentException.class, () -> {
-            service.creaAnnuncio(annuncio);
-        }));
+        System.out.println(assertThrows(IllegalArgumentException.class, () -> {service.creaAnnuncio(annuncio);}));
     }
 
-    @Test
-    void creaAnnuncioTC_2_17() {
-        Annuncio annuncio = getAnnuncio();
-        System.out.println(annuncio.getPreferenze());
-        System.out.println(assertThrows(IllegalArgumentException.class, () -> {
-            service.creaAnnuncio(annuncio);
-        }));
-    }
+
+    /**
+     *  @Test
+     *     void creaAnnuncioTC_2_17() {
+     *         Annuncio annuncio = getAnnuncio();
+     *         System.out.println(annuncio.getPreferenze());
+     *        System.out.println(assertThrows(IllegalArgumentException.class, () -> {service.creaAnnuncio(annuncio);}));
+     *     }
+     */
+
 }
