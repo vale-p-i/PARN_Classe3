@@ -20,7 +20,6 @@ public class AnnuncioService implements AnnuncioServiceInterface {
     private static AnnuncioDAO annuncioDAO = new AnnuncioDAO();
 
     public AnnuncioService(){
-
     }
 
     public AnnuncioService(AnnuncioDAO annuncioDAO){
